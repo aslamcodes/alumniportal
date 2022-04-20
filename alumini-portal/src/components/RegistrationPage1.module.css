@@ -1,0 +1,142 @@
+@import url("https://fonts.googleapis.com/css2?family=Beau+Rivage&family=Commissioner:wght@100;200;300;400;500;600;700;800;900&family=Merriweather&display=swap");
+* {
+  margin: 0;
+  font-family: "Commissioner", sans-serif;
+}
+.flex_row {
+  display: flex;
+  flex-direction: row;
+}
+.flex_col {
+  display: flex;
+  flex-direction: column;
+}
+.v_center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.h_center {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.Navbar {
+  height: 15vh;
+  justify-content: center;
+  padding: 0 1rem;
+  align-items: center;
+}
+.Navbar .title {
+  position: relative;
+  width: 50vw;
+}
+.Navbar .title .titleText {
+  width: 70vw;
+  justify-content: center;
+  align-items: center;
+}
+.Navbar .title .titleText p {
+  font-weight: bold;
+}
+
+.Navbar .title .titleText p:nth-child(1) {
+  font-size: 1.7rem;
+}
+.Navbar .title .titleText p:nth-child(2) {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.skctlogo1 {
+  position: relative;
+  width: 30%;
+}
+
+.skctlogo2 {
+  position: relative;
+  width: 30%;
+}
+
+.body {
+  height: 85vh;
+  width: 100vw;
+  margin: 0;
+}
+
+.body .leftContainer {
+  position: relative;
+
+  height: 85vh;
+  width: 100vw;
+  border-top-right-radius: 10rem;
+}
+
+.body .rightContainer {
+  position: relative;
+  background-color: #fff;
+  height: 85vh;
+  width: 100vw;
+}
+
+.body .rightContainer .RegistrationContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  text-align: left;
+  padding: 0 2rem;
+  position: absolute;
+  background-color: #cde7fb;
+  width: 35vw;
+  height: 80vh;
+  border-radius: 2rem;
+  box-shadow: 5px 5px 10px 1px #a4a5a5;
+
+  right: 10%;
+}
+
+.body .rightContainer .RegistrationContainer .RegistrationTitle {
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: #285fa4;
+  text-align: center;
+}
+
+.body .rightContainer .RegistrationContainer .BodyContainer {
+  font-weight: 200;
+  gap: 1rem;
+}
+
+.body .rightContainer .RegistrationContainer .BodyContainer .DoubleAttribute {
+  justify-content: space-evenly;
+  gap: 1rem;
+}
+.body
+  .rightContainer
+  .RegistrationContainer
+  .BodyContainer
+  .DoubleAttribute
+  input {
+  width: 100%;
+}
+.body .rightContainer .RegistrationContainer .BodyContainer input {
+  border-radius: 0.5rem;
+  border: none;
+  height: 2.5rem;
+}
+
+.body .rightContainer .RegistrationContainer .ButtonContainer {
+  justify-content: space-between;
+}
+
+.body .rightContainer .RegistrationContainer .ButtonContainer button {
+  border-radius: 0.5rem;
+  border: none;
+  background-color: #285fa4;
+  color: #fff;
+  font-weight: 600;
+  width: 8rem;
+  height: 2.5rem;
+}

@@ -1,0 +1,192 @@
+@import url("https://fonts.googleapis.com/css2?family=Beau+Rivage&family=Commissioner:wght@100;200;300;400;500;600;700;800;900&family=Merriweather&display=swap");
+* {
+  margin: 0;
+  font-family: "Commissioner", sans-serif;
+}
+.flex_row {
+  display: flex;
+  flex-direction: row;
+}
+.flex_col {
+  display: flex;
+  flex-direction: column;
+}
+.v_center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.h_center {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.Navbar {
+  height: 15vh;
+  justify-content: space-between;
+  padding: 0 1rem;
+  align-items: center;
+}
+.Navbar .title {
+  position: relative;
+  width: 50vw;
+}
+.Navbar .title .titleText {
+  width: 70vw;
+  justify-content: center;
+  align-items: center;
+}
+.Navbar .title .titleText p {
+  font-weight: bold;
+}
+
+.Navbar .title .titleText p:nth-child(1) {
+  font-size: 1.7rem;
+}
+.Navbar .title .titleText p:nth-child(2) {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.skctlogo1 {
+  position: relative;
+  width: 30%;
+}
+
+.skctlogo2 {
+  position: relative;
+  width: 30%;
+}
+.Navbar p a {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #434343;
+}
+.Navbar .right {
+  gap: 1rem;
+}
+
+.body {
+  height: 85vh;
+  width: 100vw;
+  margin: 0;
+}
+
+.body .leftContainer {
+  position: relative;
+  background-color: #cde7fb;
+  height: 85vh;
+  width: 100vw;
+  border-top-right-radius: 10rem;
+}
+
+.body .leftContainer .kandiHuman {
+  position: absolute;
+  min-width: 15rem;
+  width: 20vw;
+  top: 10%;
+  left: 70%;
+  z-index: 1;
+}
+.body .rightContainer {
+  position: relative;
+  background-color: #fff;
+  height: 85vh;
+  width: 100vw;
+}
+
+.body .leftContainer .welcomeContainer {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
+  position: absolute;
+  background-color: #fff;
+
+  width: 25vw;
+  height: 60vh;
+  border-radius: 2rem;
+  box-shadow: 10px 8px #2084b9;
+  text-align: left;
+  top: 15%;
+  left: 10%;
+}
+
+.body .leftContainer .welcomeContainer p {
+  color: #f38f32;
+  font-family: "Merriweather", serif;
+  font-size: 35px;
+  padding: 10% 25%;
+}
+
+.body .rightContainer .loginContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  text-align: left;
+  padding: 0 2rem;
+  position: absolute;
+  background-color: #cde7fb;
+  width: 25vw;
+  height: 60vh;
+  border-radius: 2rem;
+  box-shadow: 5px 5px 10px 1px #a4a5a5;
+  top: 10%;
+  right: 10%;
+}
+
+.body .rightContainer .loginContainer .loginTitle {
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: #285fa4;
+}
+
+.body .rightContainer .loginContainer .loginBodyContainer {
+  font-weight: 200;
+  gap: 1rem;
+}
+
+.body .rightContainer .loginContainer .loginBodyContainer p a {
+  text-decoration: underline;
+}
+
+.body .rightContainer .loginContainer .loginBodyContainer input {
+  border-radius: 0.5rem;
+  border: none;
+  height: 2.5rem;
+}
+
+.body .rightContainer .loginContainer .loginButtonContainer {
+  gap: 1rem;
+  align-items: center;
+}
+
+.body .rightContainer .loginContainer .loginButtonContainer button {
+  border-radius: 0.5rem;
+  border: none;
+  background-color: #285fa4;
+  color: #fff;
+  font-weight: 600;
+  width: 8rem;
+  height: 2.5rem;
+}
+
+.body .rightContainer .loginContainer .loginButtonContainer p {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #285fa4;
+  text-decoration: underline;
+}
+
+.body .rightContainer .loginContainer hr {
+  border: none;
+  border-top: 1px solid #9f9f9d;
+}
+.body .rightContainer .loginContainer p a {
+  font-weight: 600;
+
+  text-decoration: underline;
+  color: #285fa4;
+}
