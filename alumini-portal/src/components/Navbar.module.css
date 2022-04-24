@@ -1,0 +1,69 @@
+@import url("https://fonts.googleapis.com/css2?family=Beau+Rivage&family=Commissioner:wght@100;200;300;400;500;600;700;800;900&family=Merriweather&display=swap");
+* {
+  margin: 0;
+  font-family: "Commissioner", sans-serif;
+}
+.flex_row {
+  display: flex;
+  flex-direction: row;
+}
+.flex_col {
+  display: flex;
+  flex-direction: column;
+}
+.v_center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.h_center {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.Navbar {
+  height: 15vh;
+  justify-content: space-between;
+  padding: 0 1rem;
+  align-items: center;
+}
+.Navbar .title {
+  position: relative;
+  width: 50vw;
+}
+.Navbar .title .titleText {
+  width: 70vw;
+  justify-content: center;
+  align-items: center;
+}
+.Navbar .title .titleText p {
+  font-weight: bold;
+}
+
+.Navbar .title .titleText p:nth-child(1) {
+  font-size: 1.7rem;
+}
+.Navbar .title .titleText p:nth-child(2) {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.skctlogo1 {
+  position: relative;
+  width: 30%;
+}
+
+.skctlogo2 {
+  position: relative;
+  width: 30%;
+}
+.Navbar p a {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #434343;
+}
+.Navbar .right {
+  gap: 1rem;
+}
