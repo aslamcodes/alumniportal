@@ -113,19 +113,6 @@
   justify-content: space-evenly;
   gap: 1rem;
 }
-.body
-  .rightContainer
-  .RegistrationContainer
-  .BodyContainer
-  .DoubleAttribute
-  input {
-  width: 100%;
-}
-.body .rightContainer .RegistrationContainer .BodyContainer input {
-  border-radius: 0.5rem;
-  border: none;
-  height: 2.5rem;
-}
 
 .body .rightContainer .RegistrationContainer .ButtonContainer {
   justify-content: space-between;
