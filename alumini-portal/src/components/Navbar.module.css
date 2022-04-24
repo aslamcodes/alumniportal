@@ -28,6 +28,7 @@
   height: 15vh;
   justify-content: space-between;
   padding: 0 1rem;
+
   align-items: center;
 }
 .Navbar .title {
@@ -44,10 +45,10 @@
 }
 
 .Navbar .title .titleText p:nth-child(1) {
-  font-size: 1.7rem;
+  font-size: 1.4rem;
 }
 .Navbar .title .titleText p:nth-child(2) {
-  font-size: 0.8rem;
+  font-size: 0.6rem;
   font-weight: 600;
 }
 .skctlogo1 {
@@ -60,7 +61,7 @@
   width: 30%;
 }
 .Navbar p a {
-  font-size: 1.5rem;
+  font-size: 1rem;
   font-weight: 600;
   color: #434343;
 }

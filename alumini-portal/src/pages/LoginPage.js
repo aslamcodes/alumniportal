@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from "react-router-dom";
 import styles from './LoginPage.module.css'
 import KandiHuman from "../assets/kandiHuman.png";
 import Navbar from '../components/Navbar'
@@ -18,7 +19,7 @@ const LoginForm = () => {
         <p><a >Forgot Password</a></p>
       </div>
       <hr />
-      <p>Dont have an account yet ?  <a>Create Account</a></p>
+      <p>Dont have an account yet ?  <Link to="/register"><a>Create Account</a></Link></p>
     </div >
   )
 }

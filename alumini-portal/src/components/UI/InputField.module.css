@@ -4,3 +4,10 @@
   border: none;
   height: 2.5rem;
 }
+input::placeholder {
+  padding-left: 10px;
+}
+
+.input-field:focus {
+  outline: none;
+}
