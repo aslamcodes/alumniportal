@@ -1,12 +1,16 @@
 import React from 'react'
+
 import { ReactComponent as SKIicon } from "../assets/SKI.svg";
 import { ReactComponent as SKCTicon } from "../assets/SKCT.svg";
 import styles from "./Navbar.module.css";
+import { Link } from 'react-router-dom';
 const Navbar = () => {
   return (
     <div className={`${styles.Navbar} ${styles.flex_row}`}>
-      <div >
-        <p><a >Home</a></p>
+      <div className={`${styles.NavLink}`} >
+        <p><Link to="/">Home</Link></p>
+        <p><Link to="/gallery">Gallery</Link></p>
+        <p><Link to="/events">Events</Link></p>
       </div>
       <div className={`${styles.flex_row} ${styles.title} ${styles.h_center}`}>
         <SKIicon className={`${styles.skctlogo1} ${styles.v_center}`} />
@@ -17,8 +21,8 @@ const Navbar = () => {
         <SKCTicon className={`${styles.skctlogo2} ${styles.v_center}`} />
       </div>
       <div className={`${styles.flex_row} ${styles.right}`}>
-        <p><a >Gallery</a></p>
-        <p><a >Events</a></p>
+        <p><Link to="/alumini-forum">Alumini Forum</Link></p>
+        <p><Link to="/office-bearers">Office Bearers</Link></p>
       </div>
     </div>
   )

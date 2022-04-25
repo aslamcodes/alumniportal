@@ -82,7 +82,7 @@
 .FormContainer p {
   font-size: 0.8rem;
   font-weight: 400;
-
+  text-align: center;
   color: #000;
 }
 .FormContainer .DoubleAttribute {
