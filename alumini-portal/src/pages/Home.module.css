@@ -3,11 +3,7 @@
   margin: 0;
   font-family: "Commissioner", sans-serif;
 }
-
-.Body {
-  background-color: #f5f5f5;
-  height: 100vh;
-  width: 100vw;
+body {
   background-position: center center;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -15,6 +11,14 @@
   background-image: url(../assets/HomeBackgroundImg1.png);
 }
 
+.Body {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.Container {
+  height: 100vh;
+}
 #Welcome .Container {
   font-family: "Space Mono", monospace;
   font-weight: bold;
@@ -22,8 +26,7 @@
 
 #Welcome .Container p {
   text-align: center;
-  margin-top: 10%;
-  margin-bottom: 10%;
+  padding-top: 10%;
   gap: 1rem;
 }
 #Welcome .Container p:nth-child(1) {
@@ -46,4 +49,11 @@
 }
 #Welcome .Container p:nth-child(2) span {
   color: #f6b42b;
+}
+
+#Testimonials .Container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

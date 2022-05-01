@@ -25,18 +25,19 @@
   align-items: center;
 }
 
+.Navbar {
+  height: 15vh;
+  max-width: 100%;
+  justify-content: space-between;
+  padding: 0 1rem;
+  top: 0;
+  align-items: center;
+}
+
 .NavLink {
   display: flex;
   flex-direction: row;
   gap: 1rem;
-}
-
-.Navbar {
-  height: 15vh;
-  justify-content: space-between;
-  padding: 0 1rem;
-
-  align-items: center;
 }
 
 .Navbar .title {
