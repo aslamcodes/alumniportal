@@ -12,7 +12,6 @@
   height: 50%;
   background-color: #bddcf380;
   font-family: sans-serif;
-  text-align: center;
   line-height: 1;
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(5px);
@@ -21,6 +20,13 @@
   padding: 0 0 0 0;
 
   box-shadow: 5px 5px 15px rgb(107, 106, 106);
+}
+.Testimonial-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  animation: fadeInLeft 2s;
 }
 
 .Profile-Container {
@@ -47,4 +53,18 @@
   text-align: center;
   font-weight: 600;
   font-size: 30px;
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(var(--animation-slide-offset-neg-x), 0, 0);
+    transform: translate3d(var(--animation-slide-offset-neg-x), 0, 0);
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
 }

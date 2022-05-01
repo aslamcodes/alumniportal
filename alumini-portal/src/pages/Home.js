@@ -23,7 +23,12 @@ const Home = () => {
       <div id={styles["Testimonials"]}>
         <div className={`${styles.Container}`}>
           <Carousel >
-            <Testimonial />
+            <Testimonial index={0} />
+            <Testimonial index={1} />
+            <Testimonial index={2} />
+            <Testimonial index={3} />
+
+
           </ Carousel >
 
 

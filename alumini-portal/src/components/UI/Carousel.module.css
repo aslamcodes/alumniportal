@@ -5,10 +5,12 @@
 }
 .left {
   flex: 10%;
+
   display: grid;
   place-items: center;
   cursor: pointer;
 }
+
 .center {
   display: flex;
   flex-direction: row;
