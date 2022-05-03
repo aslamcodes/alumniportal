@@ -9,6 +9,9 @@
   font-size: 15px;
   color: #757575;
 }
+input[type="date"] {
+  padding-right: 10px;
+}
 
 input::placeholder {
   font-size: 15px;

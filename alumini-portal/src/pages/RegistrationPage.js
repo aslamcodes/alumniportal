@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { CustomSelect } from '../components/UI/CustomSelect'
 import styles from './RegistrationPage.module.css'
+
+import { CustomSelect } from '../components/UI/CustomSelect'
 import Navbar from '../components/Navbar'
+
 import InputField from '../components/UI/InputField'
 import Compguy from "../assets/compguy.png"
+
 
 const currentYear = (new Date()).getFullYear();
 const range = (start, stop, step) => Array.from({ length: (stop - start) / step + 1 }, (_, i) => start + (i * step));
@@ -19,7 +22,7 @@ const Page1 = () => {
   const [dept, setDept] = useState("Department");
   const [graduationLevel, setGraduationLevel] = useState("Graduation Level");
   return (
-    <div>
+    <div className={styles["pageContainer"]}>
       <p className={`${styles.RegistrationTitle}`}>Login Information</p>
       <div className={`${styles.FormContainer}`}>
         <div className={`${styles.flex_row} ${styles.DoubleAttribute}`}>
@@ -36,7 +39,7 @@ const Page1 = () => {
         <InputField type="text" placeholder="Enter Your Name" />
         <InputField type="text" placeholder="Enter Your Registration number" />
         <div className={`${styles.flex_row} ${styles.DoubleAttribute}`}>
-          <InputField type="text" placeholder="Select Your DOB" />
+          <InputField type="date" placeholder="Select Your DOB" />
           <InputField type="text" placeholder="Enter your Email Id" />
         </div>
         <InputField type="text" placeholder="Enter password" />
@@ -47,16 +50,35 @@ const Page1 = () => {
   )
 }
 const Page2 = () => {
+  const [isEnterpreneur, setIsEnterpreneur] = useState(false);
+  const [isHigherStudies, setIsHigherStudies] = useState(false);
   return (
-    <div>
+    <div className={styles["pageContainer"]}>
       <p className={`${styles.RegistrationTitle}`}>Personal Information</p>
       <div className={`${styles.FormContainer}`}>
-        <div className={`${styles.flex_col}`}>
+        <div className={`${styles.flex_row} ${styles.FormChoice}`}>
+
           <p>Are you an enterpreneur</p>
+          <button onClick={() => setIsEnterpreneur(true)} className={`${isEnterpreneur && styles.ButtonPressed}`}>yes</button>
+          <button onClick={() => setIsEnterpreneur(false)} className={`${!isEnterpreneur && styles.ButtonNotPressed}`}>no</button>
+
         </div>
-        <div className={`${styles.flex_col}`}>
+
+        <div className={`${styles.flex_row} ${styles.FormChoice} `}>
           <p>Are you doing higher studies</p>
+          <button onClick={() => setIsHigherStudies(true)} className={`${isHigherStudies && styles.ButtonPressed}`}>yes</button>
+          <button onClick={() => setIsHigherStudies(false)} className={`${!isHigherStudies && styles.ButtonNotPressed}`}>no</button>
         </div>
+        {isEnterpreneur && <div className={`${styles.flex_row} ${styles.DoubleAttribute}`}>
+          <InputField type="text" placeholder="Company Name" />
+          <InputField type="text" placeholder="Company Email ID" />
+        </div>}
+
+        {isHigherStudies && <div className={`${styles.flex_row} ${styles.DoubleAttribute}`}>
+          <InputField type="text" placeholder="College Name" />
+          <InputField type="text" placeholder="Course Name" />
+        </div>}
+
         <InputField type="text" placeholder="Your Designation (Working Professional)" />
         <InputField type="text" placeholder="Enter your Organization name" />
         <div className={`${styles.flex_row} ${styles.DoubleAttribute}`}>
