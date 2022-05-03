@@ -1,0 +1,58 @@
+@import url("https://fonts.googleapis.com/css2?family=Beau+Rivage&family=Commissioner:wght@100;200;300;400;500;600;700;800;900&family=Merriweather&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Commissioner", sans-serif;
+}
+
+.dropdown {
+  position: relative;
+  max-width: 100%;
+  width: 100%;
+}
+
+.dropdown-btn {
+  height: 2.5rem;
+  padding: 0 10px;
+  background: #fff;
+  border-radius: 0.5rem;
+  border: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 0;
+}
+
+.dropdown-btn .dropdown-title {
+  font-size: 15px;
+  font-weight: 400;
+  color: #757575;
+}
+.dropdown-content {
+  position: absolute;
+  margin-top: 8px;
+  width: 100%;
+  min-height: 100%;
+  max-height: 300px;
+  overflow-y: scroll;
+  background-color: #fff;
+  border-radius: 0.5rem;
+  border: none;
+  box-shadow: 3px 3px 10px 6px rgba(100, 100, 100, 0.2);
+  z-index: 1;
+}
+
+.dropdown-item {
+  font-size: 15px;
+  font-weight: 400;
+  color: #757575;
+  border-radius: 0.5rem;
+  padding: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.dropdown-item:hover {
+  background-color: #f4f4f4;
+}

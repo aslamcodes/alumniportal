@@ -3,6 +3,11 @@
   margin: 0;
   font-family: "Commissioner", sans-serif;
 }
+.RegistrationPage {
+  height: 100vh;
+  background-color: #fff;
+  overflow: hidden;
+}
 .flex_row {
   display: flex;
   flex-direction: row;
@@ -80,7 +85,7 @@
 }
 
 .FormContainer p {
-  font-size: 0.8rem;
+  font-size: 14px;
   font-weight: 400;
   text-align: center;
   color: #000;
@@ -102,4 +107,8 @@
   font-weight: 600;
   width: 7rem;
   height: 2rem;
+}
+
+.SubmitButton {
+  background-color: #f6a530;
 }

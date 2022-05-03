@@ -1,19 +1,38 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { CustomSelect } from '../components/UI/CustomSelect'
 import styles from './RegistrationPage.module.css'
 import Navbar from '../components/Navbar'
 import InputField from '../components/UI/InputField'
 import Compguy from "../assets/compguy.png"
 
+const currentYear = (new Date()).getFullYear();
+const range = (start, stop, step) => Array.from({ length: (stop - start) / step + 1 }, (_, i) => start + (i * step));
+
+
+const YearOfPassing = range(1985, currentYear, 1);
+const Department = ['IT', 'CSE', 'ECE', 'EEE', 'MECH', 'CIVIL', 'MBA'];
+const GraduationLevel = ['Under graduate', 'Post graduate'];
+
 const Page1 = () => {
+  const [yearPassing, setYearPassing] = useState("Year of passing");
+  const [dept, setDept] = useState("Department");
+  const [graduationLevel, setGraduationLevel] = useState("Graduation Level");
   return (
     <div>
       <p className={`${styles.RegistrationTitle}`}>Login Information</p>
       <div className={`${styles.FormContainer}`}>
         <div className={`${styles.flex_row} ${styles.DoubleAttribute}`}>
-          <InputField type="text" placeholder="Select Year of Passing" />
-          <InputField type="text" placeholder="Select your department" />
+          <CustomSelect selected={yearPassing} setSelected={setYearPassing} Items={YearOfPassing} />
+          <CustomSelect selected={dept} setSelected={setDept} Items={Department} />
+
+
+
+
         </div>
+        <CustomSelect selected={graduationLevel} setSelected={setGraduationLevel} Items={GraduationLevel} />
+
+
         <InputField type="text" placeholder="Enter Your Name" />
         <InputField type="text" placeholder="Enter Your Registration number" />
         <div className={`${styles.flex_row} ${styles.DoubleAttribute}`}>
@@ -66,7 +85,7 @@ const RegistrationPage = () => {
 
 
   return (
-    <div>
+    <div className={styles["RegistrationPage"]}>
       <Navbar />
       <div className={`${styles.flex_row} ${styles.body}`}>
         <div className={`${styles.leftContainer}`}>
@@ -81,7 +100,7 @@ const RegistrationPage = () => {
               {page === 1 && <button onClick={onLoginButtonClick} >Back to Login</button>}
               {page === 1 && <button onClick={onNextButtonClick}>Next Page</button>}
               {page === 2 && <button onClick={onBackButtonClick}>Back</button>}
-              {page === 2 && <button onClick={onLoginButtonClick}>Submit</button>}
+              {page === 2 && <button onClick={onLoginButtonClick} className={styles["SubmitButton"]}>Submit</button>}
             </div>
           </div>
         </div>
