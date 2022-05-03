@@ -16,20 +16,25 @@ body {
   display: flex;
   flex-direction: column;
 }
+
 .Container {
   height: 100vh;
 }
 #Welcome .Container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   font-family: "Space Mono", monospace;
   font-weight: bold;
+  animation: fadeInLeft 2s;
 }
 
 #Welcome .Container p {
   text-align: center;
   padding-top: 10%;
-  gap: 1rem;
 }
 #Welcome .Container p:nth-child(1) {
+  /* width: 70vw; */
   font-weight: 700;
   font-size: 2rem;
   letter-spacing: 0.1rem;
@@ -56,4 +61,19 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  animation: fadeInLeft 2s;
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(var(--animation-slide-offset-neg-x), 0, 0);
+    transform: translate3d(var(--animation-slide-offset-neg-x), 0, 0);
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
 }

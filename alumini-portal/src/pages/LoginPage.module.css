@@ -3,6 +3,10 @@
   margin: 0;
   font-family: "Commissioner", sans-serif;
 }
+.LoginPage {
+  height: 100vh;
+  background-color: #fff;
+}
 .flex_row {
   display: flex;
   flex-direction: row;
