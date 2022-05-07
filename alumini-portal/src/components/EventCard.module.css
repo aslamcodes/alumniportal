@@ -1,0 +1,31 @@
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap");
+* {
+  margin: 0;
+  font-family: "Old Standard TT", serif;
+}
+.event-card {
+  display: flex;
+  flex-direction: column;
+  width: 220px;
+  height: 250px;
+  background-color: #0676cc;
+  text-align: left;
+  box-sizing: border-box;
+  padding: 20px 10px;
+  justify-content: space-evenly;
+  color: #fff;
+}
+
+.date {
+  font-weight: 400;
+  font-size: 20px;
+  flex: 3;
+}
+.title {
+  flex: 1;
+
+  font-weight: 400;
+}
+.venue {
+  flex: 1;
+}

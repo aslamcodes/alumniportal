@@ -7,6 +7,7 @@ import styles from './Home.module.css'
 
 
 
+
 const Home = () => {
   const prevScrollY = useRef(0);
   const [goingUp, setGoingUp] = useState(true);
@@ -40,10 +41,32 @@ const Home = () => {
           <div id={styles["Testimonials"]}>
             <div className={`${styles.Container}`}>
               <Carousel >
-                <Testimonial index={0} />
-                <Testimonial index={1} />
-                <Testimonial index={2} />
-                <Testimonial index={3} />
+                <Testimonial index={0}
+
+                  quotes="“Hi, This is Jesso Clarence i am working at Jakash corporation”"
+                  name="Mr.Jesso Clarence.M Engineering Manager, Akamai Technology, Bangalore Batch: 2006-2010"
+                >
+                  <img src={require('../assets/carousel1.png')} alt="" />
+                </Testimonial>
+
+                <Testimonial index={1}
+                  quotes="“Hi, This is Christopher i am working at Jakash corporation”"
+                  name="Mr.Jesso Clarence.M Engineering Manager, Akamai Technology, Bangalore Batch: 2006-2010"
+                >
+                  <img src={require('../assets/carousel2.png')} alt="" />
+                </Testimonial>
+                <Testimonial index={2}
+                  quotes="“Hi, This is Christopher i am working at Jakash corporation”"
+                  name="Mr.Jesso Clarence.M Engineering Manager, Akamai Technology, Bangalore Batch: 2006-2010"
+                >
+                  <img src={require('../assets/carousel3.jpg')} alt="" />
+                </Testimonial>
+                <Testimonial index={3}
+                  quotes="“Hi, This is Christopher i am working at Jakash corporation”"
+                  name="Mr.Jesso Clarence.M Engineering Manager, Akamai Technology, Bangalore Batch: 2006-2010"
+                >
+                  <img src={require('../assets/carousel4.jpg')} alt="" />
+                </Testimonial>
 
 
               </ Carousel >

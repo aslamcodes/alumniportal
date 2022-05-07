@@ -1,14 +1,20 @@
 import React from 'react'
 import styles from './Testimonial.module.css'
-function Testimonial({ index }) {
+function Testimonial({ imageUrl, quotes, index, children }) {
   return (
     <div className={styles["Testimonial"]}>
       <div className={styles["Testimonial-content"]}>
         <div className={styles['Profile-Container']}>
-          <img src={require("../assets/christopher.jpg")} alt="" />
+          {children}
         </div>
-        <div className={styles['Quotes']}>
-          <p>“Hi, This is Christopher i am working at Jakash corporation”{index}</p>
+        <div>
+          <div className={styles['Quotes']}>
+            <p>{quotes}</p>
+
+          </div>
+          <div className={styles['Name']}>
+            <p>- Christopher</p>
+          </div>
         </div>
       </div>
     </div>

@@ -9,7 +9,7 @@
   flex-direction: row;
   align-items: center;
   max-width: 90%;
-  height: 50%;
+  height: 40%;
   background-color: #bddcf380;
   font-family: sans-serif;
   line-height: 1;
@@ -17,7 +17,7 @@
   backdrop-filter: blur(5px);
   border-radius: 1rem;
   margin: 0 auto;
-  padding: 0 0 0 0;
+  padding: 0 0 0 10px;
 
   box-shadow: 5px 5px 15px rgb(107, 106, 106);
 }
@@ -41,7 +41,8 @@
 
 .Profile-Container img {
   max-width: 50vw;
-  max-height: 40vh;
+  max-height: 30vh;
+  min-width: 30vh;
   width: auto;
   height: auto;
   clip-path: circle();
@@ -53,6 +54,14 @@
   text-align: center;
   font-weight: 600;
   font-size: 30px;
+}
+.Name {
+  margin: 0 20px;
+  margin-top: 10px;
+  color: #686767;
+  font-weight: 400;
+  font-size: 24px;
+  padding-left: 100px;
 }
 
 @keyframes fadeInLeft {

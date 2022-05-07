@@ -1,8 +1,17 @@
 import React from 'react'
+import EventCard from '../components/EventCard'
+import Navbar from '../components/Navbar'
 
-function Events() {
+
+const Events = () => {
   return (
-    <div>Events</div>
+    <div>
+      <Navbar />
+      <p>Upcomming Events</p>
+      <div>
+        <EventCard />
+      </div>
+    </div>
   )
 }
 

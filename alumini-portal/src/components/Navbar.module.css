@@ -27,28 +27,30 @@
 }
 
 .Navbar {
+  display: flex;
   height: 15vh;
   max-width: 100%;
   justify-content: space-between;
-  padding: 0px 1rem;
-  padding-top: 0px;
+  padding: 0px 15px;
   align-items: center;
 }
 
 .NavLink {
   display: flex;
+  flex: 20%;
   flex-direction: row;
   gap: 1rem;
 }
 
 .Navbar .title {
+  flex: 60%;
   height: 15vh;
   margin: 0;
   position: relative;
-  width: 50vw;
 }
 .Navbar .title .titleText {
-  width: 70vw;
+  width: 60vw;
+  height: 10vh;
 
   justify-content: center;
   align-items: center;
@@ -59,10 +61,10 @@
 }
 
 .Navbar .title .titleText p:nth-child(1) {
-  font-size: 1.2rem;
+  font-size: 20px;
 }
 .Navbar .title .titleText p:nth-child(2) {
-  font-size: 0.5rem;
+  font-size: 10px;
   font-weight: 600;
 }
 .skctlogo1 {
@@ -81,5 +83,7 @@
   text-decoration: none;
 }
 .Navbar .right {
+  flex: 20%;
+
   gap: 1rem;
 }
