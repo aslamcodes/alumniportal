@@ -3,6 +3,9 @@
   margin: 0;
   font-family: "Commissioner", sans-serif;
 }
+::-webkit-scrollbar {
+  display: none;
+}
 body {
   background-position: center center;
   background-repeat: no-repeat;
@@ -15,6 +18,10 @@ body {
   height: 100vh;
   display: flex;
   flex-direction: column;
+}
+
+.Content-Container {
+  overflow-y: scroll;
 }
 
 .Container {

@@ -29,10 +29,10 @@ const Carousel = ({ children }) => {
   };
 
   const scrollMouseEnterHandler = () => {
-    setScrollPause(true);
+    setScrollPause(false);
   }
   const scrollMouseLeaveHandler = () => {
-    setScrollPause(false);
+    setScrollPause(true);
   }
 
   React.useEffect(() => {
