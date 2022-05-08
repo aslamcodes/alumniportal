@@ -1,8 +1,4 @@
 @import url("https://fonts.googleapis.com/css2?family=Commissioner:wght@100;200;300;400;500;600;700;800;900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap");
-* {
-  margin: 0;
-  font-family: "Commissioner", sans-serif;
-}
 
 .Testimonial {
   display: flex;
@@ -20,6 +16,7 @@
   padding: 0 0 0 10px;
 
   box-shadow: 5px 5px 15px rgb(107, 106, 106);
+  font-family: "Commissioner", sans-serif;
 }
 .Testimonial-content {
   display: flex;

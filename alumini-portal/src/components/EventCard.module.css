@@ -1,31 +1,43 @@
-@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap");
-* {
-  margin: 0;
-  font-family: "Old Standard TT", serif;
-}
-.event-card {
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap");
+
+.event_card {
   display: flex;
   flex-direction: column;
-  width: 220px;
-  height: 250px;
-  background-color: #0676cc;
+  min-width: 210px;
+  min-height: 220px;
+  background-color: #fff;
+  color: #000;
   text-align: left;
   box-sizing: border-box;
-  padding: 20px 10px;
-  justify-content: space-evenly;
+  padding: 20px 20px;
+  margin-right: 40px;
+}
+.active {
+  background-color: #0676cc;
   color: #fff;
 }
-
-.date {
+.event_card .date {
   font-weight: 400;
   font-size: 20px;
   flex: 3;
+  font-family: "Old Standard TT", serif;
 }
+.event_card .date p:nth-child(1) {
+  font-size: 45px;
+}
+.event_card .date p:nth-child(2) {
+  font-size: 18px;
+}
+
 .title {
   flex: 1;
-
   font-weight: 400;
+  font-size: 20px;
+  font-family: "Comfortaa", cursive;
 }
 .venue {
   flex: 1;
+  font-weight: 300;
+  font-size: 15px;
+  font-family: "Nunito", sans-serif;
 }

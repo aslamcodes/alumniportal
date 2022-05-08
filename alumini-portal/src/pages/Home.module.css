@@ -1,7 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Commissioner:wght@100;200;300;400;500;600;700;800;900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+
 * {
   margin: 0;
-  font-family: "Commissioner", sans-serif;
+  padding: 0;
 }
 ::-webkit-scrollbar {
   display: none;
@@ -18,6 +19,7 @@ body {
   height: 100vh;
   display: flex;
   flex-direction: column;
+  font-family: "Commissioner", sans-serif;
 }
 
 .Content-Container {
@@ -38,7 +40,7 @@ body {
 
 #Welcome .Container p {
   text-align: center;
-  padding-top: 10%;
+  padding-top: 7%;
 }
 #Welcome .Container p:nth-child(1) {
   /* width: 70vw; */

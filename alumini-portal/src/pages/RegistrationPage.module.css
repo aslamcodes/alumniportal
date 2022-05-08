@@ -1,13 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Beau+Rivage&family=Commissioner:wght@100;200;300;400;500;600;700;800;900&family=Merriweather&display=swap");
-* {
-  margin: 0;
-  font-family: "Commissioner", sans-serif;
-}
+
 .RegistrationPage {
   height: 100vh;
   background-color: #fff;
   overflow-x: hidden;
   overflow-y: auto;
+  font-family: "Commissioner", sans-serif;
 }
 .flex_row {
   display: flex;

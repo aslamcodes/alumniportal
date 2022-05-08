@@ -1,16 +1,33 @@
-import React from 'react'
+import React, { useState } from 'react'
 import EventCard from '../components/EventCard'
+import Footer from '../components/Footer';
 import Navbar from '../components/Navbar'
-
+import styles from './Events.module.css';
 
 const Events = () => {
+  const [isActive, setIsActive] = useState(false);
   return (
-    <div>
+    <div className={styles["event_page"]} >
       <Navbar />
-      <p>Upcomming Events</p>
-      <div>
-        <EventCard />
+      <div className={styles["event_page_content"]}>
+        <div className={styles["title"]}>
+          <p>UPCOMMING EVENTS</p>
+        </div>
+        <div className={styles["events"]}>
+          <EventCard isActive={true} />
+          <EventCard isActive={isActive} />
+          <EventCard isActive={isActive} />
+          <EventCard isActive={isActive} />
+          <EventCard isActive={isActive} />
+          <EventCard isActive={isActive} />
+          <EventCard isActive={isActive} />
+          <EventCard isActive={isActive} />
+          <EventCard isActive={isActive} />
+          <EventCard isActive={isActive} />
+        </div>
       </div>
+      <Footer />
+
     </div>
   )
 }

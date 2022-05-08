@@ -1,0 +1,26 @@
+@import url("https://fonts.googleapis.com/css2?family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap");
+
+.event_page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.event_page_content {
+  margin: 30px 20px;
+  text-align: left;
+  font-family: "Old Standard TT", serif;
+}
+
+.event_page_content .title {
+  font-size: 25px;
+  font-weight: 600;
+}
+
+.events {
+  display: flex;
+  justify-content: space-between;
+  margin: 30px 0px;
+  overflow-x: scroll;
+  scroll-snap-type: x;
+}
