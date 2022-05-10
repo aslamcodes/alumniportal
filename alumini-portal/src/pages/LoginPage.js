@@ -1,23 +1,48 @@
 import React from 'react'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useForm } from 'react-hook-form';
 import styles from './LoginPage.module.css'
 import KandiHuman from "../assets/kandiHuman.png";
 import Navbar from '../components/Navbar'
-import InputField from '../components/UI/InputField';
+import ErrorIcon from '@mui/icons-material/Error';
 const LoginForm = () => {
+  let navigate = useNavigate();
+
+  const { register, formState: { errors }, handleSubmit } = useForm();
+  const onSubmit = data => {
+    navigate('/');
+    console.log(data);
+  }
   return (
     <div className={`${styles.loginContainer} ${styles.flex_col}`}>
       <p className={`${styles.loginTitle}`}>Login Now</p>
-      <div className={`${styles.flex_col} ${styles.loginBodyContainer}`}>
-        <p>Username</p>
-        <InputField type="text" placeholder="Username" />
-        <InputField type="password" placeholder="Password" />
-        <p>By login you agree to our <a>Terms & conditions</a></p>
-      </div>
-      <div className={`${styles.flex_row} ${styles.loginButtonContainer}`}>
-        <button>Login Now</button>
-        <p><a >Forgot Password</a></p>
-      </div>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className={`${styles.flex_col} ${styles.loginBodyContainer}`}>
+          <p>Username</p>
+          <div className={styles["input"]}>
+            <input type="text" placeholder="Username"
+              {...register("userName", { required: true })}
+              className={styles['input-field']}
+            />
+            {errors.userName && <i><ErrorIcon style={{ color: "red" }} /></i>}
+          </div>
+          {errors.userName && <span>Username is required</span>}
+          <div className={styles["input"]}>
+            <input type="password" placeholder="Password"
+              {...register("password", { required: true })}
+              className={styles['input-field']}
+            />
+            {errors.password && <i><ErrorIcon style={{ color: "red" }} /></i>}
+          </div>
+
+          {errors.password && <span>Password is required</span>}
+          <p>By login you agree to our <a>Terms & conditions</a></p>
+        </div>
+        <div className={`${styles.flex_row} ${styles.loginButtonContainer}`}>
+          <button>Login Now</button>
+          <p><a >Forgot Password</a></p>
+        </div>
+      </form>
       <hr />
       <p>Dont have an account yet ?  <Link to="/register"><a>Create Account</a></Link></p>
     </div >

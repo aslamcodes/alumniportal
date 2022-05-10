@@ -87,8 +87,9 @@
   padding: 0 2rem;
   position: absolute;
   background-color: #cde7fb;
-  width: 50%;
-  height: 70%;
+  min-width: 50%;
+  min-height: 70%;
+  height: fit-content;
   border-radius: 2rem;
   box-shadow: 5px 5px 10px 1px #a4a5a5;
   top: 10%;
@@ -103,7 +104,19 @@
 
 .loginContainer .loginBodyContainer {
   font-weight: 200;
-  gap: 1rem;
+  /* gap: 1rem; */
+}
+.loginContainer .loginBodyContainer p {
+  margin-top: 10px;
+}
+.loginContainer .loginBodyContainer .input {
+  position: relative;
+
+  margin-top: 10px;
+}
+
+.loginContainer .loginBodyContainer span {
+  color: red;
 }
 
 .loginContainer .loginBodyContainer p a {
@@ -111,6 +124,7 @@
 }
 
 .loginContainer .loginButtonContainer {
+  margin-top: 10px;
   gap: 1rem;
   align-items: center;
 }
@@ -141,4 +155,32 @@
 
   text-decoration: underline;
   color: #285fa4;
+}
+
+/* input field */
+.input-field {
+  max-width: 100%;
+  width: 100%;
+  border-radius: 0.5rem;
+  border: none;
+  height: 2.5rem;
+  text-indent: 10px;
+  font-size: 15px;
+  color: #757575;
+}
+
+input::placeholder {
+  font-size: 15px;
+  font-weight: 400;
+  color: #757575;
+}
+
+.input-field:focus {
+  outline: none;
+}
+
+.loginContainer .loginBodyContainer i {
+  position: absolute;
+  right: 10px;
+  top: 8px;
 }
