@@ -11,9 +11,9 @@ const Events = () => {
       <Navbar />
       <div className={styles["event_page_content"]}>
         <div className={styles["title"]}>
-          <p>UPCOMMING EVENTS</p>
+          <p><span>U</span>PCOMING <span>E</span>VENTS</p>
         </div>
-        <div className={styles["events"]}>
+        <div className={styles["events"]} >
           <EventCard isActive={true} />
           <EventCard isActive={isActive} />
           <EventCard isActive={isActive} />

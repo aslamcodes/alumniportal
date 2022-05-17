@@ -25,8 +25,8 @@ const Footer = () => {
         <hr />
         <div className={styles["bottom"]}>
           <div className={styles["left"]}>
-            <CopyrightIcon />
-            <p>2022 SKCT - All Rights Reserved</p>
+            <CopyrightIcon fontSize="small" />
+            <p>2022 SKCT - All Rights Reserved | Designed by InExore</p>
           </div>
           <div className={styles["right"]}>
             <p>Follow us on</p>

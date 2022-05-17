@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm } from 'react-hook-form';
 import styles from './LoginPage.module.css'
 import KandiHuman from "../assets/kandiHuman.png";
+import { ReactComponent as DownPart } from "../assets/down_part.svg";
 import Navbar from '../components/Navbar'
 import ErrorIcon from '@mui/icons-material/Error';
 const LoginForm = () => {
@@ -40,7 +41,7 @@ const LoginForm = () => {
         </div>
         <div className={`${styles.flex_row} ${styles.loginButtonContainer}`}>
           <button>Login Now</button>
-          <p><a >Forgot Password</a></p>
+          <p><Link to="/forgot-password"><a >Forgot Password</a></Link></p>
         </div>
       </form>
       <hr />
@@ -63,6 +64,9 @@ const LoginPage = () => {
           <LoginForm />
         </div>
       </div>
+      <div className={styles["down-part"]}>
+      </div>
+
     </div>
   )
 }

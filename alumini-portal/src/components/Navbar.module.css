@@ -76,9 +76,16 @@
 .Navbar p a {
   font-size: 1rem;
   font-weight: 600;
-  color: #434343;
+  color: #4d4d4d;
   text-decoration: none;
 }
+.Navbar p a:hover {
+  color: #000;
+}
+.Navbar p a:focus {
+  color: #000;
+}
+
 .Navbar .right {
   flex: 20%;
 

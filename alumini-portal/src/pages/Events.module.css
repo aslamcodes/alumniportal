@@ -14,10 +14,13 @@
 }
 
 .event_page_content .title {
-  font-size: 25px;
+  font-size: 22px;
   font-weight: 600;
 }
 
+.event_page_content .title span {
+  font-size: 30px;
+}
 .events {
   display: flex;
   justify-content: space-between;

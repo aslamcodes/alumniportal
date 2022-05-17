@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Beau+Rivage&family=Commissioner:wght@100;200;300;400;500;600;700;800;900&family=Merriweather&display=swap");
 
 .LoginPage {
+  position: relative;
   height: 100vh;
   background-color: #fff;
   font-family: "Commissioner", sans-serif;
@@ -70,6 +71,7 @@
   text-align: left;
   top: 15%;
   left: 10%;
+  z-index: 3;
 }
 
 .body .leftContainer .welcomeContainer p {
@@ -92,8 +94,9 @@
   height: fit-content;
   border-radius: 2rem;
   box-shadow: 5px 5px 10px 1px #a4a5a5;
-  top: 10%;
+  top: 5%;
   right: 10%;
+  z-index: 3;
 }
 
 .loginContainer .loginTitle {
@@ -179,8 +182,25 @@ input::placeholder {
   outline: none;
 }
 
+/* validation styles */
+
 .loginContainer .loginBodyContainer i {
   position: absolute;
   right: 10px;
   top: 8px;
+}
+
+/* images */
+.down-part {
+  position: absolute;
+
+  bottom: 0;
+  z-index: 2;
+  height: 35%;
+  width: 108%;
+  /* background-color: #000; */
+  background-image: url("../assets/down_part.svg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }

@@ -1,6 +1,9 @@
 .footer {
+  position: absolute;
   flex: 5;
-  height: 100vh;
+  height: 20vh;
+  width: 100vw;
+  bottom: 0;
 }
 .footer-container {
   background-color: #285fa4;
@@ -19,7 +22,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding: 10px;
+  padding: 10px 20px;
 }
 
 .top .left {
@@ -42,12 +45,15 @@ hr {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding: 10px;
+  padding: 10px 20px;
 }
 .bottom .left {
   display: flex;
   flex-direction: row;
   text-align: left;
+}
+.bottom .left p {
+  align-items: center;
 }
 
 .bottom .right {

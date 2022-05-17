@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import styles from './RegistrationPage.module.css'
-
+import { useForm } from 'react-hook-form';
 import { CustomSelect } from '../components/UI/CustomSelect'
 import Navbar from '../components/Navbar'
 
-import InputField from '../components/UI/InputField'
 import Compguy from "../assets/compguy.png"
 
 
@@ -17,41 +16,71 @@ const YearOfPassing = range(1985, currentYear, 1);
 const Department = ['IT', 'CSE', 'ECE', 'EEE', 'MECH', 'CIVIL', 'MBA'];
 const GraduationLevel = ['Under graduate', 'Post graduate'];
 
-const Page1 = () => {
+const Page1 = ({ page, setPage }) => {
   const [yearPassing, setYearPassing] = useState("Year of passing");
   const [dept, setDept] = useState("Department");
   const [graduationLevel, setGraduationLevel] = useState("Graduation Level");
+
+  let navigate = useNavigate();
+  const onLoginButtonClick = () => navigate('/login');
+
+  const { register, formState: { errors }, handleSubmit } = useForm();
+
+  const onSubmit = data => {
+    setPage(2)
+    console.log(data);
+  }
   return (
     <div className={styles["pageContainer"]}>
-      <p className={`${styles.RegistrationTitle}`}>Login Information</p>
-      <div className={`${styles.FormContainer}`}>
-        <div className={`${styles.flex_row} ${styles.DoubleAttribute}`}>
-          <CustomSelect selected={yearPassing} setSelected={setYearPassing} Items={YearOfPassing} />
-          <CustomSelect selected={dept} setSelected={setDept} Items={Department} />
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <p className={`${styles.RegistrationTitle}`}>Login Information</p>
+        <div className={`${styles.FormContainer}`}>
+          <div className={`${styles.flex_row} ${styles.DoubleAttribute}`}>
+            <CustomSelect
+              selected={yearPassing}
+              setSelected={setYearPassing}
+              Items={YearOfPassing}
+            />
+            <CustomSelect selected={dept} setSelected={setDept} Items={Department} />
 
 
 
+
+          </div>
+          <CustomSelect selected={graduationLevel} setSelected={setGraduationLevel} Items={GraduationLevel} />
+
+
+          <input className={styles["input-field"]} type="text" placeholder="Enter Your Name"
+
+
+          />
+          <input className={styles["input-field"]} type="text" placeholder="Enter Your Registration number" />
+          <div className={`${styles.flex_row} ${styles.DoubleAttribute}`}>
+            <input className={styles["input-field"]} type="date" placeholder="Select Your DOB" />
+            <input className={styles["input-field"]} type="text" placeholder="Enter your Email Id" />
+          </div>
+          <input className={styles["input-field"]} type="text" placeholder="Enter password" />
+          <input className={styles["input-field"]} type="text" placeholder="Confirm Password" />
 
         </div>
-        <CustomSelect selected={graduationLevel} setSelected={setGraduationLevel} Items={GraduationLevel} />
-
-
-        <InputField type="text" placeholder="Enter Your Name" />
-        <InputField type="text" placeholder="Enter Your Registration number" />
-        <div className={`${styles.flex_row} ${styles.DoubleAttribute}`}>
-          <InputField type="date" placeholder="Select Your DOB" />
-          <InputField type="text" placeholder="Enter your Email Id" />
+        <div className={`${styles.flex_row} ${styles.ButtonContainer}`}>
+          <button onClick={onLoginButtonClick} >Back to Login</button>
+          <button type="submit">Next Page</button>
         </div>
-        <InputField type="text" placeholder="Enter password" />
-        <InputField type="text" placeholder="Confirm Password" />
-
-      </div>
+      </form>
     </div>
   )
 }
-const Page2 = () => {
+const Page2 = ({ setPage }) => {
   const [isEnterpreneur, setIsEnterpreneur] = useState(false);
   const [isHigherStudies, setIsHigherStudies] = useState(false);
+
+  let navigate = useNavigate();
+
+  const onBackButtonClick = () => setPage(1)
+  const onLoginButtonClick = () => navigate('/login');
+
+
   return (
     <div className={styles["pageContainer"]}>
       <p className={`${styles.RegistrationTitle}`}>Personal Information</p>
@@ -70,25 +99,30 @@ const Page2 = () => {
           <button onClick={() => setIsHigherStudies(false)} className={`${!isHigherStudies && styles.ButtonNotPressed}`}>no</button>
         </div>
         {isEnterpreneur && <div className={`${styles.flex_row} ${styles.DoubleAttribute}`}>
-          <InputField type="text" placeholder="Company Name" />
-          <InputField type="text" placeholder="Company Email ID" />
+          <input className={styles["input-field"]} type="text" placeholder="Company Name" />
+          <input className={styles["input-field"]} type="text" placeholder="Company Email ID" />
         </div>}
 
         {isHigherStudies && <div className={`${styles.flex_row} ${styles.DoubleAttribute}`}>
-          <InputField type="text" placeholder="College Name" />
-          <InputField type="text" placeholder="Course Name" />
+          <input className={styles["input-field"]} type="text" placeholder="College Name" />
+          <input className={styles["input-field"]} type="text" placeholder="Course Name" />
         </div>}
 
-        <InputField type="text" placeholder="Your Designation (Working Professional)" />
-        <InputField type="text" placeholder="Enter your Organization name" />
+        <input className={styles["input-field"]} type="text" placeholder="Your Designation (Working Professional)" />
+        <input className={styles["input-field"]} type="text" placeholder="Enter your Organization name" />
         <div className={`${styles.flex_row} ${styles.DoubleAttribute}`}>
-          <InputField type="text" placeholder="Select Your City" />
-          <InputField type="text" placeholder="Select your state" />
+          <input className={styles["input-field"]} type="text" placeholder="Select Your City" />
+          <input className={styles["input-field"]} type="text" placeholder="Select your state" />
         </div>
-        <InputField type="text" placeholder="Select your country" />
-        <InputField type="text" placeholder="Enter your Contact Number" />
-        <InputField type="text" placeholder="Skill/Domain" />
+        <input className={styles["input-field"]} type="text" placeholder="Select your country" />
+        <input className={styles["input-field"]} type="text" placeholder="Enter your Contact Number" />
+        <input className={styles["input-field"]} type="text" placeholder="Skill/Domain" />
 
+      </div>
+      <div className={`${styles.flex_row} ${styles.ButtonContainer}`}>
+
+        <button onClick={onBackButtonClick}>Back</button>
+        <button type="submit" onClick={onLoginButtonClick} className={styles["SubmitButton"]}>Submit</button>
       </div>
     </div>
   )
@@ -96,14 +130,13 @@ const Page2 = () => {
 
 const RegistrationPage = () => {
 
-  let navigate = useNavigate();
+
   const [page, setPage] = useState(1)
 
-  const onNextButtonClick = () => {
-    setPage(2)
-  }
-  const onLoginButtonClick = () => navigate('/login');
-  const onBackButtonClick = () => setPage(1)
+
+
+
+
 
 
   return (
@@ -116,14 +149,9 @@ const RegistrationPage = () => {
         <div className={`${styles.rightContainer}`}>
           <div className={`${styles.RegistrationContainer} ${styles.flex_col}`}>
 
-            {page === 1 && <Page1 />}
-            {page === 2 && <Page2 />}
-            <div className={`${styles.flex_row} ${styles.ButtonContainer}`}>
-              {page === 1 && <button onClick={onLoginButtonClick} >Back to Login</button>}
-              {page === 1 && <button onClick={onNextButtonClick}>Next Page</button>}
-              {page === 2 && <button onClick={onBackButtonClick}>Back</button>}
-              {page === 2 && <button onClick={onLoginButtonClick} className={styles["SubmitButton"]}>Submit</button>}
-            </div>
+            {page === 1 && <Page1 page={page} setPage={setPage} />}
+            {page === 2 && <Page2 setPage={setPage} />}
+
           </div>
         </div>
       </div>
