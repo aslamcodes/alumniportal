@@ -1,93 +1,141 @@
 @import url("https://fonts.googleapis.com/css2?family=Beau+Rivage&family=Commissioner:wght@100;200;300;400;500;600;700;800;900&family=Merriweather&display=swap");
 
-.flex_row {
+.navbar {
   display: flex;
-  flex-direction: row;
-}
-.flex_col {
-  display: flex;
-  flex-direction: column;
-}
-.v_center {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.h_center {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}
-
-.Navbar {
-  display: flex;
-  height: 15vh;
-  max-width: 100%;
-  justify-content: space-between;
-  padding: 0px 20px;
+  min-height: 15vh;
+  max-width: 100vw;
+  padding: 0 1.5rem;
   align-items: center;
   font-family: "Commissioner", sans-serif;
+  top: 0;
+  position: sticky;
 }
-
-.NavLink {
+/* Navigation */
+.navLink {
   display: flex;
-  flex: 20%;
   flex-direction: row;
-  justify-content: space-between;
-  gap: 15px;
+  gap: 1em;
+  text-align: left;
 }
 
-.Navbar .title {
-  flex: 60%;
-  height: 15vh;
-  margin: 0;
-  position: relative;
-}
-.Navbar .title .titleText {
-  width: 60vw;
-  height: 10vh;
-
-  justify-content: center;
-  align-items: center;
-}
-.Navbar .title .titleText p {
-  font-weight: bold;
-  letter-spacing: 0.1rem;
-}
-
-.Navbar .title .titleText p:nth-child(1) {
-  font-size: 20px;
-}
-.Navbar .title .titleText p:nth-child(2) {
-  font-size: 10px;
-  font-weight: 600;
-}
-.skctlogo1 {
-  position: relative;
-  width: 30%;
-}
-
-.skctlogo2 {
-  position: relative;
-  width: 30%;
-}
-.Navbar p a {
-  font-size: 1rem;
+.navLink a {
+  font-size: 1em;
   font-weight: 600;
   color: #4d4d4d;
   text-decoration: none;
 }
-.Navbar p a:hover {
-  color: #000;
-}
-.Navbar p a:focus {
+.navLink a:hover {
   color: #000;
 }
 
-.Navbar .right {
-  flex: 20%;
+/* Brand */
+.navbar-brand {
+  flex: 10%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2em;
+  margin: 0 1rem;
+}
+.navbar-brand hr {
+  width: 1px;
+  height: 1.5em;
+  background-color: #000;
+  margin: 0 0.5em;
+}
+.navbar-brand .titleText {
+  max-width: 30rem;
+  min-height: 3rem;
+  display: grid;
+  place-items: center;
+  font-size: 1.1em;
+}
+.navbar-brand .titleText * {
+  font-weight: bold;
+  letter-spacing: 0.1em;
+}
 
-  gap: 1rem;
+@media (max-width: 1040px) {
+  .navbar-brand .titleText {
+    font-size: 0.9em;
+  }
+  .navLink {
+    font-size: 1em;
+  }
+}
+
+.navbar-brand .titleText h1 {
+  font-size: 0.8em;
+}
+.navbar-brand .titleText h3 {
+  font-size: 0.4em;
+  font-weight: 600;
+}
+.navbar-logo {
+  width: 4.5rem;
+  margin: 0 0.5rem;
+}
+.dropdown-btn {
+  cursor: pointer;
+  color: #4d4d4d;
+}
+.dropdown-btn:hover {
+  color: #000;
+}
+
+/* mobile screen */
+@media (max-width: 790px) {
+  .navLink {
+    flex-direction: column;
+    gap: 1.5rem;
+    font-size: 1.1em;
+  }
+  .navbar-brand {
+    flex: 1;
+    font-size: 1.3em;
+    gap: 0.8rem;
+    justify-content: start;
+  }
+  .navbar-logo {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    min-width: 10rem;
+  }
+  .dropdown {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+  }
+
+  .dropdownContainer {
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    max-width: 11rem;
+    min-height: 30rem;
+    right: 0;
+    z-index: 10;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+    padding: 5rem 2rem;
+    padding-right: 1rem;
+    background-color: rgba(222, 228, 226, 0.8);
+    backdrop-filter: blur(2px);
+  }
+  .dropdown-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #4d4d4d;
+  }
+  .dropdown-close:hover {
+    color: #000;
+  }
 }

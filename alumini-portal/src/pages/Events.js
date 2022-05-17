@@ -9,23 +9,28 @@ const Events = () => {
   return (
     <div className={styles["event_page"]} >
       <Navbar />
-      <div className={styles["event_page_content"]}>
-        <div className={styles["title"]}>
-          <p><span>U</span>PCOMING <span>E</span>VENTS</p>
+      <div className={styles["event_body"]}>
+        <div className={styles["event_page_content"]}>
+          <div className={styles["title"]}>
+            <p><span>U</span>PCOMING <span>E</span>VENTS</p>
+          </div>
+          <div className={styles["events"]} >
+            <EventCard isActive={true} />
+            <EventCard isActive={isActive} />
+            <EventCard isActive={isActive} />
+            <EventCard isActive={isActive} />
+            <EventCard isActive={isActive} />
+            <EventCard isActive={isActive} />
+            <EventCard isActive={isActive} />
+            <EventCard isActive={isActive} />
+            <EventCard isActive={isActive} />
+            <EventCard isActive={isActive} />
+          </div>
         </div>
-        <div className={styles["events"]} >
-          <EventCard isActive={true} />
-          <EventCard isActive={isActive} />
-          <EventCard isActive={isActive} />
-          <EventCard isActive={isActive} />
-          <EventCard isActive={isActive} />
-          <EventCard isActive={isActive} />
-          <EventCard isActive={isActive} />
-          <EventCard isActive={isActive} />
-          <EventCard isActive={isActive} />
-          <EventCard isActive={isActive} />
-        </div>
+
       </div>
+
+
       <Footer />
 
     </div>

@@ -3,14 +3,14 @@
 .event_page {
   display: flex;
   flex-direction: column;
-  height: 100vh;
 }
 
+.event_body {
+  margin: 0 20px;
+}
 .event_page_content {
-  margin: 30px 20px;
   text-align: left;
   font-family: "Old Standard TT", serif;
-  flex: 4;
 }
 
 .event_page_content .title {
@@ -24,7 +24,7 @@
 .events {
   display: flex;
   justify-content: space-between;
-  margin: 30px 0px;
+  margin: 30px 10px;
   overflow-x: scroll;
   scroll-snap-type: x;
 }
