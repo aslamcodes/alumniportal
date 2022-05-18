@@ -44,14 +44,17 @@ const Navbar = () => {
       {windowDimensions.width > 789 ?
         <div className={styles["navbar-brand"]}>
           <div className={styles["navbar-logo"]}>
-            <SKIicon className={styles["skctlogo1"]} />
+            {/* <SKIicon className={styles["skctlogo1"]} /> */}
+            <img src={require("../assets/Logo1.png")} alt="" />
+
           </div>
           <div className={styles["titleText"]}>
             <h1>SRI KRISHNA COLLEGE OF TECHNOLOGY</h1>
             <h3>AUTONOMOUS INSTITUTION | ACCREDITED BY NAAC WITH ‘A’ GRADE</h3>
           </div>
           <div className={styles["navbar-logo"]}>
-            <SKCTicon className={styles["skctlogo2"]} />
+            {/* <SKCTicon className={styles["skctlogo2"]} /> */}
+            <img src={require("../assets/Logo2.png")} alt="" />
           </div>
         </div> :
         <div className={styles["navbar-brand"]}>
