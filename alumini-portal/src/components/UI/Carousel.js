@@ -35,7 +35,7 @@ const Carousel = ({ children }) => {
     setScrollPause(true);
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (scrollPause) {
       scrollInterval = setTimeout(() => {
         setActiveIndex((activeIndex + 1) % children.length);
@@ -52,15 +52,14 @@ const Carousel = ({ children }) => {
       <div className={styles["left"]} onClick={leftButtonHandler}>
         <ArrowBackIcon />
       </div>
-      <div className={styles["center"]}>
-        <div className={styles["inner"]}
-          onMouseEnter={scrollMouseEnterHandler}
-          onMouseLeave={scrollMouseLeaveHandler}>
-          {React.Children.map(children, (child, index) => {
+      <div className={styles["center"]}
+        onMouseEnter={scrollMouseEnterHandler}
+        onMouseLeave={scrollMouseLeaveHandler}
+      >
+        {React.Children.map(children, (child, index) => {
 
-            return activeIndex === index && child;
-          })}
-        </div>
+          return activeIndex === index && child;
+        })}
       </div>
       <div className={styles["right"]} onClick={rightButtonHandler}>
         <ArrowForwardIcon />

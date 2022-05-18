@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './Testimonial.module.css'
-function Testimonial({ imageUrl, quotes, index, children }) {
+function Testimonial({ quotes, children }) {
   return (
     <div className={styles["Testimonial"]}>
       <div className={styles["Testimonial-content"]}>
