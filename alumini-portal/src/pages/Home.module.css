@@ -4,6 +4,7 @@
   margin: 0;
   padding: 0;
 }
+
 ::-webkit-scrollbar {
   display: none;
 }
@@ -27,43 +28,57 @@ body {
 }
 
 .Container {
-  height: 100vh;
+  min-height: calc(100vh - var(--navbar-height) + 1vh);
+  margin: 0 1.5rem;
 }
 #Welcome .Container {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 2em;
   font-family: "Space Mono", monospace;
   font-weight: bold;
   animation: fadeInLeft 2s;
   z-index: -10;
 }
-
-#Welcome .Container p {
-  text-align: center;
-  padding-top: 7%;
+@media (max-width: 1040px) {
+  #Welcome .Container {
+    padding-top: 0.5rem;
+    font-size: 0.9em;
+  }
 }
-#Welcome .Container p:nth-child(1) {
-  /* width: 70vw; */
+@media (max-width: 790px) {
+  #Welcome .Container {
+    padding-top: 1rem;
+    font-size: 0.8em;
+  }
+
+  #Welcome .Container p {
+    padding: 0.5em;
+  }
+}
+#Welcome .Container h1 {
   font-weight: 700;
-  font-size: 2rem;
+  font-size: 2em;
   letter-spacing: 0.1rem;
 }
-#Welcome .Container p:nth-child(1) span {
+#Welcome .Container h1 span {
   color: red;
 }
 
-#Welcome .Container p:nth-child(2) {
-  width: 70vw;
-  margin: 0 auto;
+#Welcome .Container p {
   font-weight: 500;
-  font-size: 1.5rem;
-  letter-spacing: 0.1rem;
-  word-spacing: 0.2rem;
+  font-size: 1.5em;
+  letter-spacing: 0.1em;
+  word-spacing: 0.2em;
   color: #fff;
+  padding: 0.5em 2em;
+  text-shadow: 1px 2px red;
 }
-#Welcome .Container p:nth-child(2) span {
+#Welcome .Container p span {
   color: #f6b42b;
+  text-shadow: 1px 2px rgb(105, 105, 105);
 }
 
 #Testimonials .Container {

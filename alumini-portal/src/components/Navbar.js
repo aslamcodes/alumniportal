@@ -59,7 +59,6 @@ const Navbar = () => {
             <div className={styles["navbar-logo"]}>
               <SKIicon className={styles["skctlogo1"]} />
               <hr />
-              <SKCTicon className={styles["skctlogo2"]} />
             </div>
           }
           <div className={styles["titleText"]}>
