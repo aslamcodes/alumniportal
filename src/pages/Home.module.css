@@ -24,13 +24,16 @@ body {
 }
 
 .Content-Container {
+  scroll-snap-type: y mandatory;
   overflow-y: scroll;
 }
 
-.Container {
-  min-height: calc(100vh - var(--navbar-height) + 1vh);
+.Content-Container .Container {
+  min-height: 100vh;
   margin: 0 1.5rem;
+  scroll-snap-align: start;
 }
+
 #Welcome .Container {
   display: flex;
   flex-direction: column;

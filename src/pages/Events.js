@@ -16,16 +16,37 @@ const Events = () => {
             </p>
           </div>
           <div className={styles["events"]}>
-            <EventCard isActive={true} />
-            <EventCard isActive={isActive} />
-            <EventCard isActive={isActive} />
-            <EventCard isActive={isActive} />
-            <EventCard isActive={isActive} />
-            <EventCard isActive={isActive} />
-            <EventCard isActive={isActive} />
-            <EventCard isActive={isActive} />
-            <EventCard isActive={isActive} />
-            <EventCard isActive={isActive} />
+            <div className={styles["child"]}>
+              <EventCard isActive={true} />
+              <EventCard isActive={isActive} />
+              <EventCard isActive={isActive} />
+            </div>
+            <div className={styles["child"]}>
+              <EventCard isActive={isActive} />
+              <EventCard isActive={isActive} />
+              <EventCard isActive={isActive} />
+            </div>
+
+            <div className={styles["child"]}>
+              <EventCard isActive={isActive} />
+              <EventCard isActive={isActive} />
+              <EventCard isActive={isActive} />
+            </div>
+            <div className={styles["child"]}>
+              <EventCard isActive={isActive} />
+              <EventCard isActive={isActive} />
+              <EventCard isActive={isActive} />
+            </div>
+            <div className={styles["child"]}>
+              <EventCard isActive={isActive} />
+              <EventCard isActive={isActive} />
+              <EventCard isActive={isActive} />
+            </div>
+            <div className={styles["child"]}>
+              <EventCard isActive={isActive} />
+              <EventCard isActive={isActive} />
+              <EventCard isActive={isActive} />
+            </div>
           </div>
         </div>
       </div>

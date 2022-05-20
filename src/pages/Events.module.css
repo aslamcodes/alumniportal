@@ -3,10 +3,14 @@
 .event_page {
   display: flex;
   flex-direction: column;
+  height: 100vh;
 }
 
 .event_body {
-  margin: 0 20px;
+  height: 100vh;
+  padding-top: 6rem;
+  margin: 0 1.2rem;
+  overflow-y: scroll;
 }
 .event_page_content {
   text-align: left;
@@ -26,5 +30,11 @@
   justify-content: space-between;
   margin: 30px 10px;
   overflow-x: scroll;
-  scroll-snap-type: x;
+  scroll-snap-type: x mandatory;
+}
+
+.events .child {
+  display: flex;
+  flex-direction: row;
+  scroll-snap-align: start;
 }

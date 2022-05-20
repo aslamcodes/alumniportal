@@ -1,14 +1,16 @@
 @import url("https://fonts.googleapis.com/css2?family=Beau+Rivage&family=Commissioner:wght@100;200;300;400;500;600;700;800;900&family=Merriweather&display=swap");
 
 .navbar {
+  position: absolute;
   display: flex;
   min-height: var(--navbar-height);
   max-width: 100vw;
-  padding: 0 1.5rem;
   align-items: center;
-  font-family: "Commissioner", sans-serif;
   top: 0;
-  position: sticky;
+  right: 0;
+  left: 0;
+  padding: 0 1.5rem;
+  font-family: "Commissioner", sans-serif;
 }
 /* Navigation */
 .navLink {
