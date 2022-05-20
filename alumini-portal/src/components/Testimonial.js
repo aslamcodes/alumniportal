@@ -5,14 +5,17 @@ function Testimonial({ quotes, children }) {
     <div className={styles["Testimonial"]}>
       <div className={styles["Testimonial-content"]}>
         <div className={styles['Profile-Container']}>
-          {children}
+          <div className={styles['img']}>
+            {children}
+          </div>
+
         </div>
         <div>
           <div className={styles['Quotes']}>
             <p>{quotes}</p>
 
           </div>
-          <div className={styles['Name']}>
+          <div className={styles['Author']}>
             <p>- Christopher</p>
           </div>
         </div>
