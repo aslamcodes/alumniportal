@@ -1,15 +1,12 @@
-import React from 'react'
-import Navbar from '../components/Navbar'
-import Footer from '../components/Footer'
+import React from "react";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 const Gallery = () => {
-
   return (
-    <div >
-      <Navbar />
+    <div>
       <Footer />
     </div>
+  );
+};
 
-  )
-}
-
-export default Gallery
+export default Gallery;
