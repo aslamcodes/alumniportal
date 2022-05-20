@@ -31,7 +31,7 @@ const Carousel = ({ children }) => {
     setScrollPause(true);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (scrollPause) {
       scrollInterval = setTimeout(() => {
         setActiveIndex((activeIndex + 1) % children.length);

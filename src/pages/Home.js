@@ -32,7 +32,7 @@ const Home = () => {
         {goingUp &&
           <div id={styles["Welcome"]}>
             <div className={`${styles.Container}`}>
-              <p>Welcome <span>Back</span></p>
+              <h1>Welcome <span>Back</span></h1>
               <p><span>“</span>I think the success of any school can be measured by the contribution the alumni make to our national life<span>”</span></p>
             </div>
           </div>
@@ -42,7 +42,6 @@ const Home = () => {
             <div className={`${styles.Container}`}>
               <Carousel >
                 <Testimonial index={0}
-
                   quotes="“Hi, This is Jesso Clarence i am working at Jakash corporation”"
                   name="Mr.Jesso Clarence.M Engineering Manager, Akamai Technology, Bangalore Batch: 2006-2010"
                 >
@@ -55,12 +54,14 @@ const Home = () => {
                 >
                   <img src={require('../assets/carousel2.png')} alt="" />
                 </Testimonial>
+
                 <Testimonial index={2}
                   quotes="“Hi, This is Christopher i am working at Jakash corporation”"
                   name="Mr.Jesso Clarence.M Engineering Manager, Akamai Technology, Bangalore Batch: 2006-2010"
                 >
                   <img src={require('../assets/carousel3.jpg')} alt="" />
                 </Testimonial>
+
                 <Testimonial index={3}
                   quotes="“Hi, This is Christopher i am working at Jakash corporation”"
                   name="Mr.Jesso Clarence.M Engineering Manager, Akamai Technology, Bangalore Batch: 2006-2010"

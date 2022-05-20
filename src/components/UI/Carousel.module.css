@@ -1,33 +1,27 @@
 .carousel {
   display: flex;
-  width: 100%;
-  height: 100%;
+  max-width: 100vw;
+  min-height: calc(100vh - var(--navbar-height) + 1vh);
 }
 .left {
-  flex: 10%;
-
+  flex: 5%;
   display: grid;
   place-items: center;
   cursor: pointer;
 }
 
 .center {
+  flex: 80rem;
   display: flex;
   flex-direction: row;
   align-items: center;
-  flex: 80%;
+  justify-content: center;
+  overflow-x: scroll;
+  padding: 2em;
 }
 .right {
-  flex: 10%;
+  flex: 5%;
   display: grid;
   place-items: center;
   cursor: pointer;
-}
-
-.inner {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  width: 100%;
-  height: 100%;
 }
