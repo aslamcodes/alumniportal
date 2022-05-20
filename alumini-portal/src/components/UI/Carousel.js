@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useSwipeable } from "react-swipeable";
 import styles from "./Carousel.module.css";
-import ArrowBackIcon from '@material-ui/icons/ArrowBackIos';
-import ArrowForwardIcon from '@material-ui/icons/ArrowForwardIos';
+import ArrowBackIcon from '@mui/icons-material/ArrowBackIos';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForwardIos';
 
 const Carousel = ({ children }) => {
   const [activeIndex, setActiveIndex] = useState(0);
