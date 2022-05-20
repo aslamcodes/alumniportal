@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import ForumCard from "../components/ForumCard";
 
 function AluminiForum() {
   return (
-    <div>Alumini Forum</div>
-  )
+    <div>
+      <ForumCard />
+    </div>
+  );
 }
 
-export default AluminiForum
+export default AluminiForum;
