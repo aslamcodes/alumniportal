@@ -33,7 +33,7 @@ const Navbar = () => {
   console.log('windowDimensions', windowDimensions);
 
   return (
-    <div className={styles["navbar"]}>
+    <div className={`${styles.navbar} ${!menuActive && styles.background_blur}`}>
       {windowDimensions.width > 789 &&
         <div className={`${styles.navLink}`} >
           <Link to="/">Home</Link>
@@ -79,7 +79,7 @@ const Navbar = () => {
             <MenuIcon className={styles["dropdown-btn"]} onClick={() => { setMenuActive(true) }} />
           }
           {menuActive &&
-            <div className={`${styles.dropdownContainer}`}>
+            <div className={`${styles.dropdownContainer} ${!menuActive && styles.background_blur}`} >
               <CloseIcon className={styles["dropdown-close"]} onClick={() => { setMenuActive(false) }} />
               <div className={`${styles.navLink}`} >
                 <Link to="/">Home</Link>

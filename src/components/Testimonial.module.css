@@ -8,10 +8,12 @@
   margin: 0 1rem;
   border-radius: 1rem;
   z-index: -10;
-  box-shadow: 5px 5px 15px rgb(107, 106, 106);
+  box-shadow: 0px 2px 5px #25252551;
   background-color: #bddcf380;
+  backdrop-filter: blur(7px);
   font-family: sans-serif;
   font-family: "Commissioner", sans-serif;
+  z-index: -10;
 }
 .Testimonial-content {
   display: flex;
