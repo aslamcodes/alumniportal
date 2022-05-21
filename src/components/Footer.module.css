@@ -24,10 +24,19 @@
 
 .top .left {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   text-align: left;
-  max-width: 18rem;
+  max-width: 21rem;
 }
+.top .left .name {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+.top .left .name img {
+  max-width: 3em;
+}
+
 .top .right {
   max-width: 18rem;
   text-align: right;

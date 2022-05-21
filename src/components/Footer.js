@@ -12,9 +12,14 @@ const Footer = () => {
       <div className={styles["footer-container"]}>
         <div className={styles["top"]}>
           <div className={styles["left"]}>
-            <p>Sri Krishna College of Technology
-              Autonomus Institutuion
-              Mail Id: principal@skcet.ac.in placement@skcet.ac.in</p>
+            <div className={styles["name"]}>
+              <img src={require("../assets/Logo2.png")} alt="SKCT logo" />
+              <p>Sri Krishna College of Technology
+                Autonomus Institutuion
+              </p>
+
+            </div>
+            <p>Mail Id: principal@skcet.ac.in placement@skcet.ac.in</p>
           </div>
           <div className={styles["right"]}>
             <p>Kovaipudur, Coimbatore
