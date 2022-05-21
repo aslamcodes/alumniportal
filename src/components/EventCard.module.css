@@ -3,14 +3,14 @@
 .event_card {
   display: flex;
   flex-direction: column;
-  min-width: 210px;
-  min-height: 220px;
+  min-width: 13em;
+  min-height: 14em;
   background-color: #fff;
   color: #000;
   text-align: left;
   box-sizing: border-box;
-  padding: 20px 20px;
-  margin-right: 40px;
+  padding: 1em 1em;
+  margin-right: 2rem;
 }
 .active {
   background-color: #0676cc;
@@ -18,26 +18,26 @@
 }
 .event_card .date {
   font-weight: 400;
-  font-size: 20px;
+  font-size: 1.1em;
   flex: 3;
   font-family: "Old Standard TT", serif;
 }
 .event_card .date p:nth-child(1) {
-  font-size: 45px;
+  font-size: 2.4em;
 }
 .event_card .date p:nth-child(2) {
-  font-size: 18px;
+  font-size: 1.1em;
 }
 
 .title {
   flex: 1;
   font-weight: 400;
-  font-size: 20px;
+  font-size: 1.2em;
   font-family: "Comfortaa", cursive;
 }
 .venue {
   flex: 1;
   font-weight: 300;
-  font-size: 15px;
+  font-size: 1em;
   font-family: "Nunito", sans-serif;
 }
