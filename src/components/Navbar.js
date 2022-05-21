@@ -79,14 +79,14 @@ const Navbar = () => {
             <MenuIcon className={styles["dropdown-btn"]} onClick={() => { setMenuActive(true) }} />
           }
           {menuActive &&
-            <div className={`${styles.dropdownContainer} ${!menuActive && styles.background_blur}`} >
+            <div className={`${styles.dropdownContainer} ${menuActive && styles.background_blur}`} >
               <CloseIcon className={styles["dropdown-close"]} onClick={() => { setMenuActive(false) }} />
               <div className={`${styles.navLink}`} >
-                <Link to="/">Home</Link>
-                <Link to="/gallery">Gallery</Link>
-                <Link to="/events">Events</Link>
-                <Link to="/alumini-forum">Alumini Forum</Link>
-                <Link to="/office-bearers">Office Bearers</Link>
+                <Link onClick={() => setMenuActive(false)} to="/">Home</Link>
+                <Link onClick={() => setMenuActive(false)} to="/gallery">Gallery</Link>
+                <Link onClick={() => setMenuActive(false)} to="/events">Events</Link>
+                <Link onClick={() => setMenuActive(false)} to="/alumini-forum">Alumini Forum</Link>
+                <Link onClick={() => setMenuActive(false)} to="/office-bearers">Office Bearers</Link>
               </div>
             </div>
           }
