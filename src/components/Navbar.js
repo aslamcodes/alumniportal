@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-
 import { ReactComponent as SKIicon } from "../assets/SKI.svg";
 import { ReactComponent as SKCTicon } from "../assets/SKCT.svg";
 import MenuIcon from '@mui/icons-material/Menu';
@@ -34,17 +33,17 @@ const Navbar = () => {
 
   return (
     <div className={`${styles.navbar} ${!menuActive && styles.background_blur}`}>
-      {windowDimensions.width > 789 &&
+      {windowDimensions.width > 790 &&
         <div className={`${styles.navLink}`} >
           <Link to="/">Home</Link>
           <Link to="/gallery">Gallery</Link>
           <Link to="/events">Events</Link>
         </div>
       }
-      {windowDimensions.width > 789 ?
+
+      {windowDimensions.width > 790 ?
         <div className={styles["navbar-brand"]}>
           <div className={styles["navbar-logo"]}>
-            {/* <SKIicon className={styles["skctlogo1"]} /> */}
             <img src={require("../assets/Logo1.png")} alt="SKI logo" />
 
           </div>
@@ -53,11 +52,11 @@ const Navbar = () => {
             <h3>AUTONOMOUS INSTITUTION | ACCREDITED BY NAAC WITH ‘A’ GRADE</h3>
           </div>
           <div className={styles["navbar-logo"]}>
-            {/* <SKCTicon className={styles["skctlogo2"]} /> */}
             <img src={require("../assets/Logo2.png")} alt="SKCT logo" />
           </div>
         </div> :
         <div className={styles["navbar-brand"]}>
+
           {windowDimensions.width > 350 &&
             <div className={styles["navbar-logo"]}>
               <img src={require("../assets/Logo2.png")} alt="SKCT logo" />
@@ -69,7 +68,7 @@ const Navbar = () => {
           </div>
         </div>
       }
-      {windowDimensions.width > 789 ?
+      {windowDimensions.width > 790 ?
         <div className={`${styles.navLink} ${styles.right}`}>
           <Link to="/alumini-forum">Alumini Forum</Link>
           <Link to="/office-bearers">Office Bearers</Link>
