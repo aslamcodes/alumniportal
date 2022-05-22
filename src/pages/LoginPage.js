@@ -1,12 +1,24 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import styles from "./LoginPage.module.css";
-import KandiHuman from "../assets/kandiHuman.png";
-import { ReactComponent as DownPart } from "../assets/down_part.svg";
-import Navbar from "../components/Navbar";
+
+
+// icons
 import ErrorIcon from "@mui/icons-material/Error";
+
+function getWindowDimensions() {
+  const { innerWidth: width, innerHeight: height } = window;
+  return {
+    width,
+    height
+  };
+}
+
 const LoginForm = () => {
+
+
+
   let navigate = useNavigate();
 
   const {
@@ -19,10 +31,10 @@ const LoginForm = () => {
     console.log(data);
   };
   return (
-    <div className={`${styles.loginContainer} ${styles.flex_col}`}>
+    <div className={`${styles.loginBox} `}>
       <p className={`${styles.loginTitle}`}>Login Now</p>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className={`${styles.flex_col} ${styles.loginBodyContainer}`}>
+        <div className={` ${styles.loginBodyContainer}`}>
           <p>Username</p>
           <div className={styles["input"]}>
             <input
@@ -57,7 +69,7 @@ const LoginForm = () => {
             By login you agree to our <a>Terms & conditions</a>
           </p>
         </div>
-        <div className={`${styles.flex_row} ${styles.loginButtonContainer}`}>
+        <div className={` ${styles.loginButtonContainer}`}>
           <button>Login Now</button>
           <p>
             <Link to="/forgot-password">
@@ -77,21 +89,39 @@ const LoginForm = () => {
   );
 };
 const LoginPage = () => {
+  const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+  useEffect(() => {
+    function handleResize() {
+      setWindowDimensions(getWindowDimensions());
+    }
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
-    <div className={`${styles.LoginPage} ${styles.flex_col}`}>
-      <div className={`${styles.flex_row} ${styles.body}`}>
-        <div className={`${styles.leftContainer}`}>
-          <div className={`${styles.welcomeContainer}`}>
-            <p>Welcome Back Aluminis We are excited!</p>
+
+    <div className={`${styles.body}`}>
+
+      {windowDimensions.width > 790 &&
+        <div className={`${styles.welcomeContainer}`}>
+          <div className={`${styles.welcomeBox}`}>
+            <p>Welcome Back Alumnis We are excited!</p>
           </div>
-          <img src={KandiHuman} alt="" className={styles.kandiHuman} />
+          {windowDimensions.width > 1040 &&
+            <div className={`${styles.humanImgContainer}`} ></div>
+          }
         </div>
-        <div className={`${styles.rightContainer}`}>
-          <LoginForm />
-        </div>
+      }
+      <div className={`${styles.loginContainer}`}>
+        <LoginForm />
       </div>
-      <div className={styles["down-part"]}></div>
-    </div>
+      {windowDimensions.width > 790 &&
+        <div className={styles["down-part"]}></div>
+      }
+    </div >
+
+
   );
 };
 
