@@ -65,9 +65,11 @@ const LoginForm = () => {
           </div>
 
           {errors.password && <span>Password is required</span>}
-          <p>
-            By login you agree to our <a>Terms & conditions</a>
-          </p>
+          <div className={styles["terms-conditions"]}>
+            <p>
+              By login you agree to our <a>Terms & conditions</a>
+            </p>
+          </div>
         </div>
         <div className={` ${styles.loginButtonContainer}`}>
           <button>Login Now</button>
