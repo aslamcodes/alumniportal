@@ -81,12 +81,15 @@ const LoginForm = () => {
         </div>
       </form>
       <hr />
-      <p>
-        Dont have an account yet ?{" "}
-        <Link to="/register">
-          <a>Create Account</a>
-        </Link>
-      </p>
+      <div className={styles["sign-up-container"]}>
+        <p>
+          Dont have an account yet ?{" "}
+          <Link to="/register">
+            <a>Create Account</a>
+          </Link>
+        </p>
+      </div>
+
     </div>
   );
 };
