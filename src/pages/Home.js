@@ -1,8 +1,9 @@
 import React from "react";
+
 import Testimonial from "../components/Testimonial";
 import Carousel from "../components/UI/Carousel";
 import styles from "./Home.module.css";
-
+import Footer from "../components/Footer";
 const Home = () => {
 
 
@@ -62,7 +63,9 @@ const Home = () => {
           </div>
         </div>
 
+
       </div>
+
     </div>
   );
 };

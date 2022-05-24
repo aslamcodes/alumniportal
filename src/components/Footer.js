@@ -19,7 +19,7 @@ const Footer = () => {
               </p>
 
             </div>
-            <p>Mail Id: principal@skcet.ac.in placement@skcet.ac.in</p>
+            <p>Mail Id: principal@skct.ac.in placement@skct.ac.in</p>
           </div>
           <div className={styles["right"]}>
             <p>Kovaipudur, Coimbatore

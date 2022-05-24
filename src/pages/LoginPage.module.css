@@ -9,7 +9,6 @@
   overflow-y: scroll;
   z-index: -10;
   font-family: "Commissioner", sans-serif;
-  font-size: 1.2em;
 }
 
 .welcomeContainer {
@@ -18,7 +17,7 @@
   min-height: 100%;
   width: 80%;
   border-top-right-radius: 7rem;
-  font-size: 1.1em;
+  font-size: 1.5em;
 }
 .welcomeContainer .humanImgContainer {
   position: absolute;
@@ -59,7 +58,7 @@
   background-color: #fff;
   min-height: 100%;
   width: 100%;
-  font-size: 1.1em;
+  font-size: 1.5em;
 }
 
 .loginBox {
@@ -195,8 +194,11 @@
 }
 
 @media (max-width: 1236px) {
-  .body {
-    font-size: 0.8em;
+  .welcomeContainer {
+    font-size: 1em;
+  }
+  .loginContainer {
+    font-size: 1em;
   }
 }
 
@@ -204,20 +206,17 @@
 @media (max-width: 790px) {
   .loginContainer {
     width: 100%;
-    font-size: 1.1em;
+    font-size: 1em;
+  }
+  .loginContainer .loginBox .terms-conditions {
+    font-size: 0.7em;
   }
   .loginContainer .loginBox {
-    max-width: 17rem;
+    max-width: 18rem;
     /* padding: 2em 2em; */
     position: absolute;
     margin: 0 auto;
     left: 0;
     right: 0;
-  }
-}
-
-@media (max-height: 790px) {
-  .body {
-    font-size: 0.8em;
   }
 }

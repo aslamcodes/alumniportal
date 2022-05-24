@@ -3,8 +3,6 @@ import { useNavigate } from "react-router-dom";
 import styles from "./RegistrationPage.module.css";
 import { useForm } from "react-hook-form";
 import { CustomSelect } from "../components/UI/CustomSelect";
-import Navbar from "../components/Navbar";
-
 import Compguy from "../assets/compguy.png";
 
 const currentYear = new Date().getFullYear();

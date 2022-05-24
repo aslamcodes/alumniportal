@@ -9,6 +9,7 @@ import AluminiForum from "./pages/AluminiForum";
 import OfficeBearers from "./pages/OfficeBearers";
 import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 function App() {
   return (
     <Router>
@@ -25,6 +26,7 @@ function App() {
           <Route path="/office-bearers" element={<OfficeBearers />} />
         </Routes>
       </div>
+      <Footer />
     </Router>
   );
 }

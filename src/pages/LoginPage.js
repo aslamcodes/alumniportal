@@ -113,7 +113,7 @@ const LoginPage = () => {
           <div className={`${styles.welcomeBox}`}>
             <p>Welcome Back Alumnis We are excited!</p>
           </div>
-          {windowDimensions.width > 1040 &&
+          {windowDimensions.width > 1080 &&
             <div className={`${styles.humanImgContainer}`} ></div>
           }
         </div>

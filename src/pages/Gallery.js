@@ -1,10 +1,9 @@
 import React from "react";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
+import styles from "./Gallery.module.css";
 const Gallery = () => {
   return (
-    <div>
-      <Footer />
+    <div className={styles.gallery}>
+
     </div>
   );
 };
