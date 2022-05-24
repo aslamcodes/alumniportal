@@ -5,9 +5,24 @@
   margin: 0;
   padding: 0;
 }
-
 ::-webkit-scrollbar {
-  display: none;
+  height: 5px;
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #98ccd0;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #4e96c0;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 body {
   background-position: center center;
@@ -18,4 +33,6 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  overflow-y: scroll;
+  /* overflow-x: hidden; */
 }

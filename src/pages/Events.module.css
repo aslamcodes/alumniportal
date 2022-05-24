@@ -3,15 +3,14 @@
 .event_page {
   display: flex;
   flex-direction: column;
-  height: 100vh;
 }
 
 .event_body {
+  display: flex;
+  flex-direction: column;
   height: 100vh;
-  padding-top: 8rem;
   margin: 0 1.2rem;
-  overflow-y: scroll;
-  font-size: 1em;
+  justify-content: center;
 }
 .event_page_content {
   text-align: left;
@@ -40,21 +39,21 @@
   scroll-snap-align: start;
 }
 
-@media (min-width: 1280px) {
+@media (min-width: 1240px) {
   .event_body {
-    font-size: 1.2em;
+    font-size: 1em;
   }
 }
 
-@media (max-width: 1280px) {
+@media (max-width: 1240px) {
   .event_body {
-    font-size: 0.8em;
+    font-size: 0.9em;
   }
 }
 
 @media (max-width: 790px) {
   .event_body {
-    font-size: 0.7em;
+    font-size: 0.8em;
   }
 }
 

@@ -108,7 +108,7 @@ const LoginPage = () => {
 
     <div className={`${styles.body}`}>
 
-      {windowDimensions.width > 790 &&
+      {windowDimensions.width > 720 &&
         <div className={`${styles.welcomeContainer}`}>
           <div className={`${styles.welcomeBox}`}>
             <p>Welcome Back Alumnis We are excited!</p>
@@ -121,7 +121,7 @@ const LoginPage = () => {
       <div className={`${styles.loginContainer}`}>
         <LoginForm />
       </div>
-      {windowDimensions.width > 790 &&
+      {windowDimensions.width > 720 &&
         <div className={styles["down-part"]}></div>
       }
     </div >

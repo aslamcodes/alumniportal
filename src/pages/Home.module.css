@@ -1,46 +1,29 @@
 @import url("https://fonts.googleapis.com/css2?family=Commissioner:wght@100;200;300;400;500;600;700;800;900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap");
 
 .Body {
-  height: 100vh;
   display: flex;
   flex-direction: column;
   font-family: "Commissioner", sans-serif;
+}
+.Content-Container {
   scroll-snap-type: y mandatory;
-  overflow-y: scroll;
 }
 
 .Content-Container .Container {
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
   margin: 0 1.5rem;
   scroll-snap-align: start;
 }
 
 #Welcome .Container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
   gap: 2em;
   font-family: "Space Mono", monospace;
   font-weight: bold;
   animation: fadeInLeft 2s;
-  z-index: -10;
-}
-@media (max-width: 1040px) {
-  #Welcome .Container {
-    padding-top: 0.5rem;
-    font-size: 0.9em;
-  }
-}
-@media (max-width: 790px) {
-  #Welcome .Container {
-    padding-top: 1rem;
-    font-size: 0.8em;
-  }
-
-  #Welcome .Container p {
-    padding: 0.5em;
-  }
 }
 #Welcome .Container h1 {
   font-weight: 700;
@@ -65,24 +48,19 @@
   text-shadow: 1px 2px rgb(105, 105, 105);
 }
 
-#Testimonials .Container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  animation: fadeInLeft 2s;
+@media (max-width: 1040px) {
+  #Welcome .Container {
+    padding-top: 0.5rem;
+    font-size: 0.9em;
+  }
 }
-
-@keyframes fadeInLeft {
-  from {
-    opacity: 0;
-    -webkit-transform: translate3d(var(--animation-slide-offset-neg-x), 0, 0);
-    transform: translate3d(var(--animation-slide-offset-neg-x), 0, 0);
+@media (max-width: 790px) {
+  #Welcome .Container {
+    padding-top: 1rem;
+    font-size: 0.8em;
   }
 
-  to {
-    opacity: 1;
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
+  #Welcome .Container p {
+    padding: 0.5em;
   }
 }
