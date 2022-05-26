@@ -1,7 +1,7 @@
 import React from "react";
 import ForumCard from "../components/ForumCard";
 
-function AluminiForum() {
+function AlumniForum() {
   return (
     <div>
       <ForumCard />
@@ -9,4 +9,4 @@ function AluminiForum() {
   );
 }
 
-export default AluminiForum;
+export default AlumniForum;
