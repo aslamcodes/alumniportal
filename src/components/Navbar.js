@@ -5,6 +5,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import styles from "./Navbar.module.css";
 import { Link } from 'react-router-dom';
+import { useWindowScrollPositions } from './useWindowScrollPositions';
 
 function getWindowDimensions() {
   const { innerWidth: width, innerHeight: height } = window;
@@ -20,6 +21,15 @@ const Navbar = () => {
   const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
   const [menuActive, setMenuActive] = useState(false);
 
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  if (useWindowScrollPositions().scrollY > 40 && !isScrolled) {
+    setIsScrolled(true);
+  }
+  if (useWindowScrollPositions().scrollY < 40 && isScrolled) {
+    setIsScrolled(false);
+  }
+
   useEffect(() => {
     function handleResize() {
       setWindowDimensions(getWindowDimensions());
@@ -29,10 +39,9 @@ const Navbar = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  console.log('windowDimensions', windowDimensions);
 
   return (
-    <div className={`${styles.navbar} ${!menuActive && styles.background_blur}`}>
+    <div className={`${styles.navbar} ${!menuActive && styles.background_blur} ${isScrolled && styles.scrolled}`}>
       {windowDimensions.width > 790 &&
         <div className={`${styles.navLink}`} >
           <Link to="/">Home</Link>

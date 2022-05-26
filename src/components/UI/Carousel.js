@@ -13,7 +13,6 @@ const Carousel = ({ children }) => {
     } else {
       setActiveIndex(activeIndex - 1);
     }
-    console.log(activeIndex);
   };
 
   const rightButtonHandler = () => {
@@ -22,7 +21,6 @@ const Carousel = ({ children }) => {
     } else {
       setActiveIndex(activeIndex + 1);
     }
-    console.log(activeIndex);
   };
 
   const scrollMouseEnterHandler = () => {
@@ -36,8 +34,6 @@ const Carousel = ({ children }) => {
     if (scrollPause) {
       scrollInterval = setTimeout(() => {
         setActiveIndex((activeIndex + 1) % children.length);
-        console.log("activeIndex", activeIndex);
-        console.log("children.length", children.length);
       }, 3000);
       return () => clearTimeout(scrollInterval);
     }

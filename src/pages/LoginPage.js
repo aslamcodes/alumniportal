@@ -28,7 +28,6 @@ const LoginForm = () => {
   } = useForm();
   const onSubmit = (data) => {
     navigate("/");
-    console.log(data);
   };
   return (
     <div className={`${styles.loginBox} `}>

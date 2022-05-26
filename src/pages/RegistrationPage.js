@@ -29,7 +29,6 @@ const Page1 = ({ page, setPage }) => {
 
   const onSubmit = (data) => {
     setPage(2);
-    console.log(data);
   };
   return (
     <div className={styles["pageContainer"]}>
