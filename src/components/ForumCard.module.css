@@ -1,0 +1,41 @@
+.post_container {
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 0.3rem;
+  margin: 1.3rem 0;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  font-size: 1.3rem;
+}
+
+.userinfo_container {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  font-weight: bold;
+}
+
+.header img {
+  width: 50px;
+  padding: 0.5em;
+}
+
+.post_caption_container {
+  display: flex;
+  gap: 1rem;
+}
+
+.post_image_container img {
+  width: 100%;
+}
+
+.post_caption_container {
+  padding: 1em;
+}
+
+.post_caption_container :nth-child(1) {
+  font-weight: bold;
+}

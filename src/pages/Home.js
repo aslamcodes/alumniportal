@@ -1,29 +1,24 @@
 import React from "react";
-
 import Testimonial from "../components/Testimonial";
 import Carousel from "../components/UI/Carousel";
 import styles from "./Home.module.css";
-// import Footer from "../components/Footer";
+
 const Home = () => {
-
-
   return (
     <div className={`${styles.Body} `}>
       <div className={styles["Content-Container"]}>
-
         <div id={styles["Welcome"]}>
           <div className={`${styles.Container}`}>
             <h1>
               Welcome <span>Back</span>
             </h1>
             <p>
-              <span>“</span>I think the success of any school can be measured
-              by the contribution the alumni make to our national life
+              <span>“</span>I think the success of any school can be measured by
+              the contribution the alumni make to our national life
               <span>”</span>
             </p>
           </div>
         </div>
-
 
         <div id={styles["Testimonials"]}>
           <div className={`${styles.Container}`}>
