@@ -20,7 +20,6 @@ const Navbar = () => {
     getWindowDimensions()
   );
   const [menuActive, setMenuActive] = useState(false);
-
   const [isScrolled, setIsScrolled] = useState(false);
 
   if (useWindowScrollPositions().scrollY > 40 && !isScrolled) {
