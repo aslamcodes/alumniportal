@@ -1,5 +1,7 @@
 import React from "react";
 import styles from "./ForumCard.module.css";
+import { HeartBroken } from "@mui/icons-material";
+
 const ForumCard = ({ data }) => {
   return (
     <div className={styles.post_container}>
@@ -16,7 +18,9 @@ const ForumCard = ({ data }) => {
         </div>
       </div>
 
-      <div className={styles.post_action_container}></div>
+      <div className={styles.post_action_container}>
+        <HeartBroken />
+      </div>
 
       <div className={styles.post_caption_container}>
         <p>{data.user.name}</p>

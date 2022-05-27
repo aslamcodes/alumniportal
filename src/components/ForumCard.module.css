@@ -39,3 +39,7 @@
 .post_caption_container :nth-child(1) {
   font-weight: bold;
 }
+
+.post_action_container {
+  display: flex;
+}

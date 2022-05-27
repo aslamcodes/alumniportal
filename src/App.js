@@ -16,18 +16,16 @@ function App() {
     <Router>
       <div className="App">
         <Navbar />
-        <div>
-          <Routes>
-            <Route index path="/" element={<Home />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-            <Route path="/register" element={<RegistrationPage />} />
-            <Route path="/gallery" element={<GalleryPage />} />
-            <Route path="/events" element={<EventsPage />} />
-            <Route path="/alumini-forum" element={<AlumniForum />} />
-            <Route path="/office-bearers" element={<OfficeBearers />} />
-          </Routes>
-        </div>
+        <Routes>
+          <Route index path="/" element={<Home />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+          <Route path="/register" element={<RegistrationPage />} />
+          <Route path="/gallery" element={<GalleryPage />} />
+          <Route path="/events" element={<EventsPage />} />
+          <Route path="/office-bearers" element={<OfficeBearers />} />
+          <Route path="/alumni-forum" element={<AlumniForum />} />
+        </Routes>
         <Footer />
       </div>
     </Router>
