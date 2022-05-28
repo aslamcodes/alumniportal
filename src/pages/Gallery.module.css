@@ -1,6 +1,103 @@
+@font-face {
+  font-family: "neue_haas_rg";
+  src: url("../assets/Fonts/neue_haas_sv/NHaasGroteskTXPro-55Rg.ttf");
+}
+@font-face {
+  font-family: "neue_haas_md";
+  src: url("../assets/Fonts/neue_haas_sv/NHaasGroteskTXPro-65Md.ttf");
+}
+@font-face {
+  font-family: "neue_haas_bd";
+  src: url("../assets/Fonts/neue_haas_sv/NHaasGroteskTXPro-75Bd.ttf");
+}
+
+.gallery h1,
+h2 {
+  margin-block: 1.5rem;
+}
+.gallery h1 {
+  margin-left: 1.5rem;
+  font-size: 2em;
+}
+
+.gallery h2 {
+  font-size: 1.5rem;
+}
+.gallery h2 > span {
+  font-weight: lighter;
+  color: rgb(55, 55, 55);
+}
+
 .gallery {
+  min-height: 80vh;
+  padding-top: calc(var(--navbar-height) + 1vh);
+  margin-bottom: 2rem;
+  font-family: "neue_haas_rg";
+}
+
+.gallery hr {
+  margin: 0 auto;
+  border: none;
+  height: 2px;
+  background-color: rgb(41, 40, 40);
+  animation-duration: 3s;
+  animation-name: linehgrow;
+}
+.galleryItems hr {
+  margin: 0 auto;
+  border: none;
+  width: 2px;
+  height: 100%;
+  background-color: rgb(41, 40, 40);
+  animation-duration: 2s;
+  animation-name: linevgrow;
+}
+
+.galleryItem hr {
+  margin: 0 auto;
+  border: none;
+  height: 1px;
+  width: 100%;
+  background-color: rgb(41, 40, 40);
+  animation-duration: 3s;
+  animation-name: linehgrow;
+}
+
+.galleryItems {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
-  height: 100vh;
+  justify-content: space-between;
+  align-items: center;
+  height: 70vh;
+}
+.galleryItem {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.galleryItem h2 {
+  flex: 3;
+}
+.galleryItem img {
+  flex: 2;
+  margin: 1rem;
+  max-width: 15em;
+}
+
+@keyframes linehgrow {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+@keyframes linevgrow {
+  from {
+    height: 0vh;
+  }
+  to {
+    height: 100%;
+  }
 }
