@@ -2,6 +2,7 @@
   border-radius: 0.5em;
   background-color: #d9d9d9;
   padding: 1.3em;
+  padding-left: 1.9em;
   position: relative;
 }
 
@@ -23,7 +24,7 @@
 
 .reply_container {
   margin: 1em 0 1em 1em;
-  padding-left: 1.6em;
+  padding-left: 1.9em;
   position: relative;
 }
 
@@ -32,7 +33,7 @@
   height: 40px;
   border-radius: 20px;
   position: absolute;
-  left: -3%;
+  left: -2%;
   top: -20%;
 }
 
@@ -41,6 +42,6 @@
   height: 40px;
   border-radius: 20px;
   position: absolute;
-  left: -3%;
+  left: -2%;
   top: -20%;
 }
