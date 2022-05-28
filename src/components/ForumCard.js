@@ -1,11 +1,7 @@
 import React, { useState } from "react";
 import styles from "./ForumCard.module.css";
-import {
-  ChatBubbleOutlineRounded,
-  Favorite,
-  FavoriteBorder,
-  Share,
-} from "@mui/icons-material";
+import { AiOutlineHeart, AiFillHeart, AiOutlineShareAlt } from "react-icons/ai";
+import { BsChat } from "react-icons/bs";
 import CommentModal from "./../components/UI/CommentModal";
 const ForumCard = ({ data }) => {
   const [isCommentsModalOpen, setIsCommentsModalOpen] = useState(false);
@@ -24,15 +20,15 @@ const ForumCard = ({ data }) => {
           <p className={styles.user_name}>{data.user.name}</p>
         </div>
         <div className={styles.post_action_container}>
-          {false ? <Favorite /> : <FavoriteBorder />}
+          {false ? <AiFillHeart /> : <AiOutlineHeart />}
           <div
             onClick={() => {
               setIsCommentsModalOpen(true);
             }}
           >
-            <ChatBubbleOutlineRounded />
+            <BsChat />
           </div>
-          <Share />
+          <AiOutlineShareAlt />
         </div>
       </div>
       <div className={styles.post_image_container}>

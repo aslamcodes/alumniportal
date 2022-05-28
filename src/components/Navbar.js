@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { ReactComponent as SKIicon } from "../assets/SKI.svg";
-import { ReactComponent as SKCTicon } from "../assets/SKCT.svg";
-import MenuIcon from "@mui/icons-material/Menu";
-import CloseIcon from "@mui/icons-material/Close";
+import { GrClose } from "react-icons/gr";
+import { AiOutlineMenu } from "react-icons/ai";
 import styles from "./Navbar.module.css";
 import { Link } from "react-router-dom";
 import { useWindowScrollPositions } from "./useWindowScrollPositions";
@@ -86,7 +84,7 @@ const Navbar = () => {
       ) : (
         <div className={`${styles.dropdown} }`}>
           {!menuActive && (
-            <MenuIcon
+            <AiOutlineMenu
               className={styles["dropdown-btn"]}
               onClick={() => {
                 setMenuActive(true);
@@ -99,7 +97,7 @@ const Navbar = () => {
                 menuActive && styles.background_blur
               }`}
             >
-              <CloseIcon
+              <GrClose
                 className={styles["dropdown-close"]}
                 onClick={() => {
                   setMenuActive(false);

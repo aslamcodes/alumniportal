@@ -1,10 +1,12 @@
 import React from "react";
 import styles from "./Footer.module.css";
-import CopyrightIcon from "@mui/icons-material/Copyright";
-import YouTubeIcon from "@mui/icons-material/YouTube";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import InstagramIcon from "@mui/icons-material/Instagram";
-import TwitterIcon from "@mui/icons-material/Twitter";
+import {
+  AiFillYoutube,
+  AiFillFacebook,
+  AiFillInstagram,
+  AiOutlineTwitter,
+  AiOutlineCopyrightCircle,
+} from "react-icons/ai";
 import { useLocation } from "react-router-dom";
 
 const Footer = () => {
@@ -33,15 +35,15 @@ const Footer = () => {
           <hr />
           <div className={styles["bottom"]}>
             <div className={styles["left"]}>
-              <CopyrightIcon fontSize="small" />
+              <AiOutlineCopyrightCircle fontSize="small" />
               <p>2022 SKCT - All Rights Reserved | Designed by InExore</p>
             </div>
             <div className={styles["right"]}>
               <p>Follow us on</p>
-              <YouTubeIcon fontSize="medium" />
-              <FacebookIcon fontSize="medium" />
-              <InstagramIcon fontSize="medium" />
-              <TwitterIcon fontSize="medium" />
+              <AiFillYoutube fontSize="medium" />
+              <AiFillFacebook fontSize="medium" />
+              <AiFillInstagram fontSize="medium" />
+              <AiOutlineTwitter fontSize="medium" />
             </div>
           </div>
         </div>
