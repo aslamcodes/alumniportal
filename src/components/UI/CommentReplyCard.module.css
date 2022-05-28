@@ -9,11 +9,11 @@
   margin-left: 1em;
 }
 
-.comment_container :nth-child(1) {
+.comment_container :nth-child(2) {
   display: inline;
 }
 
-.comment_container :nth-child(2) {
+.comment_container :nth-child(3) {
   display: inline;
   margin-left: 0.3em;
 }
@@ -39,5 +39,5 @@
   border-radius: 20px;
   position: absolute;
   left: -3%;
-  top: -13%;
+  top: -20%;
 }
