@@ -2,23 +2,17 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import styles from "./LoginPage.module.css";
-
-
-// icons
-import ErrorIcon from "@mui/icons-material/Error";
+import { RiErrorWarningFill } from "react-icons/ri";
 
 function getWindowDimensions() {
   const { innerWidth: width, innerHeight: height } = window;
   return {
     width,
-    height
+    height,
   };
 }
 
 const LoginForm = () => {
-
-
-
   let navigate = useNavigate();
 
   const {
@@ -44,7 +38,7 @@ const LoginForm = () => {
             />
             {errors.userName && (
               <i>
-                <ErrorIcon style={{ color: "red" }} />
+                <RiErrorWarningFill style={{ color: "red" }} />
               </i>
             )}
           </div>
@@ -58,7 +52,7 @@ const LoginForm = () => {
             />
             {errors.password && (
               <i>
-                <ErrorIcon style={{ color: "red" }} />
+                <RiErrorWarningFill style={{ color: "red" }} />
               </i>
             )}
           </div>
@@ -88,44 +82,41 @@ const LoginForm = () => {
           </Link>
         </p>
       </div>
-
     </div>
   );
 };
 const LoginPage = () => {
-  const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+  const [windowDimensions, setWindowDimensions] = useState(
+    getWindowDimensions()
+  );
   useEffect(() => {
     function handleResize() {
       setWindowDimensions(getWindowDimensions());
     }
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (
-
     <div className={`${styles.body}`}>
-
-      {windowDimensions.width > 720 &&
+      {windowDimensions.width > 720 && (
         <div className={`${styles.welcomeContainer}`}>
           <div className={`${styles.welcomeBox}`}>
             <p>Welcome Back Alumnis We are excited!</p>
           </div>
-          {windowDimensions.width > 1080 &&
-            <div className={`${styles.humanImgContainer}`} ></div>
-          }
+          {windowDimensions.width > 1080 && (
+            <div className={`${styles.humanImgContainer}`}></div>
+          )}
         </div>
-      }
+      )}
       <div className={`${styles.loginContainer}`}>
         <LoginForm />
       </div>
-      {windowDimensions.width > 720 &&
+      {windowDimensions.width > 720 && (
         <div className={styles["down-part"]}></div>
-      }
-    </div >
-
-
+      )}
+    </div>
   );
 };
 

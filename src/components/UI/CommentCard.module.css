@@ -1,0 +1,47 @@
+.comment_container {
+  border-radius: 0.5em;
+  background-color: #d9d9d9;
+  padding: 1.3em;
+  padding-left: 1.9em;
+  position: relative;
+}
+
+.comment_box {
+  margin-left: 1em;
+}
+
+.comment_container :nth-child(2) {
+  display: inline;
+}
+
+.comment_container :nth-child(3) {
+  display: inline;
+  margin-left: 0.3em;
+  color: #586cda;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.reply_container {
+  margin: 1em 0 1em 1em;
+  padding-left: 1.9em;
+  position: relative;
+}
+
+.reply_container img {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  position: absolute;
+  left: -2%;
+  top: -20%;
+}
+
+.user_profile_image {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  position: absolute;
+  left: -2%;
+  top: -20%;
+}
