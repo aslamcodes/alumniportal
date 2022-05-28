@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Carousel.module.css";
-import ArrowBack from '@mui/icons-material/ArrowBackIos';
-import ArrowForward from '@mui/icons-material/ArrowForwardIos';
+import ArrowBack from "@mui/icons-material/ArrowBackIos";
+import ArrowForward from "@mui/icons-material/ArrowForwardIos";
 
 const Carousel = ({ children }) => {
   const [activeIndex, setActiveIndex] = useState(0);

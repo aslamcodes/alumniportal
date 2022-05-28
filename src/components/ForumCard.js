@@ -6,11 +6,19 @@ import {
   FavoriteBorder,
   Share,
 } from "@mui/icons-material";
-
+import CommentModal from "./../components/UI/CommentModal";
 const ForumCard = ({ data }) => {
-  const [isCommentsExpanded, setIsCommandExpanded] = useState(false);
+  const [isCommentsModalOpen, setIsCommentsModalOpen] = useState(false);
   return (
     <div className={styles.post_container}>
+      <CommentModal
+        handleClose={() => {
+          setIsCommentsModalOpen(false);
+        }}
+        isOpen={isCommentsModalOpen}
+      >
+        <div>Modal</div>
+      </CommentModal>
       <div className={styles.header}>
         <div className={styles.userinfo_container}>
           <img src={data.user.profile_image} />
@@ -18,11 +26,16 @@ const ForumCard = ({ data }) => {
         </div>
         <div className={styles.post_action_container}>
           {false ? <Favorite /> : <FavoriteBorder />}
-          <ChatBubbleOutlineRounded />
+          <div
+            onClick={() => {
+              setIsCommentsModalOpen(true);
+            }}
+          >
+            <ChatBubbleOutlineRounded />
+          </div>
           <Share />
         </div>
       </div>
-
       <div className={styles.post_image_container}>
         <img src={data.post.images[0]} />
         <div className={styles.post_overlay}></div>
