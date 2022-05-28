@@ -7,21 +7,33 @@ const Gallery = () => {
       <hr />
       <div className={styles.galleryItems}>
         <div className={styles.galleryItem}>
-          <img src="https://picsum.photos/id/1/200/300" alt="gallery" />
+          <div className={styles.itemImg}>
+            <img src="https://picsum.photos/id/1/200/300" alt="gallery" />
+          </div>
           <hr />
-          <h2>ALUMNI <span>MEET</span></h2>
+          <div className={styles.itemTitle}>
+            <h2>ALUMNI <span>MEET</span></h2>
+          </div>
         </div>
         <hr />
         <div className={styles.galleryItem}>
-          <h2><span>ALL</span> PHOTOS</h2>
+          <div className={styles.itemTitle}>
+            <h2><span>ALL</span> PHOTOS</h2>
+          </div>
           <hr />
-          <img src="https://picsum.photos/id/2/200/300" alt="gallery" />
+          <div className={styles.itemImg}>
+            <img src="https://picsum.photos/id/2/200/300" alt="gallery" />
+          </div>
         </div>
         <hr />
         <div className={styles.galleryItem}>
-          <h2><span>SEMINAR</span> SESSIONS</h2>
+          <div className={styles.itemTitle}>
+            <h2><span>SEMINAR</span> SESSIONS</h2>
+          </div>
           <hr />
-          <img src="https://picsum.photos/id/3/200/300" alt="gallery" />
+          <div className={styles.itemImg}>
+            <img src="https://picsum.photos/id/3/200/300" alt="gallery" />
+          </div>
         </div>
       </div>
       <hr />
