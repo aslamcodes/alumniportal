@@ -152,7 +152,12 @@
 /* mobile screen */
 
 @media (max-width: 790px) {
+  .navbar {
+    --navbar-height: 13vh;
+    font-size: 1em;
+  }
   .navbar.scrolled {
+    --navbar-height: 10vh;
     font-size: 0.8em;
   }
   .navLink {

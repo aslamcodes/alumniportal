@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from 'react'
-import { ReactComponent as SKIicon } from "../assets/SKI.svg";
-import { ReactComponent as SKCTicon } from "../assets/SKCT.svg";
+import React, { useState, useEffect } from 'react';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import styles from "./Navbar.module.css";
