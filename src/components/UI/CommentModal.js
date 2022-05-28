@@ -3,6 +3,7 @@ import ReactPortal from "../ReactPortal";
 import Styles from "./CommentModal.module.css";
 import CommentStyles from "./CommentCard.module.css";
 import Divider from "../Divider";
+import { GrClose } from "react-icons/gr";
 
 const CommentBox = ({ commentData }) => {
   const { user, comment, replies } = commentData;
@@ -62,9 +63,7 @@ const CommentModal = ({ handleClose, isOpen, comments }) => {
           <div className={Styles.comment_modal_header_container}>
             <div className={Styles.comment_modal_header}>
               <h1>Comments</h1>
-              <button type="button" onClick={handleClose}>
-                Close
-              </button>
+              <GrClose type="button" onClick={handleClose} />
             </div>
             <Divider />
           </div>
