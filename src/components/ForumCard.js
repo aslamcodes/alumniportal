@@ -12,13 +12,12 @@ const ForumCard = ({ data }) => {
   return (
     <div className={styles.post_container}>
       <CommentModal
+        comments={data.comments}
         handleClose={() => {
           setIsCommentsModalOpen(false);
         }}
         isOpen={isCommentsModalOpen}
-      >
-        <div>Modal</div>
-      </CommentModal>
+      />
       <div className={styles.header}>
         <div className={styles.userinfo_container}>
           <img src={data.user.profile_image} />

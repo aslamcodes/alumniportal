@@ -20,9 +20,15 @@ const DUMMY_POST_DATA = [
       {
         user: {
           name: "name",
-          profile_image: require("./../assets/ben.png"),
+          profile_image: "https://picsum.photos/536/354",
         },
         comment: "Hello Ben",
+        replies: [
+          {
+            user_profile_picture: "https://picsum.photos/536/354",
+            text: "Hello",
+          },
+        ],
       },
       {
         user: {
@@ -30,11 +36,25 @@ const DUMMY_POST_DATA = [
           profile_image: require("./../assets/ben.png"),
         },
         comment: "Hi Ben",
+        replies: [
+          {
+            user_profile_picture: "https://picsum.photos/536/354",
+            text: "Hello",
+          },
+          {
+            user_profile_picture: "https://picsum.photos/536/354",
+            text: "Hello",
+          },
+          {
+            user_profile_picture: "https://picsum.photos/536/354",
+            text: "Hello",
+          },
+        ],
       },
     ],
   },
   {
-    id: 1,
+    id: 2,
     user: {
       name: "Ben Tennyson",
       profile_image: require("./../assets/ben.png"),
@@ -56,6 +76,7 @@ const DUMMY_POST_DATA = [
           profile_image: require("./../assets/ben.png"),
         },
         comment: "Hello Ben",
+        replies: ["Hello"],
       },
       {
         user: {
@@ -63,6 +84,7 @@ const DUMMY_POST_DATA = [
           profile_image: require("./../assets/ben.png"),
         },
         comment: "Hi Ben",
+        replies: ["Hello"],
       },
     ],
   },
