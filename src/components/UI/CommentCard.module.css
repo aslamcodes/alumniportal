@@ -16,6 +16,9 @@
 .comment_container :nth-child(3) {
   display: inline;
   margin-left: 0.3em;
+  color: #586cda;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 .reply_container {

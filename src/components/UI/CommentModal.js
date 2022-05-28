@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import ReactPortal from "../ReactPortal";
 import Styles from "./CommentModal.module.css";
-import CommentStyles from "./CommentReplyCard.module.css";
+import CommentStyles from "./CommentCard.module.css";
+import Divider from "../Divider";
 
 const CommentBox = ({ commentData }) => {
   const { user, comment, replies } = commentData;
@@ -13,7 +14,7 @@ const CommentBox = ({ commentData }) => {
           className={CommentStyles.user_profile_image}
         />
         <p>{comment}</p>
-        <p>Reply</p>
+        <b onClick={() => {}}>Reply</b>
       </div>
       <div>
         {replies.map((reply, idx) => (
@@ -48,6 +49,7 @@ const CommentModal = ({ handleClose, isOpen, comments }) => {
       <div
         className={Styles.modal_container}
         onClick={(e) => {
+          e.stopPropagation();
           handleClose();
         }}
       >
@@ -57,13 +59,17 @@ const CommentModal = ({ handleClose, isOpen, comments }) => {
             e.stopPropagation();
           }}
         >
-          <div className={Styles.comment_modal_header}>
-            <h1>Comments</h1>
-            <button type="button" onClick={handleClose}>
-              Close
-            </button>
+          <div className={Styles.comment_modal_header_container}>
+            <div className={Styles.comment_modal_header}>
+              <h1>Comments</h1>
+              <button type="button" onClick={handleClose}>
+                Close
+              </button>
+            </div>
+            <Divider />
           </div>
-          <div>
+
+          <div className={Styles.comments_container}>
             {comments.map((comment, idx) => (
               <CommentBox
                 key={`${comment.user.name}${comment.comment}}${idx}`}

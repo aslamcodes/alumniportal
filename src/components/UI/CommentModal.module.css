@@ -9,22 +9,36 @@
 }
 
 .comment_modal_main {
-  overflow-y: hidden;
+  overflow-y: scroll;
   position: fixed;
   background: white;
   width: 50%;
   border-radius: 0.3em;
-  max-height: 50vh;
+  max-height: 70vh;
   margin: auto;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  padding: 1.3em;
+}
+
+.comment_modal_header_container {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background-color: #fff;
 }
 
 .comment_modal_header {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 2em;
+  margin-bottom: 1em;
+  padding: 1.3em 1.3em 0 1.3em;
+}
+
+.comments_container {
+  margin-top: 1.5em;
+  padding: 0.3em 1.3em 0 1.3em;
 }

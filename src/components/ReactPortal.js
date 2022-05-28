@@ -13,12 +13,13 @@ export const ReactPortal = ({
       systemCreated = true;
       element = createWrapperAndAppendToBody(wrapperId);
     }
-
+    document.body.style.overflow = "hidden";
     setWrapperElement(element);
     return () => {
       if (systemCreated && element.parentNode) {
         element.parentNode.removeChild(element);
       }
+      document.body.style.overflow = "unset";
     };
   }, [wrapperId]);
 
