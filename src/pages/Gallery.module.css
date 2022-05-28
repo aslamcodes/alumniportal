@@ -1,6 +1,124 @@
+@font-face {
+  font-family: "neue_haas_rg";
+  src: url("../assets/Fonts/neue_haas_sv/NHaasGroteskTXPro-55Rg.ttf");
+}
+@font-face {
+  font-family: "neue_haas_md";
+  src: url("../assets/Fonts/neue_haas_sv/NHaasGroteskTXPro-65Md.ttf");
+}
+@font-face {
+  font-family: "neue_haas_bd";
+  src: url("../assets/Fonts/neue_haas_sv/NHaasGroteskTXPro-75Bd.ttf");
+}
+
+.gallery h1,
+h2 {
+  margin-block: 1.5rem;
+}
+.gallery h1 {
+  margin-left: 1.5rem;
+  font-size: 2em;
+}
+
+.gallery h2 {
+  font-size: 1.5rem;
+}
+.gallery h2 > span {
+  font-weight: lighter;
+  color: rgb(55, 55, 55);
+}
+
 .gallery {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  height: 100vh;
+  min-height: 80vh;
+  padding-top: calc(var(--navbar-height) + 1vh);
+  margin-bottom: 2rem;
+  font-family: "neue_haas_rg";
+}
+
+.gallery hr {
+  margin: 0 auto;
+  border: none;
+  height: 2px;
+  background-color: rgb(41, 40, 40);
+  animation-duration: 3s;
+  animation-name: linehgrow;
+}
+.galleryItems hr {
+  margin: 0 auto;
+  border: none;
+  width: 2px;
+  height: 100%;
+  background-color: rgb(41, 40, 40);
+  animation-duration: 2s;
+  animation-name: linevgrow;
+}
+
+.galleryItem hr {
+  border: none;
+  height: 1.5px;
+  width: 100%;
+  background-color: rgb(41, 40, 40);
+  animation-duration: 3s;
+  animation-name: linehgrow;
+}
+
+.galleryItems {
+  display: grid;
+}
+
+.galleryItem {
+  display: grid;
+  animation-duration: 2s;
+  animation: linevgrow;
+}
+
+.galleryItem .itemImg {
+  display: grid;
+  place-items: center;
+}
+
+.galleryItem .itemImg img {
+  margin: 1rem;
+  width: min(10rem, 60%);
+  height: auto;
+}
+.galleryItem .itemTitle {
+  margin: auto 1rem;
+}
+
+@media (min-width: 30rem) {
+  .galleryItems {
+    grid-template-columns: 1fr 0.01fr 1fr;
+  }
+}
+@media (min-width: 60rem) {
+  .galleryItems {
+    grid-template-columns: 1fr 0fr 1fr 0fr 1fr;
+  }
+  .galleryItem:nth-of-type(1) {
+    grid-template-rows: 1fr 0fr 0.2fr;
+  }
+  .galleryItem:nth-of-type(2) {
+    grid-template-rows: 0.5fr 0fr 1fr;
+  }
+  .galleryItem:nth-of-type(3) {
+    grid-template-rows: 0.2fr 0fr 1fr;
+  }
+}
+
+@keyframes linehgrow {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+@keyframes linevgrow {
+  from {
+    height: 0%;
+  }
+  to {
+    height: 100%;
+  }
 }
