@@ -50,6 +50,9 @@ const CommentBox = ({ commentData }) => {
           {replies.map((reply, idx) => (
             <ReplyBox reply={reply} />
           ))}
+          <div className={Styles.reply_button_container}>
+            <button className={Styles.reply_button}>Reply</button>
+          </div>
         </div>
       )}
       {showReplyForm && <ReplyForm />}

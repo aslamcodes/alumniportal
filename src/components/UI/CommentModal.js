@@ -49,6 +49,9 @@ const CommentModal = ({ handleClose, isOpen, comments }) => {
               />
             ))}
           </div>
+          <div className={Styles.add_comment_button_container}>
+            <button className={Styles.add_comment_button}>Add a Comment</button>
+          </div>
         </section>
       </div>
     </ReactPortal>
