@@ -1,6 +1,7 @@
 .comment_container {
   border-radius: 0.5em;
   background-color: #d9d9d9;
+  text-align: justify;
 }
 
 .comment_box {
@@ -21,7 +22,7 @@
 
 .username {
   font-weight: bold;
-  padding: 0.5em 0 0.5em 0;
+  padding: 0.5em 0 0.3em 0;
 }
 
 .comment_action_container {
@@ -45,11 +46,13 @@
 
 .replies_container {
   background-color: #898989;
+  /* todo: add border to replies container */
+  border-color: 10px solid #898989;
   padding: 1em;
   padding-left: 1.5em;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 1em;
   border-radius: 0.5em;
   margin-top: 1.4em;
   max-height: 30vh;

@@ -22,7 +22,7 @@ const CommentBox = ({ commentData }) => {
         <p className={Styles.username}>{user.name}</p>
         <p>{comment}</p>
         {!showReplies && !showReplyForm && (
-          <Divider bgColor={"#898989"} mb={".5em"} mt={".5em"} />
+          <Divider bgColor={"#000"} mb={".5em"} mt={".5em"} />
         )}
       </div>
       {!showReplies && !showReplyForm && (
