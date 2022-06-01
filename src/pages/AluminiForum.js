@@ -38,14 +38,32 @@ const DUMMY_POST_DATA = [
         comment: "Hi Ben",
         replies: [
           {
+            user_name: "Zahra",
             user_profile_picture: "https://picsum.photos/536/354",
             text: "Hello",
           },
           {
+            user_name: "Zahra",
             user_profile_picture: "https://picsum.photos/536/354",
             text: "Hello",
           },
           {
+            user_name: "Zahra",
+            user_profile_picture: "https://picsum.photos/536/354",
+            text: "Hello",
+          },
+          {
+            user_name: "Zahra",
+            user_profile_picture: "https://picsum.photos/536/354",
+            text: "Hello",
+          },
+          {
+            user_name: "Zahra",
+            user_profile_picture: "https://picsum.photos/536/354",
+            text: "Hello",
+          },
+          {
+            user_name: "Zahra",
             user_profile_picture: "https://picsum.photos/536/354",
             text: "Hello",
           },
@@ -76,7 +94,7 @@ const DUMMY_POST_DATA = [
           profile_image: require("./../assets/ben.png"),
         },
         comment: "Hello Ben",
-        replies: ["Hello"],
+        replies: [{ user_name: "Mr. Sudalai", text: "Hello" }],
       },
       {
         user: {

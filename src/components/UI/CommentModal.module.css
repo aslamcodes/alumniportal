@@ -1,11 +1,13 @@
-.modal_container {
+.modal_overlay {
   position: fixed;
   z-index: 50;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .comment_modal_main {
@@ -41,4 +43,7 @@
 .comments_container {
   margin-top: 1.5em;
   padding: 0.3em 1.3em 0 1.3em;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
