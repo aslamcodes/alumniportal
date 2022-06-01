@@ -45,8 +45,8 @@
 
 .replies_container {
   background-color: #898989;
-  padding-left: 2em;
   padding: 1em;
+  padding-left: 1.5em;
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -54,4 +54,10 @@
   margin-top: 1.4em;
   max-height: 30vh;
   overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.replies_container::-webkit-scrollbar {
+  display: none;
 }
