@@ -19,7 +19,7 @@ const DUMMY_POST_DATA = [
     comments: [
       {
         user: {
-          name: "name",
+          name: "Ben Tennyson",
           profile_image: "https://picsum.photos/536/354",
         },
         comment: "Hello Ben",
@@ -33,7 +33,7 @@ const DUMMY_POST_DATA = [
       },
       {
         user: {
-          name: "name",
+          name: "Enrico",
           profile_image: require("./../assets/ben.png"),
         },
         comment: "Hi Ben",
