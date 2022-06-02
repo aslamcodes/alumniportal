@@ -14,8 +14,8 @@
   overflow-y: scroll;
   position: fixed;
   background: white;
-  width: 50%;
-  border-radius: 0.3em;
+  max-width: 50%;
+  border-radius: 0.3rem;
   max-height: 70vh;
   margin: auto;
   top: 0;
@@ -49,17 +49,14 @@
   background-attachment: red;
 }
 
-.add_comment_button_container {
-  position: sticky;
-  bottom: 3%;
-  width: 100%;
-  text-align: right;
-}
-
 .add_comment_button {
+  position: sticky;
+  bottom: 5%;
+  left: 90%;
   border: none;
   outline: none;
   background-color: #000;
+  /* Todo: Do something about border-raidius unit */
   border-radius: 25px;
   padding: 1em;
   color: white;

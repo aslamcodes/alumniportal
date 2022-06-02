@@ -40,7 +40,6 @@ const CommentModal = ({ handleClose, isOpen, comments }) => {
             </div>
             <Divider />
           </div>
-
           <div className={Styles.comments_container}>
             {comments.map((comment, idx) => (
               <CommentBox
@@ -49,9 +48,7 @@ const CommentModal = ({ handleClose, isOpen, comments }) => {
               />
             ))}
           </div>
-          <div className={Styles.add_comment_button_container}>
-            <button className={Styles.add_comment_button}>Add a Comment</button>
-          </div>
+          <button className={Styles.add_comment_button}>Add a Comment</button>
         </section>
       </div>
     </ReactPortal>
