@@ -18,8 +18,10 @@ const CommentBox = ({ commentData }) => {
           setShowReplyForm(false);
         }}
       >
-        <img src={user.profile_image} />
-        <p className={Styles.username}>{user.name}</p>
+        <div className={Styles.heading}>
+          <img src={user.profile_image} />
+          <p className={Styles.username}>{user.name}</p>
+        </div>
         <p>{comment}</p>
         {!showReplies && !showReplyForm && (
           <Divider bgColor={"#000"} mb={".5em"} mt={".5em"} />

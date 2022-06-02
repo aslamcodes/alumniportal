@@ -7,10 +7,14 @@
   padding-top: 0.5em;
 }
 
-.reply_box > img {
+.header {
+  position: relative;
+}
+
+.header > img {
   position: absolute;
-  left: -2%;
-  top: -10%;
+  left: -8%;
+  top: -90%;
   width: 40px;
   height: 40px;
   border-radius: 50%;

@@ -10,14 +10,17 @@
   position: relative;
 }
 
-.comment_box > img {
+.heading {
+  position: relative;
+}
+.heading > img {
   width: 40px;
   height: 40px;
   border-radius: 50%;
   object-fit: cover;
   position: absolute;
-  left: -2%;
-  top: -13%;
+  left: -7.5%;
+  top: -40%;
 }
 
 .username {
@@ -27,7 +30,7 @@
 
 .comment_action_container {
   display: flex;
-  gap: 0.7em;
+  gap: 0.7rem;
   padding-left: 2em;
   margin-bottom: 0.5em;
 }
@@ -47,12 +50,11 @@
 .replies_container {
   background-color: #898989;
   /* todo: add border to replies container */
-  border-color: 10px solid #898989;
-  padding: 1em;
-  padding-left: 1.5em;
+  padding: 1.5rem 1rem;
+  padding-left: 1.5rem;
   display: flex;
   flex-direction: column;
-  gap: 1em;
+  gap: 1rem;
   border-radius: 0.5em;
   margin-top: 1.4em;
   max-height: 30vh;
