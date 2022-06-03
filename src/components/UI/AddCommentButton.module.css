@@ -1,0 +1,60 @@
+.comment_form {
+  display: flex;
+  position: sticky;
+  bottom: 5%;
+  float: right;
+  width: max(10rem, 12vw);
+  padding: 0.5rem;
+  margin-inline: 2rem;
+  align-items: center;
+  gap: 0.3rem;
+  background-color: #000;
+  color: #fff;
+  border-radius: 1.56rem;
+  font-weight: bold;
+  font-size: 0.9rem;
+  transition: all 0.4s ease-in-out;
+  cursor: pointer;
+}
+
+.comment_form_expanded {
+  margin-inline: 2rem;
+  width: 89%;
+}
+
+.comment_form button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.comment_form :nth-child(2) {
+  color: #000;
+  background-color: #fff;
+  border-radius: 1.5rem;
+  padding: 0.2em;
+  font-size: 1.2rem;
+  min-width: 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+}
+
+.comment_form input {
+  padding: 0.2em;
+  background-color: transparent;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1rem;
+  width: 100%;
+  border: none;
+  outline: none;
+}
+
+.comment_form input::placeholder {
+  color: #fff;
+  font-weight: bold;
+  font-size: 1rem;
+}

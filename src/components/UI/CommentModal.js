@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import ReactPortal from "../ReactPortal";
 import Styles from "./CommentModal.module.css";
 import Divider from "../Divider";
 import { GrClose } from "react-icons/gr";
 import CommentBox from "./CommentBox";
+import AddCommentButton from "./AddCommentButton";
 
 const CommentModal = ({ handleClose, isOpen, comments }) => {
   useEffect(() => {
@@ -40,7 +41,6 @@ const CommentModal = ({ handleClose, isOpen, comments }) => {
             </div>
             <Divider />
           </div>
-
           <div className={Styles.comments_container}>
             {comments.map((comment, idx) => (
               <CommentBox
@@ -49,6 +49,7 @@ const CommentModal = ({ handleClose, isOpen, comments }) => {
               />
             ))}
           </div>
+          <AddCommentButton />
         </section>
       </div>
     </ReactPortal>

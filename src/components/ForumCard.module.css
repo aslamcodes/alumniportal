@@ -16,7 +16,7 @@
 .userinfo_container {
   display: flex;
   align-items: center;
-  gap: 0.1em;
+  gap: 0.1rem;
   font-weight: bold;
 }
 
@@ -72,6 +72,6 @@
 
 .post_action_container {
   display: flex;
-  gap: 0.5em;
+  gap: 1rem;
   margin-right: 1em;
 }

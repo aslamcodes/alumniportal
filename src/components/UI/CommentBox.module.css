@@ -1,6 +1,7 @@
 .comment_container {
   border-radius: 0.5em;
   background-color: #d9d9d9;
+  text-align: justify;
 }
 
 .comment_box {
@@ -9,24 +10,28 @@
   position: relative;
 }
 
-.comment_box > img {
+.heading {
+  position: relative;
+}
+
+.heading > img {
   width: 40px;
   height: 40px;
   border-radius: 50%;
   object-fit: cover;
   position: absolute;
-  left: -2%;
-  top: -13%;
+  left: -7.5%;
+  top: -40%;
 }
 
 .username {
   font-weight: bold;
-  padding: 0.5em 0 0.5em 0;
+  padding: 0.5em 0 0.3em 0;
 }
 
 .comment_action_container {
   display: flex;
-  gap: 0.7em;
+  gap: 0.7rem;
   padding-left: 2em;
   margin-bottom: 0.5em;
 }
@@ -45,11 +50,12 @@
 
 .replies_container {
   background-color: #898989;
-  padding: 1em;
-  padding-left: 1.5em;
+  border-top: 1px solid #898989;
+  padding: 1.5rem 1rem;
+  padding-left: 1.5rem;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 1.5rem;
   border-radius: 0.5em;
   margin-top: 1.4em;
   max-height: 30vh;
@@ -60,4 +66,20 @@
 
 .replies_container::-webkit-scrollbar {
   display: none;
+}
+
+.reply_button {
+  position: sticky;
+  bottom: -2%;
+  margin: auto;
+  border: none;
+  outline: none;
+  background-color: #000;
+  border-radius: 1.5rem;
+  padding: 0.7em;
+  color: white;
+  font-weight: bold;
+  font-size: 0.9rem;
+  cursor: pointer;
+  margin-right: 1em;
 }
