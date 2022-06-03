@@ -2,6 +2,7 @@ import { useState } from "react";
 import Divider from "../Divider";
 import Styles from "./CommentBox.module.css";
 import ReplyBox from "./ReplyBox";
+import ReplyButton from "./ReplyButton";
 import ReplyForm from "./ReplyForm";
 
 const CommentBox = ({ commentData }) => {
@@ -52,7 +53,7 @@ const CommentBox = ({ commentData }) => {
           {replies.map((reply, idx) => (
             <ReplyBox reply={reply} />
           ))}
-          <button className={Styles.reply_button}>Reply</button>
+          <ReplyButton />
         </div>
       )}
       {showReplyForm && <ReplyForm />}

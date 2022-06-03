@@ -17,6 +17,11 @@
   cursor: pointer;
 }
 
+.comment_form_expanded {
+  margin-inline: 2rem;
+  width: 89%;
+}
+
 .comment_form button {
   position: absolute;
   right: 0;
@@ -30,6 +35,11 @@
   border-radius: 1.5rem;
   padding: 0.2em;
   font-size: 1.2rem;
+  min-width: 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
 }
 
 .comment_form input {
@@ -41,11 +51,6 @@
   width: 100%;
   border: none;
   outline: none;
-}
-
-.comment_form_expanded {
-  margin-inline: 2rem;
-  width: 90%;
 }
 
 .comment_form input::placeholder {
