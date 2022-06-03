@@ -37,8 +37,20 @@
 
 .share_icon {
   position: absolute;
-  right: 2%;
+  background-color: #000;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 90%;
+  min-width: 1.5rem;
+  border-radius: 25px;
+  right: 0.5%;
   top: 50%;
   transform: translateY(-50%);
   bottom: 0;
+}
+
+.share_icon > * {
+  margin-top: 2px;
 }

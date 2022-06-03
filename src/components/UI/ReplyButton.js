@@ -6,7 +6,6 @@ import Styles from "./ReplyButton.module.css";
 const ReplyButton = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const inputRef = useRef(null);
-
   return (
     <form
       onSubmit={(e) => {

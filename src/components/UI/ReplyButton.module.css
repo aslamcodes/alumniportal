@@ -5,6 +5,7 @@
   position: sticky;
   bottom: 5%;
   align-self: flex-end;
+  /* todo: Make width responsive */
   width: 5.7rem;
   background-color: #000;
   border-radius: 1.56rem;
@@ -36,7 +37,7 @@
   background-color: transparent;
   color: #fff;
   font-size: 1rem;
-  padding: 0.2em;
+  padding: 0.3em;
   outline: none;
   border: none;
   font-weight: bold;

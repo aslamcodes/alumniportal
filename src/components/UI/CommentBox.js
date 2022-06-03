@@ -51,7 +51,7 @@ const CommentBox = ({ commentData }) => {
       {showReplies && (
         <div className={Styles.replies_container}>
           {replies.map((reply, idx) => (
-            <ReplyBox reply={reply} />
+            <ReplyBox id={idx} reply={reply} />
           ))}
           <ReplyButton />
         </div>
