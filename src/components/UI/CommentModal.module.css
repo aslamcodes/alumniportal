@@ -14,7 +14,7 @@
   overflow-y: scroll;
   position: fixed;
   background: white;
-  max-width: 50%;
+  max-width: clamp(40rem, 50%, 70rem);
   border-radius: 0.3rem;
   max-height: 75%;
   margin: auto;
