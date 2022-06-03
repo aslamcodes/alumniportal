@@ -42,26 +42,9 @@
 
 .comments_container {
   margin: 1.5em 0;
-  padding: 0.3em 1.3em 0 1.3em;
+  padding: 0.3em 2rem 0 2rem;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
   background-attachment: red;
-}
-
-.add_comment_button {
-  position: sticky;
-  bottom: 5%;
-  left: 90%;
-  border: none;
-  outline: none;
-  background-color: #000;
-  /* Todo: Do something about border-raidius unit */
-  border-radius: 25px;
-  padding: 1em;
-  color: white;
-  font-weight: bold;
-  font-size: 0.9rem;
-  cursor: pointer;
-  margin-right: 1em;
 }
