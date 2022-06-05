@@ -1,0 +1,64 @@
+.post_modal_overlay {
+  position: fixed;
+  z-index: 50;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  font-size: 1.3rem;
+  line-height: 1.8rem;
+  letter-spacing: 0.05rem;
+  text-align: justify;
+}
+
+.post_modal_main {
+  overflow-y: scroll;
+  position: fixed;
+  max-width: clamp(40rem, 80%, 70rem);
+  border-radius: 0.3rem;
+  max-height: 75%;
+  margin: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  color: #fff;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.post_modal_main::-webkit-scrollbar {
+  display: none;
+}
+
+.post_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profile_image {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.user_info_container {
+  display: flex;
+  margin-bottom: 1rem;
+  gap: 0.5rem;
+}
+
+.close_btn {
+  color: #fff;
+}
+
+.username {
+  font-weight: bold;
+}

@@ -3,8 +3,8 @@ import ReactPortal from "../ReactPortal";
 import Styles from "./CommentModal.module.css";
 import Divider from "../Divider";
 import { GrClose } from "react-icons/gr";
-import CommentBox from "./CommentBox";
-import AddCommentButton from "./AddCommentButton";
+import CommentBox from "../UI/CommentBox";
+import AddCommentButton from "../UI/AddCommentButton";
 
 const CommentModal = ({ handleClose, isOpen, comments }) => {
   useEffect(() => {
