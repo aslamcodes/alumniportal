@@ -152,10 +152,8 @@ const DUMMY_POST_DATA = [
 ];
 
 function AlumniForum() {
-  const [test, setTest] = useState("");
   return (
     <div className={Styles.forum_container}>
-      <AutoGrowTextArea value={test} onChange={setTest} />
       {DUMMY_POST_DATA.map((post) => (
         <ForumCard key={post.id} data={post} />
       ))}
