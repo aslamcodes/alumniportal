@@ -48,8 +48,8 @@ const CommentModal = ({ handleClose, isOpen, comments }) => {
                 commentData={comment}
               />
             ))}
+            <AddCommentButton />
           </div>
-          <AddCommentButton />
         </section>
       </div>
     </ReactPortal>
