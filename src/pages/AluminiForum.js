@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import ForumCard from "../components/ForumCard";
-import AutoGrowTextArea from "../components/UI/AutoGrowTextArea";
 import Styles from "./AlumniForum.module.css";
 const DUMMY_POST_DATA = [
   {
