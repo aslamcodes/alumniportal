@@ -3,7 +3,38 @@ import { useNavigate } from "react-router-dom";
 import styles from "./RegistrationPage.module.css";
 import Compguy from "../assets/compguy.png";
 
+const currentYear = new Date().getFullYear();
+const range = (start, stop, step) =>
+  Array.from({ length: (stop - start) / step + 1 }, (_, i) => start + i * step);
+
+const YearOfPassing = range(1985, currentYear, 1);
+const Department = ["IT", "CSE", "ECE", "EEE", "MECH", "CIVIL", "MBA"];
+const GraduationLevel = ["Under graduate", "Post graduate"];
+
 function RegistrationPage() {
+
+  const navigate = useNavigate();
+  const [form, setForm] = useState(1);
+  const [data, setData] = useState({
+    yearOfPassing: "",
+    department: "",
+    graduationLevel: "",
+    name: "",
+    registerNumber: "",
+    dob: "",
+    email: "",
+    password: "",
+    confirmPassword: ""
+  });
+
+  const handleChange = (e) => {
+    setData({
+      ...data,
+      [e.target.name]: e.target.value
+    });
+  }
+
+
   return (
     <div className={styles.container}>
       <div className={styles.image_container}>
@@ -11,43 +42,75 @@ function RegistrationPage() {
       </div>
       <div className={styles.form_container}>
         <div className={styles.form_header}>
-          <h1>Register</h1>
+          <h1>{form === 1 ? "Register" : "Personal Information"}</h1>
         </div>
         <div className={styles.form_body}>
           <form>
-            <div className={`${styles.form_input_container} ${styles.split_container}`}>
-              <select type="text" id="yop" >
-                <option value="Year of passing"> year of passing</option>
-              </select>
-              <select type="text" id="dept" >
-                <option value="department"> Department</option>
-              </select>
-            </div>
-            <div className={styles.form_input_container}>
-              <select type="text" id="gradlevel">
-                <option value="">Graduation level</option>
-              </select>
-            </div>
-            <div className={styles.form_input_container}>
-              <input type="text" id="name" placeholder="Name" />
-            </div>
-            <div className={styles.form_input_container}>
-              <input type="text" id="reg_no" placeholder="Register Number" />
-            </div>
-            <div className={`${styles.form_input_container} ${styles.split_container}`}>
-              <input type="date" id="dob" />
-              <input type="email" id="email" placeholder="Email" />
-            </div>
-            <div className={styles.form_input_container}>
-              <input type="password" id="password" placeholder="Password" />
-            </div>
-            <div className={styles.form_input_container}>
-              <input type="password" id="confirm_password" placeholder="Confirm Password" />
-            </div>
-            <div className={`${styles.form_button_container} ${styles.split_container}`}>
-              <button>back to login</button>
-              <button> next page</button>
-            </div>
+            {form === 1 ?
+              <section>
+                <div className={`${styles.form_input_container} ${styles.split_container}`}>
+                  <select name="yearOfPassing" type="text" id="yop" value={data.yearOfPassing} onChange={handleChange}>
+                    <option value="Year of passing" className={styles.select_items}> year of passing</option>
+                    {YearOfPassing.map((year) => (
+                      <option key={year} value={year} className={styles.select_items}>
+                        {year}
+                      </option>
+                    ))}
+                  </select>
+                  <select name="department" type="text" id="dept" value={data.department} onChange={handleChange}>
+                    <option value="department"> Department</option>
+                    {Department.map((dept) => (
+                      <option key={dept} value={dept}>
+                        {dept}
+                      </option>
+                    ))}
+
+                  </select>
+                </div>
+                <div className={styles.form_input_container}>
+                  <select name="graduationLevel" type="text" id="gradlevel" value={data.graduationLevel} onChange={handleChange}>
+                    <option value="">Graduation level</option>
+                    {GraduationLevel.map((level) => (
+                      <option key={level} value={level}>
+                        {level}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div className={styles.form_input_container}>
+                  <input name="name" type="text" id="name" placeholder="Name" value={data.name} onChange={handleChange} />
+                </div>
+                <div className={styles.form_input_container}>
+                  <input name="registerNumber" type="text" id="register_no" placeholder="Register Number" value={data.registerNumber} onChange={handleChange} />
+                </div>
+                <div className={`${styles.form_input_container} ${styles.split_container}`}>
+                  <input name="dob" type="date" id="dob" value={data.dob} onChange={handleChange} />
+                  <input name="email" type="email" id="email" placeholder="Email" value={data.email} onChange={handleChange} />
+                </div>
+                <div className={styles.form_input_container}>
+                  <input name="password" type="password" id="password" placeholder="Password" value={data.password} onChange={handleChange} />
+                </div>
+                <div className={styles.form_input_container}>
+                  <input name="confirmPassword" type="password" id="confirm_password" placeholder="Confirm Password" value={data.confirmPassword} onChange={handleChange} />
+                </div>
+                <div className={`${styles.form_button_container} ${styles.split_container}`}>
+                  <button onClick={() => navigate('/login')}>back to login</button>
+                  <button onClick={() => setForm(2)}> next page</button>
+                </div>
+              </section>
+              :
+              <section>
+                <div>
+                  <div className={styles.form_input_container}>
+                    <input name="name" type="text" id="name" placeholder="Name" value={data.name} onChange={handleChange} />
+                  </div>
+                </div>
+                <div className={`${styles.form_button_container} ${styles.split_container}`}>
+                  <button onClick={() => navigate('/login')}>Back</button>
+                  <button type="submit"> Submit</button>
+                </div>
+              </section>
+            }
           </form>
         </div>
       </div>

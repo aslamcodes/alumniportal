@@ -18,7 +18,7 @@
   position: sticky;
   position: -webkit-sticky;
   top: calc(var(--navbar-height));
-  max-height: 80%;
+  max-height: 90%;
   max-width: 100%;
   object-fit: cover;
 }
@@ -29,7 +29,7 @@
   flex-direction: column;
   align-items: center;
   margin: 2rem;
-  padding: 1rem;
+  padding: 1rem 2rem;
   border-radius: 0.7rem;
   background-color: #cde7fbe1;
   color: #285fa4;
@@ -39,7 +39,7 @@
 .form_body {
   width: 100%;
 }
-.form_body form {
+.form_body form section {
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
@@ -62,8 +62,7 @@
 .form_input_container > *:focus {
   outline: none;
 }
-.form_input_container > select {
-}
+
 .form_input_container > input[type="date"] {
   font-size: 1.2em;
 }
