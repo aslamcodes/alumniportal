@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./RegistrationPage.module.css";
-import { useForm } from "react-hook-form";
-import { CustomSelect } from "../components/UI/CustomSelect";
 import Compguy from "../assets/compguy.png";
 
 const currentYear = new Date().getFullYear();
@@ -13,231 +11,181 @@ const YearOfPassing = range(1985, currentYear, 1);
 const Department = ["IT", "CSE", "ECE", "EEE", "MECH", "CIVIL", "MBA"];
 const GraduationLevel = ["Under graduate", "Post graduate"];
 
-const Page1 = ({ page, setPage }) => {
-  const [yearPassing, setYearPassing] = useState("Year of passing");
-  const [dept, setDept] = useState("Department");
-  const [graduationLevel, setGraduationLevel] = useState("Graduation Level");
+function RegistrationPage() {
 
-  let navigate = useNavigate();
-  const onLoginButtonClick = () => navigate("/login");
+  const navigate = useNavigate();
+  const [formOptions, setFormOptions] = useState({
+    option1: "",
+    option2: "",
+  });
+  const [form, setForm] = useState(1);
+  const [data, setData] = useState({
+    yearOfPassing: "",
+    department: "",
+    graduationLevel: "",
+    name: "",
+    registerNumber: "",
+    dob: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    cname: "",
+    cemail: "",
+    clgname: "",
+    clgemail: "",
+    desgination: "",
+    organization: "",
+    city: "",
+    state: "",
+    country: "",
+    contactno: "",
+    skill: ""
+  });
 
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-  } = useForm();
 
-  const onSubmit = (data) => {
-    setPage(2);
-  };
-  return (
-    <div className={styles["pageContainer"]}>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <p className={`${styles.RegistrationTitle}`}>Login Information</p>
-        <div className={`${styles.FormContainer}`}>
-          <div className={`${styles.flex_row} ${styles.DoubleAttribute}`}>
-            <CustomSelect
-              selected={yearPassing}
-              setSelected={setYearPassing}
-              Items={YearOfPassing}
-            />
-            <CustomSelect
-              selected={dept}
-              setSelected={setDept}
-              Items={Department}
-            />
-          </div>
-          <CustomSelect
-            selected={graduationLevel}
-            setSelected={setGraduationLevel}
-            Items={GraduationLevel}
-          />
 
-          <input
-            className={styles["input-field"]}
-            type="text"
-            placeholder="Enter Your Name"
-          />
-          <input
-            className={styles["input-field"]}
-            type="text"
-            placeholder="Enter Your Registration number"
-          />
-          <div className={`${styles.flex_row} ${styles.DoubleAttribute}`}>
-            <input
-              className={styles["input-field"]}
-              type="date"
-              placeholder="Select Your DOB"
-            />
-            <input
-              className={styles["input-field"]}
-              type="text"
-              placeholder="Enter your Email Id"
-            />
-          </div>
-          <input
-            className={styles["input-field"]}
-            type="text"
-            placeholder="Enter password"
-          />
-          <input
-            className={styles["input-field"]}
-            type="text"
-            placeholder="Confirm Password"
-          />
-        </div>
-        <div className={`${styles.flex_row} ${styles.ButtonContainer}`}>
-          <button onClick={onLoginButtonClick}>Back to Login</button>
-          <button type="submit">Next Page</button>
-        </div>
-      </form>
-    </div>
-  );
-};
-const Page2 = ({ setPage }) => {
-  const [isEnterpreneur, setIsEnterpreneur] = useState(false);
-  const [isHigherStudies, setIsHigherStudies] = useState(false);
+  const handleChange = (e) => {
+    setData({
+      ...data,
+      [e.target.name]: e.target.value
+    });
+  }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    navigate("/login");
+  }
 
-  let navigate = useNavigate();
-
-  const onBackButtonClick = () => setPage(1);
-  const onLoginButtonClick = () => navigate("/login");
 
   return (
-    <div className={styles["pageContainer"]}>
-      <p className={`${styles.RegistrationTitle}`}>Personal Information</p>
-      <div className={`${styles.FormContainer}`}>
-        <div className={`${styles.flex_row} ${styles.FormChoice}`}>
-          <p>Are you an enterpreneur</p>
-          <button
-            onClick={() => setIsEnterpreneur(true)}
-            className={`${isEnterpreneur && styles.ButtonPressed}`}
-          >
-            yes
-          </button>
-          <button
-            onClick={() => setIsEnterpreneur(false)}
-            className={`${!isEnterpreneur && styles.ButtonNotPressed}`}
-          >
-            no
-          </button>
-        </div>
-
-        <div className={`${styles.flex_row} ${styles.FormChoice} `}>
-          <p>Are you doing higher studies</p>
-          <button
-            onClick={() => setIsHigherStudies(true)}
-            className={`${isHigherStudies && styles.ButtonPressed}`}
-          >
-            yes
-          </button>
-          <button
-            onClick={() => setIsHigherStudies(false)}
-            className={`${!isHigherStudies && styles.ButtonNotPressed}`}
-          >
-            no
-          </button>
-        </div>
-        {isEnterpreneur && (
-          <div className={`${styles.flex_row} ${styles.DoubleAttribute}`}>
-            <input
-              className={styles["input-field"]}
-              type="text"
-              placeholder="Company Name"
-            />
-            <input
-              className={styles["input-field"]}
-              type="text"
-              placeholder="Company Email ID"
-            />
-          </div>
-        )}
-
-        {isHigherStudies && (
-          <div className={`${styles.flex_row} ${styles.DoubleAttribute}`}>
-            <input
-              className={styles["input-field"]}
-              type="text"
-              placeholder="College Name"
-            />
-            <input
-              className={styles["input-field"]}
-              type="text"
-              placeholder="Course Name"
-            />
-          </div>
-        )}
-
-        <input
-          className={styles["input-field"]}
-          type="text"
-          placeholder="Your Designation (Working Professional)"
-        />
-        <input
-          className={styles["input-field"]}
-          type="text"
-          placeholder="Enter your Organization name"
-        />
-        <div className={`${styles.flex_row} ${styles.DoubleAttribute}`}>
-          <input
-            className={styles["input-field"]}
-            type="text"
-            placeholder="Select Your City"
-          />
-          <input
-            className={styles["input-field"]}
-            type="text"
-            placeholder="Select your state"
-          />
-        </div>
-        <input
-          className={styles["input-field"]}
-          type="text"
-          placeholder="Select your country"
-        />
-        <input
-          className={styles["input-field"]}
-          type="text"
-          placeholder="Enter your Contact Number"
-        />
-        <input
-          className={styles["input-field"]}
-          type="text"
-          placeholder="Skill/Domain"
-        />
+    <div className={styles.container}>
+      <div className={styles.image_container}>
+        <img src={Compguy} alt="register image" />
       </div>
-      <div className={`${styles.flex_row} ${styles.ButtonContainer}`}>
-        <button onClick={onBackButtonClick}>Back</button>
-        <button
-          type="submit"
-          onClick={onLoginButtonClick}
-          className={styles["SubmitButton"]}
-        >
-          Submit
-        </button>
+      <div className={styles.form_container}>
+        <div className={styles.form}>
+          <div className={styles.form_header}>
+            <h1>{form === 1 ? "Register" : "Personal Information"}</h1>
+          </div>
+          <div className={styles.form_body}>
+            {form === 2 && (
+              <div className={styles.form_options}>
+                <div>
+                  <div className={styles.name} >
+                    <p>Are you an enterpreneur</p>
+                  </div>
+                  <div className={styles.options}>
+                    <button className={!formOptions.option1 && styles.selected} onClick={() => setFormOptions({ ...formOptions, option1: false })}>no</button>
+                    <button className={formOptions.option1 && styles.selected} onClick={() => setFormOptions({ ...formOptions, option1: true })}>yes</button>
+                  </div>
+                </div>
+                <div>
+                  <div className={styles.name}>
+                    <p>Are you doing higher studies </p>
+                  </div>
+                  <div className={styles.options}>
+                    <button className={!formOptions.option2 && styles.selected} onClick={() => setFormOptions({ ...formOptions, option2: false })}>no</button>
+                    <button className={formOptions.option2 && styles.selected} onClick={() => setFormOptions({ ...formOptions, option2: true })}>yes</button>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            <form onSubmit={handleSubmit}>
+              {form === 1 ?
+                <section>
+                  <div className={`${styles.form_input_container} ${styles.split_container}`}>
+                    <select name="yearOfPassing" type="text" id="yop" value={data.yearOfPassing} onChange={handleChange}>
+                      <option value="Year of passing" className={styles.select_items}> year of passing</option>
+                      {YearOfPassing.map((year) => (
+                        <option key={year} value={year} className={styles.select_items}>
+                          {year}
+                        </option>
+                      ))}
+                    </select>
+                    <select name="department" type="text" id="dept" value={data.department} onChange={handleChange}>
+                      <option value="department"> Department</option>
+                      {Department.map((dept) => (
+                        <option key={dept} value={dept}>
+                          {dept}
+                        </option>
+                      ))}
+
+                    </select>
+                  </div>
+                  <div className={styles.form_input_container}>
+                    <select name="graduationLevel" type="text" id="gradlevel" value={data.graduationLevel} onChange={handleChange}>
+                      <option value="">Graduation level</option>
+                      {GraduationLevel.map((level) => (
+                        <option key={level} value={level}>
+                          {level}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className={styles.form_input_container}>
+                    <input name="name" type="text" id="name" placeholder="Name" value={data.name} onChange={handleChange} />
+                  </div>
+                  <div className={styles.form_input_container}>
+                    <input name="registerNumber" type="text" id="register_no" placeholder="Register Number" value={data.registerNumber} onChange={handleChange} />
+                  </div>
+                  <div className={`${styles.form_input_container} ${styles.split_container}`}>
+                    <input name="dob" type="date" id="dob" value={data.dob} onChange={handleChange} />
+                    <input name="email" type="email" id="email" placeholder="Email" value={data.email} onChange={handleChange} />
+                  </div>
+                  <div className={styles.form_input_container}>
+                    <input name="password" type="password" id="password" placeholder="Password" value={data.password} onChange={handleChange} />
+                  </div>
+                  <div className={styles.form_input_container}>
+                    <input name="confirmPassword" type="password" id="confirm_password" placeholder="Confirm Password" value={data.confirmPassword} onChange={handleChange} />
+                  </div>
+                  <div className={`${styles.form_button_container} ${styles.split_container}`}>
+                    <button onClick={() => navigate('/login')}>back to login</button>
+                    <button onClick={() => setForm(2)}> next page</button>
+                  </div>
+                </section>
+                :
+                <section>
+                  {formOptions.option1 && <div className={`${styles.form_input_container} ${styles.split_container}`}>
+                    <input name="cname" type="text" id="cname" placeholder="Company Name" value={data.cname} onChange={handleChange} />
+                    <input name="cemail" type="text" id="cemail" placeholder="Company Email ID" value={data.cemail} onChange={handleChange} />
+                  </div>}
+                  {formOptions.option2 && <div className={`${styles.form_input_container} ${styles.split_container}`}>
+                    <input name="clgname" type="text" id="clgname" placeholder="College Name" value={data.clgname} onChange={handleChange} />
+                    <input name="crname" type="text" id="crname" placeholder="Course Name" value={data.crname} onChange={handleChange} />
+                  </div>}
+                  <div className={styles.form_input_container}>
+                    <input name="designation" type="text" id="designation" placeholder="Your designation (working professional)" value={data.designation} onChange={handleChange} />
+                  </div>
+                  <div className={styles.form_input_container}>
+                    <input name="organization" type="text" id="organization" placeholder="Organization name" value={data.organization} onChange={handleChange} />
+                  </div>
+                  <div className={`${styles.form_input_container} ${styles.split_container}`}>
+                    <input name="city" type="text" id="city" placeholder="Select your city" value={data.city} onChange={handleChange} />
+                    <input name="state" type="text" id="state" placeholder="Select your state" value={data.state} onChange={handleChange} />
+                  </div>
+                  <div className={styles.form_input_container}>
+                    <input name="country" type="text" id="country" placeholder="Select your country" value={data.country} onChange={handleChange} />
+                  </div>
+                  <div className={styles.form_input_container}>
+                    <input name="contactno" type="number" id="contactno" placeholder="Enter your contact no" value={data.contactno} onChange={handleChange} />
+                  </div>
+                  <div className={styles.form_input_container}>
+                    <input name="skill" type="text" id="skill" placeholder="Skill/Domain" value={data.skill} onChange={handleChange} />
+                  </div>
+                  <div className={`${styles.form_button_container} ${styles.split_container}`}>
+                    <button onClick={() => setForm(1)}>Back</button>
+                    <button type="submit"> Submit</button>
+                  </div>
+                </section>
+              }
+            </form>
+          </div>
+
+        </div>
       </div>
+
     </div>
-  );
-};
+  )
+}
 
-const RegistrationPage = () => {
-  const [page, setPage] = useState(1);
-
-  return (
-    <div className={styles["RegistrationPage"]}>
-      <div className={`${styles.flex_row} ${styles.body}`}>
-        <div className={`${styles.leftContainer}`}>
-          <img src={Compguy} alt="" />
-        </div>
-        <div className={`${styles.rightContainer}`}>
-          <div className={`${styles.RegistrationContainer} ${styles.flex_col}`}>
-            {page === 1 && <Page1 page={page} setPage={setPage} />}
-            {page === 2 && <Page2 setPage={setPage} />}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default RegistrationPage;
+export default RegistrationPage
