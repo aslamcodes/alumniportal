@@ -18,7 +18,7 @@
   position: sticky;
   position: -webkit-sticky;
   top: calc(var(--navbar-height));
-  max-height: 90%;
+  max-height: 80%;
   max-width: 100%;
   object-fit: cover;
 }
@@ -28,9 +28,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: fit-content;
   margin: 2rem;
-  padding: 1rem 2rem;
-  border-radius: 0.7rem;
+  padding: 1.4rem 2rem;
+  border-radius: 1rem;
   background-color: #cde7fbe1;
   color: #285fa4;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
@@ -57,7 +58,7 @@
   border: none;
   font-size: 1em;
   font-weight: 400;
-  color: #000;
+  color: rgb(94, 93, 93);
 }
 .form_input_container > *:focus {
   outline: none;
@@ -67,8 +68,18 @@
   font-size: 1.2em;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
 .form_input_container > input::placeholder {
-  color: #000;
+  color: rgb(94, 93, 93);
 }
 
 .form_button_container {

@@ -24,7 +24,18 @@ function RegistrationPage() {
     dob: "",
     email: "",
     password: "",
-    confirmPassword: ""
+    confirmPassword: "",
+    cname: "",
+    cemail: "",
+    clgname: "",
+    clgemail: "",
+    desgination: "",
+    organization: "",
+    city: "",
+    state: "",
+    country: "",
+    contactno: "",
+    skill: ""
   });
 
   const handleChange = (e) => {
@@ -32,6 +43,10 @@ function RegistrationPage() {
       ...data,
       [e.target.name]: e.target.value
     });
+  }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    navigate("/login");
   }
 
 
@@ -45,7 +60,7 @@ function RegistrationPage() {
           <h1>{form === 1 ? "Register" : "Personal Information"}</h1>
         </div>
         <div className={styles.form_body}>
-          <form>
+          <form onSubmit={handleSubmit}>
             {form === 1 ?
               <section>
                 <div className={`${styles.form_input_container} ${styles.split_container}`}>
@@ -100,13 +115,35 @@ function RegistrationPage() {
               </section>
               :
               <section>
-                <div>
-                  <div className={styles.form_input_container}>
-                    <input name="name" type="text" id="name" placeholder="Name" value={data.name} onChange={handleChange} />
-                  </div>
+                <div className={`${styles.form_input_container} ${styles.split_container}`}>
+                  <input name="cname" type="text" id="cname" placeholder="Company Name" value={data.cname} onChange={handleChange} />
+                  <input name="cemail" type="text" id="cemail" placeholder="Company Email ID" value={data.cemail} onChange={handleChange} />
+                </div>
+                <div className={`${styles.form_input_container} ${styles.split_container}`}>
+                  <input name="clgname" type="text" id="clgname" placeholder="College Name" value={data.clgname} onChange={handleChange} />
+                  <input name="crname" type="text" id="crname" placeholder="Course Name" value={data.crname} onChange={handleChange} />
+                </div>
+                <div className={styles.form_input_container}>
+                  <input name="designation" type="text" id="designation" placeholder="Your designation (working professional)" value={data.designation} onChange={handleChange} />
+                </div>
+                <div className={styles.form_input_container}>
+                  <input name="organization" type="text" id="organization" placeholder="Organization name" value={data.organization} onChange={handleChange} />
+                </div>
+                <div className={`${styles.form_input_container} ${styles.split_container}`}>
+                  <input name="city" type="text" id="city" placeholder="Select your city" value={data.city} onChange={handleChange} />
+                  <input name="state" type="text" id="state" placeholder="Select your state" value={data.state} onChange={handleChange} />
+                </div>
+                <div className={styles.form_input_container}>
+                  <input name="country" type="text" id="country" placeholder="Select your country" value={data.country} onChange={handleChange} />
+                </div>
+                <div className={styles.form_input_container}>
+                  <input name="contactno" type="number" id="contactno" placeholder="Enter your contact no" value={data.contactno} onChange={handleChange} />
+                </div>
+                <div className={styles.form_input_container}>
+                  <input name="skill" type="text" id="skill" placeholder="Skill/Domain" value={data.skill} onChange={handleChange} />
                 </div>
                 <div className={`${styles.form_button_container} ${styles.split_container}`}>
-                  <button onClick={() => navigate('/login')}>Back</button>
+                  <button onClick={() => setForm(1)}>Back</button>
                   <button type="submit"> Submit</button>
                 </div>
               </section>
