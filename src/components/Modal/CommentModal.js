@@ -9,7 +9,7 @@ import { animated, config, useTransition } from "react-spring";
 
 const CommentModal = ({ handleClose, isOpen, comments }) => {
   const modalTransition = useTransition(isOpen, {
-    config: config.wobbly,
+    config: config.stiff,
     from: {
       opacity: 0,
       scale: 0,
@@ -28,12 +28,15 @@ const CommentModal = ({ handleClose, isOpen, comments }) => {
   const modalOverlayTransition = useTransition(isOpen, {
     from: {
       opacity: 0,
+      // backdropFilter: "blur(0)",
     },
     enter: {
       opacity: 1,
+      // backdropFilter: "blur(10px)",
     },
     leave: {
       opacity: 0,
+      // backdropFilter: "blur(0)",
     },
   });
 
@@ -45,52 +48,50 @@ const CommentModal = ({ handleClose, isOpen, comments }) => {
     };
   }, [handleClose]);
 
-  return (
-    <ReactPortal wrapperId="comment_modal_wrapper">
-      {modalOverlayTransition(
-        (style, item) =>
-          item && (
-            <animated.div
-              style={style}
-              className={Styles.modal_overlay}
-              onClick={(e) => {
-                e.stopPropagation();
-                handleClose();
-              }}
-            >
-              {modalTransition(
-                (style, item) =>
-                  item && (
-                    <animated.section
-                      style={style}
-                      className={Styles.comment_modal_main}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                      }}
-                    >
-                      <div className={Styles.comment_modal_header_container}>
-                        <div className={Styles.comment_modal_header}>
-                          <h1>Comments</h1>
-                          <GrClose type="button" onClick={handleClose} />
-                        </div>
-                        <Divider />
+  return modalOverlayTransition(
+    (style, item) =>
+      item && (
+        <ReactPortal wrapperId="comment_modal_wrapper">
+          <animated.div
+            style={style}
+            className={Styles.modal_overlay}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleClose();
+            }}
+          >
+            {modalTransition(
+              (style, item) =>
+                item && (
+                  <animated.section
+                    style={style}
+                    className={Styles.comment_modal_main}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                    }}
+                  >
+                    <div className={Styles.comment_modal_header_container}>
+                      <div className={Styles.comment_modal_header}>
+                        <h1>Comments</h1>
+                        <GrClose type="button" onClick={handleClose} />
                       </div>
-                      <div className={Styles.comments_container}>
-                        {comments.map((comment, idx) => (
-                          <CommentBox
-                            key={`${comment.user.name}${comment.comment}}${idx}`}
-                            commentData={comment}
-                          />
-                        ))}
-                        <AddCommentButton />
-                      </div>
-                    </animated.section>
-                  )
-              )}
-            </animated.div>
-          )
-      )}
-    </ReactPortal>
+                      <Divider />
+                    </div>
+                    <div className={Styles.comments_container}>
+                      {comments.map((comment, idx) => (
+                        <CommentBox
+                          key={`${comment.user.name}${comment.comment}}${idx}`}
+                          commentData={comment}
+                        />
+                      ))}
+                      <AddCommentButton />
+                    </div>
+                  </animated.section>
+                )
+            )}
+          </animated.div>
+        </ReactPortal>
+      )
   );
 };
 
