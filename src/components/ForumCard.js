@@ -45,7 +45,7 @@ const ForumCard = ({ data }) => {
         <div className={styles.post_caption_container}>
           <p>{data.post.caption.title}</p>
           <p>
-            {data.post.caption.description}
+            {data.post.caption?.description.slice(0, 500)}
             {"... "}
             <span
               onClick={() => {

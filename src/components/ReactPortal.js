@@ -7,6 +7,7 @@ export const ReactPortal = ({
 }) => {
   const [wrapperElement, setWrapperElement] = useState(null);
   let systemCreated = false;
+
   useLayoutEffect(() => {
     let element = document.getElementById(wrapperId);
     if (!element) {
