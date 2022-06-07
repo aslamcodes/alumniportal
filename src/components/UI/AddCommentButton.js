@@ -2,12 +2,15 @@ import React, { useRef, useState } from "react";
 import { RiSendPlaneFill } from "react-icons/ri";
 import { GrFormEdit } from "react-icons/gr";
 import Styles from "./AddCommentButton.module.css";
+import { useSpring, a } from "react-spring";
 const AddCommentButton = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [comment, setComment] = useState("");
   const inputRef = useRef(null);
+  const props = useSpring({});
   return (
-    <form
+    <a.form
+      style={props}
       onSubmit={(e) => {
         e.preventDefault();
       }}
@@ -34,7 +37,7 @@ const AddCommentButton = () => {
         }}
       />
       {isFormOpen ? <RiSendPlaneFill /> : <GrFormEdit />}
-    </form>
+    </a.form>
   );
 };
 

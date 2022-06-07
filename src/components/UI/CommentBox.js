@@ -20,7 +20,8 @@ const CommentBox = ({ commentData }) => {
       opacity: 0,
     },
     enter: {
-      height: 100,
+      // height: 100,
+      y: 100,
       opacity: 1,
     },
     leave: {

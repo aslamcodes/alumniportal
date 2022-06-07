@@ -12,15 +12,12 @@ const CommentModal = ({ handleClose, isOpen, comments }) => {
     config: config.stiff,
     from: {
       opacity: 0,
-      scale: 0,
     },
     enter: {
       opacity: 1,
-      scale: 1,
     },
     leave: {
       opacity: 0,
-      scale: 0,
     },
     reverse: true,
   });
