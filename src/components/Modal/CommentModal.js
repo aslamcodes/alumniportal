@@ -9,7 +9,7 @@ import { animated, config, useTransition } from "react-spring";
 
 const CommentModal = ({ handleClose, isOpen, comments }) => {
   const modalTransition = useTransition(isOpen, {
-    config: config.stiff,
+    config: config.wobbly,
     from: {
       opacity: 0,
     },
@@ -20,6 +20,7 @@ const CommentModal = ({ handleClose, isOpen, comments }) => {
       opacity: 0,
     },
     reverse: true,
+    delay: 10,
   });
 
   const modalOverlayTransition = useTransition(isOpen, {
