@@ -17,9 +17,9 @@ const Home = () => {
               Welcome <span>Back</span>
             </h1>
             <p>
-              <span>“</span>I think the success of any school can be measured
+              I think the success of any school can be measured
               by the contribution the alumni make to our national life
-              <span>”</span>
+
             </p>
           </div>
         </div>
