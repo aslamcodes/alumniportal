@@ -37,7 +37,7 @@ const ForgotPassword = () => {
             <h1>{
               form === 1 && "Forgot Password" ||
               form === 2 && "Verification" ||
-              form === 3 && "Change password"
+              form === 3 && "Change Password"
             }</h1>
           </div>
           <div className={styles.form_body}>
