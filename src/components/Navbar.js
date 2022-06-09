@@ -78,6 +78,9 @@ const Navbar = () => {
       )}
       {windowDimensions.width > 790 ? (
         <div className={`${styles.navLink} ${styles.right}`}>
+          <Link onClick={() => setMenuActive(false)} to="/admin">
+            Admin
+          </Link>
           <Link to="/alumni-forum">Alumini Forum</Link>
           <Link to="/office-bearers">Office Bearers</Link>
         </div>
@@ -115,6 +118,9 @@ const Navbar = () => {
                 </Link>
                 <Link onClick={() => setMenuActive(false)} to="/alumini-forum">
                   Alumini Forum
+                </Link>
+                <Link onClick={() => setMenuActive(false)} to="/admin">
+                  Admin
                 </Link>
                 <Link onClick={() => setMenuActive(false)} to="/office-bearers">
                   Office Bearers

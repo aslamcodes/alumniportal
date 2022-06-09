@@ -6,7 +6,7 @@
   bottom: 5%;
   align-self: flex-end;
   /* todo: Make width responsive */
-  width: 16%;
+  /* width: 16%; */
   background-color: #000;
   border-radius: 1.56rem;
   transition: all 0.4s ease-in-out;
@@ -45,7 +45,7 @@
 }
 
 .reply_form_expanded {
-  width: 100%;
+  /* width: 100%; */
   background-color: #f3f2db;
 }
 
