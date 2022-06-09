@@ -21,10 +21,6 @@
   transition: all 0.5s ease-in-out, max-width 0s;
 }
 
-/* .navbar > p a h1 h2 h3 h4 h5 h6 img {
-  transition: all 0.5s ease-in-out;
-} */
-
 .navbar.scrolled {
   --navbar-height: 11vh;
   font-size: 0.9em;
