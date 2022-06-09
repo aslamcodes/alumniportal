@@ -1,20 +1,8 @@
 import AdminSidebar from "./AdminSidebar";
 
 export default {
-  title: "AdminSidebar",
+  title: "Admin Page/Sidebar",
   component: AdminSidebar,
 };
 
-const Sidebar = (args) => <AdminSidebar {...args} />;
-
-export const Expanded = Sidebar.bind({});
-Expanded.args = {
-  expanded: true,
-  onClose: () => {},
-};
-
-export const Collapsed = Sidebar.bind({});
-Collapsed.args = {
-  expanded: false,
-  onClose: () => {},
-};
+export const Sidebar = (args) => <AdminSidebar {...args} />;
