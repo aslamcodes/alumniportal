@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import MenuIcon from '@mui/icons-material/Menu';
 
@@ -7,20 +8,23 @@ import { Link } from 'react-router-dom';
 import Menu from "./Menu";
 import { useWindowScrollPositions } from './useWindowScrollPositions';
 
+import { GrClose } from "react-icons/gr";
+import { AiOutlineMenu } from "react-icons/ai";
+
+
 function getWindowDimensions() {
   const { innerWidth: width, innerHeight: height } = window;
   return {
     width,
-    height
+    height,
   };
 }
 
-
 const Navbar = () => {
-
-  const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+  const [windowDimensions, setWindowDimensions] = useState(
+    getWindowDimensions()
+  );
   const [menuActive, setMenuActive] = useState(false);
-
   const [isScrolled, setIsScrolled] = useState(false);
 
   if (useWindowScrollPositions().scrollY > 40 && !isScrolled) {
@@ -35,12 +39,12 @@ const Navbar = () => {
       setWindowDimensions(getWindowDimensions());
     }
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-
   return (
+
     <div className={styles.container}>
       <div className={`${styles.navbar} ${styles.background_blur} ${isScrolled && styles.scrolled}`}>
         {windowDimensions.width > 790 &&
@@ -61,9 +65,11 @@ const Navbar = () => {
               <h1>SRI KRISHNA COLLEGE OF TECHNOLOGY</h1>
               <h3>AUTONOMOUS INSTITUTION | ACCREDITED BY NAAC WITH ‘A’ GRADE</h3>
             </div>
+
             <div className={styles["navbar-logo"]}>
               <img src={require("../assets/Logo2.png")} alt="SKCT logo" />
             </div>
+
           </div> :
           <div className={styles["navbar-brand"]}>
 
@@ -71,11 +77,13 @@ const Navbar = () => {
               <div className={styles["navbar-logo"]}>
                 <img src={require("../assets/Logo2.png")} alt="SKCT logo" />
                 <hr />
+
               </div>
             }
             <div className={styles["titleText"]}>
               <p>SKCT</p>
             </div>
+
           </div>
         }
         {windowDimensions.width > 790 ?

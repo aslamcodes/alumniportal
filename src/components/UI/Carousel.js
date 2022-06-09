@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Carousel.module.css";
-import ArrowBack from '@mui/icons-material/ArrowBackIos';
-import ArrowForward from '@mui/icons-material/ArrowForwardIos';
 
+import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 const Carousel = ({ children }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [scrollPause, setScrollPause] = useState(true);
@@ -42,7 +41,7 @@ const Carousel = ({ children }) => {
   return (
     <div className={styles["carousel"]}>
       <div className={styles["left"]} onClick={leftButtonHandler}>
-        <ArrowBack />
+        <BsChevronLeft />
       </div>
       <div className={styles["center"]}>
         <div
@@ -56,7 +55,7 @@ const Carousel = ({ children }) => {
         </div>
       </div>
       <div className={styles["right"]} onClick={rightButtonHandler}>
-        <ArrowForward />
+        <BsChevronRight />
       </div>
     </div>
   );

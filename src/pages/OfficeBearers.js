@@ -1,9 +1,15 @@
-import React from 'react'
+import React from "react";
 
 function OfficeBearers() {
   return (
-    <div>OfficeBearers</div>
-  )
+    <div
+      style={{
+        height: "100vh",
+      }}
+    >
+      {/* OfficeBearers */}
+    </div>
+  );
 }
 
-export default OfficeBearers
+export default OfficeBearers;

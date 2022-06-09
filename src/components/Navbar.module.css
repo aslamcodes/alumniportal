@@ -15,9 +15,15 @@
   padding: 0 1.5rem;
   font-family: "Commissioner", sans-serif;
   box-shadow: 0px 1px 1px #25252551;
+
   z-index: 10;
+
   font-size: 1em;
-  transition: all 0.7s;
+  transition: min-height 0.5s ease-in-out;
+}
+
+.navbar > p a h1 h2 h3 h4 h5 h6 img {
+  transition: all 0.5s ease-in-out;
 }
 
 .navbar.scrolled {
@@ -130,7 +136,7 @@
 
 @media (max-width: 790px) {
   .navbar {
-    --navbar-height: 13vh;
+    --navbar-height: 15vh;
     font-size: 1em;
   }
   .navbar.scrolled {
@@ -156,6 +162,6 @@
     margin: 0;
   }
   .navbar-logo img {
-    max-width: 3em;
+    max-width: 2.5em;
   }
 }
