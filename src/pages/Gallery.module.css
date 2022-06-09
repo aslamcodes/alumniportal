@@ -35,6 +35,7 @@ h2 {
   font-family: "neue_haas_rg";
 }
 .gallery_container {
+  z-index: -1;
   position: relative;
 }
 .gallery_container::before {

@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom';
 
 import Menu from "./Menu";
 import { useWindowScrollPositions } from './useWindowScrollPositions';
-
 import { GrClose } from "react-icons/gr";
 import { AiOutlineMenu } from "react-icons/ai";
 
