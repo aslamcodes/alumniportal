@@ -19,7 +19,6 @@ const Home = () => {
             <p>
               I think the success of any school can be measured
               by the contribution the alumni make to our national life
-
             </p>
           </div>
         </div>
