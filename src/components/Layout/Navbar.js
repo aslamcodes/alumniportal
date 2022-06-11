@@ -4,8 +4,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import styles from "./Navbar.module.css";
 import { Link } from "react-router-dom";
 
-import Menu from "./Menu";
-import { useWindowScrollPositions } from "./useWindowScrollPositions";
+import Menu from "../Menu";
+import { useWindowScrollPositions } from "../../hooks/useWindowScrollPositions";
 
 function getWindowDimensions() {
   const { innerWidth: width, innerHeight: height } = window;

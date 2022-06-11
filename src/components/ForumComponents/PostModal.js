@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { IconContext } from "react-icons";
 import { FaTimes } from "react-icons/fa";
 import { a, config, useTransition } from "react-spring";
-import ReactPortal from "components/ReactPortal";
+import ReactPortal from "components/Modal/ReactPortal";
 import Styles from "./PostModal.module.css";
 
 const PostModal = ({ handleClose, isOpen }) => {

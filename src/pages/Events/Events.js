@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import EventCard from "components/EventCard";
+import EventCard from "components/EventComponents/EventCard";
 import styles from "./Events.module.css";
 
 const Events = () => {

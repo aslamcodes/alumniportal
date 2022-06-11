@@ -1,5 +1,5 @@
 import React from "react";
-import AdminSidebar from "components/UI/AdminSidebar";
+import AdminSidebar from "components/AdminComponents/AdminSidebar";
 import Pagination from "components/UI/Pagination";
 import Styles from "./Admin.module.css";
 

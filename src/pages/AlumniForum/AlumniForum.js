@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ForumCard from "components/ForumCard";
+import ForumCard from "components/ForumComponents/ForumCard";
 import Styles from "./AlumniForum.module.css";
 const DUMMY_POST_DATA = [
   {
