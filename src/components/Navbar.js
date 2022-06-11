@@ -41,6 +41,7 @@ const Navbar = () => {
   }, []);
 
   return (
+
     isNavbarVisible && (
       <div
         className={`${styles.navbar} ${!menuActive && styles.background_blur} ${
@@ -53,6 +54,7 @@ const Navbar = () => {
             <Link to="/gallery">Gallery</Link>
             <Link to="/events">Events</Link>
           </div>
+
         )}
 
         {windowDimensions.width > 790 ? (
@@ -147,5 +149,6 @@ const Navbar = () => {
     )
   );
 };
+
 
 export default Navbar;
