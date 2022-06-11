@@ -4,7 +4,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import styles from "./Navbar.module.css";
 import { Link } from "react-router-dom";
 
-import Menu from "../Menu";
+import Menu from "./Menu";
 import { useWindowScrollPositions } from "../../hooks/useWindowScrollPositions";
 
 function getWindowDimensions() {
@@ -43,9 +43,8 @@ const Navbar = () => {
   return (
     <div className={styles.container}>
       <div
-        className={`${styles.navbar} ${styles.background_blur} ${
-          isScrolled && styles.scrolled
-        }`}
+        className={`${styles.navbar} ${styles.background_blur} ${isScrolled && styles.scrolled
+          }`}
       >
         {windowDimensions.width > 790 && (
           <div className={`${styles.navLink}`}>
