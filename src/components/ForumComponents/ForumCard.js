@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import styles from "./ForumCard.module.css";
 import { AiOutlineHeart, AiFillHeart, AiOutlineShareAlt } from "react-icons/ai";
 import { BsChat } from "react-icons/bs";
-import CommentModal from "./Modal/CommentModal";
-import PostModal from "./Modal/PostModal";
+import CommentModal from "./CommentModal";
+import PostModal from "./PostModal";
 
 const ForumCard = ({ data }) => {
   const [isCommentsModalOpen, setIsCommentsModalOpen] = useState(false);

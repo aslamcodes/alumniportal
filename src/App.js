@@ -1,16 +1,18 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import LoginPage from "./pages/LoginPage";
-import ForgotPasswordPage from "./pages/ForgotPassword";
-import RegistrationPage from "./pages/RegistrationPage";
-import GalleryPage from "./pages/Gallery";
-import EventsPage from "./pages/Events";
-import AlumniForum from "./pages/AluminiForum";
-import OfficeBearers from "./pages/OfficeBearers";
-import Home from "./pages/Home";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
-import Admin from "./pages/Admin";
+import Navbar from "components/Layout/Navbar";
+import Footer from "components/Layout/Footer";
+import {
+  Home,
+  Login,
+  Admin,
+  AlumniForum,
+  OfficeBearers,
+  Events,
+  GalleryPage,
+  RegistrationPage,
+  ForgotPassword,
+} from "pages";
 
 function App() {
   return (
@@ -18,12 +20,12 @@ function App() {
       <Router>
         <Navbar />
         <Routes>
-          <Route index path="/" element={<Home />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/register" element={<RegistrationPage />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route index path="/" element={<Home />} />
           <Route path="/gallery" element={<GalleryPage />} />
-          <Route path="/events" element={<EventsPage />} />
+          <Route path="/events" element={<Events />} />
           <Route path="/office-bearers" element={<OfficeBearers />} />
           <Route path="/alumni-forum" element={<AlumniForum />} />
           <Route path="/admin" element={<Admin />} />

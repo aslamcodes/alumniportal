@@ -5,7 +5,7 @@ import styles from "./Navbar.module.css";
 import { Link } from "react-router-dom";
 
 import Menu from "./Menu";
-import { useWindowScrollPositions } from "./useWindowScrollPositions";
+import { useWindowScrollPositions } from "hooks/useWindowScrollPositions";
 
 function getWindowDimensions() {
   const { innerWidth: width, innerHeight: height } = window;

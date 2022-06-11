@@ -22,7 +22,7 @@ const Footer = () => {
           <div className={styles["top"]}>
             <div className={styles["left"]}>
               <div className={styles["name"]}>
-                <img src={require("../assets/Logo2.png")} alt="SKCT logo" />
+                <img src={require("assets/Logo2.png")} alt="SKCT logo" />
                 <p>Sri Krishna College of Technology Autonomus Institutuion</p>
               </div>
               <p>Mail Id: principal@skct.ac.in placement@skct.ac.in</p>

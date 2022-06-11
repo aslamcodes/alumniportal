@@ -1,9 +1,9 @@
 import { useState } from "react";
-import Divider from "../Divider";
+import Divider from "components/UI/Divider";
 import Styles from "./CommentBox.module.css";
 import ReplyBox from "./ReplyBox";
-import ReplyButton from "./ReplyButton";
-import ReplyForm from "./ReplyForm";
+import ReplyButton from "components/ForumComponents/ReplyButton";
+import ReplyForm from "components/ForumComponents/ReplyForm";
 
 const CommentBox = ({ commentData }) => {
   const { user, comment, replies } = commentData;

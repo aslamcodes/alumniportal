@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
-import ReactPortal from "../ReactPortal";
+import ReactPortal from "components/Modal/ReactPortal";
 import Styles from "./CommentModal.module.css";
-import Divider from "../Divider";
+import Divider from "components/UI/Divider";
 import { GrClose } from "react-icons/gr";
-import CommentBox from "../UI/CommentBox";
-import AddCommentButton from "../UI/AddCommentButton";
+import CommentBox from "components/ForumComponents/CommentBox";
+import AddCommentButton from "components/ForumComponents/AddCommentButton";
 import { animated, config, useTransition } from "react-spring";
 
 const CommentModal = ({ handleClose, isOpen, comments }) => {
