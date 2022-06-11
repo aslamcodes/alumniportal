@@ -3,18 +3,18 @@ import React, { useState } from 'react';
 import ReactPortal from "components/Modal/ReactPortal";
 import { IoClose } from "react-icons/io5";
 import { BiImageAdd } from "react-icons/bi";
-import styles from './NewPostModal.module.css'
+import styles from "./NewPostModal.module.css";
 
 function NewPostModal({ data, setNewPostActive }) {
   const [image, setImage] = useState(null);
-  const onSelectFile = e => {
+  const onSelectFile = (e) => {
     if (!e.target.files || e.target.files.length === 0) {
-      setImage(undefined)
-      return
+      setImage(undefined);
+      return;
     }
     // I've kept this example simple by using the first image instead of multiple
-    setImage(e.target.files[0])
-  }
+    setImage(e.target.files[0]);
+  };
   return (
     <ReactPortal wrapperId="new_post_modal_wrapper">
       <div className={styles.new_post_overlay}>
@@ -24,7 +24,11 @@ function NewPostModal({ data, setNewPostActive }) {
               <img src={data.user.profile_image} />
               <p className={styles.user_name}>{data.user.name}</p>
             </div>
-            <IoClose size="30px" className={styles.close_icon} onClick={() => setNewPostActive(false)} />
+            <IoClose
+              size="30px"
+              className={styles.close_icon}
+              onClick={() => setNewPostActive(false)}
+            />
           </div>
           <div className={styles.body}>
             <form action="">
@@ -39,11 +43,17 @@ function NewPostModal({ data, setNewPostActive }) {
                   <input type="text" id="title" placeholder="title" />
                 </div>
                 <div className={styles.input_container}>
-                  <textarea type="text" id="description" placeholder="description" />
+                  <textarea
+                    type="text"
+                    id="description"
+                    placeholder="description"
+                  />
                 </div>
               </div>
               <div className={styles.img_input_container}>
-                {image ? <img src={URL.createObjectURL(image)} /> :
+                {image ? (
+                  <img src={URL.createObjectURL(image)} />
+                ) : (
                   <div className={styles.img_input}>
                     <label for="img-input">
                       <BiImageAdd size="50px" />
@@ -51,14 +61,14 @@ function NewPostModal({ data, setNewPostActive }) {
                     </label>
                     <input id="img-input" type="file" onChange={onSelectFile} />
                   </div>
-                }
+                )}
               </div>
             </form>
           </div>
         </div>
       </div>
     </ReactPortal>
-  )
+  );
 }
 
-export default NewPostModal
+export default NewPostModal;
