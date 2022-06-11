@@ -30,7 +30,7 @@
   background-position: center center;
   background-repeat: no-repeat;
   background-size: contain;
-  background-image: url("../assets/kandiHuman.png");
+  background-image: url("assets/kandiHuman.png");
 }
 
 .welcomeContainer .welcomeBox {
@@ -183,7 +183,7 @@
 
   width: 100%;
   /* background-color: #000; */
-  background-image: url("../assets/down_part.svg");
+  background-image: url("assets/down_part.svg");
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;

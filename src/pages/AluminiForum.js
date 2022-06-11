@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import ForumCard from "../components/ForumCard";
+import ForumCard from "components/ForumCard";
 import Styles from "./AlumniForum.module.css";
 const DUMMY_POST_DATA = [
   {
     id: 1,
     user: {
       name: "Ben Tennyson",
-      profile_image: require("./../assets/ben.png"),
+      profile_image: require("assets/ben.png"),
     },
     post: {
       images: ["https://picsum.photos/536/354"],

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Divider from "../Divider";
+import Divider from "components/Divider";
 import Styles from "./CommentBox.module.css";
 import ReplyBox from "./ReplyBox";
 import ReplyButton from "./ReplyButton";

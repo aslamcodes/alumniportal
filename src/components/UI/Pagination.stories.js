@@ -1,13 +1,13 @@
 import { useState } from "react";
-import PageChanger from "./PageChanger";
+import Pagination from "./Pagination";
 
 export default {
-  title: "Admin Page/PageChanger",
-  component: PageChanger,
+  title: "Admin Page/Pagination",
+  component: Pagination,
 };
 
 const Default = (args) => {
-  return <PageChanger {...args} />;
+  return <Pagination {...args} />;
 };
 
 export const WithState = Default.bind({});

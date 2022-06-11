@@ -1,14 +1,14 @@
 @font-face {
   font-family: "neue_haas_rg";
-  src: url("../assets/Fonts/neue_haas_sv/NHaasGroteskTXPro-55Rg.ttf");
+  src: url("assets/Fonts/neue_haas_sv/NHaasGroteskTXPro-55Rg.ttf");
 }
 @font-face {
   font-family: "neue_haas_md";
-  src: url("../assets/Fonts/neue_haas_sv/NHaasGroteskTXPro-65Md.ttf");
+  src: url("assets/Fonts/neue_haas_sv/NHaasGroteskTXPro-65Md.ttf");
 }
 @font-face {
   font-family: "neue_haas_bd";
-  src: url("../assets/Fonts/neue_haas_sv/NHaasGroteskTXPro-75Bd.ttf");
+  src: url("assets/Fonts/neue_haas_sv/NHaasGroteskTXPro-75Bd.ttf");
 }
 
 .gallery h1,

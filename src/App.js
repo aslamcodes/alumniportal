@@ -1,16 +1,16 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import LoginPage from "./pages/LoginPage";
-import ForgotPasswordPage from "./pages/ForgotPassword";
-import RegistrationPage from "./pages/RegistrationPage";
-import GalleryPage from "./pages/Gallery";
-import EventsPage from "./pages/Events";
-import AlumniForum from "./pages/AluminiForum";
-import OfficeBearers from "./pages/OfficeBearers";
-import Home from "./pages/Home";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
-import Admin from "./pages/Admin";
+import LoginPage from "pages/LoginPage";
+import ForgotPasswordPage from "pages/ForgotPassword";
+import RegistrationPage from "pages/RegistrationPage";
+import GalleryPage from "pages/Gallery";
+import EventsPage from "pages/Events";
+import AlumniForum from "pages/AluminiForum";
+import OfficeBearers from "pages/OfficeBearers";
+import Home from "pages/Home";
+import Navbar from "components/Navbar";
+import Footer from "components/Footer";
+import Admin from "pages/Admin";
 
 function App() {
   return (
