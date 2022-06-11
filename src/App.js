@@ -10,6 +10,7 @@ import OfficeBearers from "./pages/OfficeBearers";
 import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import Admin from "./pages/Admin";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path="/events" element={<EventsPage />} />
           <Route path="/office-bearers" element={<OfficeBearers />} />
           <Route path="/alumni-forum" element={<AlumniForum />} />
+          <Route path="/admin" element={<Admin />} />
         </Routes>
         <Footer />
       </Router>

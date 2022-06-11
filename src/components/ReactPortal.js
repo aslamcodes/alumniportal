@@ -7,6 +7,7 @@ export const ReactPortal = ({
 }) => {
   const [wrapperElement, setWrapperElement] = useState(null);
   let systemCreated = false;
+
   useLayoutEffect(() => {
     let element = document.getElementById(wrapperId);
     if (!element) {
@@ -16,6 +17,7 @@ export const ReactPortal = ({
     document.body.style.overflow = "hidden";
     setWrapperElement(element);
     return () => {
+      console.log("reset");
       if (systemCreated && element.parentNode) {
         element.parentNode.removeChild(element);
       }

@@ -5,12 +5,8 @@
 }
 
 .comment_box {
-  padding: 0 2em;
+  padding: 0 2.4em;
   border-radius: 0.5em;
-  position: relative;
-}
-
-.heading {
   position: relative;
 }
 
@@ -20,8 +16,8 @@
   border-radius: 50%;
   object-fit: cover;
   position: absolute;
-  left: -7.5%;
-  top: -40%;
+  left: -0.6rem;
+  top: -0.5em;
 }
 
 .username {
@@ -32,7 +28,7 @@
 .comment_action_container {
   display: flex;
   gap: 0.7rem;
-  padding-left: 2em;
+  padding-left: 2.4em;
   margin-bottom: 0.5em;
 }
 

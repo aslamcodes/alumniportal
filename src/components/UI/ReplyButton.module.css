@@ -6,11 +6,11 @@
   bottom: 5%;
   align-self: flex-end;
   /* todo: Make width responsive */
-  width: 5.7rem;
+  /* width: 16%; */
   background-color: #000;
   border-radius: 1.56rem;
   transition: all 0.4s ease-in-out;
-  padding: 0.2em;
+  padding: 0.3em;
 }
 
 .reply_form :nth-child(2) {
@@ -20,6 +20,7 @@
   padding: 0.2em;
   font-size: 1.2rem;
   min-width: 1.4rem;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -44,7 +45,7 @@
 }
 
 .reply_form_expanded {
-  width: 99%;
+  /* width: 100%; */
   background-color: #f3f2db;
 }
 

@@ -29,24 +29,22 @@ const CommentBox = ({ commentData }) => {
         )}
       </div>
       {!showReplies && !showReplyForm && (
-        <>
-          <div className={Styles.comment_action_container}>
-            <p
-              onClick={() => {
-                setShowReplies(true);
-              }}
-            >
-              View Replies
-            </p>
-            <p
-              onClick={() => {
-                setShowReplyForm(true);
-              }}
-            >
-              Reply
-            </p>
-          </div>
-        </>
+        <div className={Styles.comment_action_container}>
+          <p
+            onClick={() => {
+              setShowReplies(true);
+            }}
+          >
+            View Replies
+          </p>
+          <p
+            onClick={() => {
+              setShowReplyForm(true);
+            }}
+          >
+            Reply
+          </p>
+        </div>
       )}
       {showReplies && (
         <div className={Styles.replies_container}>

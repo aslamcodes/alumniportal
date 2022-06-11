@@ -12,7 +12,9 @@ import { useLocation } from "react-router-dom";
 const Footer = () => {
   const location = useLocation();
   const isInAlumniPage = /alumni-forum/.test(location.pathname);
-  const isFooterVisible = !isInAlumniPage;
+  const isInAdminPage = /admin/.test(location.pathname);
+  const isFooterVisible = !isInAlumniPage && !isInAdminPage;
+
   return (
     isFooterVisible && (
       <div className={styles["footer"]}>

@@ -6,9 +6,7 @@ function OfficeBearers() {
       style={{
         height: "100vh",
       }}
-    >
-      {/* OfficeBearers */}
-    </div>
+    ></div>
   );
 }
 
