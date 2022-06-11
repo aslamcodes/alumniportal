@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import ReactPortal from "../ReactPortal";
+import ReactPortal from "components/Modal/ReactPortal";
 import { IoClose } from "react-icons/io5";
 import { BiImageAdd } from "react-icons/bi";
 import styles from './NewPostModal.module.css'

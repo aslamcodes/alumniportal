@@ -55,7 +55,7 @@ const Navbar = () => {
           {windowDimensions.width > 790 ?
             <div className={styles["navbar-brand"]}>
               <div className={styles["navbar-logo"]}>
-                <img src={require("../assets/Logo1.png")} alt="SKI logo" />
+                <img src={require("assets/Logo1.png")} alt="SKI logo" />
 
               </div>
               <div className={styles["titleText"]}>
@@ -64,7 +64,7 @@ const Navbar = () => {
               </div>
 
               <div className={styles["navbar-logo"]}>
-                <img src={require("../assets/Logo2.png")} alt="SKCT logo" />
+                <img src={require("assets/Logo2.png")} alt="SKCT logo" />
               </div>
 
             </div> :
@@ -72,7 +72,7 @@ const Navbar = () => {
 
               {windowDimensions.width > 350 &&
                 <div className={styles["navbar-logo"]}>
-                  <img src={require("../assets/Logo2.png")} alt="SKCT logo" />
+                  <img src={require("assets/Logo2.png")} alt="SKCT logo" />
                   <hr />
 
                 </div>
