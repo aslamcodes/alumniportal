@@ -1,0 +1,133 @@
+.new_post_overlay {
+  position: fixed;
+  top: 0;
+  height: 100vh;
+  width: 100vw;
+  backdrop-filter: blur(5px);
+  z-index: 30;
+}
+
+.new_post_container {
+  display: flex;
+  flex-direction: column;
+  height: 90%;
+  width: clamp(30rem, 60%, 80rem);
+  margin: 5vh auto;
+  background-color: #fff;
+  border-radius: 0.5rem;
+  overflow-y: scroll;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  padding: 1rem 2rem;
+}
+.header .userinfo_container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.header .userinfo_container img {
+  width: max(2rem, 4em);
+  height: max(2rem, 4em);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem 2rem;
+  padding-top: 0;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+}
+.input_container {
+  width: 100%;
+}
+.body .input_container > * {
+  width: 100%;
+  padding: 0.5em;
+  border: none;
+  background-color: #ddd;
+  border-radius: 0.5rem;
+  color: #000;
+  font-size: 1em;
+  font-family: "Roboto", sans-serif;
+}
+
+.body .input_container > *:focus {
+  outline: none;
+}
+.description_container {
+  width: 100%;
+  height: 100%;
+  border-radius: 0.5rem;
+  background-color: #ddd;
+}
+.description_container .input_container > * {
+  border: none;
+  border-radius: 0;
+  background-color: transparent;
+  color: #000;
+}
+
+.description_container .input_container input[id="title"] {
+  border-bottom: 1px solid rgb(167, 167, 167);
+}
+.description_container .input_container textarea[id="description"] {
+  min-height: 10rem;
+  min-width: 100%;
+  max-width: 100%;
+  resize: none;
+  text-align: justify;
+}
+
+textarea[id="description"]::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Handle */
+textarea[id="description"]::-webkit-scrollbar-thumb {
+  background: #a5a5a5;
+  border-radius: 3px;
+}
+
+/* Handle on hover */
+textarea[id="description"]::-webkit-scrollbar-thumb:hover {
+  background: #555;
+  cursor: pointer;
+}
+
+form .img_input_container {
+  display: grid;
+  place-items: center;
+  text-align: center;
+  width: 100%;
+  max-height: 15rem;
+  max-width: 100%;
+  border-radius: 0.5rem;
+  background-color: #ddd;
+  color: #555;
+  padding: 1rem;
+}
+form .img_input_container input[type="file"] {
+  display: none;
+}
+
+form .img_input_container img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  overflow: hidden;
+}
