@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import ForumCard from "components/ForumComponents/ForumCard";
+import NewPostModal from "components/ForumComponents/NewPostModal";
 import Styles from "./AlumniForum.module.css";
+import { AiOutlinePlus } from "react-icons/ai";
 const DUMMY_POST_DATA = [
   {
     id: 1,
@@ -152,11 +154,25 @@ const DUMMY_POST_DATA = [
 ];
 
 function AlumniForum() {
+  const [newPostActive, setNewPostActive] = useState(false);
   return (
-    <div className={Styles.forum_container}>
-      {DUMMY_POST_DATA.map((post) => (
-        <ForumCard key={post.id} data={post} />
-      ))}
+    <div className={Styles.container}>
+      <div className={Styles.forum_container}>
+        {DUMMY_POST_DATA.map((post) => (
+          <ForumCard key={post.id} data={post} />
+        ))}
+      </div>
+      <div className={Styles.new_post} onClick={() => setNewPostActive(true)}>
+        <div className={Styles.new_post_name}>
+          New Post
+        </div>
+        <div className={Styles.new_post_icon}>
+          <AiOutlinePlus />
+        </div>
+      </div>
+      {newPostActive && (
+        <NewPostModal data={DUMMY_POST_DATA[0]} setNewPostActive={setNewPostActive} />
+      )}
     </div>
   );
 }
