@@ -35,7 +35,7 @@ const DUMMY_POST_DATA = [
       {
         user: {
           name: "Enrico",
-          profile_image: require("./../assets/ben.png"),
+          profile_image: require("assets/ben.png"),
         },
         comment:
           "Lorem Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
@@ -75,7 +75,7 @@ const DUMMY_POST_DATA = [
       {
         user: {
           name: "Enrico",
-          profile_image: require("./../assets/ben.png"),
+          profile_image: require("assets/ben.png"),
         },
         comment:
           "Lorem Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
@@ -118,7 +118,7 @@ const DUMMY_POST_DATA = [
     id: 2,
     user: {
       name: "Ben Tennyson",
-      profile_image: require("./../assets/ben.png"),
+      profile_image: require("assets/ben.png"),
     },
     post: {
       images: [
@@ -134,7 +134,7 @@ const DUMMY_POST_DATA = [
       {
         user: {
           name: "name",
-          profile_image: require("./../assets/ben.png"),
+          profile_image: require("assets/ben.png"),
         },
         comment: "Hello Ben",
         replies: [{ user_name: "Mr. Sudalai", text: "Hello" }],
@@ -142,7 +142,7 @@ const DUMMY_POST_DATA = [
       {
         user: {
           name: "name",
-          profile_image: require("./../assets/ben.png"),
+          profile_image: require("assets/ben.png"),
         },
         comment: "Hi Ben",
         replies: ["Hello"],
