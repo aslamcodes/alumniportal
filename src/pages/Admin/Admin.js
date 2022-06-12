@@ -1,13 +1,16 @@
 import React from "react";
+import Styles from "./Admin.module.css";
 import AdminSidebar from "components/AdminComponents/AdminSidebar";
 import Pagination from "components/UI/Pagination";
-import Styles from "./Admin.module.css";
+import AdminTable from "components/AdminComponents/AdminTable";
 
 const Admin = () => {
   return (
     <div className={Styles.admin_container}>
       <AdminSidebar />
-      <Pagination />
+      <main className={Styles.main}>
+        <AdminTable />
+      </main>
     </div>
   );
 };
