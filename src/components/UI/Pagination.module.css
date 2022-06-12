@@ -15,3 +15,20 @@
   border: 1px solid #ccc;
   cursor: pointer;
 }
+
+.page_changer .pagination_dots {
+  padding: 0.5em;
+  font-size: 0.8rem;
+  background-color: #ccc;
+  border-radius: 50%;
+  min-width: 0.8rem;
+  text-align: center;
+}
+.page_changer :nth-child(3) {
+  padding: 1em;
+  background-color: #fffcdc;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 50%;
+  min-width: 1rem;
+}

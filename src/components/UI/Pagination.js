@@ -1,7 +1,7 @@
 import React from "react";
 import { FaChevronRight, FaChevronLeft } from "react-icons/fa";
 import Styles from "./Pagination.module.css";
-import Select from "react-select";
+
 const Pagination = ({
   currentPage = 0,
   onChange = () => {},
@@ -12,20 +12,9 @@ const Pagination = ({
   return (
     <div className={Styles.page_changer}>
       <FaChevronLeft onClick={onDecrease} />
-      Previous
-      <Select
-        styles={getSelectStyles()}
-        components={{
-          IndicatorSeparator: null,
-          DropdownIndicator: null,
-        }}
-        value={currentPage}
-        placeholder={""}
-        options={getOptionsPagination(totalPages)}
-      />
-      out of
-      {totalPages}
-      Next
+      <div className={Styles.pagination_dots}>{currentPage - 1}</div>
+      <div className={Styles.pagination_dots}>{currentPage}</div>
+      <div className={Styles.pagination_dots}>{currentPage + 1}</div>
       <FaChevronRight onClick={onIncrease} />
     </div>
   );
