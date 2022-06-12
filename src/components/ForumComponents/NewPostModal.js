@@ -8,14 +8,26 @@ import { GiPin } from "react-icons/gi";
 
 
 function NewPostModal({ data, setNewPostActive }) {
-  const [image, setImage] = useState(null);
+  const [postData, setPostData] = useState({
+    cname: '',
+    designation: '',
+    title: "",
+    description: "",
+    image: "",
+  });
   const onSelectFile = (e) => {
     if (!e.target.files || e.target.files.length === 0) {
-      setImage(undefined);
+      setPostData({
+        ...postData,
+        image: undefined
+      });
       return;
     }
-    // I've kept this example simple by using the first image instead of multiple
-    setImage(e.target.files[0]);
+    setPostData({
+      ...postData,
+      image: e.target.files[0]
+    });
+
   };
   useEffect(() => {
     const closeOnEscapeKey = (e) => (e.key === "Escape" ? setNewPostActive(false) : null);
@@ -24,6 +36,18 @@ function NewPostModal({ data, setNewPostActive }) {
       document.body.removeEventListener('keydown', closeOnEscapeKey);
     }
   }, [setNewPostActive]);
+
+  const handleChange = (e) => {
+    setPostData({
+      ...postData,
+      [e.target.name]: e.target.value,
+    });
+  }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log('postData', postData);
+  }
+
 
   return (
     <ReactPortal wrapperId="new_post_modal_wrapper">
@@ -41,47 +65,50 @@ function NewPostModal({ data, setNewPostActive }) {
             />
           </div>
           <div className={styles.body}>
-            <form action="">
+            <form onSubmit={handleSubmit}>
               <div className={styles.input_container}>
-                <input type="text" id="cname" placeholder="Company Name" />
+                <input name="cname" type="text" id="cname" placeholder="Company Name" value={postData.cname} onChange={handleChange} />
               </div>
               <div className={styles.input_container}>
-                <input type="text" id="designation" placeholder="Designation" />
+                <input type="text" name="designation" id="designation" placeholder="Designation" value={postData.designation} onChange={handleChange} />
               </div>
               <div className={styles.description_container}>
                 <div className={styles.input_container}>
-                  <input type="text" id="title" placeholder="title" />
+                  <input type="text" name="title" id="title" placeholder="title" value={postData.title} onChange={handleChange} />
                 </div>
                 <div className={styles.input_container}>
                   <textarea
                     type="text"
+                    name="description"
                     id="description"
                     placeholder="description"
+                    value={postData.description}
+                    onChange={handleChange}
                   />
                 </div>
               </div>
 
               <div className={styles.img_input_container}>
-                {image ? (
-                  <img src={URL.createObjectURL(image)} />
+                {postData.image ? (
+                  <img src={URL.createObjectURL(postData.image)} />
                 ) : (
                   <div className={styles.img_input}>
                     <label for="img-input">
                       <BiImageAdd size="50px" />
                       <p>Add Image</p>
                     </label>
-                    <input id="img-input" type="file" onChange={onSelectFile} />
+                    <input name="image" id="img-input" type="file" onChange={onSelectFile} />
                   </div>
                 )}
               </div>
-              <div className={styles.post_btn} onClick={() => setNewPostActive(true)}>
+              <button className={styles.post_btn} type="submit" >
                 <div className={styles.post_name}>
                   Post
                 </div>
                 <div className={styles.post_icon}>
                   <GiPin />
                 </div>
-              </div>
+              </button>
             </form>
           </div>
         </div>
