@@ -162,7 +162,7 @@ function AlumniForum() {
           <ForumCard key={post.id} data={post} />
         ))}
       </div>
-      <div className={Styles.new_post} onClick={() => setNewPostActive(true)}>
+      <div className={Styles.new_post_button} onClick={() => setNewPostActive(true)}>
         <div className={Styles.new_post_name}>
           New Post
         </div>

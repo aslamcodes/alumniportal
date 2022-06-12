@@ -8,6 +8,7 @@
 }
 
 .new_post_container {
+  position: relative;
   display: flex;
   flex-direction: column;
   height: 90%;
@@ -36,6 +37,10 @@
 .header .userinfo_container img {
   width: max(2rem, 4em);
   height: max(2rem, 4em);
+}
+
+.header .close_icon {
+  cursor: pointer;
 }
 
 .body {
@@ -130,4 +135,33 @@ form .img_input_container img {
   height: 100%;
   object-fit: contain;
   overflow: hidden;
+}
+
+.post_btn {
+  display: flex;
+  align-items: center;
+  align-self: flex-end;
+  position: sticky;
+  bottom: 1rem;
+  width: fit-content;
+  padding: 0.3em 0.3em 0.3em 1em;
+  border-radius: 2rem;
+  background: #000;
+  font-size: 1em;
+  gap: 0.5rem;
+  z-index: 5;
+  cursor: pointer;
+}
+.post_name {
+  color: rgb(255, 255, 255);
+}
+.post_icon {
+  display: grid;
+  place-items: center;
+  width: 1.5em;
+  height: 1.5em;
+  background-color: #fff;
+  color: #000;
+  clip-path: circle();
+  font-size: 1.1em;
 }

@@ -1,9 +1,11 @@
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactPortal from "components/Modal/ReactPortal";
 import { IoClose } from "react-icons/io5";
 import { BiImageAdd } from "react-icons/bi";
 import styles from "./NewPostModal.module.css";
+import { GiPin } from "react-icons/gi";
+
 
 function NewPostModal({ data, setNewPostActive }) {
   const [image, setImage] = useState(null);
@@ -15,6 +17,14 @@ function NewPostModal({ data, setNewPostActive }) {
     // I've kept this example simple by using the first image instead of multiple
     setImage(e.target.files[0]);
   };
+  useEffect(() => {
+    const closeOnEscapeKey = (e) => (e.key === "Escape" ? setNewPostActive(false) : null);
+    document.body.addEventListener("keydown", closeOnEscapeKey);
+    return () => {
+      document.body.removeEventListener('keydown', closeOnEscapeKey);
+    }
+  }, [setNewPostActive]);
+
   return (
     <ReactPortal wrapperId="new_post_modal_wrapper">
       <div className={styles.new_post_overlay}>
@@ -50,6 +60,7 @@ function NewPostModal({ data, setNewPostActive }) {
                   />
                 </div>
               </div>
+
               <div className={styles.img_input_container}>
                 {image ? (
                   <img src={URL.createObjectURL(image)} />
@@ -62,6 +73,14 @@ function NewPostModal({ data, setNewPostActive }) {
                     <input id="img-input" type="file" onChange={onSelectFile} />
                   </div>
                 )}
+              </div>
+              <div className={styles.post_btn} onClick={() => setNewPostActive(true)}>
+                <div className={styles.post_name}>
+                  Post
+                </div>
+                <div className={styles.post_icon}>
+                  <GiPin />
+                </div>
               </div>
             </form>
           </div>
