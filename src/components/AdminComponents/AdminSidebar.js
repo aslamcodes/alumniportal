@@ -1,17 +1,33 @@
 import React, { useState } from "react";
 import Styles from "./AdminSidebar.module.css";
-import { a, config, useSpring, useTransition } from "react-spring";
+import {
+  a,
+  config,
+  useChain,
+  useSpring,
+  useSpringRef,
+  useTransition,
+} from "react-spring";
 import { IoHomeOutline } from "react-icons/io5";
 import { BsCalendar4Event, BsPeople } from "react-icons/bs";
 
 const AdminSidebar = ({ onClose }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
+  const expandRef = useSpringRef();
+  const transitionRef = useSpringRef();
   const expandStyles = useSpring({
-    width: isExpanded ? 300 : 150,
+    ref: expandRef,
+    from: {
+      transform: "translateX(0)",
+    },
+    to: {
+      transform: `translateX(${isExpanded ? "0" : "-50%"})`,
+    },
   });
 
   const sidebarItemTransistion = useTransition(isExpanded, {
+    ref: transitionRef,
     from: {
       opacity: 0,
       transform: "translateX(100%)",
@@ -25,6 +41,8 @@ const AdminSidebar = ({ onClose }) => {
       transform: "translateX(100%)",
     },
   });
+
+  useChain([expandRef, transitionRef]);
 
   return (
     <a.div style={expandStyles} className={Styles.sidebar_container}>
