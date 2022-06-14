@@ -11,7 +11,7 @@
   margin: 18vh auto 30vh auto;
 }
 
-.new_post {
+.new_post_button {
   display: flex;
   align-items: center;
   position: fixed;
