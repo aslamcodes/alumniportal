@@ -1,19 +1,10 @@
-import { useState } from "react";
-import Pagination from "./Pagination";
+import Pagination_component from "./Pagination";
 
 export default {
   title: "Admin Page/Pagination",
-  component: Pagination,
+  component: Pagination_component,
 };
 
-const Default = (args) => {
-  return <Pagination {...args} />;
-};
-
-export const WithState = Default.bind({});
-WithState.args = {
-  currentPage: 1,
-  onChange: (value) => {
-    console.log(value);
-  },
+export const Pagination = (args) => {
+  return <Pagination_component {...args} />;
 };

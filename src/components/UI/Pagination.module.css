@@ -3,7 +3,6 @@
   align-items: center;
   gap: 0.3rem;
   align-self: flex-end;
-  margin-left: 540px;
 }
 
 .page_changer input {
@@ -14,4 +13,21 @@
   border-radius: 20%;
   border: 1px solid #ccc;
   cursor: pointer;
+}
+
+.page_changer .pagination_dots {
+  padding: 0.5em;
+  font-size: 0.8rem;
+  background-color: #fff;
+  border-radius: 50%;
+  min-width: 1.7rem;
+  text-align: center;
+}
+.page_changer .current {
+  padding: 0.3em;
+  background-color: #fffcdc;
+  font-size: 1.4rem;
+  font-weight: bold;
+  border-radius: 50%;
+  min-width: 2.3rem;
 }
