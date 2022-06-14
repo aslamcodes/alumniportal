@@ -30,6 +30,7 @@ const AdminSidebar = ({ onClose }) => {
     ref: transitionRef,
     from: {
       opacity: 0,
+      transform: "translateX(50%)",
     },
     enter: {
       opacity: 1,
@@ -37,7 +38,7 @@ const AdminSidebar = ({ onClose }) => {
     },
     leave: {
       opacity: 0,
-      transform: "translateX(100%)",
+      transform: "translateX(50%)",
     },
   });
 
