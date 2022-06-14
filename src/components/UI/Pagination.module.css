@@ -26,6 +26,7 @@
   border-radius: 50%;
   min-width: 1.7rem;
   text-align: center;
+  cursor: pointer;
 }
 .page_changer .current {
   padding: 0.3em;
