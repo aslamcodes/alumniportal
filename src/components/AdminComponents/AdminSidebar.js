@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Styles from "./AdminSidebar.module.css";
 import {
   a,
-  config,
   useChain,
   useSpring,
   useSpringRef,
@@ -10,19 +9,21 @@ import {
 } from "react-spring";
 import { IoHomeOutline } from "react-icons/io5";
 import { BsCalendar4Event, BsPeople } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 
 const AdminSidebar = ({ onClose }) => {
   const [isExpanded, setIsExpanded] = useState(false);
-
+  const navigate = useNavigate();
   const expandRef = useSpringRef();
   const transitionRef = useSpringRef();
+
   const expandStyles = useSpring({
     ref: expandRef,
     from: {
       width: "6rem",
     },
     to: {
-      width: isExpanded ? "11rem" : "6rem",
+      width: isExpanded ? "15rem" : "6rem",
     },
   });
 
@@ -55,9 +56,21 @@ const AdminSidebar = ({ onClose }) => {
         }}
         className={Styles.sidebar}
       >
-        <div className={Styles.sidebar_item}>
+        <div
+          className={Styles.sidebar_item}
+          onClick={() => {
+            navigate("/");
+          }}
+        >
+          <img src={require("assets/Logo1.png")} />
+        </div>
+        <div
+          className={Styles.sidebar_item}
+          onClick={() => {
+            navigate("/");
+          }}
+        >
           <IoHomeOutline />
-
           {sidebarItemTransistion((style, item) => {
             return item && <a.p style={style}>Home</a.p>;
           })}
@@ -71,7 +84,7 @@ const AdminSidebar = ({ onClose }) => {
         <div className={Styles.sidebar_item}>
           <BsPeople />
           {sidebarItemTransistion((style, item) => {
-            return item && <a.p style={style}>Alumni</a.p>;
+            return item && <a.p style={style}>Alumni Forums</a.p>;
           })}
         </div>
       </div>

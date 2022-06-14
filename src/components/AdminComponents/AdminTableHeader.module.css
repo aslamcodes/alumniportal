@@ -30,7 +30,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
 }
 
 .search {
@@ -53,4 +53,14 @@
   outline: none;
   border-radius: 10rem;
   font-size: 1rem;
+}
+
+.results_count_changer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.3rem;
+}
+
+.results_count_changer :nth-child(1) {
 }

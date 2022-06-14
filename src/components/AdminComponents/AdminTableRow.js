@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSpring, a, config } from "react-spring";
-const AdminTableRow = () => {
+const AdminTableRow = ({ roll }) => {
   const [isHovered, setIsHover] = useState(false);
   const props = useSpring({
     config: config.stiff,
@@ -19,7 +19,7 @@ const AdminTableRow = () => {
         setIsHover(false);
       }}
     >
-      <td>20TUIT01</td>
+      <td>20TUIT0{roll}</td>
       <td>Yolo Ramesh</td>
       <td>Computer Science</td>
       <td>Software Engineer</td>

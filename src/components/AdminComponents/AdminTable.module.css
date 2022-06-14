@@ -1,6 +1,7 @@
 .table {
   table-layout: fixed;
   width: 100%;
+  min-width: 60rem;
   margin-top: 0.6em;
   border: 1px solid #e2e2e2;
   border-collapse: collapse;
@@ -17,7 +18,11 @@ tbody tr:hover {
 }
 
 thead {
-  background-color: #e2e2e2;
+  background-color: #e2e2e28e;
+  backdrop-filter: blur("5px");
+  -webkit-backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
 }
 tbody {
   background-color: #fff;
