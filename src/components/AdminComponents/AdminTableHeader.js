@@ -8,7 +8,7 @@ const AdminTableHeader = () => {
   return (
     <>
       <p className={Styles.table_header}>Alumni Details</p>
-      <Divider mb={5} mt={0} />
+      <Divider mb={".6em"} mt={0} />
       <div className={Styles.table_controls}>
         <div className={Styles.search}>
           <FiSearch />
@@ -24,7 +24,7 @@ const AdminTableHeader = () => {
           </button>
         </div>
       </div>
-      <Divider mt={5} mb={-3} />
+      <Divider mt={".6em"} mb={".6em"} />
       <div className={Styles.table_info_handler}>
         <p className={Styles.no_of_results}>Showing 1-10 of 1000 results</p>
         <div className={Styles.results_count_changer}>
