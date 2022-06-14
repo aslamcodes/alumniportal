@@ -18,16 +18,16 @@
 .page_changer .pagination_dots {
   padding: 0.5em;
   font-size: 0.8rem;
-  background-color: #ccc;
+  background-color: #fff;
   border-radius: 50%;
-  min-width: 0.8rem;
+  min-width: 1.7rem;
   text-align: center;
 }
-.page_changer :nth-child(3) {
-  padding: 1em;
+.page_changer .current {
+  padding: 0.3em;
   background-color: #fffcdc;
-  font-size: 1rem;
+  font-size: 1.4rem;
   font-weight: bold;
   border-radius: 50%;
-  min-width: 1rem;
+  min-width: 2.3rem;
 }

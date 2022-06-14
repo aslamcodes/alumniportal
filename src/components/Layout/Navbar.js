@@ -43,8 +43,9 @@ const Navbar = () => {
     isNavbarVisible && (
       <div className={styles.container}>
         <div
-          className={`${styles.navbar} ${styles.background_blur} ${isScrolled && styles.scrolled
-            }`}
+          className={`${styles.navbar} ${styles.background_blur} ${
+            isScrolled && styles.scrolled
+          }`}
         >
           {windowDimensions.width > 790 && (
             <div className={`${styles.navLink}`}>
@@ -85,6 +86,7 @@ const Navbar = () => {
           )}
           {windowDimensions.width > 790 ? (
             <div className={`${styles.navLink} ${styles.right}`}>
+              <Link to="/admin">Admin</Link>
               <Link to="/alumni-forum">Alumni Forum</Link>
               <Link to="/office-bearers">Office Bearers</Link>
             </div>
