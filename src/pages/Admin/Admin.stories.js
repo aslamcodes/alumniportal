@@ -5,4 +5,4 @@ export default {
   component: Admin,
 };
 
-export const AdminPage = () => <Admin />;
+export const Page = () => <Admin />;
