@@ -19,10 +19,10 @@ const AdminSidebar = ({ onClose }) => {
   const expandStyles = useSpring({
     ref: expandRef,
     from: {
-      transform: "translateX(0)",
+      width: "6rem",
     },
     to: {
-      transform: `translateX(${isExpanded ? "0" : "-50%"})`,
+      width: isExpanded ? "11rem" : "6rem",
     },
   });
 
@@ -30,7 +30,6 @@ const AdminSidebar = ({ onClose }) => {
     ref: transitionRef,
     from: {
       opacity: 0,
-      transform: "translateX(100%)",
     },
     enter: {
       opacity: 1,
@@ -42,7 +41,7 @@ const AdminSidebar = ({ onClose }) => {
     },
   });
 
-  useChain([expandRef, transitionRef]);
+  useChain([expandRef, transitionRef], [0, isExpanded ? 0.1 : 0]);
 
   return (
     <a.div style={expandStyles} className={Styles.sidebar_container}>

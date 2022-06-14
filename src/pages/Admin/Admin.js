@@ -1,7 +1,6 @@
 import React from "react";
 import Styles from "./Admin.module.css";
 import AdminSidebar from "components/AdminComponents/AdminSidebar";
-import Pagination from "components/UI/Pagination";
 import AdminTable from "components/AdminComponents/AdminTable";
 
 const Admin = () => {

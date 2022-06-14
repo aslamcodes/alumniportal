@@ -10,7 +10,7 @@
   background-color: #bddcf380;
   backdrop-filter: blur(10px);
   gap: 2rem;
-  padding: 2rem;
+  padding: 2em;
   height: 100%;
   overflow: hidden;
 }
@@ -18,6 +18,7 @@
 .sidebar_item {
   white-space: nowrap;
   display: flex;
+  flex-shrink: 0;
   align-items: center;
   cursor: pointer;
   gap: 0.4rem;
@@ -26,6 +27,7 @@
 
 .sidebar_item :nth-child(1) {
   font-size: 1.3rem;
+  min-width: 2rem;
 }
 
 .sidebar_item > * {
