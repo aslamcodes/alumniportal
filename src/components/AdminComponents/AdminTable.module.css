@@ -18,7 +18,6 @@ tbody tr:hover {
 }
 
 thead {
-  background-color: #e2e2e28e;
   backdrop-filter: blur("5px");
   -webkit-backdrop-filter: blur(10px);
   position: sticky;

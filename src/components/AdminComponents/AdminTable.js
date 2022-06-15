@@ -1,14 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import AdminTableHeader from "./AdminTableHeader";
 import AdminTablePagination from "./AdminTablePagination";
 import Styles from "./AdminTable.module.css";
 import AdminTableRow from "./AdminTableRow";
+import { a, useSpring } from "react-spring";
 
 const AdminTable = () => {
   const data = [...Array.from(Array(100).keys())];
   const [entriesPerPage, setEntriesPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
+  const [tableHeadOnTop, setTableHeadOnTop] = useState(false);
   const totalPages = data.length / entriesPerPage;
+  const tableHeadRef = useRef(null);
+
+  const props = useSpring({
+    from: {
+      backgroundColor: "#e2e2e28e",
+    },
+    to: {
+      backgroundColor: tableHeadOnTop ? "#bddcf380" : "#e2e2e28e",
+    },
+  });
 
   const OnIncreaseHandler = () => {
     if (currentPage > totalPages - 1) return null;
@@ -28,7 +40,7 @@ const AdminTable = () => {
     <div>
       <AdminTableHeader onSelect={onEntriesPerPageSelectHandler} />
       <table className={Styles.table}>
-        <thead>
+        <a.thead style={props} ref={tableHeadRef}>
           <tr className={Styles.table_row}>
             <th>Regno</th>
             <th>Name</th>
@@ -39,7 +51,7 @@ const AdminTable = () => {
             <th>Email</th>
             <th>Actions</th>
           </tr>
-        </thead>
+        </a.thead>
         <tbody>
           {data
             .slice(
