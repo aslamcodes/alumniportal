@@ -3,6 +3,10 @@
   align-items: center;
   gap: 0.3rem;
   align-self: flex-end;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none;
 }
 
 .page_changer input {
@@ -22,12 +26,13 @@
   border-radius: 50%;
   min-width: 1.7rem;
   text-align: center;
+  cursor: pointer;
+  font-weight: bold;
 }
 .page_changer .current {
   padding: 0.3em;
   background-color: #fffcdc;
   font-size: 1.4rem;
-  font-weight: bold;
   border-radius: 50%;
   min-width: 2.3rem;
 }
