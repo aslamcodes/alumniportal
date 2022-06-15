@@ -81,7 +81,12 @@ const AdminSidebar = ({ onClose }) => {
             return item && <a.p style={style}>Events</a.p>;
           })}
         </div>
-        <div className={Styles.sidebar_item}>
+        <div
+          className={Styles.sidebar_item}
+          onClick={() => {
+            navigate("/alumni-forum");
+          }}
+        >
           <BsPeople />
           {sidebarItemTransistion((style, item) => {
             return item && <a.p style={style}>Alumni Forums</a.p>;
