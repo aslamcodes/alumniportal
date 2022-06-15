@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import styles from "./Navbar.module.css";
 import { Link } from "react-router-dom";
-
+import { Outlet } from "react-router-dom";
 import Menu from "./Menu";
 import { useWindowScrollPositions } from "hooks/useWindowScrollPositions";
 
@@ -20,8 +20,6 @@ const Navbar = () => {
   );
   const [menuActive, setMenuActive] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const isInAdminPage = /admin/.test(location.pathname);
-  const isNavbarVisible = !isInAdminPage;
 
   if (useWindowScrollPositions().scrollY > 40 && !isScrolled) {
     setIsScrolled(true);
@@ -40,7 +38,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    isNavbarVisible && (
+    <>
       <div className={styles.container}>
         <div
           className={`${styles.navbar} ${styles.background_blur} ${
@@ -54,7 +52,6 @@ const Navbar = () => {
               <Link to="/events">Events</Link>
             </div>
           )}
-
           {windowDimensions.width > 790 ? (
             <div className={styles["navbar-brand"]}>
               <div className={styles["navbar-logo"]}>
@@ -66,7 +63,6 @@ const Navbar = () => {
                   AUTONOMOUS INSTITUTION | ACCREDITED BY NAAC WITH ‘A’ GRADE
                 </h3>
               </div>
-
               <div className={styles["navbar-logo"]}>
                 <img src={require("assets/Logo2.png")} alt="SKCT logo" />
               </div>
@@ -103,12 +99,12 @@ const Navbar = () => {
             </div>
           )}
         </div>
-
         {menuActive && windowDimensions.width < 790 && (
           <Menu setMenuActive={setMenuActive} />
         )}
       </div>
-    )
+      <Outlet />
+    </>
   );
 };
 
