@@ -6,12 +6,20 @@ import AdminTableRow from "./AdminTableRow";
 import { a, useSpring } from "react-spring";
 
 const AdminTable = () => {
-  const data = [...Array.from(Array(100).keys())];
+  const data = [...Array.from(Array(1000).keys())];
   const [entriesPerPage, setEntriesPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [tableHeadOnTop, setTableHeadOnTop] = useState(false);
-  const totalPages = data.length / entriesPerPage;
+  const totalPages = Math.ceil(data.length / entriesPerPage);
   const tableHeadRef = useRef(null);
+
+  /*
+  entriesPerPage:30
+  currentPage:1
+  totalPages: 100 / 30 = 3.33
+
+
+   */
 
   const props = useSpring({
     from: {
