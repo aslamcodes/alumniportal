@@ -15,6 +15,9 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
+    avatar: {
+      type: String,
+    },
     name: {
       type: String,
       required: true,
@@ -22,6 +25,34 @@ const userSchema = new Schema(
     isAdmin: {
       type: Boolean,
       default: false,
+    },
+    registerNumber: {
+      type: String,
+      required: true,
+    },
+    department: {
+      type: String,
+      required: true,
+    },
+    course: {
+      type: String,
+      required: true,
+    },
+    phoneNumber: {
+      type: String,
+      required: true,
+    },
+    country: {
+      type: String,
+      required: true,
+    },
+    state: {
+      type: String,
+      required: true,
+    },
+    city: {
+      type: String,
+      required: true,
     },
   },
   {
