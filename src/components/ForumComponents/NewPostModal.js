@@ -20,7 +20,7 @@ function NewPostModal({ data, setNewPostActive }) {
     if (!e.target.files || e.target.files.length === 0) {
       setPostData({
         ...postData,
-        image: undefined
+        image: postData.image || undefined
       });
       return;
     }
