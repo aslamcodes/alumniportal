@@ -29,14 +29,13 @@ h2 {
 }
 
 .gallery {
-  min-height: 80vh;
+  min-height: 100vh;
   padding-top: calc(var(--navbar-height) + 1vh);
   margin-bottom: 2rem;
   font-family: "neue_haas_rg";
 }
 .gallery_container {
-  z-index: -1;
-  position: relative;
+  height: clamp(30rem, 50%, fit-content);
 }
 .gallery_container::before {
   content: "";
@@ -80,7 +79,7 @@ h2 {
   margin: 1rem;
 }
 .gallery_item .itemImg img {
-  width: min(10rem, 70%);
+  width: min(7rem, 70%);
   height: auto;
   margin: auto;
 }
@@ -120,7 +119,7 @@ h2 {
   }
   .gallery_item_container:nth-of-type(1)::after {
     content: "";
-    width: 0.7px;
+    width: 0.5px;
     height: 100%;
     background-color: #000;
     position: absolute;
@@ -150,7 +149,7 @@ h2 {
   }
   .gallery_item_container:nth-of-type(3)::after {
     content: "";
-    width: 0.7px;
+    width: 0.5px;
     height: 100%;
     background-color: #000;
     position: absolute;
@@ -176,7 +175,7 @@ h2 {
     animation: linevgrow 3s;
   }
   .gallery_item_container:nth-of-type(1) .gallery_item {
-    grid-template-rows: 0.8fr 0.2fr;
+    grid-template-rows: 0.8fr 0.5fr;
   }
   .gallery_item_container:nth-of-type(2) .gallery_item {
     grid-template-rows: 0.7fr 0.3fr;
