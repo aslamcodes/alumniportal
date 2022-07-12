@@ -1,4 +1,3 @@
-import bcrypt from "bcryptjs";
 import generateToken from "../utils/authorization.js";
 import User from "../models/User.js";
 import asyncHandler from "express-async-handler";
@@ -13,7 +12,7 @@ export const registerUser = asyncHandler(async (req, res) => {
     });
   }
 
-  const user = User.create({
+  const user = await User.create({
     email,
     name,
     password,
