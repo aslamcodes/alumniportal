@@ -77,7 +77,6 @@ form {
 }
 .description_container {
   width: 100%;
-  height: 100%;
   border-radius: 0.5rem;
   background-color: #ddd;
 }
@@ -92,7 +91,7 @@ form {
   border-bottom: 1px solid rgb(167, 167, 167);
 }
 .description_container .input_container textarea[id="description"] {
-  min-height: 10rem;
+  min-height: 13rem;
   min-width: 100%;
   max-width: 100%;
   resize: none;
