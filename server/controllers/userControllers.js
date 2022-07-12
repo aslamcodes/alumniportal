@@ -1,4 +1,4 @@
-import generateToken from "../utils/authorization.js";
+import { generateToken } from "../utils/authorization.js";
 import User from "../models/User.js";
 import Alumni from "../models/Alumni.js";
 import asyncHandler from "express-async-handler";
