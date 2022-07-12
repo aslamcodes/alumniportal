@@ -14,7 +14,9 @@ config_db(process.env.URI);
 
 const app = express();
 app.use(express.json());
+
 app.use("/api/v1/users", userRouter);
+
 if (process.env.NODE_ENV === "DEVELOPMENT") {
   console.log("Development mode".yellow);
   app.get("/", (req, res) => {
@@ -27,6 +29,7 @@ if (process.env.NODE_ENV === "DEVELOPMENT") {
     res.sendFile(path.resolve(__dirname, "../build/index.html"));
   });
 }
+
 app.use(notFound);
 app.use(errorHandler);
 
