@@ -41,9 +41,8 @@ const Navbar = () => {
     <>
       <div className={styles.container}>
         <div
-          className={`${styles.navbar} ${styles.background_blur} ${
-            isScrolled && styles.scrolled
-          }`}
+          className={`${styles.navbar} ${styles.background_blur} ${isScrolled && styles.scrolled
+            }`}
         >
           {windowDimensions.width > 790 && (
             <div className={`${styles.navLink}`}>
@@ -87,7 +86,7 @@ const Navbar = () => {
               <Link to="/office-bearers">Office Bearers</Link>
             </div>
           ) : (
-            <div className={`${styles.dropdown} }`}>
+            <div className={`${styles.dropdown} `}>
               {!menuActive && (
                 <MenuIcon
                   className={styles["dropdown-btn"]}
