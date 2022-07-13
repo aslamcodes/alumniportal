@@ -3,9 +3,10 @@ import mongoose from "mongoose";
 const { Schema, model } = mongoose;
 
 const alumniSchema = new Schema({
-  userId: {
+  user: {
     type: Schema.Types.ObjectId,
     ref: "User",
+    required: true,
   },
   isEntrepreneur: {
     type: Boolean,
@@ -31,6 +32,14 @@ const alumniSchema = new Schema({
   isOfficeBearer: {
     type: Boolean,
     default: false,
+  },
+  isApproved: {
+    type: Boolean,
+    default: false,
+  },
+  approvedBy: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
   },
   profileDescription: { type: String },
 });

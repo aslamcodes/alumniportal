@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const { Schema, model } = mongoose;
 
 const postSchema = new Schema({
-  userId: {
+  user: {
     type: Schema.Types.ObjectId,
     ref: "User",
     required: true,
@@ -23,7 +23,7 @@ const postSchema = new Schema({
     },
     likes: [
       {
-        userId: {
+        user: {
           type: Schema.Types.ObjectId,
           ref: "User",
         },
@@ -31,7 +31,7 @@ const postSchema = new Schema({
     ],
     comments: [
       {
-        userId: {
+        user: {
           type: Schema.Types.ObjectId,
           ref: "User",
         },
@@ -41,7 +41,7 @@ const postSchema = new Schema({
         },
         replies: [
           {
-            userId: {
+            user: {
               type: Schema.Types.ObjectId,
               ref: "User",
             },

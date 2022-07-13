@@ -1,9 +1,21 @@
-import generateToken from "../utils/authorization.js";
+import { generateToken } from "../utils/authorization.js";
 import User from "../models/User.js";
 import asyncHandler from "express-async-handler";
 
 export const registerUser = asyncHandler(async (req, res) => {
-  const { name, email, password } = req.body;
+  const {
+    name,
+    email,
+    password,
+    avatar,
+    registerNumber,
+    department,
+    course,
+    phoneNumber,
+    country,
+    state,
+    city,
+  } = req.body;
   const existingUser = await User.findOne({ email });
 
   if (existingUser) {
@@ -16,6 +28,14 @@ export const registerUser = asyncHandler(async (req, res) => {
     email,
     name,
     password,
+    avatar,
+    registerNumber,
+    department,
+    course,
+    phoneNumber,
+    country,
+    state,
+    city,
   });
 
   if (user) {
@@ -24,6 +44,14 @@ export const registerUser = asyncHandler(async (req, res) => {
       email: user.email,
       name: user.name,
       isAdmin: user.isAdmin,
+      registerNumber: user.registerNumber,
+      department: user.department,
+      course: user.course,
+      phoneNumber: user.phoneNumber,
+      country: user.country,
+      state: user.state,
+      city: user.city,
+      avatar: user.avatar,
       token: generateToken(user._id),
     });
   } else {

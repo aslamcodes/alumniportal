@@ -1,10 +1,9 @@
 import jst from "jsonwebtoken";
 
-const generateToken = (id) => {
+export const generateToken = (id) => {
   const token = jst.sign({ id }, process.env.JWT_TOKEN_SECRET, {
-    expiresIn: "1m",
+    expiresIn: "60 days",
   });
+
   return token;
 };
-
-export default generateToken;

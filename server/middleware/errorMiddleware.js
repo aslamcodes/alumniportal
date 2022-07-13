@@ -4,6 +4,7 @@ export const errorHandler = (err, req, res, next) => {
     error: err.message,
   });
   next();
+  console.log(err);
 };
 
 export const notFound = (req, res, next) => {

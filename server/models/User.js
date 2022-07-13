@@ -54,6 +54,11 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
+    // yearOfPassing: {
+    //   type: Date,
+    //   required: true,
+    // },
+    // graduationLevel:
   },
   {
     timestamps: true,
