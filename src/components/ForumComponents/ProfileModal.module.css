@@ -50,10 +50,38 @@
   background: #fff;
   text-align: center;
 }
+.profile_info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.profile_info > * {
+  margin-bottom: 0.2rem;
+}
+.profile_info .location {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #d8faff;
+  width: fit-content;
+  padding: 0.15rem 0.2rem;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  font-weight: 400;
+  gap: 0.1rem;
+}
 
-.profile_info .social p {
+.profile_info .location img {
+  width: 0.8rem;
+}
+.profile_info .social {
+  margin-top: 0.3rem;
+}
+.profile_info .social img {
   display: inline;
-  margin: 0.3rem;
+  width: 1.5rem;
+  margin: auto 0.3rem;
+  vertical-align: middle;
 }
 
 .profile_description_container {

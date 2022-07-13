@@ -167,14 +167,17 @@ function ProfileModal() {
             <div className={styles.profile_info}>
               <h2>Jenifer Aswin</h2>
               <h3>Software developer</h3>
-              <p className={styles.location}>coimbatore,india</p>
+              <div className={styles.location}>
+                <img src={require("assets/icons/location.png")} alt="location icon" />
+                <p>coimbatore,india</p>
+              </div>
               <h4>Available on</h4>
               <div className={styles.social}>
-                <p>slack</p>
-                <p>slack</p>
-                <p>slack</p>
-                <p>slack</p>
-                <p>slack</p>
+                <img src={require("assets/icons/social/slack.png")} alt="slack icon" />
+                <img src={require("assets/icons/social/twitter.png")} alt="twitter icon" />
+                <img src={require("assets/icons/social/gmail.png")} alt="gmail icon" />
+                <img src={require("assets/icons/social/gitHub.png")} alt="gitHub icon" />
+                <img src={require("assets/icons/social/facebook.png")} alt="facebook icon" />
               </div>
             </div>
             <div className={styles.profile_description_container}>
