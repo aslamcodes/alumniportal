@@ -10,6 +10,19 @@
   backdrop-filter: blur(5px);
   z-index: 30;
 }
+.profile_container h2 {
+  font-size: 1.5rem;
+  margin-block: 0.5rem;
+}
+
+.profile_container h3 {
+  font-weight: 400;
+  color: rgb(102, 102, 102);
+}
+.profile_container h4 {
+  font-weight: 500;
+  font-size: 1.2rem;
+}
 
 .profile_container {
   height: 90%;
@@ -33,6 +46,42 @@
 
 .profile_body {
   min-height: 100%;
-  padding: 1rem;
+  padding: 2rem;
   background: #fff;
+  text-align: center;
+}
+
+.profile_info .social p {
+  display: inline;
+  margin: 0.3rem;
+}
+
+.profile_description_container {
+  margin-top: 2rem;
+}
+
+.description_topbar {
+  background: rgba(211, 211, 211, 0.788);
+  padding: 0.3rem;
+  text-align: left;
+  margin-bottom: 1rem;
+  border-radius: 0.1rem;
+  backdrop-filter: blur(5px);
+}
+.description_topbar p {
+  display: inline;
+  margin: 0.5rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+.selected {
+  color: #2400ff;
+}
+.description_topbar p:hover {
+  color: rgb(95, 95, 95);
+}
+
+.description p {
+  text-align: justify;
+  margin-inline: 0.4rem;
 }
