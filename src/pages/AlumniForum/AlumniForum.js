@@ -161,7 +161,7 @@ function AlumniForum() {
     <div className={Styles.container}>
       <div className={Styles.forum_container}>
         {DUMMY_POST_DATA.map((post) => (
-          <ForumCard key={post.id} data={post} profileActive={() => setProfileActive(true)} />
+          <ForumCard key={post.id} data={post} setProfileActive={() => setProfileActive(true)} />
         ))}
       </div>
       <div className={Styles.new_post_button} onClick={() => setNewPostActive(true)}>

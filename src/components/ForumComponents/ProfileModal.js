@@ -215,7 +215,7 @@ function ProfileModal({ handleClose }) {
               {show.post && (
                 <div className={styles.posts}>
                   {DUMMY_POST_DATA.map((post) => {
-                    return <ForumCard key={post.id} data={post} />
+                    return <ForumCard key={post.id} data={post} profileActive={true} />
                   })}
                 </div>
               )}

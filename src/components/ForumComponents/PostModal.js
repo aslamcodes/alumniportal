@@ -5,7 +5,7 @@ import { a, config, useTransition } from "react-spring";
 import ReactPortal from "components/Modal/ReactPortal";
 import Styles from "./PostModal.module.css";
 
-const PostModal = ({ handleClose, isOpen, profileActive }) => {
+const PostModal = ({ handleClose, isOpen, setProfileActive }) => {
   const postModalTransitions = useTransition(isOpen, {
     from: {
       opacity: 0,
@@ -46,7 +46,7 @@ const PostModal = ({ handleClose, isOpen, profileActive }) => {
                       src={"https://picsum.photos/536/354"}
                       onClick={() => {
                         handleClose();
-                        profileActive();
+                        setProfileActive();
                       }}
                     />
                     <div className={Styles.user_info}>
