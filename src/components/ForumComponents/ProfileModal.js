@@ -162,7 +162,7 @@ function ProfileModal({ handleClose }) {
   }, [handleClose]);
 
   return (
-    <ReactPortal>
+    <ReactPortal wrapperId="profile_content_wrapper">
       <div className={styles.profile_overlay} onClick={handleClose}>
         <div className={styles.profile_container} onClick={(e) => e.stopPropagation()}> {/* to prevent closing on click inside the modal */}
           <div className={styles.profile_header} >
