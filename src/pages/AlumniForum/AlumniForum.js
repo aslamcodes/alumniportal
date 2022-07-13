@@ -156,11 +156,12 @@ const DUMMY_POST_DATA = [
 
 function AlumniForum() {
   const [newPostActive, setNewPostActive] = useState(false);
+  const [profileActive, setProfileActive] = useState(false);
   return (
     <div className={Styles.container}>
       <div className={Styles.forum_container}>
         {DUMMY_POST_DATA.map((post) => (
-          <ForumCard key={post.id} data={post} />
+          <ForumCard key={post.id} data={post} profileActive={() => setProfileActive(true)} />
         ))}
       </div>
       <div className={Styles.new_post_button} onClick={() => setNewPostActive(true)}>
@@ -174,7 +175,8 @@ function AlumniForum() {
       {newPostActive && (
         <NewPostModal data={DUMMY_POST_DATA[0]} setNewPostActive={setNewPostActive} />
       )}
-      <ProfileModal />
+      {profileActive && <ProfileModal handleClose={() => setProfileActive(false)} />}
+
 
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ReactPortal from "components/Modal/ReactPortal";
 import ForumCard from "components/ForumComponents/ForumCard";
 import styles from "./ProfileModal.module.css";
@@ -129,7 +129,7 @@ const PROFILE_IMAGES = [
 
 
 
-function ProfileModal() {
+function ProfileModal({ handleClose }) {
   const [show, setShow] = useState({
     desc: true,
     post: false
@@ -153,10 +153,18 @@ function ProfileModal() {
     }
   }
 
+  useEffect(() => {
+    const closeOnEscapeKey = (e) => (e.key === "Escape" ? handleClose() : null);
+    document.body.addEventListener("keydown", closeOnEscapeKey);
+    return () => {
+      document.body.removeEventListener("keydown", closeOnEscapeKey);
+    };
+  }, [handleClose]);
+
   return (
     <ReactPortal>
-      <div className={styles.profile_overlay} >
-        <div className={styles.profile_container} >
+      <div className={styles.profile_overlay} onClick={handleClose}>
+        <div className={styles.profile_container} onClick={(e) => e.stopPropagation()}> {/* to prevent closing on click inside the modal */}
           <div className={styles.profile_header} >
             {pick_image()}
           </div>
@@ -169,7 +177,7 @@ function ProfileModal() {
               <h3>Software developer</h3>
               <div className={styles.location}>
                 <img src={require("assets/icons/location.png")} alt="location icon" />
-                <p>coimbatore,india</p>
+                <p>Coimbatore,India</p>
               </div>
               <h4>Available on</h4>
               <div className={styles.social}>

@@ -5,7 +5,7 @@ import { BsChat } from "react-icons/bs";
 import CommentModal from "./CommentModal";
 import PostModal from "./PostModal";
 
-const ForumCard = ({ data }) => {
+const ForumCard = ({ data, profileActive }) => {
   const [isCommentsModalOpen, setIsCommentsModalOpen] = useState(false);
   const [isPostModalOpen, setIsPostModalOpen] = useState(false);
   return (
@@ -22,10 +22,11 @@ const ForumCard = ({ data }) => {
         handleClose={() => {
           setIsPostModalOpen(false);
         }}
+        profileActive={profileActive}
       />
       <div className={styles.header}>
         <div className={styles.userinfo_container}>
-          <img src={data.user.profile_image} />
+          <img src={data.user.profile_image} onClick={profileActive} />
           <p className={styles.user_name}>{data.user.name}</p>
         </div>
         <div className={styles.post_action_container}>
