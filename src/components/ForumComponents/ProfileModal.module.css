@@ -30,6 +30,8 @@
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
   overflow-y: auto;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
 .profile_header {
@@ -128,4 +130,27 @@
 .description p {
   text-align: justify;
   margin-inline: 0.4rem;
+}
+
+@media (min-width: 768px) {
+  .profile_container {
+    width: 65%;
+  }
+  .profile_header {
+    height: 50%;
+  }
+  .profile_body {
+    padding: 0.5rem 2rem;
+  }
+  .profile_body img[alt="profile_img"] {
+    width: 12rem;
+    height: 12rem;
+    left: 0;
+    transform: translate(30%, -50%);
+  }
+  .profile_info {
+    margin-top: 0rem;
+    align-items: flex-start;
+    transform: translateX(30%);
+  }
 }
