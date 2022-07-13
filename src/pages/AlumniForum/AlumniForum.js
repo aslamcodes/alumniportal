@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import ForumCard from "components/ForumComponents/ForumCard";
 import NewPostModal from "components/ForumComponents/NewPostModal";
+import ProfileModal from "components/ForumComponents/ProfileModal";
 import Styles from "./AlumniForum.module.css";
 import { AiOutlinePlus } from "react-icons/ai";
 const DUMMY_POST_DATA = [
@@ -173,6 +174,8 @@ function AlumniForum() {
       {newPostActive && (
         <NewPostModal data={DUMMY_POST_DATA[0]} setNewPostActive={setNewPostActive} />
       )}
+      <ProfileModal />
+
     </div>
   );
 }

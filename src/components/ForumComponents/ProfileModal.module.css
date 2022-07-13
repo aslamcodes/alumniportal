@@ -1,0 +1,38 @@
+.profile_overlay {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  height: 100vh;
+  width: 100vw;
+  backdrop-filter: blur(5px);
+  z-index: 30;
+}
+
+.profile_container {
+  height: 90%;
+  width: 70%;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  overflow-y: auto;
+}
+
+.profile_header {
+  max-width: 100%;
+  height: 35%;
+  background: red;
+}
+
+.profile_header img[alt="cover_img"] {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile_body {
+  min-height: 100%;
+  padding: 1rem;
+  background: #fff;
+}
