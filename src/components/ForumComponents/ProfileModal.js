@@ -134,6 +134,7 @@ function ProfileModal({ handleClose }) {
     desc: true,
     post: false
   });
+  const [editProfile, setEditProfile] = useState(false);
   const pick_image = () => {
     const random_number = Math.floor(Math.random() * PROFILE_IMAGES.length);
     return PROFILE_IMAGES[random_number];
@@ -171,6 +172,12 @@ function ProfileModal({ handleClose }) {
           <div className={styles.profile_body} >
             <div className={styles.profile_img}>
               <img src={require("assets/test/profile_photo.png")} alt="profile_img" />
+              {editProfile &&
+                <label for="img-switch" >
+                  <img src={require("assets/image-switch.png")} alt="image-switch-icon" />
+                </label>}
+              <input name="image" id="img-switch" type="file" />
+
             </div>
             <div className={styles.profile_info}>
               <h2>Jenifer Aswin</h2>
@@ -187,6 +194,17 @@ function ProfileModal({ handleClose }) {
                 <img src={require("assets/icons/social/gitHub.png")} alt="gitHub icon" />
                 <img src={require("assets/icons/social/facebook.png")} alt="facebook icon" />
               </div>
+              {!editProfile ?
+                <div className={styles.edit_profile} onClick={() => setEditProfile(true)}>
+                  <p>Edit Profile</p>
+                  <img src={require("assets/icons/edit.png")} alt="edit icon" />
+                </div>
+                : (
+                  <div className={styles.edit_profile} onClick={() => setEditProfile(false)}>
+                    <p>Done</p>
+                  </div>
+                )
+              }
             </div>
             <div className={styles.profile_description_container}>
               <div className={styles.description_topbar}>
