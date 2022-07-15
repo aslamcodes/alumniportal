@@ -1,14 +1,9 @@
 import React from 'react'
-
+import GalleryTemplate from 'components/GalleryComponents/GalleryTemplate'
 function AlumniMeet() {
   return (
-    <div>AlumniMeet
-      <h2>FDSSSSSSSSSSSSSSSSSSSSSSSSS
-        FDSSSSSSSSSSSSSSSSSSSSSSSSSFDSSSSSSSSSSSSSSSSSSSSSSSSSFDSSSSSSSSSSSSSSSSSSSSSSSSS
-        FDSSSSSSSSSSSSSSSSSSSSSSSSS
-        FDSSSSSSSSSSSSSSSSSSSSSSSSS
-
-      </h2>
+    <div>
+      <GalleryTemplate fname="ALUMNI" sname="MEET" />
     </div>
   )
 }
