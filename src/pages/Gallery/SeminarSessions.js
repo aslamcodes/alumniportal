@@ -1,8 +1,11 @@
 import React from 'react'
+import GalleryTemplate from 'components/GalleryComponents/GalleryTemplate'
 
 function SeminarSessions() {
   return (
-    <div>SeminarSessions</div>
+    <div>
+      <GalleryTemplate fname="SEMINAR" sname="SESSIONS" />
+    </div>
   )
 }
 

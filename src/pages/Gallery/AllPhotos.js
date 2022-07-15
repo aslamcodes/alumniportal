@@ -1,8 +1,11 @@
 import React from 'react'
+import GalleryTemplate from 'components/GalleryComponents/GalleryTemplate'
 
 function AllPhotos() {
   return (
-    <div>AllPhotos</div>
+    <div>
+      <GalleryTemplate fname="ALL" sname="PHOTOS" />
+    </div>
   )
 }
 
