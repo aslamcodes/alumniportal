@@ -12,7 +12,8 @@ function GalleryTemplate({ fname, sname, data }) {
     let dm = dimension[d];
     let Src = imgSrc.concat(dm);
     console.log('src: ', Src);
-    images.push(<img key={i} src={Src} alt="" />);
+    const style = { "--delay": i + 1 }
+    images.push(<img key={i} src={Src} delay={i + 1} alt="" />);
   }
 
 
@@ -23,7 +24,10 @@ function GalleryTemplate({ fname, sname, data }) {
       </div>
 
       <div className={styles.gallery_content}>
-        {images}
+        <img key={1} src={"https://source.unsplash.com/random/400x400"} delay={1} alt="" />
+        <img key={2} src={"https://source.unsplash.com/random/500x500"} delay={2} alt="" />
+        <img key={3} src={"https://source.unsplash.com/random/600x600"} delay={3} alt="" />
+        <img key={3} src={"https://source.unsplash.com/random/700x700"} delay={3} alt="" />
 
       </div>
     </div>
