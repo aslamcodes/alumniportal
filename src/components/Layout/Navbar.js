@@ -21,10 +21,10 @@ const Navbar = () => {
   const [menuActive, setMenuActive] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
-  if (useWindowScrollPositions().scrollY > 40 && !isScrolled) {
+  if (useWindowScrollPositions().scrollY > 30 && !isScrolled) {
     setIsScrolled(true);
   }
-  if (useWindowScrollPositions().scrollY < 40 && isScrolled) {
+  if (useWindowScrollPositions().scrollY < 30 && isScrolled) {
     setIsScrolled(false);
   }
 
