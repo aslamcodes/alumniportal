@@ -165,3 +165,71 @@ export const getAlumniById = asyncHandler(async (req, res) => {
     });
   }
 });
+
+export const setOfficeBearer = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  try {
+    const alumni = await Alumni.findOneAndUpdate(
+      { user: id },
+      {
+        $set: {
+          isOfficeBearer: true,
+        },
+      }
+    );
+
+    if (alumni) {
+      return res.status(200).json({
+        message: "Alumni set as Office Bearer successfully",
+      });
+    }
+
+    return res.status(400).json({
+      error:
+        "Cannot set Alumni as Office Bearer at this time, please try again later",
+    });
+  } catch (error) {
+    if (error.kind === "ObjectId") {
+      return res.status(400).json({
+        error: "Wrong User Id",
+      });
+    }
+    res.status(400).json({
+      error,
+    });
+  }
+});
+
+export const removeOfficeBearer = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  try {
+    const alumni = await Alumni.findOneAndUpdate(
+      { user: id },
+      {
+        $set: {
+          isOfficeBearer: false,
+        },
+      }
+    );
+
+    if (alumni) {
+      return res.status(200).json({
+        message: "Alumni removed as Office Bearer successfully",
+      });
+    }
+
+    return res.status(400).json({
+      error:
+        "Cannot remove Alumni as Office Bearer at this time, please try again later",
+    });
+  } catch (error) {
+    if (error.kind === "ObjectId") {
+      return res.status(400).json({
+        error: "Wrong User Id",
+      });
+    }
+    res.status(400).json({
+      error,
+    });
+  }
+});
