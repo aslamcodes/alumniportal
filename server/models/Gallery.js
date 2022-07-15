@@ -7,6 +7,13 @@ const gallerySchema = new Schema({
     type: String,
     required: true,
   },
+  title: {
+    type: String,
+    required: true,
+  },
+  desc: {
+    type: String,
+  },
 });
 
 const Gallery = model("Gallery", gallerySchema);
