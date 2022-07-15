@@ -1,0 +1,16 @@
+import React from 'react'
+
+function AlumniMeet() {
+  return (
+    <div>AlumniMeet
+      <h2>FDSSSSSSSSSSSSSSSSSSSSSSSSS
+        FDSSSSSSSSSSSSSSSSSSSSSSSSSFDSSSSSSSSSSSSSSSSSSSSSSSSSFDSSSSSSSSSSSSSSSSSSSSSSSSS
+        FDSSSSSSSSSSSSSSSSSSSSSSSSS
+        FDSSSSSSSSSSSSSSSSSSSSSSSSS
+
+      </h2>
+    </div>
+  )
+}
+
+export default AlumniMeet
