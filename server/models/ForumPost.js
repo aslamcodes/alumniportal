@@ -9,15 +9,17 @@ const postSchema = new Schema({
     required: true,
   },
   post: {
-    image: {
-      type: String,
-      required: true,
-    },
+    images: [
+      {
+        type: String,
+        required: true,
+      },
+    ],
     title: {
       type: String,
       required: true,
     },
-    text: {
+    desc: {
       type: String,
       required: true,
     },
