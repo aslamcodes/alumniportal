@@ -10,7 +10,7 @@ function Menu({ setMenuActive }) {
         <Link onClick={() => setMenuActive(false)} to="/">Home</Link>
         <Link onClick={() => setMenuActive(false)} to="/gallery">Gallery</Link>
         <Link onClick={() => setMenuActive(false)} to="/events">Events</Link>
-        <Link onClick={() => setMenuActive(false)} to="/alumini-forum">Alumini Forum</Link>
+        <Link onClick={() => setMenuActive(false)} to="/alumni-forum">Alumini Forum</Link>
         <Link onClick={() => setMenuActive(false)} to="/office-bearers">Office Bearers</Link>
       </div>
     </div>
