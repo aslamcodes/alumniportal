@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import EventCard from "components/EventComponents/EventCard";
+import AddEventCard from "components/EventComponents/AddEventCard";
 import styles from "./Events.module.css";
 
 const Events = () => {
@@ -15,6 +16,7 @@ const Events = () => {
             <div className={styles["add_event_button"]}>
               <p>Edit</p>
             </div>
+            <AddEventCard />
           </div>
           <div className={styles["events"]}>
             <div className={styles["child"]}>
@@ -51,7 +53,7 @@ const Events = () => {
           </div>
         </div>
       </div>
-      {/* <Footer /> */}
+
     </div>
   );
 };

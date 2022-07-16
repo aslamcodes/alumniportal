@@ -14,15 +14,17 @@
 }
 .event_page_content {
   text-align: left;
-  font-family: "Old Standard TT", serif;
+  /* font-family: "Old Standard TT", serif; */
 }
 
 .event_page_content .header {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
   font-size: 1rem;
   font-weight: 800;
+  padding-inline: 0.5rem;
 }
 
 .event_page_content .header span {
@@ -35,7 +37,7 @@
   align-items: center;
   font-size: 1.3rem;
   font-weight: 600;
-  padding: 0.1em 1.9em 0em 0.6em;
+  padding: 0.1em 1.9em 0.1em 0.6em;
   background-color: #eaeef1;
   border-radius: 25px;
   cursor: pointer;
@@ -56,6 +58,7 @@
   color: #fff;
   font-size: 1em;
   font-weight: bold;
+  font-family: "Old Standard TT", serif;
 }
 
 .header .add_event_button:hover,
