@@ -1,8 +1,8 @@
 .add_event_card {
   position: absolute;
-  right: 0.5rem;
-  top: 100%;
-  width: 20%;
+  left: 0.5rem;
+  top: 110%;
+  width: 80%;
   padding: 1rem 0.5rem;
   background: #fff;
   border-radius: 0.5rem;
@@ -39,4 +39,13 @@ label {
 
 .split_container > p {
   font-weight: 400;
+}
+
+@media (min-width: 790px) {
+  .add_event_card {
+    width: 22%;
+    top: 100%;
+    right: 0.5rem;
+    left: auto;
+  }
 }

@@ -5,6 +5,7 @@ import styles from "./Events.module.css";
 
 const Events = () => {
   const [isActive, setIsActive] = useState(false);
+  const [isCardActive, setIsCardActive] = useState(false);
   return (
     <div className={styles["event_page"]}>
       <div className={styles["event_body"]}>
@@ -13,10 +14,10 @@ const Events = () => {
             <h2>
               <span>U</span>PCOMING <span>E</span>VENTS
             </h2>
-            <div className={styles["add_event_button"]}>
+            <div className={`${styles["add_event_button"]} ${isCardActive && styles["active"]}`} onClick={() => setIsCardActive(!isCardActive)}>
               <p>Edit</p>
             </div>
-            <AddEventCard />
+            {isCardActive && <AddEventCard />}
           </div>
           <div className={styles["events"]}>
             <div className={styles["child"]}>
