@@ -8,10 +8,13 @@ const Events = () => {
     <div className={styles["event_page"]}>
       <div className={styles["event_body"]}>
         <div className={styles["event_page_content"]}>
-          <div className={styles["title"]}>
-            <p>
+          <div className={styles["header"]}>
+            <h2>
               <span>U</span>PCOMING <span>E</span>VENTS
-            </p>
+            </h2>
+            <div className={styles["add_event_button"]}>
+              <p>Edit</p>
+            </div>
           </div>
           <div className={styles["events"]}>
             <div className={styles["child"]}>
