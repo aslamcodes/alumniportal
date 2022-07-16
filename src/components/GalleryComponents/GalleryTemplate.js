@@ -25,9 +25,9 @@ function GalleryTemplate({ fname, sname, data }) {
     }
   )
 
+  // test data:
   let Data = [];
   const testData = (n) => {
-    // test data:
     const imgSrc = "https://source.unsplash.com/random/"
     const dimension = ["300x300", "400x400", "500x500", "600x600", "700x700", "800x800", "900x900", "1000x1000"];
     for (let i = 0; i < n; i++) {
@@ -45,13 +45,10 @@ function GalleryTemplate({ fname, sname, data }) {
 
   Data = testData(noImage);
 
-
-  console.log('Data: ', Data);
   useEffect(() => {
     function handleResize() {
       setWindowDimensions(getWindowDimensions());
     }
-    console.log('noImage: ', noImage);
     if (windowDimensions.width > 1020) {
       setNoImage(3);
     } else if (windowDimensions.width > 780) {
@@ -76,8 +73,6 @@ function GalleryTemplate({ fname, sname, data }) {
       imageTop: id - 1,
       imageBottom: id + 1,
     })
-    console.log('id: ', id);
-    console.log('imageSwitch: ', imageSwitch);
   }
 
   return (
@@ -88,7 +83,6 @@ function GalleryTemplate({ fname, sname, data }) {
 
       <div className={styles.gallery_content} onScroll={handleScroll}>
 
-        {console.log('Data render', Data)}
         {Data.map((images, index1) => {
           return (
             <div key={index1} className={styles.gallery_img}>
