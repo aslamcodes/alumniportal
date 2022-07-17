@@ -24,7 +24,7 @@ form {
 }
 
 .input_container > * {
-  width: 100%;
+  max-width: 100%;
 }
 label {
   font-weight: 500;
@@ -39,6 +39,32 @@ label {
 
 .split_container > p {
   font-weight: 400;
+}
+.input_container input {
+  border: none;
+  border-radius: 0.2rem;
+  padding: 0.5rem 0.1rem;
+  text-indent: 0.3rem;
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: #333;
+  background: #d9d9d9;
+}
+.input_container > input::-webkit-datetime-edit-day-field:focus,
+input::-webkit-datetime-edit-month-field:focus,
+input::-webkit-datetime-edit-year-field:focus,
+input::-webkit-datetime-edit-hour-field:focus,
+input::-webkit-datetime-edit-minute-field:focus,
+input::-webkit-datetime-edit-second-field:focus,
+input::-webkit-textfield-decoration-container:focus {
+  background: transparent;
+  color: rgb(255, 255, 255);
+  outline: none;
+}
+
+.input_container input:focus {
+  outline: none;
+  border: 1px solid rgba(69, 69, 69, 0.355);
 }
 
 @media (min-width: 790px) {
