@@ -1,10 +1,14 @@
 import asyncHandler from "express-async-handler";
 import ForumPost from "../models/ForumPost.js";
+import ForumPostLike from "../models/ForumPostLike.js";
+import Comment from "../models/ForumComment.js";
+import Reply from "../models/ForumCommentReply.js";
 import mongoose from "mongoose";
 import Grid from "gridfs-stream";
 
 export const createPost = asyncHandler(async (req, res, next) => {
-  const { user, post } = req.body;
+  const { user } = req;
+  const { post } = req.body;
   const { title, desc } = post;
   const images = req.files.map((file) => file.id);
   const NewPost = await ForumPost.create({
@@ -15,7 +19,10 @@ export const createPost = asyncHandler(async (req, res, next) => {
       desc,
     },
   });
-  res.json(NewPost);
+  await ForumPostLike.create({
+    post: NewPost._id,
+  });
+  res.json({ user: NewPost.user, post: NewPost.post, likes: [] });
 });
 
 export const getAllPosts = asyncHandler(async (req, res, next) => {
@@ -28,6 +35,120 @@ export const getAllPosts = asyncHandler(async (req, res, next) => {
   }
 
   res.json(ForumPostData);
+});
+
+export const getAllPosts_V2 = asyncHandler(async (req, res) => {
+  const { offset = 0 } = req.query;
+  const pipeline = [];
+  const unwantedUserFields = [
+    "user.password",
+    "user.email",
+    "user.createdAt",
+    "user.updatedAt",
+  ];
+  const ForumFeed = await ForumPost.aggregate([
+    {
+      $sort: { createdAt: -1 },
+    },
+    {
+      $skip: Number(offset),
+    },
+    {
+      $limit: 5,
+    },
+    {
+      $lookup: {
+        from: "users",
+        localField: "user",
+        foreignField: "_id",
+        as: "user",
+      },
+    },
+    {
+      $lookup: {
+        from: "forumpostlikes",
+        localField: "_id",
+        foreignField: "post",
+        pipeline: [
+          {
+            $unwind: "$likes",
+          },
+        ],
+        as: "likes",
+      },
+    },
+    {
+      $lookup: {
+        from: "forumcomments",
+        let: { postId: "$_id" },
+        localField: "_id",
+        foreignField: "post",
+        pipeline: [
+          {
+            $sort: {
+              createdAt: -1,
+            },
+          },
+          {
+            $lookup: {
+              from: "users",
+              localField: "user",
+              foreignField: "_id",
+              as: "user",
+            },
+          },
+          {
+            $unwind: "$user",
+          },
+          {
+            $unset: unwantedUserFields,
+          },
+          {
+            $lookup: {
+              from: "forumcommentreplies",
+              let: { commentId: "$_id" },
+              localField: "_id",
+              foreignField: "comment",
+              pipeline: [
+                {
+                  $sort: {
+                    createdAt: -1,
+                  },
+                },
+                {
+                  $lookup: {
+                    from: "users",
+                    localField: "user",
+                    foreignField: "_id",
+                    as: "user",
+                  },
+                },
+                {
+                  $unset: unwantedUserFields,
+                },
+              ],
+              as: "replies",
+            },
+          },
+        ],
+        as: "comments",
+      },
+    },
+    {
+      $unset: unwantedUserFields,
+    },
+    {
+      $unwind: "$user",
+    },
+  ]);
+
+  if (!ForumFeed) {
+    return res.status(400).json({
+      error: "No posts found",
+    });
+  }
+
+  res.json(ForumFeed);
 });
 
 let gfs, forumImagesBucket;
@@ -48,4 +169,66 @@ export const getPostImageById = asyncHandler(async (req, res) => {
   } catch (error) {
     res.json({ error: "No image found" });
   }
+});
+
+export const createComment = asyncHandler(async (req, res, next) => {
+  const { user } = req;
+  const post = req.params.id;
+  const { comment } = req.body;
+  const NewComment = await Comment.create({
+    user,
+    post,
+    text: comment,
+  });
+
+  if (!NewComment) {
+    return res.status(400).json({
+      error: "Can't create comment",
+    });
+  }
+
+  res.json(NewComment);
+});
+
+export const createReply = asyncHandler(async (req, res, next) => {
+  const { user } = req;
+  const comment = req.params.id;
+  const { reply } = req.body;
+  const NewReply = await Reply.create({
+    user,
+    comment,
+    reply,
+  });
+
+  if (!NewReply) {
+    return res.status(400).json({
+      error: "Can't create reply",
+    });
+  }
+  res.json(NewReply);
+});
+
+export const likePost = asyncHandler(async (req, res) => {
+  const { user } = req;
+  const post = req.params.id;
+
+  const likeToUpdate = await ForumPostLike.updateOne(
+    {
+      post,
+    },
+    {
+      $push: {
+        likes: {
+          user,
+        },
+      },
+    }
+  );
+
+  if (!likeToUpdate) {
+    return res.status(400).json({
+      error: "Can't like post",
+    });
+  }
+  res.json(likeToUpdate);
 });
