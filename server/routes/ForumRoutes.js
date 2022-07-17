@@ -1,8 +1,12 @@
 import express from "express";
 import {
+  createComment,
   createPost,
+  createReply,
   getAllPosts,
+  getAllPosts_V2,
   getPostImageById,
+  likePost,
 } from "../controllers/ForumController.js";
 import dotenv from "dotenv";
 import { GridFsStorage } from "multer-gridfs-storage";
@@ -31,6 +35,12 @@ const upload = multer({ storage });
 const router = express.Router();
 
 router.get("/", getAllPosts);
-router.post("/", protect, alumni, upload.array("post_images", 6), createPost);
 router.get("/image/:id", getPostImageById);
+router.get("/feed_v2_alpha/:offset", getAllPosts_V2);
+
+router.patch("/like/:id", protect, likePost);
+
+router.post("/", protect, alumni, upload.array("post_images", 6), createPost);
+router.post("/comment/:id", protect, createComment);
+router.post("/reply/:id", protect, createReply);
 export default router;
