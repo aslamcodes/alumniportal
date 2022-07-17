@@ -1,8 +1,8 @@
 import React from 'react'
 import styles from './EventCard.module.css'
-const EventCard = ({ isActive }) => {
+const EventCard = ({ isActive, isCardActive }) => {
   return (
-    <div className={`${styles.event_card} ${isActive && styles.active}`}>
+    <div className={`${styles.event_card} ${isActive && styles.active} `}>
       <div className={styles['date']}>
         <p>01</p>
         <p>JAN</p>
@@ -13,11 +13,13 @@ const EventCard = ({ isActive }) => {
       <div className={styles['venue']}>
         <p>2:30pm - 4:30pm</p>
         <p>@Seminar Hall SKCT</p>
-
       </div>
-
-
-    </div>
+      {isCardActive &&
+        <div className={` ${isCardActive && styles.event_edit}`} >
+          <img src={require("assets/icons/block.png")} alt="edit icon" />
+        </div>
+      }
+    </div >
   )
 }
 
