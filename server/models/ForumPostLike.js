@@ -4,6 +4,7 @@ const forumPostLikeSchema = new mongoose.Schema({
   post: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "ForumPost",
+    required: true,
   },
   likes: [
     {
