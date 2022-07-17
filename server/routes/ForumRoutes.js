@@ -34,9 +34,9 @@ const upload = multer({ storage });
 
 const router = express.Router();
 
-router.get("/", getAllPosts);
 router.get("/image/:id", getPostImageById);
-router.get("/feed_v2_alpha/:offset", getAllPosts_V2);
+router.get("/feed", getAllPosts);
+router.get("/feed_v2_alpha/", getAllPosts_V2);
 
 router.patch("/like/:id", protect, likePost);
 

@@ -7,7 +7,8 @@ import mongoose from "mongoose";
 import Grid from "gridfs-stream";
 
 export const createPost = asyncHandler(async (req, res, next) => {
-  const { user, post } = req.body;
+  const { user } = req;
+  const { post } = req.body;
   const { title, desc } = post;
   const images = req.files.map((file) => file.id);
   const NewPost = await ForumPost.create({
@@ -37,15 +38,21 @@ export const getAllPosts = asyncHandler(async (req, res, next) => {
 });
 
 export const getAllPosts_V2 = asyncHandler(async (req, res) => {
-  const { offset } = req.params;
+  const { offset = 0 } = req.query;
   const pipeline = [];
+  const unwantedUserFields = [
+    "user.password",
+    "user.email",
+    "user.createdAt",
+    "user.updatedAt",
+  ];
   const ForumFeed = await ForumPost.aggregate([
     {
       $sort: { createdAt: -1 },
     },
-    // {
-    //   // $skip: Number(offset),
-    // },
+    {
+      $skip: Number(offset),
+    },
     {
       $limit: 5,
     },
@@ -62,16 +69,76 @@ export const getAllPosts_V2 = asyncHandler(async (req, res) => {
         from: "forumpostlikes",
         localField: "_id",
         foreignField: "post",
+        pipeline: [
+          {
+            $unwind: "$likes",
+          },
+        ],
         as: "likes",
       },
     },
     {
       $lookup: {
         from: "forumcomments",
+        let: { postId: "$_id" },
         localField: "_id",
         foreignField: "post",
+        pipeline: [
+          {
+            $sort: {
+              createdAt: -1,
+            },
+          },
+          {
+            $lookup: {
+              from: "users",
+              localField: "user",
+              foreignField: "_id",
+              as: "user",
+            },
+          },
+          {
+            $unwind: "$user",
+          },
+          {
+            $unset: unwantedUserFields,
+          },
+          {
+            $lookup: {
+              from: "forumcommentreplies",
+              let: { commentId: "$_id" },
+              localField: "_id",
+              foreignField: "comment",
+              pipeline: [
+                {
+                  $sort: {
+                    createdAt: -1,
+                  },
+                },
+                {
+                  $lookup: {
+                    from: "users",
+                    localField: "user",
+                    foreignField: "_id",
+                    as: "user",
+                  },
+                },
+                {
+                  $unset: unwantedUserFields,
+                },
+              ],
+              as: "replies",
+            },
+          },
+        ],
         as: "comments",
       },
+    },
+    {
+      $unset: unwantedUserFields,
+    },
+    {
+      $unwind: "$user",
     },
   ]);
 
