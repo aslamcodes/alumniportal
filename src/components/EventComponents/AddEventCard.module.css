@@ -1,0 +1,113 @@
+.add_event_card {
+  position: absolute;
+  left: 0.5rem;
+  top: 110%;
+  min-width: 20%;
+  max-height: 65vh;
+  padding: 1rem 1rem;
+  background: #fff;
+  border-radius: 0.5rem;
+  box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.3);
+  z-index: 3;
+  overflow-y: auto;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: flex-start;
+  min-width: 100%;
+}
+
+.input_container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 0.2rem;
+}
+
+.input_container > * {
+  max-width: 100%;
+}
+label {
+  font-weight: 500;
+  text-align: left;
+}
+.split_container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.3rem;
+}
+
+.split_container > p {
+  font-weight: 400;
+}
+.input_container input {
+  border: none;
+  border-radius: 0.2rem;
+  padding: 0.5em 0.1em;
+  text-indent: 0.3rem;
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: #333;
+  background: #d9d9d9;
+  max-width: 100%;
+}
+.input_container > input::-webkit-datetime-edit-day-field:focus,
+input::-webkit-datetime-edit-month-field:focus,
+input::-webkit-datetime-edit-year-field:focus,
+input::-webkit-datetime-edit-hour-field:focus,
+input::-webkit-datetime-edit-minute-field:focus,
+input::-webkit-datetime-edit-second-field:focus,
+input::-webkit-textfield-decoration-container:focus {
+  background: transparent;
+  color: rgb(255, 255, 255);
+  outline: none;
+}
+
+.input_container input:focus {
+  outline: none;
+  border: 1px solid rgba(69, 69, 69, 0.355);
+}
+.add_event_button {
+  width: 100%;
+  padding-block: 0.3rem;
+}
+.submit_button {
+  position: relative;
+  background: #2393e8;
+  border: none;
+  border-radius: 20px;
+  padding: 0.6rem 0.6rem;
+  padding-right: 2.5rem;
+  color: #fff;
+  font-weight: 500;
+  font-size: 0.9rem;
+  cursor: pointer;
+  float: right;
+}
+.add_event_button img {
+  position: absolute;
+  top: 50%;
+  right: 0.2rem;
+  transform: translateY(-50%);
+  width: 2rem;
+  background-color: #fff;
+  clip-path: circle();
+  padding: 0.5rem;
+}
+@media (min-width: 1280px) {
+  .add_event_card {
+    font-size: 1rem;
+  }
+}
+@media (min-width: 790px) {
+  .add_event_card {
+    min-width: 25%;
+    top: 100%;
+    right: 0.5rem;
+    left: auto;
+  }
+}
