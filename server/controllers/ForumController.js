@@ -213,16 +213,8 @@ export const likePost = asyncHandler(async (req, res) => {
   const post = req.params.id;
 
   const likeToUpdate = await ForumPostLike.updateOne(
-    {
-      post,
-    },
-    {
-      $push: {
-        likes: {
-          user,
-        },
-      },
-    }
+    { post },
+    { $push: { likes: { user } } }
   );
 
   if (!likeToUpdate) {
@@ -231,4 +223,21 @@ export const likePost = asyncHandler(async (req, res) => {
     });
   }
   res.json(likeToUpdate);
+});
+
+export const unlikePost = asyncHandler(async (req, res) => {
+  const { post } = req.params;
+  const { user } = req;
+
+  const postToUpdate = await ForumPostLike.updateOne(
+    { post },
+    { $pull: { likes: { user } } }
+  );
+
+  if (!ForumPostLike) {
+    return res.status(400).json({
+      error: "Can't unlike post",
+    });
+  }
+  res.json(postToUpdate);
 });

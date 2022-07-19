@@ -7,6 +7,7 @@ import {
   getAllPosts_V2,
   getPostImageById,
   likePost,
+  unlikePost,
 } from "../controllers/ForumController.js";
 import dotenv from "dotenv";
 import { GridFsStorage } from "multer-gridfs-storage";
@@ -39,6 +40,7 @@ router.get("/feed", getAllPosts);
 router.get("/feed_v2_alpha/", getAllPosts_V2);
 
 router.patch("/like/:id", protect, likePost);
+router.patch("/unlike/:id", protect, unlikePost);
 
 router.post("/", protect, alumni, upload.array("post_images", 6), createPost);
 router.post("/comment/:id", protect, createComment);
