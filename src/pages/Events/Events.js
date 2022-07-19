@@ -25,7 +25,6 @@ const Events = () => {
               <EventCard isActive={isActive} isCardActive={isCardActive} />
               <EventCard isActive={isActive} isCardActive={isCardActive} />
             </div>
-
           </div>
         </div>
       </div>

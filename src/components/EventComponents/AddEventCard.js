@@ -44,7 +44,9 @@ const AddEventCard = () => {
           <input type="text" name="location" id="eventLocation" placeholder="@venue" value={newEventData.location} onChange={handleChange} />
         </div>
         <div className={styles.add_event_button}>
-
+          <div className={styles.submit_button} type="submit">Add Event
+            <img src={require("assets/icons/send.png")} alt="send icon" />
+          </div>
         </div>
       </form>
     </div>

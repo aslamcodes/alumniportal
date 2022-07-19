@@ -8,7 +8,7 @@
 .event_body {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
   padding: 0 1.2rem;
   justify-content: center;
 }
@@ -86,7 +86,7 @@
 
 @media (min-width: 790px) {
   .event_body {
-    font-size: 1em;
+    font-size: 1.2em;
   }
   .event_body .header {
     flex-direction: row;
