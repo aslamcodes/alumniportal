@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
-
+import Comment from "../models/ForumComment.js";
+import Like from "../models/ForumPostLike.js";
 const { Schema, model } = mongoose;
 
 const postSchema = new Schema(
@@ -30,6 +31,16 @@ const postSchema = new Schema(
     timestamps: true,
   }
 );
+
+postSchema.pre("deleteOne", async function (next) {
+  const postId = this.getQuery()._id;
+  try {
+    await Comment.deleteMany({ post: postId });
+    await Like.deleteOne({ post: postId });
+  } catch (error) {
+    next(err);
+  }
+});
 
 const ForumPost = model("ForumPost", postSchema);
 

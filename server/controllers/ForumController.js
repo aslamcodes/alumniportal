@@ -241,3 +241,15 @@ export const unlikePost = asyncHandler(async (req, res) => {
   }
   res.json(postToUpdate);
 });
+
+export const deletePost = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+
+  const postToDelete = await ForumPost.deleteOne({ _id: id });
+  if (!postToDelete) {
+    return res.status(400).json({
+      error: "Can't delete post",
+    });
+  }
+  res.json(postToDelete);
+});

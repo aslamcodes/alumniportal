@@ -3,6 +3,7 @@ import {
   createComment,
   createPost,
   createReply,
+  deletePost,
   getAllPosts,
   getAllPosts_V2,
   getPostImageById,
@@ -45,4 +46,6 @@ router.patch("/unlike/:id", protect, unlikePost);
 router.post("/", protect, alumni, upload.array("post_images", 6), createPost);
 router.post("/comment/:id", protect, createComment);
 router.post("/reply/:id", protect, createReply);
+
+router.delete("/:id", protect, alumni, deletePost);
 export default router;
