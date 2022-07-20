@@ -11,13 +11,10 @@
   src: url("assets/Fonts/neue_haas_sv/NHaasGroteskTXPro-75Bd.ttf");
 }
 
-.gallery h1,
-h2 {
-  margin-block: 1.5rem;
-}
 .gallery h1 {
   margin-left: 1.5rem;
-  font-size: 2em;
+  font-size: 2rem;
+  width: fit-content;
 }
 
 .gallery h2 {
@@ -34,28 +31,24 @@ h2 {
 }
 
 .gallery {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
   min-height: 100vh;
-  padding-top: calc(var(--navbar-height) + 1vh);
-  margin-bottom: 2rem;
-  font-family: "neue_haas_rg";
+  padding-top: 12vh;
 }
-.gallery_container {
-  height: clamp(30rem, 50%, fit-content);
+.gallery .header {
+  position: relative;
+  padding: 1rem 0;
+  height: 10%;
 }
-.gallery_container::before {
+
+.gallery .header::before {
   content: "";
   display: block;
   position: absolute;
-  right: 0;
-  width: 100%;
-  height: 0.7px;
-  background-color: #000;
-  animation: linehgrow 2s;
-}
-.gallery_container::after {
-  content: "";
-  display: block;
-  position: absolute;
+  left: 0;
+  bottom: -1rem;
   width: 100%;
   height: 0.7px;
   background-color: #000;
@@ -63,49 +56,61 @@ h2 {
 }
 
 .gallery_items_container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-}
-
-.gallery_item_container {
-  display: grid;
-  grid-template-columns: 1fr 0fr;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: relative;
+  height: 100%;
+  width: 100%;
 }
 
 .gallery_item {
-  display: grid;
-  grid-gap: 1rem;
-  place-items: center;
-}
-.gallery_item .itemImg {
-  display: grid;
-  place-items: center;
-  margin: 1rem;
-}
-.gallery_item .itemImg img {
-  width: max(10rem, 45%);
-  height: auto;
-  object-fit: cover;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-}
-.gallery_item:hover .itemImg img {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  width: 50%;
+  height: 85%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.5);
+  filter: blur(2px);
+  transform-origin: center;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+  transition: transform, filter 0.8s, 0.2s linear;
+  cursor: pointer;
 }
 
-.gallery_item .itemTitle {
-  position: relative;
-  display: grid;
-  place-items: center;
+.gallery_item.item_active {
+  filter: none;
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  z-index: 4;
+}
+.gallery_item.item_left {
+  opacity: 0.5;
+  transform: translate(-80%, -50%) scale(0.8);
+  z-index: 2;
+}
+.gallery_item.item_right {
+  opacity: 0.5;
+  transform: translate(-20%, -50%) scale(0.8);
+  z-index: 2;
+}
+
+.gallery_item img {
   width: 100%;
   height: 100%;
+  border-radius: 2px;
+  object-fit: cover;
 }
-.gallery_item .itemTitle h2 {
+
+.gallery_item h2 {
+  width: fit-content;
   position: relative;
 }
 
-.gallery_item .itemTitle h2::before {
+.gallery_item h2::before {
   content: "";
   position: absolute;
   width: 100%;
@@ -118,101 +123,14 @@ h2 {
   transform: scaleX(0);
   transition: transform 0.3s ease-in-out;
 }
-.gallery_item:hover .itemTitle h2::before {
+.gallery_item:hover h2::before {
   transform-origin: left;
   transform: scaleX(1);
 }
-.gallery_item_container:nth-of-type(1) .gallery_item .itemTitle::before {
-  content: "";
-  display: block;
-  position: absolute;
-  top: 0;
-  width: 100%;
-  height: 0.7px;
-  background-color: #000;
-  animation: linehgrow 3s;
-}
-.gallery_item_container:nth-of-type(2) .gallery_item .itemTitle::after,
-.gallery_item_container:nth-of-type(3) .gallery_item .itemTitle::after {
-  content: "";
-  display: block;
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 0.7px;
-  background-color: #000;
-  animation: linehgrow 3s;
-}
 
-@media (max-width: 58rem) {
-  .gallery_items_container {
-    grid-template-columns: repeat(auto, 1fr);
-  }
-  .gallery_item_container:nth-of-type(1)::after {
-    content: "";
-    width: 0.5px;
-    height: 100%;
-    background-color: #000;
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    animation: linevgrow 3s;
-  }
-  .gallery_item_container:nth-of-type(1)::before {
-    content: "";
-    width: 100%;
-    height: 0.7px;
-    background-color: #000;
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    animation: linehgrow 3s;
-  }
-  .gallery_item_container:nth-of-type(2)::before {
-    content: "";
-    width: 100%;
-    height: 0.7px;
-    background-color: #000;
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    animation: linehgrow 3s;
-  }
-  .gallery_item_container:nth-of-type(3)::after {
-    content: "";
-    width: 0.5px;
-    height: 100%;
-    background-color: #000;
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    animation: linevgrow 3s;
-  }
-}
-@media (min-width: 58rem) {
-  .gallery_items_container {
-    grid-template-columns: 1fr 1fr 1fr;
-  }
-
-  .gallery_item_container:nth-of-type(1)::after,
-  .gallery_item_container:nth-of-type(2)::after {
-    content: "";
-    width: 0.7px;
-    height: 100%;
-    background-color: #000;
-    position: absolute;
-    right: 0;
-    top: 0;
-    animation: linevgrow 3s;
-  }
-  .gallery_item_container:nth-of-type(1) .gallery_item {
-    grid-template-rows: 0.8fr 0.5fr;
-  }
-  .gallery_item_container:nth-of-type(2) .gallery_item {
-    grid-template-rows: 0.7fr 0.3fr;
-  }
-  .gallery_item_container:nth-of-type(3) .gallery_item {
-    grid-template-rows: 0.2fr 0.8fr;
+@media (min-width: 768px) {
+  .gallery {
+    padding-top: 15vh;
   }
 }
 
@@ -224,11 +142,11 @@ h2 {
     width: 100%;
   }
 }
-@keyframes linevgrow {
+/* @keyframes linevgrow {
   from {
     height: 0%;
   }
   to {
     height: 100%;
   }
-}
+} */
