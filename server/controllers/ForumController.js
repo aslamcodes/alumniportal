@@ -249,12 +249,9 @@ export const deletePost = asyncHandler(async (req, res) => {
 
   const { post } = await ForumPost.findById(id);
 
-  console.log(post.images);
   post.images.forEach(async (image) => {
     await forumImagesBucket.delete(mongoose.Types.ObjectId(image));
   });
-
-  console.log("Should Be Deleted");
 
   const postToDelete = await ForumPost.deleteOne({ _id: id });
 
