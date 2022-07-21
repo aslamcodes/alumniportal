@@ -5,6 +5,8 @@ import Comment from "../models/ForumComment.js";
 import Reply from "../models/ForumCommentReply.js";
 import mongoose from "mongoose";
 import Grid from "gridfs-stream";
+import { useIsFocusVisible } from "@mui/material";
+import ForumCommentReply from "../models/ForumCommentReply.js";
 
 export const createPost = asyncHandler(async (req, res, next) => {
   const { user } = req;
@@ -252,4 +254,30 @@ export const deletePost = asyncHandler(async (req, res) => {
     });
   }
   res.json(postToDelete);
+});
+
+export const deleteComment = asyncHandler(async (req, res) => {
+  const { id: commentId } = req.params;
+
+  const commentToDelete = await Comment.deleteOne({ _id: commentId });
+
+  if (!commentToDelete) {
+    return res.status(400).json({
+      error: "Can't delete comment",
+    });
+  }
+  res.json(commentToDelete);
+});
+
+export const deleteReply = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+
+  const replyToBeDeleted = await ForumCommentReply.deleteOne({ _id: id });
+
+  if (!replyToBeDeleted) {
+    return res.status(400).json({
+      error: "Can't delete reply",
+    });
+  }
+  res.json(replyToBeDeleted);
 });
