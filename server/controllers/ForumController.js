@@ -8,6 +8,15 @@ import Grid from "gridfs-stream";
 
 import ForumCommentReply from "../models/ForumCommentReply.js";
 
+let gfs, forumImagesBucket;
+const conn = mongoose.connection;
+conn.once("open", () => {
+  forumImagesBucket = new mongoose.mongo.GridFSBucket(conn.db, {
+    bucketName: "forum_images",
+  });
+  gfs = Grid(conn.db, mongoose.mongo);
+});
+
 export const createPost = asyncHandler(async (req, res, next) => {
   const { user } = req;
   const { post } = req.body;
@@ -153,21 +162,19 @@ export const getAllPosts_V2 = asyncHandler(async (req, res) => {
   res.json(ForumFeed);
 });
 
-let gfs, forumImagesBucket;
-const conn = mongoose.connection;
-conn.once("open", () => {
-  forumImagesBucket = new mongoose.mongo.GridFSBucket(conn.db, {
-    bucketName: "forum_images",
-  });
-  gfs = Grid(conn.db, mongoose.mongo);
-});
-
 export const getPostImageById = asyncHandler(async (req, res) => {
   try {
     const readStream = forumImagesBucket.openDownloadStream(
       mongoose.Types.ObjectId(req.params.id)
     );
+
     readStream.pipe(res);
+
+    readStream.on("error", () => {
+      res.status(404).json({
+        error: "File not found",
+      });
+    });
   } catch (error) {
     res.json({ error: "No image found" });
   }
