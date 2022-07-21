@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styles from "./GalleryTemplate.module.css"
+import ReactPortal from "components/Modal/ReactPortal";
 
 
 function getWindowDimensions() {
@@ -24,7 +25,10 @@ function GalleryTemplate({ fname, sname, data }) {
       imageBottom: 1,
     }
   )
-
+  const [expand, setExpand] = useState({
+    active: false,
+    id: 1
+  });
   // test data:
   let Data = [];
   const testData = (n) => {
@@ -60,14 +64,27 @@ function GalleryTemplate({ fname, sname, data }) {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const handleScroll = event => {
-    console.log('scrollTop: ', event.currentTarget.scrollTop);
-    console.log('offsetHeight: ', event.currentTarget.scrollBottom);
-  };
 
-  const handleClick = (e) => {
+  const handleClose = () => {
+    setExpand({ ...expand, active: false })
+  }
+  useEffect(() => {
+    const closeOnEscapeKey = (e) => (e.key === "Escape" ? handleClose() : null);
+    document.body.addEventListener("keydown", closeOnEscapeKey);
+    return () => {
+      document.body.removeEventListener("keydown", closeOnEscapeKey);
+    };
+  }, [handleClose]);
 
+  const handleClick = (e, index1) => {
     let id = parseInt(e.target.id);
+    if (id === imageSwitch.imageActive) {
+      setExpand({
+        active: true,
+        id: index1 * 10 + id
+      });
+      console.log(id, index1);
+    }
     setImageSwitch({
       imageActive: id,
       imageTop: id - 1,
@@ -76,25 +93,32 @@ function GalleryTemplate({ fname, sname, data }) {
   }
 
   return (
+
     <div className={styles.gallery_container}>
       <div className={styles.header}>
         <h1>{fname} <span>{sname}</span></h1>
       </div>
 
-      <div className={styles.gallery_content} onScroll={handleScroll}>
+      <div className={styles.gallery_content} >
 
         {Data.map((images, index1) => {
           return (
             <div key={index1} className={styles.gallery_img}>
               {images.map((image, index) => {
                 return (
-                  <img key={index} id={index} src={image} alt="" className={
-                    `${imageSwitch.imageActive === index && styles.image_active || imageSwitch.imageTop === index && styles.image_top || imageSwitch.imageBottom === index && styles.image_bottom}`
-                  }
-                    onClick={handleClick}
-                  />
+                  <div key={index}>
+                    <img id={index} src={image} alt="" className={
+                      `${imageSwitch.imageActive === index && styles.image_active || imageSwitch.imageTop === index && styles.image_top || imageSwitch.imageBottom === index && styles.image_bottom} ${styles.image}`
+                    }
+                      onClick={(e) => handleClick(e, index1)}
+                    />
+                    <div className={`${styles.expand_container} ${expand.active && expand.id == (index1 * 10 + index) && styles.expand_container_active}`} onClick={handleClose}>
+                      <img id={index} src={image} alt="" className={`${styles.image_expand} `} onClick={(e) => e.stopPropagation()} />
+                    </div>
+                  </div>
                 )
               })}
+
             </div>
           )
         })}
@@ -102,6 +126,7 @@ function GalleryTemplate({ fname, sname, data }) {
 
       </div>
     </div>
+
   )
 }
 
