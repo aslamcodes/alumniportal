@@ -23,20 +23,23 @@ const commentSchema = new mongoose.Schema(
   }
 );
 
-// commentSchema.pre("deleteMany", async function (next) {
-//   try {
-//     const post = this.getQuery()._id;
-//     // comments to delete
-//     const commentsToBeDeleted = await ForumCommentReply.find({
-//       post: post,
-//     });
-//     // delete replies
+commentSchema.pre("deleteOne", async function (next) {
+  try {
+    const commentId = this.getQuery()._id;
 
-//     await ForumCommentReply.deleteMany({ comment: post });
-//   } catch (error) {
-//     next(error);
-//   }
-// });
+    const deleteReplies = await ForumCommentReply.deleteMany({
+      comment: commentId,
+    });
+
+    if (!deleteReplies) {
+      return next(new Error("Can't delete replies"));
+    }
+
+    next();
+  } catch (error) {
+    next(error);
+  }
+});
 
 const Comment = mongoose.model("ForumComment", commentSchema);
 
