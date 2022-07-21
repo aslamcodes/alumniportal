@@ -54,7 +54,8 @@ export const getImageById = asyncHandler(async (req, res) => {
 });
 
 export const deleteGalleryImage = asyncHandler(async (req, res) => {
-  const galleryImage = await Gallery.findByIdAndDelete(req.params.id);
+  const galleryImage = await Gallery.findById(req.params.id);
+  const { image } = galleryImage;
 
   if (!galleryImage) {
     return res.status(400).json({
@@ -62,7 +63,9 @@ export const deleteGalleryImage = asyncHandler(async (req, res) => {
     });
   }
 
-  //   await gfs.remove({ _id: galleryImage.image });
+  await galleryImagesBucket.delete(mongoose.Types.ObjectId(image));
+
+  await galleryImage.delete();
 
   res.json(galleryImage);
 });

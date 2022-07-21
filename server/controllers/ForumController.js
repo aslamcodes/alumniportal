@@ -5,7 +5,7 @@ import Comment from "../models/ForumComment.js";
 import Reply from "../models/ForumCommentReply.js";
 import mongoose from "mongoose";
 import Grid from "gridfs-stream";
-import { useIsFocusVisible } from "@mui/material";
+
 import ForumCommentReply from "../models/ForumCommentReply.js";
 
 export const createPost = asyncHandler(async (req, res, next) => {
@@ -247,12 +247,23 @@ export const unlikePost = asyncHandler(async (req, res) => {
 export const deletePost = asyncHandler(async (req, res) => {
   const { id } = req.params;
 
+  const { post } = await ForumPost.findById(id);
+
+  console.log(post.images);
+  post.images.forEach(async (image) => {
+    await forumImagesBucket.delete(mongoose.Types.ObjectId(image));
+  });
+
+  console.log("Should Be Deleted");
+
   const postToDelete = await ForumPost.deleteOne({ _id: id });
+
   if (!postToDelete) {
     return res.status(400).json({
       error: "Can't delete post",
     });
   }
+
   res.json(postToDelete);
 });
 
