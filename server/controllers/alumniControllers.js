@@ -251,3 +251,25 @@ export const getAlumniCities = asyncHandler(async (req, res) => {
     });
   }
 });
+
+export const getAlumniByCity = asyncHandler(async (req, res) => {
+  const { city } = req.params;
+
+  const alumniIds = await getAlumniIds();
+
+  if (alumniIds) {
+    const alumni = await User.find({
+      _id: { $in: alumniIds },
+      city,
+    }).select(["-password", "-__v", "-isAdmin", "-createdAt", "-updatedAt"]);
+
+    res.status(200).json({
+      alumni,
+    });
+  } else {
+    res.status(400).json({
+      error:
+        "Cannot fetch Alumni by their cities at this time, please try again later",
+    });
+  }
+});
