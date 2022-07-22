@@ -7,6 +7,11 @@ const gallerySchema = new Schema({
     type: String,
     required: true,
   },
+  type: {
+    type: String,
+    enum: ["general", "seminar", "alumni"],
+    required: true,
+  },
   title: {
     type: String,
     required: true,

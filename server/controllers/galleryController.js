@@ -15,10 +15,11 @@ conn.once("open", () => {
 
 export const uploadImage = asyncHandler(async (req, res) => {
   const image = req.file;
-  const { title, desc } = req.body;
+  const { title, desc, type } = req.body;
   const galleryImage = await Gallery.create({
     image: image.id,
     title,
+    type,
     desc,
   });
 
