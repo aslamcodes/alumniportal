@@ -238,7 +238,7 @@ export const removeOfficeBearer = asyncHandler(async (req, res) => {
 
 export const getAlumniCities = asyncHandler(async (req, res) => {
   const alumniIds = await getAlumniIds();
-  console.log(alumniIds);
+
   if (alumniIds) {
     const alumniCities = await User.find({ _id: { $in: alumniIds } });
 
