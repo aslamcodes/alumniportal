@@ -222,16 +222,35 @@ export const likePost = asyncHandler(async (req, res) => {
   const post = req.params.id;
 
   const likeToUpdate = await ForumPostLike.updateOne(
-    { post },
+    { post, "likes.user": { $ne: user } },
     { $push: { likes: { user } } }
   );
 
-  if (!likeToUpdate) {
-    return res.status(400).json({
-      error: "Can't like post",
+  if (!likeToUpdate.modifiedCount) {
+    if (!likeToUpdate.acknowledged) {
+      return res.status(400).json({
+        error: "Can't like post",
+      });
+    }
+
+    const unlikeToUpdate = await ForumPostLike.updateOne(
+      { post, "likes.user": user },
+      { $pull: { likes: { user } } }
+    );
+
+    if (!unlikeToUpdate.acknowledged) {
+      return res.status(400).json({
+        error: "Can't unlike post",
+      });
+    }
+
+    res.json({
+      message: "Post Unliked",
+      success: true,
     });
+  } else {
+    res.json({ message: "Post liked", success: true });
   }
-  res.json(likeToUpdate);
 });
 
 export const unlikePost = asyncHandler(async (req, res) => {
@@ -239,8 +258,8 @@ export const unlikePost = asyncHandler(async (req, res) => {
   const { user } = req;
 
   const postToUpdate = await ForumPostLike.updateOne(
-    { post },
-    { $pull: { likes: { user } } }
+    { post, "likes.user": { $ne: user } },
+    { $push: { likes: { user } } }
   );
 
   if (!ForumPostLike) {
