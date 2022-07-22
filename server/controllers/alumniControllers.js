@@ -236,7 +236,7 @@ export const removeOfficeBearer = asyncHandler(async (req, res) => {
   }
 });
 
-export const getAlumniCities = asyncHandler(async (req, res) => {
+export const getAlumniCities = asyncHandler(async (_, res) => {
   const alumniIds = await getAlumniIds();
 
   if (alumniIds) {
@@ -270,6 +270,24 @@ export const getAlumniByCity = asyncHandler(async (req, res) => {
     res.status(400).json({
       error:
         "Cannot fetch Alumni by their cities at this time, please try again later",
+    });
+  }
+});
+
+export const getAllAlumni = asyncHandler(async (_, res) => {
+  const alumniIds = await getAlumniIds();
+
+  if (alumniIds) {
+    const alumni = await User.find({ _id: { $in: alumniIds } });
+
+    res.status(200).json({
+      success: true,
+      alumni,
+    });
+  } else {
+    res.status(400).json({
+      success: false,
+      error: "Cannot find Alumni at this time, please try again later",
     });
   }
 });
