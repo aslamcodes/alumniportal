@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import AlumniRequest from "./AlumniRequest.js";
 
 const { Schema, model } = mongoose;
 
@@ -42,6 +43,17 @@ const alumniSchema = new Schema({
     ref: "User",
   },
   profileDescription: { type: String },
+});
+
+alumniSchema.pre("save", async function (next) {
+  const newAlumniRequest = await AlumniRequest.create({
+    user: this.user,
+  });
+  if (newAlumniRequest) {
+    next();
+  } else {
+    next(new Error("Error in creating alumni request"));
+  }
 });
 
 const Alumni = model("Alumni", alumniSchema);
