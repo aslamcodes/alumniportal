@@ -80,3 +80,21 @@ export const loginUser = asyncHandler(async (req, res) => {
     });
   }
 });
+
+export const getUserDetailsById = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id).select([
+    "-password",
+    "-isAdmin",
+    "-__v",
+    "-createdAt",
+    "-updatedAt",
+  ]);
+
+  if (user) {
+    res.json(user);
+  } else {
+    res.status(404).json({
+      error: "User not found",
+    });
+  }
+});
