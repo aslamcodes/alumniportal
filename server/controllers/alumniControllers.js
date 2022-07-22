@@ -1,5 +1,7 @@
 import Alumni from "../models/Alumni.js";
 import asyncHandler from "express-async-handler";
+import { getAlumniIds } from "../utils/controller-utils.js";
+import User from "../models/User.js";
 
 export const registerAlumni = asyncHandler(async (req, res) => {
   const {
@@ -230,6 +232,22 @@ export const removeOfficeBearer = asyncHandler(async (req, res) => {
     }
     res.status(400).json({
       error,
+    });
+  }
+});
+
+export const getAlumniCities = asyncHandler(async (req, res) => {
+  const alumniIds = await getAlumniIds();
+  console.log(alumniIds);
+  if (alumniIds) {
+    const alumniCities = await User.find({ _id: { $in: alumniIds } });
+
+    res.status(200).json({
+      cities: alumniCities.map((alumnus) => alumnus.city),
+    });
+  } else {
+    res.status(400).json({
+      error: "Cannot find Alumni Cities at this time, please try again later",
     });
   }
 });
