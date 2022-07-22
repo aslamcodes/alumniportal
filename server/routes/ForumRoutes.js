@@ -3,10 +3,14 @@ import {
   createComment,
   createPost,
   createReply,
+  deleteComment,
+  deletePost,
+  deleteReply,
   getAllPosts,
   getAllPosts_V2,
   getPostImageById,
   likePost,
+  unlikePost,
 } from "../controllers/ForumController.js";
 import dotenv from "dotenv";
 import { GridFsStorage } from "multer-gridfs-storage";
@@ -39,8 +43,13 @@ router.get("/feed", getAllPosts);
 router.get("/feed_v2_alpha/", getAllPosts_V2);
 
 router.patch("/like/:id", protect, likePost);
+router.patch("/unlike/:id", protect, unlikePost);
 
 router.post("/", protect, alumni, upload.array("post_images", 6), createPost);
 router.post("/comment/:id", protect, createComment);
 router.post("/reply/:id", protect, createReply);
+
+router.delete("/:id", protect, alumni, deletePost);
+router.delete("/comment/:id", protect, deleteComment);
+router.delete("/reply/:id", protect, deleteReply);
 export default router;

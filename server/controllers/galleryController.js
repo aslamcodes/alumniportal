@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import Grid from "gridfs-stream";
 import asyncHandler from "express-async-handler";
 import Gallery from "../models/Gallery.js";
+import { NextPlan } from "@mui/icons-material";
 
 let gfs, galleryImagesBucket;
 const conn = mongoose.connection;
@@ -44,17 +45,31 @@ export const getAllImages = asyncHandler(async (req, res) => {
 
 export const getImageById = asyncHandler(async (req, res) => {
   try {
-    const readStream = galleryImagesBucket.openDownloadStream(
+    const imageId = req.params.id;
+
+    const image = await galleryImagesBucket.find({ _id: imageId });
+
+    if (!image) {
+      return res.status(400).json({
+        error: "Image not found",
+      });
+    }
+    const readStream = await galleryImagesBucket.openDownloadStream(
       mongoose.Types.ObjectId(req.params.id)
     );
     readStream.pipe(res);
+
+    readStream.on("error", (err) => {
+      res.status(400).json({ error: err.message || "No image found" });
+    });
   } catch (error) {
-    res.json({ error: "No image found" });
+    res.status(400).json({ error: error.message || "No image found" });
   }
 });
 
 export const deleteGalleryImage = asyncHandler(async (req, res) => {
-  const galleryImage = await Gallery.findByIdAndDelete(req.params.id);
+  const galleryImage = await Gallery.findById(req.params.id);
+  const { image } = galleryImage;
 
   if (!galleryImage) {
     return res.status(400).json({
@@ -62,7 +77,9 @@ export const deleteGalleryImage = asyncHandler(async (req, res) => {
     });
   }
 
-  //   await gfs.remove({ _id: galleryImage.image });
+  await galleryImagesBucket.delete(mongoose.Types.ObjectId(image));
+
+  await galleryImage.delete();
 
   res.json(galleryImage);
 });

@@ -6,6 +6,17 @@ import Reply from "../models/ForumCommentReply.js";
 import mongoose from "mongoose";
 import Grid from "gridfs-stream";
 
+import ForumCommentReply from "../models/ForumCommentReply.js";
+
+let gfs, forumImagesBucket;
+const conn = mongoose.connection;
+conn.once("open", () => {
+  forumImagesBucket = new mongoose.mongo.GridFSBucket(conn.db, {
+    bucketName: "forum_images",
+  });
+  gfs = Grid(conn.db, mongoose.mongo);
+});
+
 export const createPost = asyncHandler(async (req, res, next) => {
   const { user } = req;
   const { post } = req.body;
@@ -151,21 +162,19 @@ export const getAllPosts_V2 = asyncHandler(async (req, res) => {
   res.json(ForumFeed);
 });
 
-let gfs, forumImagesBucket;
-const conn = mongoose.connection;
-conn.once("open", () => {
-  forumImagesBucket = new mongoose.mongo.GridFSBucket(conn.db, {
-    bucketName: "forum_images",
-  });
-  gfs = Grid(conn.db, mongoose.mongo);
-});
-
 export const getPostImageById = asyncHandler(async (req, res) => {
   try {
     const readStream = forumImagesBucket.openDownloadStream(
       mongoose.Types.ObjectId(req.params.id)
     );
+
     readStream.pipe(res);
+
+    readStream.on("error", () => {
+      res.status(404).json({
+        error: "File not found",
+      });
+    });
   } catch (error) {
     res.json({ error: "No image found" });
   }
@@ -213,16 +222,8 @@ export const likePost = asyncHandler(async (req, res) => {
   const post = req.params.id;
 
   const likeToUpdate = await ForumPostLike.updateOne(
-    {
-      post,
-    },
-    {
-      $push: {
-        likes: {
-          user,
-        },
-      },
-    }
+    { post },
+    { $push: { likes: { user } } }
   );
 
   if (!likeToUpdate) {
@@ -231,4 +232,67 @@ export const likePost = asyncHandler(async (req, res) => {
     });
   }
   res.json(likeToUpdate);
+});
+
+export const unlikePost = asyncHandler(async (req, res) => {
+  const { post } = req.params;
+  const { user } = req;
+
+  const postToUpdate = await ForumPostLike.updateOne(
+    { post },
+    { $pull: { likes: { user } } }
+  );
+
+  if (!ForumPostLike) {
+    return res.status(400).json({
+      error: "Can't unlike post",
+    });
+  }
+  res.json(postToUpdate);
+});
+
+export const deletePost = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+
+  const { post } = await ForumPost.findById(id);
+
+  post.images.forEach(async (image) => {
+    await forumImagesBucket.delete(mongoose.Types.ObjectId(image));
+  });
+
+  const postToDelete = await ForumPost.deleteOne({ _id: id });
+
+  if (!postToDelete) {
+    return res.status(400).json({
+      error: "Can't delete post",
+    });
+  }
+
+  res.json(postToDelete);
+});
+
+export const deleteComment = asyncHandler(async (req, res) => {
+  const { id: commentId } = req.params;
+
+  const commentToDelete = await Comment.deleteOne({ _id: commentId });
+
+  if (!commentToDelete) {
+    return res.status(400).json({
+      error: "Can't delete comment",
+    });
+  }
+  res.json(commentToDelete);
+});
+
+export const deleteReply = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+
+  const replyToBeDeleted = await ForumCommentReply.deleteOne({ _id: id });
+
+  if (!replyToBeDeleted) {
+    return res.status(400).json({
+      error: "Can't delete reply",
+    });
+  }
+  res.json(replyToBeDeleted);
 });

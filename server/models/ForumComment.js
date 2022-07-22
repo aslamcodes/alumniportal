@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import ForumCommentReply from "./ForumCommentReply.js";
 
 const commentSchema = new mongoose.Schema(
   {
@@ -21,6 +22,24 @@ const commentSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+commentSchema.pre("deleteOne", async function (next) {
+  try {
+    const commentId = this.getQuery()._id;
+
+    const deleteReplies = await ForumCommentReply.deleteMany({
+      comment: commentId,
+    });
+
+    if (!deleteReplies) {
+      return next(new Error("Can't delete replies"));
+    }
+
+    next();
+  } catch (error) {
+    next(error);
+  }
+});
 
 const Comment = mongoose.model("ForumComment", commentSchema);
 
