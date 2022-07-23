@@ -1,13 +1,21 @@
 import { generateToken } from "../utils/authorization.js";
 import User from "../models/User.js";
 import asyncHandler from "express-async-handler";
+import mongoose from "mongoose";
+
+let userAvatarImagesBucket;
+const conn = mongoose.connection;
+conn.on("open", () => {
+  userAvatarImagesBucket = new mongoose.mongo.GridFSBucket(conn.db, {
+    bucketName: "user_avatar_images",
+  });
+});
 
 export const registerUser = asyncHandler(async (req, res) => {
   const {
     name,
     email,
     password,
-    avatar,
     registerNumber,
     department,
     course,
@@ -16,7 +24,10 @@ export const registerUser = asyncHandler(async (req, res) => {
     state,
     city,
   } = req.body;
+
   const existingUser = await User.findOne({ email });
+
+  const id = req.file?.id;
 
   if (existingUser) {
     return res.status(400).json({
@@ -28,7 +39,7 @@ export const registerUser = asyncHandler(async (req, res) => {
     email,
     name,
     password,
-    avatar,
+    avatar: id && id,
     registerNumber,
     department,
     course,
@@ -92,6 +103,26 @@ export const getUserDetailsById = asyncHandler(async (req, res) => {
 
   if (user) {
     res.json(user);
+  } else {
+    res.status(404).json({
+      error: "User not found",
+    });
+  }
+});
+
+export const getUserAvatarImage = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id);
+
+  if (user) {
+    const readStream = userAvatarImagesBucket.openDownloadStream(
+      mongoose.Types.ObjectId(user.avatar)
+    );
+
+    readStream.on("error", (err) => {
+      return res.status(400).json({ error: err.message || "No image found" });
+    });
+
+    return readStream.pipe(res);
   } else {
     res.status(404).json({
       error: "User not found",
