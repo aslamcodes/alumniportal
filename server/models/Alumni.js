@@ -56,6 +56,29 @@ alumniSchema.pre("save", async function (next) {
   }
 });
 
+alumniSchema.post("findOneAndUpdate", async function (doc, next) {
+  const alumniRequest = await AlumniRequest.findOne({
+    user: doc?.user,
+  });
+
+  if (!doc) {
+    return next();
+  }
+  console.log(doc);
+
+  try {
+    if (alumniRequest) {
+      if (!doc.isApproved) {
+        await alumniRequest.delete();
+      }
+    }
+  } catch (error) {
+    next(new Error("Error in updating alumni request"));
+  }
+
+  next();
+});
+
 const Alumni = model("Alumni", alumniSchema);
 
 export default Alumni;
