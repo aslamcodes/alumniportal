@@ -129,3 +129,8 @@ export const getUserAvatarImage = asyncHandler(async (req, res) => {
     });
   }
 });
+
+//forgot password controller
+export const forgotPassword = asyncHandler(async (req, res) => {
+  res.json("On Construction 🚧");
+});
