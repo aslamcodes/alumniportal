@@ -17,6 +17,7 @@ const userSchema = new Schema(
     },
     avatar: {
       type: String,
+      default: "62db786ae96b953f907d118a",
     },
     name: {
       type: String,
