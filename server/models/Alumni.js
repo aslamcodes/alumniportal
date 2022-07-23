@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import AlumniRequest from "./AlumniRequest.js";
 
 const { Schema, model } = mongoose;
 
@@ -42,6 +43,40 @@ const alumniSchema = new Schema({
     ref: "User",
   },
   profileDescription: { type: String },
+});
+
+alumniSchema.pre("save", async function (next) {
+  const newAlumniRequest = await AlumniRequest.create({
+    user: this.user,
+  });
+  if (newAlumniRequest) {
+    next();
+  } else {
+    next(new Error("Error in creating alumni request"));
+  }
+});
+
+alumniSchema.post("findOneAndUpdate", async function (doc, next) {
+  const alumniRequest = await AlumniRequest.findOne({
+    user: doc?.user,
+  });
+
+  if (!doc) {
+    return next();
+  }
+  console.log(doc);
+
+  try {
+    if (alumniRequest) {
+      if (!doc.isApproved) {
+        await alumniRequest.delete();
+      }
+    }
+  } catch (error) {
+    next(new Error("Error in updating alumni request"));
+  }
+
+  next();
 });
 
 const Alumni = model("Alumni", alumniSchema);

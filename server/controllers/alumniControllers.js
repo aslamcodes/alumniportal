@@ -95,7 +95,7 @@ export const approveAlumni = asyncHandler(async (req, res) => {
   const { id } = req.params;
 
   const alumni = await Alumni.findOneAndUpdate(
-    { user: id },
+    { user: id, isApproved: false },
     {
       $set: {
         isApproved: true,
@@ -109,7 +109,7 @@ export const approveAlumni = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(400).json({
-      error: "Cannot approve Alumni at this time, please try again later",
+      error: "User not registered as an Alumni or already approved",
     });
   }
 });
