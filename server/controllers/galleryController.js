@@ -2,7 +2,6 @@ import mongoose from "mongoose";
 import Grid from "gridfs-stream";
 import asyncHandler from "express-async-handler";
 import Gallery from "../models/Gallery.js";
-import { NextPlan } from "@mui/icons-material";
 
 let gfs, galleryImagesBucket;
 const conn = mongoose.connection;

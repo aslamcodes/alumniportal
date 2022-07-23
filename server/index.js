@@ -1,11 +1,14 @@
 import dotenv from "dotenv";
 import express from "express";
 import config_db from "./config/dbconfig.js";
+
 import userRouter from "./routes/userRoutes.js";
 import eventRouter from "./routes/eventRoutes.js";
 import alumniRouter from "./routes/alumniRoutes.js";
 import forumRouter from "./routes/forumRoutes.js";
 import galleryRouter from "./routes/galleryRoutes.js";
+import testimonialRouter from "./routes/testimonialRoutes.js";
+
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -24,6 +27,7 @@ app.use("/api/v1/alumni", alumniRouter);
 app.use("/api/v1/events", eventRouter);
 app.use("/api/v1/forum", forumRouter);
 app.use("/api/v1/gallery", galleryRouter);
+app.use("/api/v1/testimonial", testimonialRouter);
 
 if (process.env.NODE_ENV === "DEVELOPMENT") {
   console.log("Development mode".yellow);
