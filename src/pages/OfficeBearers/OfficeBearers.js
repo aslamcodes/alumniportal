@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./OfficeBearers.module.css"
 // test data:
 const imgSrc = "https://source.unsplash.com/random/"
@@ -11,6 +11,14 @@ for (let j = 0; j < 10; j++) {
   images.push(Src);
 }
 function OfficeBearers() {
+  const [activeIndex, setActiveIndex] = useState(
+    null
+  );
+  const handleClick = (e) => {
+    const id = e.target.id;
+    setActiveIndex(id);
+    console.log('if' + activeIndex);
+  }
   return (
     <div className={styles.OfficeBearers_container}>
       <div className={styles.city_container}>
@@ -29,8 +37,9 @@ function OfficeBearers() {
       <div className={styles.OfficeBearers}>
         {images.map((image, index) => {
           return (
-            <div className={styles.OfficeBearer} key={index}>
-              <img src={image} alt="office bearer" />
+            <div className={`${styles.OfficeBearer} ${activeIndex == index && styles.OfficeBearer_active}`} key={index} >
+              <img src={image} alt="office bearer" id={index} onClick={handleClick} />
+              <p className={`${styles.show_details} ${activeIndex == index && styles.show_details_active}`}>Show Details{'>'} </p>
             </div>
           );
         })}

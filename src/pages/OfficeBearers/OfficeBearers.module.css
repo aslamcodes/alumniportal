@@ -6,13 +6,35 @@
   padding-top: 12vh;
 }
 .city_container {
-  padding: 2rem;
+  padding: 2rem 3rem;
+  text-align: center;
 }
 
 .city h2 {
   font-size: 2rem;
-  font-weight: bold;
+  font-weight: 500;
+  text-decoration: underline 1.5px solid;
+  text-underline-offset: 5px;
   margin-bottom: 1rem;
+}
+
+.city ul {
+  list-style: none;
+  font-size: 1.5rem;
+}
+.city ul li {
+  background-color: #fff;
+  margin-block: 1rem;
+  padding: 0.3rem 3rem;
+  border-radius: 25px;
+  cursor: pointer;
+}
+.city ul li:hover {
+  background-color: #fffcdc;
+}
+
+.city ul li .active {
+  background-color: #fffcdc;
 }
 
 hr {
@@ -21,29 +43,54 @@ hr {
 }
 
 .OfficeBearers {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  /* justify-content: center;
-  gap: 1rem; */
-  grid-gap: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
   padding: 1rem;
   width: 100%;
+  transition: all 0.5s linear;
 }
 
 .OfficeBearer {
-  max-width: 10rem;
-  max-height: 10rem;
+  max-width: max(10rem, 15vw);
+  max-height: max(10rem, 15vw);
+  margin: 0.5rem;
+  transition: all 0.8s ease;
 }
 
-/* .OfficeBearer:nth-of-type(1) {
-  max-width: 20rem;
-  max-height: 20rem;
-} */
+.OfficeBearer_active {
+  position: relative;
+  max-width: 17rem;
+  max-height: 17rem;
+  text-align: center;
+}
 
 .OfficeBearer img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: 15px;
+  box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.538);
+}
+
+.OfficeBearer .show_details {
+  position: absolute;
+  bottom: 0;
+  transform: scale(0);
+  width: 100%;
+  padding-inline: auto;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  font-weight: 500;
+  padding-block: -0.5rem;
+  transition: padding 0.6s ease-in-out;
+  cursor: pointer;
+  color: #fff;
+}
+.OfficeBearer .show_details_active {
+  padding-block: 0.5rem;
+  transform: scale(1);
+  background-color: rgba(14, 14, 14, 0.568);
 }
 
 @media (min-width: 768px) {
