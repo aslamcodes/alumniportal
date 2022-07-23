@@ -1,5 +1,6 @@
 import express from "express";
 import {
+  forgotPassword,
   getUserAvatarImage,
   getUserDetailsById,
   loginUser,
@@ -32,6 +33,8 @@ const upload = multer({ storage: userAvatarStorage });
 
 router.get("/:id", getUserDetailsById);
 router.get("/user-avatar/:id", getUserAvatarImage);
+
+router.patch("/forgot-password/:email", forgotPassword);
 
 router.post("/register", upload.single("avatar"), registerUser);
 router.post("/login", loginUser);
