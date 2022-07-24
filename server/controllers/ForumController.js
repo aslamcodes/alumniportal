@@ -8,6 +8,7 @@ import Grid from "gridfs-stream";
 
 import ForumCommentReply from "../models/ForumCommentReply.js";
 import Notification from "../models/Notification.js";
+import notificationConstants from "../constants/notification-constants.js";
 
 let gfs, forumImagesBucket;
 const conn = mongoose.connection;
@@ -197,7 +198,12 @@ export const createComment = asyncHandler(async (req, res, next) => {
     });
   }
 
-  res.json(NewComment);
+  const newCommentNotification = await Notification.create({
+    message: `${user.name} commented on your post`,
+    type: notificationConstants.COMMENT,
+  });
+
+  return res.json(NewComment);
 });
 
 export const createReply = asyncHandler(async (req, res, next) => {
@@ -252,19 +258,33 @@ export const likePost = asyncHandler(async (req, res) => {
       success: true,
     });
   } else {
-    const newNotification = await Notification.create({
-      type: "like",
-      user: author,
-      message: `${user.name} liked your post`,
-      likedBy: user,
+    // only if the user is not already present in the notifications
+    const existingNotification = await Notification.findOne({
+      likedBy: user._id,
+      type: notificationConstants.LIKE,
     });
 
-    if (!newNotification) {
-      return res.status(400).json({
-        error: "Can't create notification",
+    if (existingNotification) {
+      return res.json({
+        message: "Post Liked",
+        success: true,
       });
     }
 
+    if (author._id.toString() !== user._id.toString()) {
+      const newNotification = await Notification.create({
+        type: notificationConstants.LIKE,
+        user: author,
+        message: `${user.name} liked your post`,
+        likedBy: user,
+      });
+
+      if (!newNotification) {
+        return res.status(400).json({
+          error: "Can't create notification",
+        });
+      }
+    }
     return res.json({ message: "Post liked", success: true });
   }
 });
