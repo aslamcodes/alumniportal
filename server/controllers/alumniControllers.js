@@ -329,6 +329,7 @@ export const rejectAlumniRequest = asyncHandler(async (req, res) => {
     { _id: requestId },
     {
       $set: {
+        rejected: true,
         reasonOfRejection: req.body.reason,
       },
     }
