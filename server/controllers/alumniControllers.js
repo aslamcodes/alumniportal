@@ -2,6 +2,7 @@ import Alumni from "../models/Alumni.js";
 import asyncHandler from "express-async-handler";
 import { getAlumniIds } from "../utils/controller-utils.js";
 import User from "../models/User.js";
+import AlumniRequest from "../models/AlumniRequest.js";
 
 export const registerAlumni = asyncHandler(async (req, res) => {
   const {
@@ -290,4 +291,19 @@ export const getAllAlumni = asyncHandler(async (_, res) => {
       error: "Cannot find Alumni at this time, please try again later",
     });
   }
+});
+
+export const getAlumniRequests = asyncHandler(async (req, res) => {
+  const requests = await AlumniRequest.find({});
+
+  if (requests) {
+    return res.status(200).json({
+      success: true,
+      requests,
+    });
+  }
+  return res.status(400).json({
+    success: false,
+    error: "Cannot find Alumni Requests at this time, please try again later",
+  });
 });
