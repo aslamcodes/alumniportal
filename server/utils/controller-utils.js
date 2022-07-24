@@ -14,3 +14,13 @@ export const getAlumniIds = async () => {
   }
   return alumni.map(({ user }) => user);
 };
+
+export const getGalleryType = (type) => {
+  const galleryTypes = ["general", "seminar", "alumni"];
+
+  if (type > galleryTypes.length - 1 || type < 0) {
+    return galleryTypes[0];
+  }
+
+  return galleryTypes[type];
+};

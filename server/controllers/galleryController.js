@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import Grid from "gridfs-stream";
 import asyncHandler from "express-async-handler";
 import Gallery from "../models/Gallery.js";
+import { getGalleryType } from "../utils/controller-utils.js";
 
 let gfs, galleryImagesBucket;
 const conn = mongoose.connection;
@@ -31,8 +32,16 @@ export const uploadImage = asyncHandler(async (req, res) => {
   res.json(galleryImage);
 });
 
-export const getAllImages = asyncHandler(async (req, res) => {
-  const galleryImages = await Gallery.find();
+export const getGalleryImages = asyncHandler(async (req, res) => {
+  const { type = 0 } = req.query;
+
+  let galleryImages;
+
+  if (Number(type) === 0) {
+    galleryImages = await Gallery.find({});
+  } else {
+    galleryImages = await Gallery.find({ type: getGalleryType(type) });
+  }
 
   if (!galleryImages) {
     return res.status(400).json({
