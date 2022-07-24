@@ -5,6 +5,7 @@ import User from "../models/User.js";
 import AlumniRequest from "../models/AlumniRequest.js";
 import notificationConstants from "../constants/notification-constants.js";
 import Notification from "../models/Notification.js";
+import RejectedApplication from "../models/RejectedApplication.js";
 
 export const registerAlumni = asyncHandler(async (req, res) => {
   const {
@@ -343,5 +344,21 @@ export const rejectAlumniRequest = asyncHandler(async (req, res) => {
   return res.status(400).json({
     success: false,
     error: "Cannot reject Alumni Request at this time, please try again later",
+  });
+});
+
+export const getRejectedApplications = asyncHandler(async (req, res) => {
+  const rejectedApplications = await RejectedApplication.find({});
+
+  if (!rejectedApplications)
+    return res.json({
+      success: false,
+      error:
+        "Cannot find Rejected Applications at this time, please try again later",
+    });
+
+  return res.status(200).json({
+    success: true,
+    rejectedApplications,
   });
 });

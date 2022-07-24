@@ -12,6 +12,7 @@ import {
   getAllAlumni,
   getAlumniRequests,
   rejectAlumniRequest,
+  getRejectedApplications,
 } from "../controllers/alumniControllers.js";
 import { admin, protect } from "../middleware/authMiddlewares.js";
 
@@ -20,11 +21,9 @@ const router = express.Router();
 router.get("/", getAllAlumni);
 router.get("/cities/", getAlumniCities);
 router.get("/requests/", protect, admin, getAlumniRequests);
+router.get("/rejected-applications/", protect, admin, getRejectedApplications);
 router.get("/:id", getAlumniById);
 router.get("/city/:city", getAlumniByCity);
-router.get("/rejected-applications", protect, admin, (req, res) => {
-  res.json("Work in progress 🚧");
-});
 
 router.post("/register", registerAlumni);
 
