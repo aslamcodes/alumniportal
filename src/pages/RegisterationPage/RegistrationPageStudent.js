@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./RegistrationPageStudent.module.css";
 import Compguy from "assets/compguy.png";
-import ApprovalCard from "components/RegistrationComponents/ApprovalCard";
 
 const currentYear = new Date().getFullYear();
 const range = (start, stop, step) =>
@@ -16,7 +15,6 @@ function RegistrationPageStudent() {
   const navigate = useNavigate();
 
   const [form, setForm] = useState(1);
-  const [requestCardActive, setRequestCardActive] = useState(false);
   const [data, setData] = useState({
     yearOfPassing: "",
     department: "",
@@ -44,8 +42,7 @@ function RegistrationPageStudent() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setRequestCardActive(true);
-    console.log(requestCardActive);
+    navigate("/login");
   };
 
   return (
@@ -259,8 +256,6 @@ function RegistrationPageStudent() {
           </div>
         </div>
       </div>
-
-      <ApprovalCard status={requestCardActive} setActive={setRequestCardActive} />
     </div>
   );
 }
