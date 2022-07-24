@@ -113,14 +113,21 @@ export const approveAlumni = asyncHandler(async (req, res) => {
   );
 
   if (alumni) {
-    res.status(200).json({
+    await Notification.create({
+      user: alumni.user,
+      type: notificationConstants.ALUMNI_APPROVED,
+      message:
+        "Your request has been approved. You can now access alumni features.",
+    });
+
+    return res.status(200).json({
       message: "Alumni approved successfully",
     });
-  } else {
-    res.status(400).json({
-      error: "User not registered as an Alumni or already approved",
-    });
   }
+
+  return res.status(400).json({
+    error: "User not registered as an Alumni or already approved",
+  });
 });
 
 export const updateAlumni = asyncHandler(async (req, res) => {
