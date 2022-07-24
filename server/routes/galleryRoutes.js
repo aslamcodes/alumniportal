@@ -3,7 +3,7 @@ import { GridFsStorage } from "multer-gridfs-storage";
 import multer from "multer";
 import { protect, admin } from "../middleware/authMiddlewares.js";
 import {
-  getAllImages,
+  getGalleryImages,
   uploadImage,
   getImageById,
   deleteGalleryImage,
@@ -33,8 +33,10 @@ const galleryStorage = new GridFsStorage({
 
 const upload = multer({ storage: galleryStorage });
 
-router.post("/", protect, admin, upload.single("image"), uploadImage);
-router.get("/", getAllImages);
+router.get("/", getGalleryImages);
 router.get("/:id", getImageById);
+
+router.post("/", protect, admin, upload.single("image"), uploadImage);
+
 router.delete("/:id", protect, admin, deleteGalleryImage);
 export default router;
