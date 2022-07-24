@@ -13,7 +13,7 @@ import {
   AlumniMeet,
   AllPhotos,
   SeminarSessions,
-  RegistrationPage,
+  RegistrationPageAlumni,
   ForgotPassword,
 } from "pages";
 
@@ -29,7 +29,7 @@ function App() {
           <Route element={<WithNavAndFooter />}>
             <Route index path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<RegistrationPage />} />
+            <Route path="/register-alumni" element={<RegistrationPageAlumni />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/events" element={<Events />} />
             <Route path="/gallery" element={<GalleryPage />} />

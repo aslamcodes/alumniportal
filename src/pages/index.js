@@ -1,6 +1,6 @@
 import Admin from "pages/Admin/Admin";
 import AlumniForum from "pages/AlumniForum/AlumniForum";
-import RegistrationPage from "./RegisterationPage/RegistrationPage";
+import RegistrationPageAlumni from "./RegisterationPage/RegistrationPageAlumni";
 import GalleryPage from "./Gallery/Gallery";
 import AlumniMeet from "./Gallery/AlumniMeet";
 import AllPhotos from "./Gallery/AllPhotos";
@@ -16,7 +16,7 @@ export {
   Home,
   Admin,
   AlumniForum,
-  RegistrationPage,
+  RegistrationPageAlumni,
   GalleryPage,
   AlumniMeet,
   AllPhotos,

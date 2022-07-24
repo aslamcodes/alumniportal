@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import styles from "./RegistrationPage.module.css";
+import styles from "./RegistrationPageAlumni.module.css";
 import Compguy from "assets/compguy.png";
+import ApprovalCard from "components/RegistrationComponents/ApprovalCard";
 
 const currentYear = new Date().getFullYear();
 const range = (start, stop, step) =>
@@ -11,13 +12,14 @@ const YearOfPassing = range(1985, currentYear, 1);
 const Department = ["IT", "CSE", "ECE", "EEE", "MECH", "CIVIL", "MBA"];
 const GraduationLevel = ["Under graduate", "Post graduate"];
 
-function RegistrationPage() {
+function RegistrationPageAlumni() {
   const navigate = useNavigate();
   const [formOptions, setFormOptions] = useState({
     option1: "",
     option2: "",
   });
   const [form, setForm] = useState(1);
+  const [requestCardActive, setRequestCardActive] = useState(false);
   const [data, setData] = useState({
     yearOfPassing: "",
     department: "",
@@ -41,15 +43,18 @@ function RegistrationPage() {
     skill: "",
   });
 
+
   const handleChange = (e) => {
     setData({
       ...data,
       [e.target.name]: e.target.value,
     });
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate("/login");
+    setRequestCardActive(true);
+    console.log(requestCardActive);
   };
 
   return (
@@ -368,11 +373,14 @@ function RegistrationPage() {
                 </section>
               )}
             </form>
+
           </div>
         </div>
       </div>
+
+      <ApprovalCard status={requestCardActive} setActive={setRequestCardActive} />
     </div>
   );
 }
 
-export default RegistrationPage;
+export default RegistrationPageAlumni;
