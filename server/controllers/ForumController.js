@@ -7,6 +7,8 @@ import mongoose from "mongoose";
 import Grid from "gridfs-stream";
 
 import ForumCommentReply from "../models/ForumCommentReply.js";
+import Notification from "../models/Notification.js";
+import notificationConstants from "../constants/notification-constants.js";
 
 let gfs, forumImagesBucket;
 const conn = mongoose.connection;
@@ -22,6 +24,7 @@ export const createPost = asyncHandler(async (req, res, next) => {
   const { post } = req.body;
   const { title, desc } = post;
   const images = req.files.map((file) => file.id);
+
   const NewPost = await ForumPost.create({
     user,
     post: {
@@ -30,9 +33,23 @@ export const createPost = asyncHandler(async (req, res, next) => {
       desc,
     },
   });
+  if (!NewPost) {
+    return res.json({
+      error: "Something went wrong. Please try again later.",
+    });
+  }
+
+  await Notification.create({
+    user: user._id,
+    message: "Post has been created",
+    type: notificationConstants.POST_CREATED,
+    post: NewPost._id,
+  });
+
   await ForumPostLike.create({
     post: NewPost._id,
   });
+
   res.json({ user: NewPost.user, post: NewPost.post, likes: [] });
 });
 
@@ -196,13 +213,26 @@ export const createComment = asyncHandler(async (req, res, next) => {
     });
   }
 
-  res.json(NewComment);
+  const author = await ForumPost.findById(post);
+
+  await Notification.create({
+    message: `${user.name} commented on your post`,
+    type: notificationConstants.COMMENT,
+    user: author.id,
+  });
+
+  res.json({
+    success: true,
+    user: NewComment.user,
+    comment: NewComment.text,
+  });
 });
 
 export const createReply = asyncHandler(async (req, res, next) => {
   const { user } = req;
   const comment = req.params.id;
   const { reply } = req.body;
+
   const NewReply = await Reply.create({
     user,
     comment,
@@ -214,12 +244,29 @@ export const createReply = asyncHandler(async (req, res, next) => {
       error: "Can't create reply",
     });
   }
-  res.json(NewReply);
+
+  const { user: author, _id: commentId } = await Comment.findById(comment);
+
+  await Notification.create({
+    user: author._id,
+    message: `${user.name} replied to your comment`,
+    type: notificationConstants.REPLY,
+    comment: commentId,
+    commentedBy: user._id,
+  });
+
+  return res.json({
+    success: true,
+    user: NewReply.user,
+    reply: NewReply.reply,
+  });
 });
 
 export const likePost = asyncHandler(async (req, res) => {
   const { user } = req;
   const post = req.params.id;
+
+  const { user: author } = await ForumPost.findById(post);
 
   const likeToUpdate = await ForumPostLike.updateOne(
     { post, "likes.user": { $ne: user } },
@@ -244,12 +291,38 @@ export const likePost = asyncHandler(async (req, res) => {
       });
     }
 
-    res.json({
+    return res.json({
       message: "Post Unliked",
       success: true,
     });
   } else {
-    res.json({ message: "Post liked", success: true });
+    const existingNotification = await Notification.findOne({
+      likedBy: user._id,
+      type: notificationConstants.LIKE,
+    });
+
+    if (existingNotification) {
+      return res.json({
+        message: "Post Liked",
+        success: true,
+      });
+    }
+
+    if (author._id.toString() !== user._id.toString()) {
+      const newNotification = await Notification.create({
+        type: notificationConstants.LIKE,
+        user: author,
+        message: `${user.name} liked your post`,
+        likedBy: user,
+      });
+
+      if (!newNotification) {
+        return res.status(400).json({
+          error: "Can't create notification",
+        });
+      }
+    }
+    return res.json({ message: "Post liked", success: true });
   }
 });
 

@@ -2,6 +2,7 @@ import { generateToken } from "../utils/authorization.js";
 import User from "../models/User.js";
 import asyncHandler from "express-async-handler";
 import mongoose from "mongoose";
+import Notification from "../models/Notification.js";
 
 let userAvatarImagesBucket;
 const conn = mongoose.connection;
@@ -130,7 +131,24 @@ export const getUserAvatarImage = asyncHandler(async (req, res) => {
   }
 });
 
-//forgot password controller
 export const forgotPassword = asyncHandler(async (req, res) => {
   res.json("On Construction 🚧");
+});
+
+export const resolveNotification = asyncHandler(async (req, res) => {
+  const { notificationId } = req.params;
+
+  const notification = await Notification.findById(notificationId);
+
+  if (!notification) {
+    return res.status(404).json({
+      error: "Notification not found",
+    });
+  }
+
+  notification.resolved = true;
+
+  await notification.save();
+
+  res.json(notification);
 });
