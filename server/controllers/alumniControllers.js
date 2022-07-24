@@ -307,3 +307,25 @@ export const getAlumniRequests = asyncHandler(async (req, res) => {
     error: "Cannot find Alumni Requests at this time, please try again later",
   });
 });
+
+export const rejectAlumniRequest = asyncHandler(async (req, res) => {
+  const { requestId } = req.params;
+  const request = await AlumniRequest.findOneAndUpdate(
+    { _id: requestId },
+    {
+      $set: {
+        reasonOfRejection: req.body.reason,
+      },
+    }
+  );
+  if (request) {
+    return res.status(200).json({
+      success: true,
+      message: "Alumni Request rejected successfully",
+    });
+  }
+  return res.status(400).json({
+    success: false,
+    error: "Cannot reject Alumni Request at this time, please try again later",
+  });
+});
