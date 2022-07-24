@@ -59,13 +59,11 @@ notificationSchema.pre("save", async function (next) {
     return next();
   }
 
-  if (!type === notificationConstants.ALUMNI_REJECT) {
-    return next();
+  if (type === notificationConstants.ALUMNI_REJECT) {
+    await Alumni.findOneAndDelete({
+      user,
+    });
   }
-
-  await Alumni.findOneAndDelete({
-    user,
-  });
 
   return next();
 });
