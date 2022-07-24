@@ -198,12 +198,19 @@ export const createComment = asyncHandler(async (req, res, next) => {
     });
   }
 
-  const newCommentNotification = await Notification.create({
+  const author = await ForumPost.findById(post);
+
+  await Notification.create({
     message: `${user.name} commented on your post`,
     type: notificationConstants.COMMENT,
+    user: author.id,
   });
 
-  return res.json(NewComment);
+  res.json({
+    success: true,
+    user: NewComment.user,
+    comment: NewComment.text,
+  });
 });
 
 export const createReply = asyncHandler(async (req, res, next) => {
