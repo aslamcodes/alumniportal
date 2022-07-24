@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import notificationConstants from "../constants/notification-constants.js";
+import Alumni from "./Alumni.js";
 
 const { model, Schema } = mongoose;
 
@@ -49,6 +50,24 @@ const notificationSchema = new Schema({
     ref: "AlumniRequest",
     required: false,
   },
+});
+
+notificationSchema.pre("save", async function (next) {
+  const { user, type, resolved } = this;
+
+  if (!resolved) {
+    return next();
+  }
+
+  if (!type === notificationConstants.ALUMNI_REJECT) {
+    return next();
+  }
+
+  await Alumni.findOneAndDelete({
+    user,
+  });
+
+  return next();
 });
 
 const Notification = model("Notification", notificationSchema);

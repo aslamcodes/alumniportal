@@ -5,6 +5,7 @@ import {
   getUserDetailsById,
   loginUser,
   registerUser,
+  resolveNotification,
 } from "../controllers/userControllers.js";
 import { registerAlumni } from "../controllers/alumniControllers.js";
 import { GridFsStorage } from "multer-gridfs-storage";
@@ -39,9 +40,11 @@ router.get("/:id", getUserDetailsById);
 router.get("/user-avatar/:id", getUserAvatarImage);
 
 router.patch("/forgot-password/:email", forgotPassword);
-router.patch("/notifications/resolve/:notificationId", protect, (req, res) => {
-  res.json("Work in progress 🚧");
-});
+router.patch(
+  "/notifications/resolve/:notificationId",
+  protect,
+  resolveNotification
+);
 
 router.post("/register", upload.single("avatar"), registerUser);
 router.post("/login", loginUser);
