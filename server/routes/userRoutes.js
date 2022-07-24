@@ -1,6 +1,7 @@
 import express from "express";
 import {
   forgotPassword,
+  getNotification,
   getUserAvatarImage,
   getUserDetailsById,
   loginUser,
@@ -33,9 +34,7 @@ const userAvatarStorage = new GridFsStorage({
 
 const upload = multer({ storage: userAvatarStorage });
 
-router.get("/notifications", protect, (req, res) => {
-  res.json("Work in progress🚧");
-});
+router.get("/notifications", protect, getNotification);
 router.get("/:id", getUserDetailsById);
 router.get("/user-avatar/:id", getUserAvatarImage);
 
