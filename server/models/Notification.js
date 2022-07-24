@@ -8,6 +8,7 @@ const notificationSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "User",
     required: true,
+    index: true,
   },
   message: {
     type: String,
@@ -16,6 +17,7 @@ const notificationSchema = new Schema({
   type: {
     type: String,
     required: true,
+    index: true,
     enum: notificationConstants,
   },
   resolved: {
