@@ -64,7 +64,6 @@ alumniSchema.post("findOneAndUpdate", async function (doc, next) {
   if (!doc) {
     return next();
   }
-  console.log(doc);
 
   try {
     if (alumniRequest) {
