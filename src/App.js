@@ -14,9 +14,9 @@ import {
   AllPhotos,
   SeminarSessions,
   RegistrationPageAlumni,
-  ForgotPassword,
   RegistrationPageStudent,
   RegistrationPageFaculty,
+  ForgotPassword,
 } from "pages";
 
 function App() {

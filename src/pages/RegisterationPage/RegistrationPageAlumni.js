@@ -33,7 +33,7 @@ function RegistrationPageAlumni() {
     cname: "",
     companyMail: "",
     secondaryCollegeName: "",
-    clgemail: "",
+    crname: "",
     designation: "",
     organization: "",
     city: "",
