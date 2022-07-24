@@ -24,6 +24,7 @@ export const createPost = asyncHandler(async (req, res, next) => {
   const { post } = req.body;
   const { title, desc } = post;
   const images = req.files.map((file) => file.id);
+
   const NewPost = await ForumPost.create({
     user,
     post: {
@@ -32,9 +33,23 @@ export const createPost = asyncHandler(async (req, res, next) => {
       desc,
     },
   });
+  if (!NewPost) {
+    return res.json({
+      error: "Something went wrong. Please try again later.",
+    });
+  }
+
+  await Notification.create({
+    user: user._id,
+    message: "Post has been created",
+    type: notificationConstants.POST_CREATED,
+    post: NewPost._id,
+  });
+
   await ForumPostLike.create({
     post: NewPost._id,
   });
+
   res.json({ user: NewPost.user, post: NewPost.post, likes: [] });
 });
 
