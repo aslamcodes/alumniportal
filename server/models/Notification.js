@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import notificationConstants from "../constants/notification-constants.js";
 
 const { model, Schema } = mongoose;
 
@@ -15,17 +16,7 @@ const notificationSchema = new Schema({
   type: {
     type: String,
     required: true,
-    enum: [
-      "like",
-      "comment",
-      "reply",
-      "alumni-request",
-      "alumni-reject",
-      "alumni-approved",
-      "post-created",
-      "post-updated",
-      "post-deleted",
-    ],
+    enum: notificationConstants,
   },
   resolved: {
     type: Boolean,
@@ -44,6 +35,11 @@ const notificationSchema = new Schema({
   comment: {
     type: Schema.Types.ObjectId,
     ref: "ForumComment",
+    required: false,
+  },
+  commentedBy: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
     required: false,
   },
   alumniRequest: {

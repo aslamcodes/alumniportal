@@ -217,6 +217,7 @@ export const createReply = asyncHandler(async (req, res, next) => {
   const { user } = req;
   const comment = req.params.id;
   const { reply } = req.body;
+
   const NewReply = await Reply.create({
     user,
     comment,
@@ -228,7 +229,22 @@ export const createReply = asyncHandler(async (req, res, next) => {
       error: "Can't create reply",
     });
   }
-  res.json(NewReply);
+
+  const { user: author, _id: commentId } = await Comment.findById(comment);
+
+  await Notification.create({
+    user: author._id,
+    message: `${user.name} replied to your comment`,
+    type: notificationConstants.REPLY,
+    comment: commentId,
+    commentedBy: user._id,
+  });
+
+  return res.json({
+    success: true,
+    user: NewReply.user,
+    reply: NewReply.reply,
+  });
 });
 
 export const likePost = asyncHandler(async (req, res) => {
@@ -265,7 +281,6 @@ export const likePost = asyncHandler(async (req, res) => {
       success: true,
     });
   } else {
-    // only if the user is not already present in the notifications
     const existingNotification = await Notification.findOne({
       likedBy: user._id,
       type: notificationConstants.LIKE,
