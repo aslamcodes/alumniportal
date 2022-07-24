@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import styles from "./LoginPage.module.css";
 import { RiErrorWarningFill } from "react-icons/ri";
+import RegisterOptions from "components/RegistrationComponents/RegisterOptions";
 
 function getWindowDimensions() {
   const { innerWidth: width, innerHeight: height } = window;
@@ -14,7 +15,7 @@ function getWindowDimensions() {
 
 const LoginForm = () => {
   let navigate = useNavigate();
-
+  const [registerOptions, setRegisterOptions] = useState(false);
   const {
     register,
     formState: { errors },
@@ -74,12 +75,11 @@ const LoginForm = () => {
         </div>
       </form>
       <hr />
-      <div className={styles["sign-up-container"]}>
+      <div className={styles["sign-up-container"]} onMouseLeave={() => { setRegisterOptions(false) }}>
         <p>
           Dont have an account yet ?{" "}
-          <Link to="/register">
-            <a>Create Account</a>
-          </Link>
+          <a onMouseEnter={() => { setRegisterOptions(true) }} >Create Account</a>
+          <RegisterOptions onMouseEnter={() => { setRegisterOptions(true) }} active={registerOptions} />
         </p>
       </div>
     </div>

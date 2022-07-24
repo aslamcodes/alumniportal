@@ -1,0 +1,33 @@
+.register_options_container {
+  position: absolute;
+  top: 100%;
+  right: 1%;
+  width: fit-content;
+  background: #e5feff;
+  overflow: hidden;
+  max-height: 0;
+  -webkit-transition: max-height 1s;
+  -moz-transition: max-height 1s;
+  -ms-transition: max-height 1s;
+  -o-transition: max-height 1s;
+  transition: max-height 0.7s;
+  background-color: #fff;
+}
+.register_options_container_active {
+  max-height: 8rem;
+}
+
+.register_options_container ul {
+  list-style: none;
+  padding: 0.5em 1.5em;
+  font-weight: 200;
+  line-height: 1.5rem;
+  color: rgb(49, 49, 49);
+  text-align: center;
+}
+
+.register_options_container ul li:hover {
+  color: #0162ff;
+  text-decoration: underline;
+  cursor: pointer;
+}

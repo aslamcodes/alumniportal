@@ -15,6 +15,8 @@ import {
   SeminarSessions,
   RegistrationPageAlumni,
   ForgotPassword,
+  RegistrationPageStudent,
+  RegistrationPageFaculty,
 } from "pages";
 
 function App() {
@@ -30,6 +32,8 @@ function App() {
             <Route index path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register-alumni" element={<RegistrationPageAlumni />} />
+            <Route path="/register-student" element={<RegistrationPageStudent />} />
+            <Route path="/register-faculty" element={<RegistrationPageFaculty />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/events" element={<Events />} />
             <Route path="/gallery" element={<GalleryPage />} />
