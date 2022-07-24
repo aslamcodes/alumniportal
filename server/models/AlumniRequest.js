@@ -14,6 +14,8 @@ const AlumniRequestSchema = new Schema({
   },
 });
 
+AlumniRequestSchema.post("findOneAndUpdate", async function (doc, next) {});
+
 const AlumniRequest = model("AlumniRequest", AlumniRequestSchema);
 
 export default AlumniRequest;
