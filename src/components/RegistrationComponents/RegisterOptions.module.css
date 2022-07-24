@@ -1,7 +1,7 @@
 .register_options_container {
   position: absolute;
   top: 100%;
-  right: 3%;
+  right: 1%;
   width: fit-content;
   background: #e5feff;
   overflow: hidden;
@@ -19,10 +19,11 @@
 
 .register_options_container ul {
   list-style: none;
-  padding: 0.3em 1em;
-  font-weight: 300;
+  padding: 0.5em 1.5em;
+  font-weight: 200;
   line-height: 1.5rem;
   color: rgb(49, 49, 49);
+  text-align: center;
 }
 
 .register_options_container ul li:hover {
