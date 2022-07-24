@@ -16,7 +16,11 @@ function OfficeBearers() {
   );
   const handleClick = (e) => {
     const id = e.target.id;
-    setActiveIndex(id);
+    if (id === activeIndex) {
+      setActiveIndex(null);
+    } else {
+      setActiveIndex(id);
+    }
     console.log('if' + activeIndex);
   }
   return (
@@ -40,6 +44,7 @@ function OfficeBearers() {
             <div className={`${styles.OfficeBearer} ${activeIndex == index && styles.OfficeBearer_active}`} key={index} >
               <img src={image} alt="office bearer" id={index} onClick={handleClick} />
               <p className={`${styles.show_details} ${activeIndex == index && styles.show_details_active}`}>Show Details{'>'} </p>
+              <p className={`${styles.make_ob} ${activeIndex == index && styles.make_ob_active}`}>make as OB</p>
             </div>
           );
         })}
