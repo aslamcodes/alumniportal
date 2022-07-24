@@ -134,16 +134,9 @@ export const approveAlumni = asyncHandler(async (req, res) => {
 export const updateAlumni = asyncHandler(async (req, res) => {
   const { id } = req.params;
 
-  const alumni = Alumni.findOneAndUpdate(
-    { user: id },
-    req.body,
-    {
-      new: true,
-    },
-    (err) => {
-      console.log(err);
-    }
-  );
+  const alumni = Alumni.findOneAndUpdate({ user: id }, req.body, (err) => {
+    console.log(err);
+  });
 
   if (alumni) {
     res.status(200).json({

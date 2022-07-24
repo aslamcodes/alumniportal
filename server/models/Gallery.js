@@ -11,6 +11,7 @@ const gallerySchema = new Schema({
     type: String,
     enum: ["general", "seminar", "alumni"],
     required: true,
+    index: true,
   },
   title: {
     type: String,

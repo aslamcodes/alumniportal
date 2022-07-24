@@ -54,6 +54,7 @@ const userSchema = new Schema(
     city: {
       type: String,
       required: true,
+      index: true,
     },
     // yearOfPassing: {
     //   type: Date,
