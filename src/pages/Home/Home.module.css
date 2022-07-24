@@ -15,11 +15,11 @@
   flex-direction: column;
   justify-content: center;
   text-align: center;
-  margin: 0 1.5rem;
   scroll-snap-align: start;
 }
 
 #Welcome .Container {
+  margin: 0 1.5rem;
   gap: 2em;
   font-family: "Space Mono", monospace;
   font-weight: bold;

@@ -1,29 +1,21 @@
 .carousel {
+  position: relative;
   display: flex;
+  min-height: 100vh;
   max-width: 100%;
-  min-height: 100%;
-  /* overflow-y: hidden; */
+  /* background: #000; */
+  justify-content: space-between;
 }
-.left {
-  flex: 5%;
+.left,
+.right {
   display: grid;
   place-items: center;
   cursor: pointer;
+  padding: 1em;
 }
 
 .center {
-  flex: 80rem;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
+  width: 100%;
   overflow-x: hidden;
-  padding: 2em;
-  z-index: -1;
-}
-.right {
-  flex: 5%;
-  display: grid;
-  place-items: center;
-  cursor: pointer;
+  /* background: #000; */
 }

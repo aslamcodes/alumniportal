@@ -1,8 +1,9 @@
 import React from 'react'
 import styles from './Testimonial.module.css'
-function Testimonial({ quotes, children }) {
+function Testimonial({ type, quotes, name, id, children }) {
   return (
-    <div className={styles["Testimonial"]}>
+    <div className={`${styles["Testimonial"]} ${type === "left" && styles.left || type === "center" && styles.center || type === "right" && styles.right}`}
+      style={{ transform: `translateX(-${0}%)` }}>
       <div className={styles["Testimonial-content"]}>
         <div className={styles['Profile-Container']}>
           <div className={styles['img']}>
@@ -16,7 +17,7 @@ function Testimonial({ quotes, children }) {
 
           </div>
           <div className={styles['Author']}>
-            <p>- Christopher</p>
+            <p>- {name}</p>
           </div>
         </div>
       </div>
