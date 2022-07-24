@@ -22,6 +22,9 @@ router.get("/cities/", getAlumniCities);
 router.get("/requests/", protect, admin, getAlumniRequests);
 router.get("/:id", getAlumniById);
 router.get("/city/:city", getAlumniByCity);
+router.get("/rejected-applications", protect, admin, (req, res) => {
+  res.json("Work in progress 🚧");
+});
 
 router.post("/register", registerAlumni);
 

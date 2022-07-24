@@ -9,6 +9,7 @@ import {
 import { registerAlumni } from "../controllers/alumniControllers.js";
 import { GridFsStorage } from "multer-gridfs-storage";
 import multer from "multer";
+import { protect } from "../middleware/authMiddlewares.js";
 
 const router = express.Router();
 
@@ -31,10 +32,16 @@ const userAvatarStorage = new GridFsStorage({
 
 const upload = multer({ storage: userAvatarStorage });
 
+router.get("/notifications", protect, (req, res) => {
+  res.json("Work in progress🚧");
+});
 router.get("/:id", getUserDetailsById);
 router.get("/user-avatar/:id", getUserAvatarImage);
 
 router.patch("/forgot-password/:email", forgotPassword);
+router.patch("/notifications/resolve/:notificationId", protect, (req, res) => {
+  res.json("Work in progress 🚧");
+});
 
 router.post("/register", upload.single("avatar"), registerUser);
 router.post("/login", loginUser);
