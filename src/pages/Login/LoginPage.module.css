@@ -145,10 +145,14 @@
   width: 100%;
   margin-bottom: 0.5rem;
 }
+.loginBox p {
+  position: relative;
+}
 .loginBox p a {
   font-weight: 600;
   text-decoration: underline;
   color: #285fa4;
+  cursor: pointer;
 }
 
 /* input field */
