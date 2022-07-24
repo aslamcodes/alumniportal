@@ -7,6 +7,7 @@ import mongoose from "mongoose";
 import Grid from "gridfs-stream";
 
 import ForumCommentReply from "../models/ForumCommentReply.js";
+import Notification from "../models/Notification.js";
 
 let gfs, forumImagesBucket;
 const conn = mongoose.connection;
@@ -221,6 +222,8 @@ export const likePost = asyncHandler(async (req, res) => {
   const { user } = req;
   const post = req.params.id;
 
+  const { user: author } = await ForumPost.findById(post);
+
   const likeToUpdate = await ForumPostLike.updateOne(
     { post, "likes.user": { $ne: user } },
     { $push: { likes: { user } } }
@@ -244,12 +247,25 @@ export const likePost = asyncHandler(async (req, res) => {
       });
     }
 
-    res.json({
+    return res.json({
       message: "Post Unliked",
       success: true,
     });
   } else {
-    res.json({ message: "Post liked", success: true });
+    const newNotification = await Notification.create({
+      type: "like",
+      user: author,
+      message: `${user.name} liked your post`,
+      likedBy: user,
+    });
+
+    if (!newNotification) {
+      return res.status(400).json({
+        error: "Can't create notification",
+      });
+    }
+
+    return res.json({ message: "Post liked", success: true });
   }
 });
 

@@ -36,9 +36,9 @@ const notificationSchema = new Schema({
     ref: "ForumPost",
     required: false,
   },
-  like: {
+  likedBy: {
     type: Schema.Types.ObjectId,
-    ref: "ForumPostLike",
+    ref: "User",
     required: false,
   },
   comment: {
@@ -53,6 +53,6 @@ const notificationSchema = new Schema({
   },
 });
 
-const Notification = model(notificationSchema, "Notification");
+const Notification = model("Notification", notificationSchema);
 
 export default Notification;
