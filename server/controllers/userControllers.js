@@ -152,3 +152,19 @@ export const resolveNotification = asyncHandler(async (req, res) => {
 
   res.json(notification);
 });
+
+export const getNotification = asyncHandler(async (req, res) => {
+  const { user } = req;
+
+  const notifications = await Notification.find({
+    user: user._id,
+  });
+
+  if (!notifications)
+    return res.json({
+      success: false,
+      error: "No notifications found",
+    });
+
+  return res.json(notifications);
+});
