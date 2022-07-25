@@ -22,11 +22,11 @@ const Home = () => {
       children: <img src="https://via.placeholder.com/150" alt="test" />,
       name: "Mr.Jesso Clarence.M Engineering Manager, Akamai Technology, Bangalore Batch: 2006-2010"
     },
-    // {
-    //   quotes: "I am a test quote4",
-    //   children: <img src="https://via.placeholder.com/150" alt="test" />,
-    //   name: "Mr.Jesso Clarence.M Engineering Manager, Akamai Technology, Bangalore Batch: 2006-2010"
-    // }
+    {
+      quotes: "I am a test quote4",
+      children: <img src="https://via.placeholder.com/150" alt="test" />,
+      name: "Mr.Jesso Clarence.M Engineering Manager, Akamai Technology, Bangalore Batch: 2006-2010"
+    }
 
   ]
 

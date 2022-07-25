@@ -59,29 +59,27 @@ const Carousel = ({ data }) => {
 
   return (
     <div className={styles["carousel"]}>
-      <div className={styles["left"]} onClick={leftButtonHandler}>
-        <BsChevronLeft />
-      </div>
-      <div className={styles["center"]}>
+      <div className={styles["inner"]}
+        style={{ transform: `translateX(-${0}%)` }}
+      >
 
         {data.map((item, index) => {
           return (
-            <Testimonial
-              key={index}
-              type={itemStatus.left === index && "left" || itemStatus.center === index && "center" || itemStatus.right === index && "right"}
-              id={index}
-              quotes={item.quotes}
-              name={item.name}
-            >{item.children}</Testimonial>
+            <div className={styles.carousel_item} style={{ width: '100%' }}>
+              <Testimonial
+                key={index}
+                id={index}
+                quotes={item.quotes}
+                name={item.name}
+              >{item.children}
+              </Testimonial>
+            </div>
           )
         }
         )}
+      </div>
+    </div >
 
-      </div>
-      <div className={styles["right"]} onClick={rightButtonHandler}>
-        <BsChevronRight />
-      </div>
-    </div>
   );
 };
 

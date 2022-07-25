@@ -1,21 +1,19 @@
 .carousel {
-  position: relative;
-  display: flex;
-  min-height: 100vh;
-  max-width: 100%;
-  /* background: #000; */
-  justify-content: space-between;
+  max-width: 100vw;
+
+  overflow: hidden;
 }
-.left,
-.right {
-  display: grid;
-  place-items: center;
-  cursor: pointer;
-  padding: 1em;
+.inner {
+  white-space: nowrap;
+  transition: transform 0.5s;
 }
 
-.center {
+.carousel_item {
+  position: relative;
+  display: inline-block;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
   width: 100%;
-  overflow-x: hidden;
-  /* background: #000; */
+  color: white;
 }
