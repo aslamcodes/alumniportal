@@ -7,9 +7,14 @@ function Testimonial({ type, quotes, name, id, imgSrc }) {
         <div className={styles['Profile-Container']}>
           <img src={imgSrc} alt="" />
         </div>
-        <div className={styles['Quotes']}>
-          <h2>{quotes}</h2>
-          <p>- {name}</p>
+        <div className={styles['Quotes-Container']}>
+          <div className={styles['Quotes']}>
+            <p>{quotes}</p>
+
+          </div>
+          <div className={styles['Author']}>
+            <p>- Christopher</p>
+          </div>
         </div>
       </div>
     </div>

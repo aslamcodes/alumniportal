@@ -48,6 +48,7 @@ const Home = () => {
         <div id={styles["Testimonials"]}>
           <div className={`${styles.Container}`}>
             <Carousel data={testData} />
+
           </div>
         </div>
       </div>
