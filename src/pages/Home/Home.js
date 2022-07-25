@@ -8,23 +8,23 @@ const Home = () => {
   //testData:
   const testData = [
     {
-      quotes: "I am a test quote1",
-      children: <img src="https://via.placeholder.com/150" alt="test" />,
+      quotes: "“Hi, This is Ben i am working at Jakash corporation”",
+      imgSrc: "https://via.placeholder.com/150",
       name: "Mr.Jesso Clarence.M Engineering Manager, Akamai Technology, Bangalore Batch: 2006-2010"
     },
     {
-      quotes: "I am a test quote2",
-      children: <img src="https://via.placeholder.com/150" alt="test" />,
+      quotes: "“Choosing Sri Krishna College of Technology to pursue B.Tech IT was one of the best decisions in my life.”",
+      imgSrc: "https://via.placeholder.com/150",
       name: "Mr.Jesso Clarence.M Engineering Manager, Akamai Technology, Bangalore Batch: 2006-2010"
     },
     {
       quotes: "I am a test quote3",
-      children: <img src="https://via.placeholder.com/150" alt="test" />,
+      imgSrc: "https://via.placeholder.com/150",
       name: "Mr.Jesso Clarence.M Engineering Manager, Akamai Technology, Bangalore Batch: 2006-2010"
     },
     {
       quotes: "I am a test quote4",
-      children: <img src="https://via.placeholder.com/150" alt="test" />,
+      imgSrc: "https://via.placeholder.com/150",
       name: "Mr.Jesso Clarence.M Engineering Manager, Akamai Technology, Bangalore Batch: 2006-2010"
     }
 
