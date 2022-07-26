@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import notificationConstants from "../constants/notification-constants.js";
 import Alumni from "./Alumni.js";
+import AlumniRequest from "./AlumniRequest.js";
 
 const { model, Schema } = mongoose;
 
@@ -60,7 +61,11 @@ notificationSchema.pre("save", async function (next) {
   }
 
   if (type === notificationConstants.ALUMNI_REJECT) {
-    await Alumni.findOneAndDelete({
+    await AlumniRequest.deleteOne({
+      user,
+    });
+
+    await Alumni.deleteOne({
       user,
     });
   }
