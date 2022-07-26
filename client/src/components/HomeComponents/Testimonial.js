@@ -1,19 +1,22 @@
 import React from 'react'
 import styles from './Testimonial.module.css'
-function Testimonial({ type, quotes, name, imgSrc }) {
+function Testimonial({ quotes, children }) {
   return (
-    <div className={`${styles["Testimonial"]} `}>
+    <div className={styles["Testimonial"]}>
       <div className={styles["Testimonial-content"]}>
         <div className={styles['Profile-Container']}>
-          <img src={imgSrc} alt="" />
+          <div className={styles['img']}>
+            {children}
+          </div>
+
         </div>
-        <div className={styles['Quotes-Container']}>
+        <div>
           <div className={styles['Quotes']}>
             <p>{quotes}</p>
 
           </div>
           <div className={styles['Author']}>
-            <p>- {name}</p>
+            <p>- Christopher</p>
           </div>
         </div>
       </div>
