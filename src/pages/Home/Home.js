@@ -14,7 +14,7 @@ const Home = () => {
     },
     {
       quotes: "“Choosing Sri Krishna College of Technology to pursue B.Tech IT was one of the best decisions in my life.”",
-      imgSrc: "https://via.placeholder.com/150",
+      imgSrc: "https://via.placeholder.com/200",
       name: "Mr.Jesso Clarence.M Engineering Manager, Akamai Technology, Bangalore Batch: 2006-2010"
     },
     {

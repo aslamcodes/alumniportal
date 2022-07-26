@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './Testimonial.module.css'
-function Testimonial({ type, quotes, name, id, imgSrc }) {
+function Testimonial({ type, quotes, name, imgSrc }) {
   return (
     <div className={`${styles["Testimonial"]} `}>
       <div className={styles["Testimonial-content"]}>
@@ -13,7 +13,7 @@ function Testimonial({ type, quotes, name, id, imgSrc }) {
 
           </div>
           <div className={styles['Author']}>
-            <p>- Christopher</p>
+            <p>- {name}</p>
           </div>
         </div>
       </div>
