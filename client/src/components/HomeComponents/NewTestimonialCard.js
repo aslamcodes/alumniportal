@@ -3,7 +3,7 @@ import styles from './NewTestimonialCard.module.css'
 import { BiImageAdd } from "react-icons/bi";
 function NewTestimonialCard() {
   const [data, setData] = useState({
-    img: "",
+    img: undefined,
     name: "",
     quote: "",
   })
@@ -14,7 +14,22 @@ function NewTestimonialCard() {
       [e.target.name]: e.target.value
     }
     )
+    console.log(data.img);
   }
+  const onSelectFile = (e) => {
+    if (!e.target.files || e.target.files.length === 0) {
+      setData({
+        ...data,
+        img: data.img || undefined
+      });
+      return;
+    }
+    setData({
+      ...data,
+      img: e.target.files[0]
+    });
+
+  };
 
   return (
     <div className={styles.new_testimonial_container}>
@@ -22,7 +37,8 @@ function NewTestimonialCard() {
         <label htmlFor="img-input">
           <BiImageAdd size="50px" />
         </label>
-        <input name="image" id="img-input" type="file" value={data.img} onChange={handleChange} />
+        <input name="image" id="img-input" type="file" onChange={onSelectFile} />
+        <img src={URL.createObjectURL(data.img)} alt="upload-image" />
       </div>
       <div className={styles.input_container}>
         <label >Name</label>
