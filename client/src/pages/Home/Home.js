@@ -50,13 +50,11 @@ const Home = () => {
           <div className={`${styles.Container}`}>
             <Carousel data={testData} />
             <img src={require("assets/testimonial.png")} alt="testimonial-img" />
-            <button className={styles.new_testimonial_btn} onClick={() => setNewTestimonialActive(true)}>
+            <button className={`${styles.new_testimonial_btn} ${newTestimonialActive && styles.active}`} onClick={() => setNewTestimonialActive(!newTestimonialActive)}>
               New Testimonial <span>+</span>
-
-              {newTestimonialActive &&
-                <NewTestimonialCard onClick={(e) => e.stopPropagation()} />
-              }
             </button>
+
+            <NewTestimonialCard active={newTestimonialActive} />
           </div>
         </div>
       </div>

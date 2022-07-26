@@ -3,12 +3,22 @@
   display: flex;
   align-items: center;
   gap: 1rem;
-  bottom: 110%;
-  right: 0;
-  padding: 1rem;
+  bottom: 16%;
+  right: 2%;
+  padding-inline: 1rem;
   border-radius: 10px;
   background-color: #fff;
   width: 30rem;
+  overflow: hidden;
+  max-height: 0;
+  transition: all 0.5s linear;
+  background-color: #fff;
+}
+
+.new_testimonial_container_active {
+  bottom: 18%;
+  padding: 1rem;
+  max-height: 10rem;
 }
 
 .img_container {
@@ -24,12 +34,14 @@
 .img_container label {
   position: absolute;
   z-index: 1;
-
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   opacity: 1;
   cursor: pointer;
+}
+.img_container.active label {
+  opacity: 0.5;
 }
 
 .img_container img {

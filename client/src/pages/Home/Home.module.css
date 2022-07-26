@@ -71,9 +71,9 @@
   right: 2%;
   display: flex;
   align-items: center;
-  font-size: 1.3rem;
-  font-weight: 500;
-  padding: 0.1em 0.1em 0.1em 0.6em;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.2em 0.1em 0.2em 0.6em;
   border: none;
   background-color: #eaeef1;
   border-radius: 25px;
@@ -85,17 +85,18 @@
 .new_testimonial_btn span {
   display: grid;
   place-items: center;
-  width: 1.7em;
-  height: 1.7em;
-  margin-left: 0.5em;
+  width: 1.2em;
+  height: 1.2em;
+  margin-left: 0.3em;
   background-color: #6b799c;
   border-radius: 50%;
   color: #fff;
-  font-size: 1em;
-  font-weight: bold;
-  font-family: "Old Standard TT", serif;
+  font-size: 2em;
+  font-weight: 600;
+  /* font-weight: bold;
+  font-family: "Old Standard TT", serif; */
   box-shadow: 0 0 3px 2px #40404037;
-  transition: transform 0.2s linear;
+  transition: transform 0.5s linear;
   transform-origin: center center;
 }
 

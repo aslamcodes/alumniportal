@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styles from './NewTestimonialCard.module.css'
 import { BiImageAdd } from "react-icons/bi";
-function NewTestimonialCard() {
+function NewTestimonialCard({ active }) {
   const [data, setData] = useState({
     img: undefined,
     name: "",
@@ -16,29 +16,35 @@ function NewTestimonialCard() {
     )
     console.log(data.img);
   }
-  const onSelectFile = (e) => {
-    if (!e.target.files || e.target.files.length === 0) {
+  const onSelectFile = (event) => {
+    if (!event.target.files || event.target.files.length === 0) {
       setData({
         ...data,
         img: data.img || undefined
       });
       return;
     }
-    setData({
-      ...data,
-      img: e.target.files[0]
-    });
-
+    let reader = new FileReader();
+    reader.onload = (e) => {
+      setData({
+        ...data,
+        img: e.target.result
+      });
+    }
+    reader.readAsDataURL(event.target.files[0]);
   };
 
   return (
-    <div className={styles.new_testimonial_container}>
-      <div className={styles.img_container}>
+    <div className={`${styles.new_testimonial_container} ${active && styles.new_testimonial_container_active}`}>
+      <div className={`${styles.img_container} ${active && styles.active}`}>
         <label htmlFor="img-input">
           <BiImageAdd size="50px" />
         </label>
         <input name="image" id="img-input" type="file" onChange={onSelectFile} />
-        <img src={URL.createObjectURL(data.img)} alt="upload-image" />
+
+        {data.img &&
+          <img src={data.img} alt="upload-image" />
+        }
       </div>
       <div className={styles.input_container}>
         <label >Name</label>
