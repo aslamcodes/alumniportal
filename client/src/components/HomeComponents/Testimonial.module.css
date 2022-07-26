@@ -25,6 +25,7 @@
 }
 
 .Profile-Container {
+  position: relative;
   display: flex;
   height: 13rem;
   width: 13rem;
@@ -59,6 +60,14 @@
   font-weight: 400;
   font-size: 1.2em;
   float: right;
+}
+
+.testimonial_edit img {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 1.2rem;
+  filter: drop-shadow(0 0 0.3rem rgba(58, 57, 57, 0.853));
 }
 /* mobile carousel */
 @media (max-width: 920px) {

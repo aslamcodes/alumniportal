@@ -16,6 +16,11 @@ function Testimonial({ type, quotes, name, imgSrc }) {
             <p>- {name}</p>
           </div>
         </div>
+
+        <div className={` ${styles.testimonial_edit}`} >
+          <img src={require("assets/icons/block.png")} alt="edit icon" />
+        </div>
+
       </div>
     </div>
   )

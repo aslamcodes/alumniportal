@@ -65,6 +65,47 @@
   object-fit: contain;
 }
 
+.new_testimonial_btn {
+  position: absolute;
+  bottom: 8%;
+  right: 2%;
+  display: flex;
+  align-items: center;
+  font-size: 1.3rem;
+  font-weight: 500;
+  padding: 0.1em 0.1em 0.1em 0.6em;
+  border: none;
+  background-color: #eaeef1;
+  border-radius: 25px;
+  cursor: pointer;
+  box-shadow: 0 0 5px 1px #7a7a7a93;
+  width: fit-content;
+}
+
+.new_testimonial_btn span {
+  display: grid;
+  place-items: center;
+  width: 1.7em;
+  height: 1.7em;
+  margin-left: 0.5em;
+  background-color: #6b799c;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 1em;
+  font-weight: bold;
+  font-family: "Old Standard TT", serif;
+  box-shadow: 0 0 3px 2px #40404037;
+  transition: transform 0.2s linear;
+  transform-origin: center center;
+}
+
+.new_testimonial_btn:hover {
+  box-shadow: 0 0 3px 2px #40404070;
+}
+.new_testimonial_btn.active span {
+  transform: rotate(135deg);
+}
+
 @media (max-width: 1040px) {
   #Welcome .Container {
     padding-top: 0.5rem;

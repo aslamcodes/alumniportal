@@ -49,6 +49,7 @@ const Home = () => {
           <div className={`${styles.Container}`}>
             <Carousel data={testData} />
             <img src={require("assets/testimonial.png")} alt="testimonial-img" />
+            <button className={styles.new_testimonial_btn}>New Testimonial <span>+</span></button>
           </div>
         </div>
       </div>
