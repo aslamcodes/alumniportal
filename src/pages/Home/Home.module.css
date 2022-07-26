@@ -54,6 +54,16 @@
   color: #f6b42b;
   text-shadow: 1px 2px rgb(105, 105, 105);
 }
+#Testimonials .Container {
+  position: relative;
+}
+#Testimonials img[alt="testimonial-img"] {
+  bottom: -2%;
+  position: absolute;
+  height: 70%;
+  width: 100%;
+  object-fit: contain;
+}
 
 @media (max-width: 1040px) {
   #Welcome .Container {

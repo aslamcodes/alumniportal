@@ -48,7 +48,7 @@ const Home = () => {
         <div id={styles["Testimonials"]}>
           <div className={`${styles.Container}`}>
             <Carousel data={testData} />
-
+            <img src={require("assets/testimonial.png")} alt="testimonial-img" />
           </div>
         </div>
       </div>
