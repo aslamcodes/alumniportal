@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import Testimonial from "components/HomeComponents/Testimonial";
 import Carousel from "components/UI/Carousel";
 import styles from "./Home.module.css";
+import NewTestimonialCard from "components/HomeComponents/NewTestimonialCard";
 
 const Home = () => {
-
+  const [newTestimonialActive, setNewTestimonialActive] = useState(false);
   //testData:
   const testData = [
     {
@@ -49,7 +50,13 @@ const Home = () => {
           <div className={`${styles.Container}`}>
             <Carousel data={testData} />
             <img src={require("assets/testimonial.png")} alt="testimonial-img" />
-            <button className={styles.new_testimonial_btn}>New Testimonial <span>+</span></button>
+            <button className={styles.new_testimonial_btn} onClick={() => setNewTestimonialActive(!newTestimonialActive)}>
+              New Testimonial <span>+</span>
+              {newTestimonialActive &&
+                <NewTestimonialCard />
+              }
+
+            </button>
           </div>
         </div>
       </div>

@@ -67,7 +67,7 @@
   top: 1rem;
   right: 1rem;
   width: 1.2rem;
-  filter: drop-shadow(0 0 0.3rem rgba(58, 57, 57, 0.853));
+  filter: drop-shadow(0 0 0.3rem rgba(58, 57, 57, 0.5));
 }
 /* mobile carousel */
 @media (max-width: 920px) {
