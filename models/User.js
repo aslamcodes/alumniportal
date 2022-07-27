@@ -27,6 +27,10 @@ const userSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    isAlumni: {
+      type: Boolean,
+      default: false,
+    },
     registerNumber: {
       type: String,
       required: true,
@@ -37,7 +41,6 @@ const userSchema = new Schema(
     },
     course: {
       type: String,
-      required: true,
     },
     phoneNumber: {
       type: String,
@@ -56,11 +59,19 @@ const userSchema = new Schema(
       required: true,
       index: true,
     },
-    // yearOfPassing: {
-    //   type: Date,
-    //   required: true,
-    // },
-    // graduationLevel:
+    yearOfPassing: {
+      type: Date,
+    },
+    dateOfBirth: {
+      type: Date,
+    },
+    graduationLevel: {
+      type: String,
+      enum: ["Under graduate", "Post graduate"],
+    },
+    skill: {
+      type: String,
+    },
   },
   {
     timestamps: true,

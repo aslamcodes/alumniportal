@@ -9,29 +9,28 @@ const range = (start, stop, step) =>
 
 const YearOfPassing = range(1985, currentYear + 4, 1);
 const Department = ["IT", "CSE", "ECE", "EEE", "MECH", "CIVIL", "MBA"];
-const GraduationLevel = ["Under graduate", "Post graduate"];
+const graduationLevelOptions = ["Under graduate", "Post graduate"];
 
 function RegistrationPageStudent() {
   const navigate = useNavigate();
 
   const [form, setForm] = useState(1);
   const [data, setData] = useState({
-    yearOfPassing: "",
-    department: "",
-    graduationLevel: "",
-    name: "",
-    registerNumber: "",
-    dob: "",
     email: "",
     password: "",
     confirmPassword: "",
-    city: "",
-    state: "",
+    name: "",
+    registerNumber: "",
+    department: "",
+    phoneNumber: "",
+    yearOfPassing: "",
     country: "",
-    contactno: "",
+    state: "",
+    city: "",
+    graduationLevel: "",
+    dateOfBirth: "",
     skill: "",
   });
-
 
   const handleChange = (e) => {
     setData({
@@ -56,8 +55,6 @@ function RegistrationPageStudent() {
             <h1>{form === 1 ? "Register" : "Personal Information"}</h1>
           </div>
           <div className={styles.form_body}>
-
-
             <form onSubmit={handleSubmit}>
               {form === 1 ? (
                 <section>
@@ -112,7 +109,7 @@ function RegistrationPageStudent() {
                       onChange={handleChange}
                     >
                       <option value="">Graduation level</option>
-                      {GraduationLevel.map((level) => (
+                      {graduationLevelOptions.map((level) => (
                         <option key={level} value={level}>
                           {level}
                         </option>
@@ -146,7 +143,7 @@ function RegistrationPageStudent() {
                       name="dob"
                       type="date"
                       id="dob"
-                      value={data.dob}
+                      value={data.dateOfBirth}
                       onChange={handleChange}
                     />
                     <input
@@ -189,9 +186,7 @@ function RegistrationPageStudent() {
                 </section>
               ) : (
                 <section>
-                  <div
-                    className={`${styles.form_input_container} `}
-                  >
+                  <div className={`${styles.form_input_container} `}>
                     <input
                       name="city"
                       type="text"
@@ -201,9 +196,7 @@ function RegistrationPageStudent() {
                       onChange={handleChange}
                     />
                   </div>
-                  <div
-                    className={`${styles.form_input_container} `}
-                  >
+                  <div className={`${styles.form_input_container} `}>
                     <input
                       name="state"
                       type="text"
@@ -229,7 +222,7 @@ function RegistrationPageStudent() {
                       type="number"
                       id="contactno"
                       placeholder="Enter your contact no"
-                      value={data.contactno}
+                      value={data.phoneNumber}
                       onChange={handleChange}
                     />
                   </div>
@@ -252,7 +245,6 @@ function RegistrationPageStudent() {
                 </section>
               )}
             </form>
-
           </div>
         </div>
       </div>

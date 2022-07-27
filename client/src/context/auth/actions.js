@@ -20,4 +20,20 @@ export const login = async (dispatch, { email, password }) => {
   }
 };
 
-export const register = () => {};
+export const register = async (dispatch, payload) => {
+  dispatch({ type: AUTH_REQUEST });
+  try {
+    const { data } = await axios.post("/api/v1/users/register", {
+      ...payload,
+    });
+    dispatch({ type: AUTH_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: AUTH_FAILURE,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};

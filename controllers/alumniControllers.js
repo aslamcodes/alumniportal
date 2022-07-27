@@ -20,7 +20,6 @@ export const registerAlumni = asyncHandler(async (req, res) => {
     domain,
     courseName,
     social: { facebook, twitter, linkedin, github },
-    isOfficeBearer,
     profileDescription,
   } = req.body;
 
@@ -49,11 +48,12 @@ export const registerAlumni = asyncHandler(async (req, res) => {
       linkedin,
       github,
     },
-    isOfficeBearer,
     profileDescription,
   });
 
   if (alumni) {
+    await User.findOneAndUpdate({ _id: user }, { isAlumni: true });
+
     await Notification.create({
       user,
       type: notificationConstants.ALUMNI_REQUEST,
