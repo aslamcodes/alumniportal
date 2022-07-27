@@ -1,7 +1,13 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import styles from "./RegistrationPageStudent.module.css";
 import Compguy from "assets/compguy.png";
+import { register } from "context/auth/actions";
+import {
+  useAuthContext,
+  useAuthDispatchContext,
+} from "context/auth/authContext";
+import Loader from "components/UI/Loader";
 
 const currentYear = new Date().getFullYear();
 const range = (start, stop, step) =>
@@ -13,8 +19,10 @@ const graduationLevelOptions = ["Under graduate", "Post graduate"];
 
 function RegistrationPageStudent() {
   const navigate = useNavigate();
-
-  const [form, setForm] = useState(1);
+  const dispatch = useAuthDispatchContext();
+  const { user, isLoading, error } = useAuthContext();
+  const location = useLocation();
+  const [formStep, setFormStep] = useState(1);
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -39,10 +47,24 @@ function RegistrationPageStudent() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    navigate("/login");
+    const formData = new FormData();
+    Object.keys(data).forEach((key) => formData.append(key, data[key]));
+    await register(dispatch, formData);
   };
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
+  if (user) {
+    navigate(location?.from ?? "/");
+  }
 
   return (
     <div className={styles.container}>
@@ -52,11 +74,13 @@ function RegistrationPageStudent() {
       <div className={styles.form_container}>
         <div className={styles.form}>
           <div className={styles.form_header}>
-            <h1>{form === 1 ? "Register" : "Personal Information"}</h1>
+            <h1>
+              {formStep === 1 ? "Register as Student" : "Personal Information"}
+            </h1>
           </div>
           <div className={styles.form_body}>
             <form onSubmit={handleSubmit}>
-              {form === 1 ? (
+              {formStep === 1 ? (
                 <section>
                   <div
                     className={`${styles.form_input_container} ${styles.split_container}`}
@@ -73,7 +97,7 @@ function RegistrationPageStudent() {
                         className={styles.select_items}
                       >
                         {" "}
-                        year of passing
+                        Year of passing
                       </option>
                       {YearOfPassing.map((year) => (
                         <option
@@ -140,9 +164,9 @@ function RegistrationPageStudent() {
                     className={`${styles.form_input_container} ${styles.split_container}`}
                   >
                     <input
-                      name="dob"
+                      name="dateOfBirth"
                       type="date"
-                      id="dob"
+                      id="dateOfBirth"
                       value={data.dateOfBirth}
                       onChange={handleChange}
                     />
@@ -181,7 +205,7 @@ function RegistrationPageStudent() {
                     <button onClick={() => navigate("/login")}>
                       back to login
                     </button>
-                    <button onClick={() => setForm(2)}> next page</button>
+                    <button onClick={() => setFormStep(2)}> next page</button>
                   </div>
                 </section>
               ) : (
@@ -218,9 +242,9 @@ function RegistrationPageStudent() {
                   </div>
                   <div className={styles.form_input_container}>
                     <input
-                      name="contactno"
+                      name="phoneNumber"
                       type="number"
-                      id="contactno"
+                      id="phoneNumber"
                       placeholder="Enter your contact no"
                       value={data.phoneNumber}
                       onChange={handleChange}
@@ -239,7 +263,7 @@ function RegistrationPageStudent() {
                   <div
                     className={`${styles.form_button_container} ${styles.split_container}`}
                   >
-                    <button onClick={() => setForm(1)}>Back</button>
+                    <button onClick={() => setFormStep(1)}>Back</button>
                     <button type="submit"> Submit</button>
                   </div>
                 </section>
