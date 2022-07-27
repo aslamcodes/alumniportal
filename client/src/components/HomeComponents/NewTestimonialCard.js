@@ -51,6 +51,7 @@ function NewTestimonialCard({ active }) {
         <input type="text" name="name" id="name" placeholder="Enter your name" value={data.name} onChange={handleChange} />
         <label >Quote</label>
         <input type="text" name="quote" id="quote" placeholder="Enter the quote" value={data.quote} onChange={handleChange} />
+        <button>Add</button>
       </div>
     </div>
   )

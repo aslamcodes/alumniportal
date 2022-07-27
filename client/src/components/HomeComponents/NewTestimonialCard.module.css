@@ -11,14 +11,14 @@
   width: 30rem;
   overflow: hidden;
   max-height: 0;
-  transition: all 0.5s linear;
+  transition: all 0.2s linear;
   background-color: #fff;
 }
 
 .new_testimonial_container_active {
   bottom: 18%;
   padding: 1rem;
-  max-height: 10rem;
+  max-height: 11rem;
 }
 
 .img_container {
@@ -74,4 +74,19 @@
 
 .input_container input:focus {
   outline: none;
+}
+.new_testimonial_container button {
+  display: block;
+  border: none;
+  border-radius: 20px;
+  font-size: 1rem;
+  padding: 0.3rem 0.8rem;
+  float: right;
+  background-color: #6b799c;
+  color: #fff;
+  cursor: pointer;
+}
+
+.new_testimonial_container button:hover {
+  background-color: #6c758d;
 }

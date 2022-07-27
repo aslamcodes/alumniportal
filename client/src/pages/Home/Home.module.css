@@ -96,7 +96,7 @@
   /* font-weight: bold;
   font-family: "Old Standard TT", serif; */
   box-shadow: 0 0 3px 2px #40404037;
-  transition: transform 0.5s linear;
+  transition: transform 0.2s linear;
   transform-origin: center center;
 }
 
