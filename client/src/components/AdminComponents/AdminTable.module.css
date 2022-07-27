@@ -1,7 +1,10 @@
+.table_container {
+  width: 100%;
+  overflow-x: scroll;
+}
+
 .table {
   table-layout: fixed;
-  width: 100%;
-  min-width: 60rem;
   margin-top: 0.6em;
   border: 1px solid #e2e2e2;
   border-collapse: collapse;
@@ -21,7 +24,6 @@ thead {
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   position: sticky;
-
   top: 0;
 }
 tbody {

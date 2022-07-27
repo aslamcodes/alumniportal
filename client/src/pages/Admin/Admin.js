@@ -8,7 +8,9 @@ const Admin = () => {
     <div className={Styles.admin_container}>
       <AdminSidebar />
       <main className={Styles.main}>
+
         <AdminTable />
+
       </main>
     </div>
   );

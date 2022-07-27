@@ -39,30 +39,39 @@ const AdminTable = () => {
   return (
     <div>
       <AdminTableHeader onSelect={onEntriesPerPageSelectHandler} />
-      <table className={Styles.table}>
-        <a.thead style={props} ref={tableHeadRef}>
-          <tr className={Styles.table_row}>
-            <th>Regno</th>
-            <th>Name</th>
-            <th>Department</th>
-            <th>Designation</th>
-            <th>Organization</th>
-            <th>Contact</th>
-            <th>Email</th>
-            <th>Actions</th>
-          </tr>
-        </a.thead>
-        <tbody>
-          {data
-            .slice(
-              currentPage * entriesPerPage - entriesPerPage,
-              currentPage * entriesPerPage
-            )
-            .map((roll) => (
-              <AdminTableRow roll={roll + 1} />
-            ))}
-        </tbody>
-      </table>
+      <div className={Styles.table_container}>
+        <table className={Styles.table}>
+          <a.thead style={props} ref={tableHeadRef}>
+            <tr className={Styles.table_row}>
+              <th>Regno</th>
+              <th>Name</th>
+              <th>Department</th>
+              <th>Designation</th>
+              <th>Organization</th>
+              <th>Contact</th>
+              <th>Email</th>
+              <th>City</th>
+              <th>State</th>
+              <th>Country</th>
+              <th>Graduation</th>
+              <th>PG College name</th>
+              <th>Course Name</th>
+              <th>Skills/Domain</th>
+              <th >Actions</th>
+            </tr>
+          </a.thead>
+          <tbody>
+            {data
+              .slice(
+                currentPage * entriesPerPage - entriesPerPage,
+                currentPage * entriesPerPage
+              )
+              .map((roll) => (
+                <AdminTableRow roll={roll + 1} />
+              ))}
+          </tbody>
+        </table>
+      </div>
       <AdminTablePagination
         currentPage={currentPage}
         totalPages={totalPages}
