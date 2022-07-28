@@ -54,12 +54,8 @@ function RegistrationPageStudent() {
     await register(dispatch, formData);
   };
 
-  if (isLoading) {
-    return <Loader />;
-  }
-
   if (error) {
-    return <div>Error: {error.message}</div>;
+    alert(error);
   }
 
   if (user) {
@@ -71,207 +67,214 @@ function RegistrationPageStudent() {
       <div className={styles.image_container}>
         <img src={Compguy} alt="register image" />
       </div>
-      <div className={styles.form_container}>
-        <div className={styles.form}>
-          <div className={styles.form_header}>
-            <h1>
-              {formStep === 1 ? "Register as Student" : "Personal Information"}
-            </h1>
-          </div>
-          <div className={styles.form_body}>
-            <form onSubmit={handleSubmit}>
-              {formStep === 1 ? (
-                <section>
-                  <div
-                    className={`${styles.form_input_container} ${styles.split_container}`}
-                  >
-                    <select
-                      name="yearOfPassing"
-                      type="text"
-                      id="yop"
-                      value={data.yearOfPassing}
-                      onChange={handleChange}
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <div className={styles.form_container}>
+          <div className={styles.form}>
+            <div className={styles.form_header}>
+              <h1>
+                {formStep === 1
+                  ? "Register as Student"
+                  : "Personal Information"}
+              </h1>
+            </div>
+
+            <div className={styles.form_body}>
+              <form onSubmit={handleSubmit}>
+                {formStep === 1 ? (
+                  <section>
+                    <div
+                      className={`${styles.form_input_container} ${styles.split_container}`}
                     >
-                      <option
-                        value="Year of passing"
-                        className={styles.select_items}
+                      <select
+                        name="yearOfPassing"
+                        type="text"
+                        id="yop"
+                        value={data.yearOfPassing}
+                        onChange={handleChange}
                       >
-                        {" "}
-                        Year of passing
-                      </option>
-                      {YearOfPassing.map((year) => (
                         <option
-                          key={year}
-                          value={year}
+                          value="Year of passing"
                           className={styles.select_items}
                         >
-                          {year}
+                          {" "}
+                          Year of passing
                         </option>
-                      ))}
-                    </select>
-                    <select
-                      name="department"
-                      type="text"
-                      id="dept"
-                      value={data.department}
-                      onChange={handleChange}
+                        {YearOfPassing.map((year) => (
+                          <option
+                            key={year}
+                            value={year}
+                            className={styles.select_items}
+                          >
+                            {year}
+                          </option>
+                        ))}
+                      </select>
+                      <select
+                        name="department"
+                        type="text"
+                        id="dept"
+                        value={data.department}
+                        onChange={handleChange}
+                      >
+                        <option value="department"> Department</option>
+                        {Department.map((dept) => (
+                          <option key={dept} value={dept}>
+                            {dept}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className={styles.form_input_container}>
+                      <select
+                        name="graduationLevel"
+                        type="text"
+                        id="gradlevel"
+                        value={data.graduationLevel}
+                        onChange={handleChange}
+                      >
+                        <option value="">Graduation level</option>
+                        {graduationLevelOptions.map((level) => (
+                          <option key={level} value={level}>
+                            {level}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className={styles.form_input_container}>
+                      <input
+                        name="name"
+                        type="text"
+                        id="name"
+                        placeholder="Name"
+                        value={data.name}
+                        onChange={handleChange}
+                      />
+                    </div>
+                    <div className={styles.form_input_container}>
+                      <input
+                        name="registerNumber"
+                        type="text"
+                        id="register_no"
+                        placeholder="Register Number"
+                        value={data.registerNumber}
+                        onChange={handleChange}
+                      />
+                    </div>
+                    <div
+                      className={`${styles.form_input_container} ${styles.split_container}`}
                     >
-                      <option value="department"> Department</option>
-                      {Department.map((dept) => (
-                        <option key={dept} value={dept}>
-                          {dept}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                  <div className={styles.form_input_container}>
-                    <select
-                      name="graduationLevel"
-                      type="text"
-                      id="gradlevel"
-                      value={data.graduationLevel}
-                      onChange={handleChange}
+                      <input
+                        name="dateOfBirth"
+                        type="date"
+                        id="dateOfBirth"
+                        value={data.dateOfBirth}
+                        onChange={handleChange}
+                      />
+                      <input
+                        name="email"
+                        type="email"
+                        id="email"
+                        placeholder="Email"
+                        value={data.email}
+                        onChange={handleChange}
+                      />
+                    </div>
+                    <div className={styles.form_input_container}>
+                      <input
+                        name="password"
+                        type="password"
+                        id="password"
+                        placeholder="Password"
+                        value={data.password}
+                        onChange={handleChange}
+                      />
+                    </div>
+                    <div className={styles.form_input_container}>
+                      <input
+                        name="confirmPassword"
+                        type="password"
+                        id="confirm_password"
+                        placeholder="Confirm Password"
+                        value={data.confirmPassword}
+                        onChange={handleChange}
+                      />
+                    </div>
+                    <div
+                      className={`${styles.form_button_container} ${styles.split_container}`}
                     >
-                      <option value="">Graduation level</option>
-                      {graduationLevelOptions.map((level) => (
-                        <option key={level} value={level}>
-                          {level}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                  <div className={styles.form_input_container}>
-                    <input
-                      name="name"
-                      type="text"
-                      id="name"
-                      placeholder="Name"
-                      value={data.name}
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className={styles.form_input_container}>
-                    <input
-                      name="registerNumber"
-                      type="text"
-                      id="register_no"
-                      placeholder="Register Number"
-                      value={data.registerNumber}
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div
-                    className={`${styles.form_input_container} ${styles.split_container}`}
-                  >
-                    <input
-                      name="dateOfBirth"
-                      type="date"
-                      id="dateOfBirth"
-                      value={data.dateOfBirth}
-                      onChange={handleChange}
-                    />
-                    <input
-                      name="email"
-                      type="email"
-                      id="email"
-                      placeholder="Email"
-                      value={data.email}
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className={styles.form_input_container}>
-                    <input
-                      name="password"
-                      type="password"
-                      id="password"
-                      placeholder="Password"
-                      value={data.password}
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className={styles.form_input_container}>
-                    <input
-                      name="confirmPassword"
-                      type="password"
-                      id="confirm_password"
-                      placeholder="Confirm Password"
-                      value={data.confirmPassword}
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div
-                    className={`${styles.form_button_container} ${styles.split_container}`}
-                  >
-                    <button onClick={() => navigate("/login")}>
-                      back to login
-                    </button>
-                    <button onClick={() => setFormStep(2)}> next page</button>
-                  </div>
-                </section>
-              ) : (
-                <section>
-                  <div className={`${styles.form_input_container} `}>
-                    <input
-                      name="city"
-                      type="text"
-                      id="city"
-                      placeholder="Select your city"
-                      value={data.city}
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className={`${styles.form_input_container} `}>
-                    <input
-                      name="state"
-                      type="text"
-                      id="state"
-                      placeholder="Select your state"
-                      value={data.state}
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className={styles.form_input_container}>
-                    <input
-                      name="country"
-                      type="text"
-                      id="country"
-                      placeholder="Select your country"
-                      value={data.country}
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className={styles.form_input_container}>
-                    <input
-                      name="phoneNumber"
-                      type="number"
-                      id="phoneNumber"
-                      placeholder="Enter your contact no"
-                      value={data.phoneNumber}
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className={styles.form_input_container}>
-                    <input
-                      name="skill"
-                      type="text"
-                      id="skill"
-                      placeholder="Skill/Domain"
-                      value={data.skill}
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div
-                    className={`${styles.form_button_container} ${styles.split_container}`}
-                  >
-                    <button onClick={() => setFormStep(1)}>Back</button>
-                    <button type="submit"> Submit</button>
-                  </div>
-                </section>
-              )}
-            </form>
+                      <button onClick={() => navigate("/login")}>
+                        back to login
+                      </button>
+                      <button onClick={() => setFormStep(2)}> next page</button>
+                    </div>
+                  </section>
+                ) : (
+                  <section>
+                    <div className={`${styles.form_input_container} `}>
+                      <input
+                        name="city"
+                        type="text"
+                        id="city"
+                        placeholder="Select your city"
+                        value={data.city}
+                        onChange={handleChange}
+                      />
+                    </div>
+                    <div className={`${styles.form_input_container} `}>
+                      <input
+                        name="state"
+                        type="text"
+                        id="state"
+                        placeholder="Select your state"
+                        value={data.state}
+                        onChange={handleChange}
+                      />
+                    </div>
+                    <div className={styles.form_input_container}>
+                      <input
+                        name="country"
+                        type="text"
+                        id="country"
+                        placeholder="Select your country"
+                        value={data.country}
+                        onChange={handleChange}
+                      />
+                    </div>
+                    <div className={styles.form_input_container}>
+                      <input
+                        name="phoneNumber"
+                        type="number"
+                        id="phoneNumber"
+                        placeholder="Enter your contact no"
+                        value={data.phoneNumber}
+                        onChange={handleChange}
+                      />
+                    </div>
+                    <div className={styles.form_input_container}>
+                      <input
+                        name="skill"
+                        type="text"
+                        id="skill"
+                        placeholder="Skill/Domain"
+                        value={data.skill}
+                        onChange={handleChange}
+                      />
+                    </div>
+                    <div
+                      className={`${styles.form_button_container} ${styles.split_container}`}
+                    >
+                      <button onClick={() => setFormStep(1)}>Back</button>
+                      <button type="submit"> Submit</button>
+                    </div>
+                  </section>
+                )}
+              </form>
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

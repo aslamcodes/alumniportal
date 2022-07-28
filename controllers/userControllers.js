@@ -32,7 +32,7 @@ export const registerUser = asyncHandler(async (req, res) => {
 
   if (existingUser) {
     return res.status(400).json({
-      error: "User already exists",
+      message: "User already exists",
     });
   }
 
@@ -68,7 +68,7 @@ export const registerUser = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(400).json({
-      error: "User could not be created",
+      message: "User could not be created",
     });
   }
 });
@@ -114,7 +114,7 @@ export const getUserDetailsById = asyncHandler(async (req, res) => {
     res.json(user);
   } else {
     res.status(404).json({
-      error: "User not found",
+      message: "User not found",
     });
   }
 });
