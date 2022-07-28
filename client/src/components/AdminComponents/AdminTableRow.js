@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useSpring, a, config } from "react-spring";
+import Styles from "./AdminTableRow.module.css";
 const AdminTableRow = ({ roll }) => {
   const [isHovered, setIsHover] = useState(false);
   const props = useSpring({
@@ -11,6 +12,7 @@ const AdminTableRow = ({ roll }) => {
       background: isHovered ? "#FFFCDC" : "#fff",
     },
   });
+
   return (
     <a.tr
       style={props}
@@ -26,7 +28,14 @@ const AdminTableRow = ({ roll }) => {
       <td>Jumpack Co</td>
       <td>7878789898</td>
       <td>yr12j2@gmail.com</td>
-      <td></td>
+
+      <a.tr style={props}
+        onMouseOver={() => setIsHover(true)}
+        onMouseOut={() => {
+          setIsHover(false);
+        }} className={Styles.fixed_col}>
+        <td >Accept/Decline</td>
+      </a.tr>
     </a.tr>
   );
 };

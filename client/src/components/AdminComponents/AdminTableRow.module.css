@@ -1,0 +1,6 @@
+.fixed_col {
+  position: sticky;
+  right: 0;
+  background-color: #fff;
+  z-index: 0;
+}

@@ -15,10 +15,10 @@ const AdminTable = () => {
 
   const props = useSpring({
     from: {
-      backgroundColor: "#e2e2e28e",
+      backgroundColor: "#e2e2e2",
     },
     to: {
-      backgroundColor: tableHeadOnTop ? "#bddcf380" : "#e2e2e28e",
+      backgroundColor: tableHeadOnTop ? "#bddcf3" : "#e2e2e2",
     },
   });
 
@@ -39,39 +39,36 @@ const AdminTable = () => {
   return (
     <div>
       <AdminTableHeader onSelect={onEntriesPerPageSelectHandler} />
-      <div className={Styles.table_container}>
-        <table className={Styles.table}>
-          <a.thead style={props} ref={tableHeadRef}>
-            <tr className={Styles.table_row}>
-              <th>Regno</th>
-              <th>Name</th>
-              <th>Department</th>
-              <th>Designation</th>
-              <th>Organization</th>
-              <th>Contact</th>
-              <th>Email</th>
-              <th>City</th>
-              <th>State</th>
-              <th>Country</th>
-              <th>Graduation</th>
-              <th>PG College name</th>
-              <th>Course Name</th>
-              <th>Skills/Domain</th>
-              <th >Actions</th>
-            </tr>
-          </a.thead>
-          <tbody>
-            {data
-              .slice(
-                currentPage * entriesPerPage - entriesPerPage,
-                currentPage * entriesPerPage
-              )
-              .map((roll) => (
-                <AdminTableRow roll={roll + 1} />
-              ))}
-          </tbody>
-        </table>
-      </div>
+
+      <table className={Styles.table}>
+        <a.thead style={props} ref={tableHeadRef}>
+          <tr className={Styles.table_row}>
+            <th>Regno</th>
+            <th>Name</th>
+            <th>Department</th>
+            <th>Designation</th>
+            <th>Organization</th>
+            <th>Contact</th>
+            <th>Email</th>
+            <div className={Styles.fixed_col}>
+              <th>Options</th>
+            </div>
+
+          </tr>
+
+        </a.thead>
+        <tbody>
+          {data
+            .slice(
+              currentPage * entriesPerPage - entriesPerPage,
+              currentPage * entriesPerPage
+            )
+            .map((roll) => (
+              <AdminTableRow roll={roll + 1} />
+            ))}
+        </tbody>
+      </table>
+
       <AdminTablePagination
         currentPage={currentPage}
         totalPages={totalPages}
