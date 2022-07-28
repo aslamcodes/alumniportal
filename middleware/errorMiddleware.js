@@ -1,7 +1,7 @@
 export const errorHandler = (err, req, res, next) => {
   res.status(500);
   res.json({
-    error: err.message,
+    message: err.message,
   });
   next();
   console.log(err);

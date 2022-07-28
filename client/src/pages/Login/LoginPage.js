@@ -41,9 +41,11 @@ const LoginForm = () => {
     if (user) navigate(location?.state?.from ?? "/");
   });
 
-  if (error) {
-    return <div>{error}</div>;
-  }
+  useEffect(() => {
+    if (error) {
+      alert(error);
+    }
+  }, [error]);
 
   if (isLoading) return <Loader />;
 
@@ -105,7 +107,7 @@ const LoginForm = () => {
         }}
       >
         <p>
-          Dont have an account yet ?{" "}
+          Don't have an account yet ?{" "}
           <a
             onMouseEnter={() => {
               setRegisterOptions(true);

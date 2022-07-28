@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import styles from "./RegistrationPageStudent.module.css";
 import Compguy from "assets/compguy.png";
@@ -54,9 +54,9 @@ function RegistrationPageStudent() {
     await register(dispatch, formData);
   };
 
-  if (error) {
-    alert(error);
-  }
+  useEffect(() => {
+    if (error) alert(error);
+  }, [error]);
 
   if (user) {
     navigate(location?.from ?? "/");

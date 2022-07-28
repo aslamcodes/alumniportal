@@ -35,23 +35,22 @@ export const registerUser = asyncHandler(async (req, res) => {
       message: "User already exists",
     });
   }
+  try {
+    const user = await User.create({
+      email,
+      name,
+      password,
+      avatar: id && id,
+      registerNumber,
+      department,
+      course,
+      phoneNumber,
+      country,
+      state,
+      city,
+    });
 
-  const user = await User.create({
-    email,
-    name,
-    password,
-    avatar: id && id,
-    registerNumber,
-    department,
-    course,
-    phoneNumber,
-    country,
-    state,
-    city,
-  });
-
-  if (user) {
-    res.status(200).json({
+    return res.status(200).json({
       _id: user._id,
       email: user.email,
       name: user.name,
@@ -66,10 +65,9 @@ export const registerUser = asyncHandler(async (req, res) => {
       avatar: user.avatar,
       token: generateToken(user._id),
     });
-  } else {
-    res.status(400).json({
-      message: "User could not be created",
-    });
+  } catch (error) {
+    console.log(error);
+    throw new Error(error);
   }
 });
 
