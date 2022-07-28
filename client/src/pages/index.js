@@ -1,5 +1,7 @@
 import Admin from "pages/Admin/Admin";
 import RequestDetails from "pages/Admin/RequestDetails";
+import RejectDetails from "pages/Admin/RejectDetails";
+
 import AlumniForum from "pages/AlumniForum/AlumniForum";
 import RegistrationPageAlumni from "./RegisterationPage/RegistrationPageAlumni";
 import RegistrationPageStudent from "./RegisterationPage/RegistrationPageStudent";
@@ -19,6 +21,7 @@ export {
   Home,
   Admin,
   RequestDetails,
+  RejectDetails,
   AlumniForum,
   RegistrationPageAlumni,
   RegistrationPageStudent,

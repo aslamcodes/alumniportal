@@ -53,8 +53,10 @@ const AdminTableRow = ({ roll, type }) => {
             <p className={Styles.decline}>Reject</p>
           </td>
         }
-        {type == "rejected-details" &&
-          <p className={Styles.accept}>Reaccept</p>
+        {type == "reject-details" &&
+          <td>
+            <p className={Styles.accept}>Reaccept</p>
+          </td>
         }
       </a.tr>
     </a.tr>

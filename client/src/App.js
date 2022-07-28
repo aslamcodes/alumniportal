@@ -7,6 +7,7 @@ import {
   Login,
   Admin,
   RequestDetails,
+  RejectDetails,
   AlumniForum,
   OfficeBearers,
   Events,
@@ -27,6 +28,8 @@ function App() {
         <Routes>
           <Route path="/admin" element={<Admin />} />
           <Route path="/admin/request-details" element={<RequestDetails />} />
+          <Route path="/admin/reject-details" element={<RejectDetails />} />
+
           <Route element={<Navbar />}>
             <Route path="/alumni-forum" element={<AlumniForum />} />
           </Route>
