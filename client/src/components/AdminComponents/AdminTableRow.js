@@ -28,13 +28,20 @@ const AdminTableRow = ({ roll }) => {
       <td>Jumpack Co</td>
       <td>7878789898</td>
       <td>yr12j2@gmail.com</td>
+      <td>Yolo Ramesh</td>
+      <td>Computer Science</td>
+      <td>Software Engineer</td>
+      <td>Jumpack Co</td>
+      <td>7878789898</td>
+      <td>yr12j2@gmail.com</td>
 
       <a.tr style={props}
         onMouseOver={() => setIsHover(true)}
         onMouseOut={() => {
           setIsHover(false);
         }} className={Styles.fixed_col}>
-        <td >Accept/Decline</td>
+        <td >
+          <p className={Styles.decline}>Delete</p></td>
       </a.tr>
     </a.tr>
   );

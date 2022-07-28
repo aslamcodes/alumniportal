@@ -30,7 +30,8 @@ td {
   width: 100%;
   text-align: left;
   padding: 1rem;
-  border-left: 1px solid #e2e2e2;
+  /* border-left: 1px solid #e2e2e2; */
+  border-bottom: 1px solid #e2e2e2;
 }
 .fixed_col {
   position: sticky;

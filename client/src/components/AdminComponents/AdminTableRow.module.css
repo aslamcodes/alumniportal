@@ -4,3 +4,13 @@
   background-color: #fff;
   z-index: 0;
 }
+.accept,
+.decline {
+  cursor: pointer;
+}
+.accept:hover {
+  color: green;
+}
+.decline:hover {
+  color: red;
+}
