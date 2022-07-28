@@ -6,6 +6,7 @@ import {
   Home,
   Login,
   Admin,
+  RequestDetails,
   AlumniForum,
   OfficeBearers,
   Events,
@@ -25,6 +26,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/admin" element={<Admin />} />
+          <Route path="/admin/request-details" element={<RequestDetails />} />
           <Route element={<Navbar />}>
             <Route path="/alumni-forum" element={<AlumniForum />} />
           </Route>

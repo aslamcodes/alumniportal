@@ -8,6 +8,7 @@ import {
   useTransition,
 } from "react-spring";
 import { IoHomeOutline } from "react-icons/io5";
+import { AiOutlineUsergroupAdd } from "react-icons/ai";
 import { BsCalendar4Event, BsPeople } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 
@@ -90,6 +91,17 @@ const AdminSidebar = ({ onClose }) => {
           <BsPeople />
           {sidebarItemTransistion((style, item) => {
             return item && <a.p style={style}>Alumni Forums</a.p>;
+          })}
+        </div>
+        <div
+          className={Styles.sidebar_item}
+          onClick={() => {
+            navigate("/admin/request-details");
+          }}
+        >
+          <AiOutlineUsergroupAdd />
+          {sidebarItemTransistion((style, item) => {
+            return item && <a.p style={style}>Request Details</a.p>;
           })}
         </div>
       </div>

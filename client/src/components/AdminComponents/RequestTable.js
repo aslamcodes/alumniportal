@@ -5,7 +5,7 @@ import Styles from "./AdminTable.module.css";
 import AdminTableRow from "./AdminTableRow";
 import { a, useSpring } from "react-spring";
 
-const AdminTable = () => {
+const RequestTable = () => {
   const data = [...Array.from(Array(1000).keys())];
   const [entriesPerPage, setEntriesPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
@@ -38,7 +38,7 @@ const AdminTable = () => {
 
   return (
     <div>
-      <AdminTableHeader onSelect={onEntriesPerPageSelectHandler} type="Alumni Details" />
+      <AdminTableHeader onSelect={onEntriesPerPageSelectHandler} type="Request Details" />
 
       <table className={Styles.table}>
         <a.thead style={props} ref={tableHeadRef}>
@@ -58,7 +58,7 @@ const AdminTable = () => {
             <th>Email</th>
 
             <div className={Styles.fixed_col}>
-              <th>Options</th>
+              <th>Actions</th>
             </div>
 
           </tr>
@@ -71,7 +71,7 @@ const AdminTable = () => {
               currentPage * entriesPerPage
             )
             .map((roll) => (
-              <AdminTableRow roll={roll + 1} type="alumni-details" />
+              <AdminTableRow roll={roll + 1} type="request-details" />
             ))}
         </tbody>
       </table>
@@ -86,4 +86,4 @@ const AdminTable = () => {
   );
 };
 
-export default AdminTable;
+export default RequestTable;

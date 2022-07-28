@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSpring, a, config } from "react-spring";
 import Styles from "./AdminTableRow.module.css";
-const AdminTableRow = ({ roll }) => {
+const AdminTableRow = ({ roll, type }) => {
   const [isHovered, setIsHover] = useState(false);
   const props = useSpring({
     config: config.stiff,
@@ -40,8 +40,22 @@ const AdminTableRow = ({ roll }) => {
         onMouseOut={() => {
           setIsHover(false);
         }} className={Styles.fixed_col}>
-        <td >
-          <p className={Styles.decline}>Delete</p></td>
+
+        {type == "alumni-details" &&
+          <td >
+            <p className={Styles.decline}>Delete</p>
+          </td>
+
+        }
+        {type == "request-details" &&
+          <td>
+            <p className={Styles.accept}>Accept</p>
+            <p className={Styles.decline}>Reject</p>
+          </td>
+        }
+        {type == "rejected-details" &&
+          <p className={Styles.accept}>Reaccept</p>
+        }
       </a.tr>
     </a.tr>
   );
