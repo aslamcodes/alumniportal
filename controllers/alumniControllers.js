@@ -52,7 +52,10 @@ export const registerAlumni = asyncHandler(async (req, res) => {
   });
 
   if (alumni) {
-    await User.findOneAndUpdate({ _id: user }, { isAlumni: true });
+    await User.findOneAndUpdate(
+      { _id: user },
+      { isAlumni: true, alumni: alumni._id }
+    );
 
     await Notification.create({
       user,
@@ -300,6 +303,47 @@ export const getAllAlumni = asyncHandler(async (_, res) => {
       error: "Cannot find Alumni at this time, please try again later",
     });
   }
+});
+
+export const getAllAlumniV2 = asyncHandler(async (_, res) => {
+  const unwantedFields = [
+    "user.password",
+    "user.createdAt",
+    "user.updatedAt",
+    "user.alumni",
+    "user.isAdmin",
+    "user.isAlumni",
+    "isApproved",
+  ];
+
+  const alumni = await Alumni.aggregate([
+    {
+      $lookup: {
+        from: "users",
+        localField: "user",
+        foreignField: "_id",
+        as: "user",
+      },
+    },
+    {
+      $unwind: "$user",
+    },
+    {
+      $unset: unwantedFields,
+    },
+  ]);
+
+  if (!alumni) {
+    return res.status(400).json({
+      success: false,
+      error: "Cannot find Alumni at this time, please try again later",
+    });
+  }
+
+  return res.status(200).json({
+    success: true,
+    alumni,
+  });
 });
 
 export const getAlumniRequests = asyncHandler(async (req, res) => {

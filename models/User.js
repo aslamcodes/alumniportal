@@ -31,6 +31,10 @@ const userSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    alumni: {
+      type: Schema.Types.ObjectId,
+      ref: "Alumni",
+    },
     registerNumber: {
       type: String,
     },

@@ -87,8 +87,8 @@ const Navbar = () => {
             <div className={`${styles.navLink} ${styles.right}`}>
               {!user && <Link to="login">Login</Link>}
               {user?.isAdmin && <Link to="/admin">Admin</Link>}
-              {!user?.isAlumni && user && (
-                <Link to="/register-alumni">Register as Alumni</Link>
+              {!user?.isAlumni && !user?.isAdmin && user && (
+                <Link to="/register-alumni">Apply as Alumni</Link>
               )}
               {user?.isAlumni && <Link to="/profile">Profile</Link>}
               <Link to="/alumni-forum">Alumni Forum</Link>
