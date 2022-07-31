@@ -4,6 +4,7 @@ import AdminTablePagination from "./AdminTablePagination";
 import Styles from "./AdminTable.module.css";
 import AdminTableRow from "./AdminTableRow";
 import { a, useSpring } from "react-spring";
+import useGetRejectedApplications from "hooks/useGetRejectedAlumniApplications";
 
 const RejectTable = () => {
   const data = [...Array.from(Array(1000).keys())];
@@ -12,6 +13,8 @@ const RejectTable = () => {
   const [tableHeadOnTop, setTableHeadOnTop] = useState(false);
   const totalPages = Math.ceil(data.length / entriesPerPage);
   const tableHeadRef = useRef(null);
+  const { rejectedApplications, error, isLoading } =
+    useGetRejectedApplications();
 
   const props = useSpring({
     from: {
@@ -60,13 +63,13 @@ const RejectTable = () => {
           </tr>
         </a.thead>
         <tbody>
-          {data
+          {rejectedApplications
             .slice(
               currentPage * entriesPerPage - entriesPerPage,
               currentPage * entriesPerPage
             )
-            .map((roll) => (
-              <AdminTableRow roll={roll + 1} type="reject-details" />
+            .map((application) => (
+              <AdminTableRow alumni={application} type="reject-details" />
             ))}
         </tbody>
       </table>

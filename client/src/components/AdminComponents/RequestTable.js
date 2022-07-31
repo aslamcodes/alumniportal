@@ -4,6 +4,7 @@ import AdminTablePagination from "./AdminTablePagination";
 import Styles from "./AdminTable.module.css";
 import AdminTableRow from "./AdminTableRow";
 import { a, useSpring } from "react-spring";
+import useGetNewApplications from "hooks/useGetNewAlumniApplications";
 
 const RequestTable = () => {
   const data = [...Array.from(Array(1000).keys())];
@@ -12,6 +13,11 @@ const RequestTable = () => {
   const [tableHeadOnTop, setTableHeadOnTop] = useState(false);
   const totalPages = Math.ceil(data.length / entriesPerPage);
   const tableHeadRef = useRef(null);
+  const { applications, isLoading, error } = useGetNewApplications();
+
+  useEffect(() => {
+    if (error) alert(error.response.data.message);
+  }, [error]);
 
   const props = useSpring({
     from: {
@@ -35,7 +41,7 @@ const RequestTable = () => {
   const onEntriesPerPageSelectHandler = (value) => {
     setEntriesPerPage(value);
   };
-
+  console.log(applications);
   return (
     <div>
       <AdminTableHeader
@@ -60,13 +66,14 @@ const RequestTable = () => {
           </tr>
         </a.thead>
         <tbody>
-          {data
-            .slice(
+          {applications
+            ?.slice(
               currentPage * entriesPerPage - entriesPerPage,
               currentPage * entriesPerPage
             )
-            .map((roll) => (
-              <AdminTableRow roll={roll + 1} type="request-details" />
+            .filter((application) => !application.rejected)
+            .map((alumni) => (
+              <AdminTableRow alumni={alumni} type="request-details" />
             ))}
         </tbody>
       </table>

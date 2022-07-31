@@ -1,13 +1,14 @@
-export const initialState = {
-  user: null,
-  isLoading: false,
-  error: null,
-};
 import {
   AUTH_FAILURE,
   AUTH_REQUEST,
   AUTH_SUCCESS,
 } from "context/auth/authConstants";
+
+export const initialState = {
+  user: null,
+  isLoading: false,
+  error: null,
+};
 
 export const authReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -24,11 +25,11 @@ export const authReducer = (state = initialState, action) => {
 
 export const authRegisterReducer = (state = initialState, action) => {
   switch (action.type) {
-    case AUTH_REGISTER_REQUEST:
+    case AUTH_REQUEST:
       return { ...state, isLoading: true };
-    case AUTH_REGISTER_SUCCESS:
+    case AUTH_SUCCESS:
       return { ...state, isLoading: false, user: action.payload };
-    case AUTH_REGISTER_FAILURE:
+    case AUTH_FAILURE:
       return { ...state, isLoading: false, error: action.payload };
     default:
       return state;

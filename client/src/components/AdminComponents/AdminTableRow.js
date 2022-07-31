@@ -23,25 +23,53 @@ const AdminTableRow = ({ alumni, type }) => {
       }}
       className={Styles.fixed_col}
     >
-      <td>{alumni?.user?.registerNumber}</td>
-      <td>{alumni?.user?.name}</td>
-      <td>{alumni?.user?.course}</td>
-      <td>{alumni?.designation}</td>
-      <td>{alumni?.organization}</td>
-      <td>{alumni?.user?.phoneNumber}</td>
-      <td>{alumni?.user?.email}</td>
-      {type == "alumni-details" && (
+      {type === "alumni-details" && (
+        <>
+          <td>{alumni?.user?.registerNumber}</td>
+          <td>{alumni?.user?.name}</td>
+          <td>{alumni?.user?.course}</td>
+          <td>{alumni?.designation}</td>
+          <td>{alumni?.organization}</td>
+          <td>{alumni?.user?.phoneNumber}</td>
+          <td>{alumni?.user?.email}</td>
+        </>
+      )}
+
+      {type === "request-details" && (
+        <>
+          <td>{alumni?.user?.registerNumber}</td>
+          <td>{alumni?.user?.name}</td>
+          <td>{alumni?.alumni_data?.courseName}</td>
+          <td>{alumni?.alumni_data?.designation}</td>
+          <td>{alumni?.alumni_data?.companyName}</td>
+          <td>{alumni?.user?.phoneNumber}</td>
+          <td>{alumni?.user?.email}</td>
+        </>
+      )}
+      {type === "reject-details" && (
+        <>
+          <td>{alumni?.user?.registerNumber}</td>
+          <td>{alumni?.user?.name}</td>
+          <td>{alumni?.alumni_data?.courseName}</td>
+          <td>{alumni?.alumni_data?.designation}</td>
+          <td>{alumni?.alumni_data?.companyName}</td>
+          <td>{alumni?.user?.phoneNumber}</td>
+          <td>{alumni?.user?.email}</td>
+        </>
+      )}
+
+      {type === "alumni-details" && (
         <td>
           <p className={Styles.decline}>Delete</p>
         </td>
       )}
-      {type == "request-details" && (
+      {type === "request-details" && (
         <td>
           <p className={Styles.accept}>Accept</p>
           <p className={Styles.decline}>Reject</p>
         </td>
       )}
-      {type == "reject-details" && (
+      {type === "reject-details" && (
         <td>
           <p className={Styles.accept}>Reaccept</p>
         </td>
