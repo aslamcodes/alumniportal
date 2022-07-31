@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./GalleryTemplate.module.css";
 import ReactPortal from "components/Modal/ReactPortal";
+import Loader from "components/UI/Loader";
 
 function getWindowDimensions() {
   const { innerWidth: width, innerHeight: height } = window;
@@ -97,51 +98,63 @@ function GalleryTemplate({ fname, sname, data = [], isLoading }) {
           {fname} <span>{sname}</span>
         </h1>
       </div>
-
-      <div className={styles.gallery_content}>
-        {getImages(numberOfImages).map((images, index1) => {
-          return (
-            <div key={index1} className={styles.gallery_img}>
-              {images.map(({ image }, index) => {
-                console.log(`http://localhost:8000/api/v1/gallery/${image}`);
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <div className={styles.gallery_content}>
+          {data.length === 0 ? (
+            <p>No Images</p>
+          ) : (
+            <>
+              {getImages(numberOfImages).map((images, index1) => {
                 return (
-                  <div key={index}>
-                    <img
-                      id={index}
-                      src={`/api/v1/gallery/${image}`}
-                      alt=""
-                      className={`${
-                        (imageSwitch.imageActive === index &&
-                          styles.image_active) ||
-                        (imageSwitch.imageTop === index && styles.image_top) ||
-                        (imageSwitch.imageBottom === index &&
-                          styles.image_bottom)
-                      } ${styles.image}`}
-                      onClick={(e) => handleClick(e, index1)}
-                    />
-                    <div
-                      className={`${styles.expand_container} ${
-                        expand.active &&
-                        expand.id == index1 * 10 + index &&
-                        styles.expand_container_active
-                      }`}
-                      onClick={handleClose}
-                    >
-                      <img
-                        id={index}
-                        src={image}
-                        alt=""
-                        className={`${styles.image_expand} `}
-                        onClick={(e) => e.stopPropagation()}
-                      />
-                    </div>
+                  <div key={index1} className={styles.gallery_img}>
+                    {images.map(({ image }, index) => {
+                      console.log(
+                        `http://localhost:8000/api/v1/gallery/${image}`
+                      );
+                      return (
+                        <div key={index}>
+                          <img
+                            id={index}
+                            src={`/api/v1/gallery/${image}`}
+                            alt=""
+                            className={`${
+                              (imageSwitch.imageActive === index &&
+                                styles.image_active) ||
+                              (imageSwitch.imageTop === index &&
+                                styles.image_top) ||
+                              (imageSwitch.imageBottom === index &&
+                                styles.image_bottom)
+                            } ${styles.image}`}
+                            onClick={(e) => handleClick(e, index1)}
+                          />
+                          <div
+                            className={`${styles.expand_container} ${
+                              expand.active &&
+                              expand.id == index1 * 10 + index &&
+                              styles.expand_container_active
+                            }`}
+                            onClick={handleClose}
+                          >
+                            <img
+                              id={index}
+                              src={image}
+                              alt=""
+                              className={`${styles.image_expand} `}
+                              onClick={(e) => e.stopPropagation()}
+                            />
+                          </div>
+                        </div>
+                      );
+                    })}
                   </div>
                 );
               })}
-            </div>
-          );
-        })}
-      </div>
+            </>
+          )}
+        </div>
+      )}
     </div>
   );
 }

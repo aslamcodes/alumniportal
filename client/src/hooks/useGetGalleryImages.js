@@ -6,14 +6,10 @@ export const useGetGalleryImages = (imageType) => {
   const [images, setImages] = useState([]);
 
   useEffect(() => {
-    const fetchImages = (images) => {
-      setImages(images);
-    };
-
     const config = {
       url: `/api/v1/gallery?type=${imageType}`,
     };
-    fetchData(config, fetchImages);
+    fetchData(config, setImages);
   }, [fetchData, imageType]);
 
   return { isLoading, images, error };

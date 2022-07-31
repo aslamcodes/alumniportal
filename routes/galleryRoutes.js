@@ -39,4 +39,5 @@ router.get("/:id", getImageById);
 router.post("/", protect, admin, upload.single("image"), uploadImage);
 
 router.delete("/:id", protect, admin, deleteGalleryImage);
+
 export default router;
