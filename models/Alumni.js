@@ -38,6 +38,7 @@ const alumniSchema = new Schema({
   isApproved: {
     type: Boolean,
     default: false,
+    index: true,
   },
   approvedBy: {
     type: Schema.Types.ObjectId,
