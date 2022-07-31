@@ -256,7 +256,7 @@ export const getAlumniCities = asyncHandler(async (_, res) => {
     const alumniCities = await User.find({ _id: { $in: alumniIds } });
 
     res.status(200).json({
-      cities: alumniCities.map((alumnus) => alumnus.city),
+      cities: [...new Set(alumniCities.map((alumnus) => alumnus.city))],
     });
   } else {
     res.status(400).json({
