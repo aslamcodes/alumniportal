@@ -31,19 +31,6 @@
   font-size: 2.3rem;
 }
 
-.header .add_event_button {
-  position: relative;
-  display: flex;
-  align-items: center;
-  font-size: 1.3rem;
-  font-weight: 600;
-  padding: 0.1em 1.9em 0.1em 0.6em;
-  background-color: #eaeef1;
-  border-radius: 25px;
-  cursor: pointer;
-  box-shadow: 0 0 1px 1px #4040401b;
-  width: fit-content;
-}
 .header .add_event_button::after {
   content: "+";
   position: absolute;
@@ -62,10 +49,6 @@
   transform-origin: center center;
 }
 
-.header .add_event_button:hover,
-.header .add_event_button:hover::after {
-  box-shadow: 0 0 3px 2px #40404037;
-}
 .add_event_button.active::after {
   transform: rotate(135deg);
 }
