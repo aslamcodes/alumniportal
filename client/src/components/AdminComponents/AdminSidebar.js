@@ -8,6 +8,10 @@ import {
   useTransition,
 } from "react-spring";
 import { IoHomeOutline } from "react-icons/io5";
+import {
+  AiOutlineUsergroupAdd,
+  AiOutlineUsergroupDelete,
+} from "react-icons/ai";
 import { BsCalendar4Event, BsPeople } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 
@@ -75,21 +79,43 @@ const AdminSidebar = ({ onClose }) => {
             return item && <a.p style={style}>Home</a.p>;
           })}
         </div>
-        <div className={Styles.sidebar_item}>
+        {/* <div className={Styles.sidebar_item}>
           <BsCalendar4Event />
           {sidebarItemTransistion((style, item) => {
             return item && <a.p style={style}>Events</a.p>;
+          })}
+        </div> */}
+        <div
+          className={Styles.sidebar_item}
+          onClick={() => {
+            navigate("/admin");
+          }}
+        >
+          <BsPeople />
+          {sidebarItemTransistion((style, item) => {
+            return item && <a.p style={style}>Alumni</a.p>;
           })}
         </div>
         <div
           className={Styles.sidebar_item}
           onClick={() => {
-            navigate("/alumni-forum");
+            navigate("/admin/request-details");
           }}
         >
-          <BsPeople />
+          <AiOutlineUsergroupAdd />
           {sidebarItemTransistion((style, item) => {
-            return item && <a.p style={style}>Alumni Forums</a.p>;
+            return item && <a.p style={style}>New Applications</a.p>;
+          })}
+        </div>
+        <div
+          className={Styles.sidebar_item}
+          onClick={() => {
+            navigate("/admin/reject-details");
+          }}
+        >
+          <AiOutlineUsergroupDelete />
+          {sidebarItemTransistion((style, item) => {
+            return item && <a.p style={style}>Rejected Applications</a.p>;
           })}
         </div>
       </div>

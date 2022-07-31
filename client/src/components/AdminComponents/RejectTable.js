@@ -4,16 +4,17 @@ import AdminTablePagination from "./AdminTablePagination";
 import Styles from "./AdminTable.module.css";
 import AdminTableRow from "./AdminTableRow";
 import { a, useSpring } from "react-spring";
-import useGetAlumni from "hooks/useFetchAlumni";
-import Loader from "components/UI/Loader";
+import useGetRejectedApplications from "hooks/useGetRejectedAlumniApplications";
 
-const AlumniTable = () => {
-  const { alumni, error, isLoading } = useGetAlumni(0);
+const RejectTable = () => {
+  const data = [...Array.from(Array(1000).keys())];
   const [entriesPerPage, setEntriesPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [tableHeadOnTop, setTableHeadOnTop] = useState(false);
-  const totalPages = alumni ? Math.ceil(alumni.length / entriesPerPage) : 0;
+  const totalPages = Math.ceil(data.length / entriesPerPage);
   const tableHeadRef = useRef(null);
+  const { rejectedApplications, error, isLoading } =
+    useGetRejectedApplications();
 
   const props = useSpring({
     from: {
@@ -42,7 +43,7 @@ const AlumniTable = () => {
     <div>
       <AdminTableHeader
         onSelect={onEntriesPerPageSelectHandler}
-        type="Alumni"
+        type="Rejected Applications"
       />
 
       <table className={Styles.table}>
@@ -55,19 +56,20 @@ const AlumniTable = () => {
             <th>Organization</th>
             <th>Contact</th>
             <th>Email</th>
+
             <div className={Styles.fixed_col}>
-              <th>Options</th>
+              <th>Actions</th>
             </div>
           </tr>
         </a.thead>
         <tbody>
-          {alumni
-            ?.slice(
+          {rejectedApplications
+            .slice(
               currentPage * entriesPerPage - entriesPerPage,
               currentPage * entriesPerPage
             )
-            .map((alumni) => (
-              <AdminTableRow alumni={alumni} type="alumni-details" />
+            .map((application) => (
+              <AdminTableRow alumni={application} type="reject-details" />
             ))}
         </tbody>
       </table>
@@ -78,45 +80,8 @@ const AlumniTable = () => {
         onIncrease={OnIncreaseHandler}
         onDecrease={onDecreaseHandler}
       />
-      <AdminTableHeader onSelect={onEntriesPerPageSelectHandler} />
-      {isLoading ? (
-        <Loader />
-      ) : (
-        <>
-          <table className={Styles.table}>
-            <a.thead style={props} ref={tableHeadRef}>
-              <tr className={Styles.table_row}>
-                <th>Regno</th>
-                <th>Name</th>
-                <th>Department</th>
-                <th>Designation</th>
-                <th>Organization</th>
-                <th>Contact</th>
-                <th>Email</th>
-                <th>Actions</th>
-              </tr>
-            </a.thead>
-            <tbody>
-              {alumni
-                ?.slice(
-                  currentPage * entriesPerPage - entriesPerPage,
-                  currentPage * entriesPerPage
-                )
-                .map((alumni) => (
-                  <AdminTableRow alumni={alumni} />
-                ))}
-            </tbody>
-          </table>
-          <AdminTablePagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onIncrease={OnIncreaseHandler}
-            onDecrease={onDecreaseHandler}
-          />
-        </>
-      )}
     </div>
   );
 };
 
-export default AlumniTable;
+export default RejectTable;

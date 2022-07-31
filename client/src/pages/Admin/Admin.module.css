@@ -1,3 +1,7 @@
+.admin_container {
+  position: relative;
+}
+
 .main {
   margin: 0 auto;
   padding-top: 1.5rem;

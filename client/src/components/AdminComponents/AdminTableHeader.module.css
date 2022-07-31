@@ -60,6 +60,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 0.3rem;
+  z-index: 20;
 }
 
 .results_count_changer :nth-child(1) {

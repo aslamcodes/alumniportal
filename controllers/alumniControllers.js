@@ -347,7 +347,38 @@ export const getAllAlumniV2 = asyncHandler(async (_, res) => {
 });
 
 export const getAlumniRequests = asyncHandler(async (req, res) => {
-  const requests = await AlumniRequest.find({});
+  const unwantedFields = [
+    "user.password",
+    "user.alumni",
+    "user.__v",
+    "user.createdAt",
+    "user.updatedAt",
+    "user.isAdmin",
+    "__v",
+    "alumni_data.__v",
+    "alumni_data.user",
+  ];
+  const requests = await AlumniRequest.aggregate([
+    {
+      $lookup: {
+        from: "users",
+        localField: "user",
+        foreignField: "_id",
+        as: "user",
+      },
+    },
+    {
+      $lookup: {
+        from: "alumnis",
+        localField: "user.alumni",
+        foreignField: "_id",
+        as: "alumni_data",
+      },
+    },
+    { $unwind: "$user" },
+    { $unwind: "$alumni_data" },
+    { $unset: unwantedFields },
+  ]);
 
   if (requests) {
     return res.status(200).json({
@@ -357,7 +388,7 @@ export const getAlumniRequests = asyncHandler(async (req, res) => {
   }
   return res.status(400).json({
     success: false,
-    error: "Cannot find Alumni Requests at this time, please try again later",
+    message: "Cannot find Alumni Requests at this time, please try again later",
   });
 });
 
@@ -385,8 +416,38 @@ export const rejectAlumniRequest = asyncHandler(async (req, res) => {
 });
 
 export const getRejectedApplications = asyncHandler(async (req, res) => {
-  const rejectedApplications = await RejectedApplication.find({});
-
+  const unwantedFields = [
+    "user.password",
+    "user.alumni",
+    "user.__v",
+    "user.createdAt",
+    "user.updatedAt",
+    "user.isAdmin",
+    "__v",
+    "alumni_data.__v",
+    "alumni_data.user",
+  ];
+  const rejectedApplications = await RejectedApplication.aggregate([
+    {
+      $lookup: {
+        from: "users",
+        localField: "user",
+        foreignField: "_id",
+        as: "user",
+      },
+    },
+    {
+      $lookup: {
+        from: "alumnis",
+        localField: "user.alumni",
+        foreignField: "_id",
+        as: "alumni_data",
+      },
+    },
+    { $unwind: "$user" },
+    { $unwind: "$alumni_data" },
+    { $unset: unwantedFields },
+  ]);
   if (!rejectedApplications)
     return res.json({
       success: false,

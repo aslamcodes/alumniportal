@@ -4,7 +4,7 @@ import { FaFilter, FaPlus } from "react-icons/fa";
 import { FiSearch } from "react-icons/fi";
 import Styles from "./AdminTableHeader.module.css";
 import Select from "react-select";
-const AdminTableHeader = ({ onSelect }) => {
+const AdminTableHeader = ({ onSelect, type }) => {
   const [selectedCount, setSelectedCount] = useState(10);
   const onChangeHandler = ({ value }) => {
     setSelectedCount(value);
@@ -12,7 +12,7 @@ const AdminTableHeader = ({ onSelect }) => {
   };
   return (
     <>
-      <p className={Styles.table_header}>Alumni Details</p>
+      <p className={Styles.table_header}>{type}</p>
       <Divider mb={".6em"} mt={0} bgColor={"#ADADAD"} />
       <div className={Styles.table_controls}>
         <div className={Styles.search}>
