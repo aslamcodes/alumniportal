@@ -2,11 +2,16 @@
   "parserOptions": {
     "ecmaVersion": "latest",
     "sourceType": "module",
-    "allowImportExportEverywhere": true
+    "allowImportExportEverywhere": true,
+    "ecmaFeatures": {
+      "jsx": true
+    }
   },
-  "parser": "babel-eslint",
+  "parser": "@babel/eslint-parser",
 
   "env": {
     "es6": true
-  }
+  },
+
+  "eslint.workingDirectories": [{ "mode": "auto" }]
 }

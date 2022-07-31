@@ -68,6 +68,6 @@ const getOptionsForPages = () => {
   }));
 };
 
-const getStylesForPages = () => { };
+const getStylesForPages = () => {};
 
 export default AdminTableHeader;

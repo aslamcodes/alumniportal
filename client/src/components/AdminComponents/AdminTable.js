@@ -42,7 +42,7 @@ const AlumniTable = () => {
     <div>
       <AdminTableHeader
         onSelect={onEntriesPerPageSelectHandler}
-        type="Alumni Details"
+        type="Alumni"
       />
 
       <table className={Styles.table}>
@@ -55,13 +55,6 @@ const AlumniTable = () => {
             <th>Organization</th>
             <th>Contact</th>
             <th>Email</th>
-            <th>Name</th>
-            <th>Department</th>
-            <th>Designation</th>
-            <th>Organization</th>
-            <th>Contact</th>
-            <th>Email</th>
-
             <div className={Styles.fixed_col}>
               <th>Options</th>
             </div>
