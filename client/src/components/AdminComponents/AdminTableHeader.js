@@ -9,6 +9,7 @@ const AdminTableHeader = ({ onSelect }) => {
   const onChangeHandler = ({ value }) => {
     setSelectedCount(value);
     onSelect(value);
+    console.log("test");
   };
   return (
     <>
