@@ -72,6 +72,7 @@ const RequestTable = () => {
               currentPage * entriesPerPage
             )
             .filter((application) => !application.rejected)
+
             .map((alumni) => (
               <AdminTableRow alumni={alumni} type="request-details" />
             ))}
