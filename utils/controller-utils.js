@@ -3,6 +3,11 @@ import Alumni from "../models/Alumni.js";
 export const getAlumniIds = async () => {
   const alumni = await Alumni.aggregate([
     {
+      $match: {
+        isApproved: true,
+      },
+    },
+    {
       $project: {
         user: 1,
       },

@@ -8,6 +8,9 @@ import PostModal from "./PostModal";
 const ForumCard = ({ data, setProfileActive, profileActive }) => {
   const [isCommentsModalOpen, setIsCommentsModalOpen] = useState(false);
   const [isPostModalOpen, setIsPostModalOpen] = useState(false);
+  console.log(
+    `http://localhost:8000/api/v1/users/user-avatar/${data.user._id}`
+  );
   return (
     <div className={`${styles.post_container} `}>
       <CommentModal
@@ -18,6 +21,7 @@ const ForumCard = ({ data, setProfileActive, profileActive }) => {
         isOpen={isCommentsModalOpen}
       />
       <PostModal
+        post={data}
         isOpen={isPostModalOpen}
         handleClose={() => {
           setIsPostModalOpen(false);
@@ -26,7 +30,10 @@ const ForumCard = ({ data, setProfileActive, profileActive }) => {
       />
       <div className={`${styles.header} ${profileActive && styles.shadow}`}>
         <div className={styles.userinfo_container}>
-          <img src={data.user.profile_image} onClick={setProfileActive} />
+          <img
+            src={`http://localhost:8000/api/v1/users/user-avatar/${data.user._id}`}
+            onClick={setProfileActive}
+          />
           <p className={styles.user_name}>{data.user.name}</p>
         </div>
         <div className={styles.post_action_container}>
@@ -42,13 +49,16 @@ const ForumCard = ({ data, setProfileActive, profileActive }) => {
         </div>
       </div>
       <div className={styles.post_image_container}>
-        <img src={data.post.images[0]} className={`${profileActive && styles.shadow}`} />
+        <img
+          src={`http://localhost:8000/api/v1/forum/image/${data.post.images[0]}`}
+          className={`${profileActive && styles.shadow}`}
+        />
         <div className={styles.post_overlay}></div>
         <div className={styles.post_caption_container}>
-          <p>{data.post.caption.title}</p>
+          <p>{data.post.title}</p>
           <p>
-            {data.post.caption?.description.slice(0, 500)}
-            {"... "}
+            {data.post.desc.slice(0, 500)}
+            {"..."}
             <span
               onClick={() => {
                 setIsPostModalOpen(true);

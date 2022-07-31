@@ -25,7 +25,7 @@ export const uploadImage = asyncHandler(async (req, res) => {
 
   if (!galleryImage) {
     return res.status(400).json({
-      error: "Upload failed",
+      message: "Upload failed",
     });
   }
 
@@ -45,7 +45,7 @@ export const getGalleryImages = asyncHandler(async (req, res) => {
 
   if (!galleryImages) {
     return res.status(400).json({
-      error: "No images found",
+      message: "No images found",
     });
   }
 
@@ -69,10 +69,10 @@ export const getImageById = asyncHandler(async (req, res) => {
     readStream.pipe(res);
 
     readStream.on("error", (err) => {
-      res.status(400).json({ error: err.message || "No image found" });
+      res.status(400).json({ message: err.message || "No image found" });
     });
   } catch (error) {
-    res.status(400).json({ error: error.message || "No image found" });
+    res.status(400).json({ message: error.message || "No image found" });
   }
 });
 
@@ -82,7 +82,7 @@ export const deleteGalleryImage = asyncHandler(async (req, res) => {
 
   if (!galleryImage) {
     return res.status(400).json({
-      error: "No image found",
+      message: "No image found",
     });
   }
 

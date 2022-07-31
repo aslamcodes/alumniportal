@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styles from "./RegistrationPageAlumni.module.css";
 import Compguy from "assets/compguy.png";
 import ApprovalCard from "components/RegistrationComponents/ApprovalCard";
+import { register } from "context/auth/actions";
 
 const currentYear = new Date().getFullYear();
 const range = (start, stop, step) =>
@@ -15,8 +16,8 @@ const GraduationLevel = ["Under graduate", "Post graduate"];
 function RegistrationPageAlumni() {
   const navigate = useNavigate();
   const [formOptions, setFormOptions] = useState({
-    option1: "",
-    option2: "",
+    isEntrepreneur: "",
+    isInHigherStudies: "",
   });
   const [form, setForm] = useState(1);
   const [requestCardActive, setRequestCardActive] = useState(false);
@@ -30,19 +31,18 @@ function RegistrationPageAlumni() {
     email: "",
     password: "",
     confirmPassword: "",
-    cname: "",
+    companyName: "",
     companyMail: "",
     secondaryCollegeName: "",
-    crname: "",
+    courseName: "",
     designation: "",
     organization: "",
     city: "",
     state: "",
     country: "",
-    contactno: "",
-    skill: "",
+    contactNo: "",
+    domain: "",
   });
-
 
   const handleChange = (e) => {
     setData({
@@ -53,8 +53,7 @@ function RegistrationPageAlumni() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setRequestCardActive(true);
-    console.log(requestCardActive);
+    // setRequestCardActive(true);
   };
 
   return (
@@ -72,21 +71,24 @@ function RegistrationPageAlumni() {
               <div className={styles.form_options}>
                 <div>
                   <div className={styles.name}>
-                    <p>Are you an enterpreneur</p>
+                    <p>Are you an entrepreneur</p>
                   </div>
                   <div className={styles.options}>
                     <button
-                      className={!formOptions.option1 && styles.selected}
+                      className={!formOptions.isEntrepreneur && styles.selected}
                       onClick={() =>
-                        setFormOptions({ ...formOptions, option1: false })
+                        setFormOptions({
+                          ...formOptions,
+                          isEntrepreneur: false,
+                        })
                       }
                     >
                       no
                     </button>
                     <button
-                      className={formOptions.option1 && styles.selected}
+                      className={formOptions.isEntrepreneur && styles.selected}
                       onClick={() =>
-                        setFormOptions({ ...formOptions, option1: true })
+                        setFormOptions({ ...formOptions, isEntrepreneur: true })
                       }
                     >
                       yes
@@ -99,17 +101,27 @@ function RegistrationPageAlumni() {
                   </div>
                   <div className={styles.options}>
                     <button
-                      className={!formOptions.option2 && styles.selected}
+                      className={
+                        !formOptions.isInHigherStudies && styles.selected
+                      }
                       onClick={() =>
-                        setFormOptions({ ...formOptions, option2: false })
+                        setFormOptions({
+                          ...formOptions,
+                          isInHigherStudies: false,
+                        })
                       }
                     >
                       no
                     </button>
                     <button
-                      className={formOptions.option2 && styles.selected}
+                      className={
+                        formOptions.isInHigherStudies && styles.selected
+                      }
                       onClick={() =>
-                        setFormOptions({ ...formOptions, option2: true })
+                        setFormOptions({
+                          ...formOptions,
+                          isInHigherStudies: true,
+                        })
                       }
                     >
                       yes
@@ -250,7 +262,7 @@ function RegistrationPageAlumni() {
                 </section>
               ) : (
                 <section>
-                  {formOptions.option1 && (
+                  {formOptions.isEntrepreneur && (
                     <div
                       className={`${styles.form_input_container} ${styles.split_container}`}
                     >
@@ -259,7 +271,7 @@ function RegistrationPageAlumni() {
                         type="text"
                         id="cname"
                         placeholder="Company Name"
-                        value={data.cname}
+                        value={data.companyName}
                         onChange={handleChange}
                       />
                       <input
@@ -272,7 +284,7 @@ function RegistrationPageAlumni() {
                       />
                     </div>
                   )}
-                  {formOptions.option2 && (
+                  {formOptions.isInHigherStudies && (
                     <div
                       className={`${styles.form_input_container} ${styles.split_container}`}
                     >
@@ -289,7 +301,7 @@ function RegistrationPageAlumni() {
                         type="text"
                         id="crname"
                         placeholder="Course Name"
-                        value={data.crname}
+                        value={data.courseName}
                         onChange={handleChange}
                       />
                     </div>
@@ -350,7 +362,7 @@ function RegistrationPageAlumni() {
                       type="number"
                       id="contactno"
                       placeholder="Enter your contact no"
-                      value={data.contactno}
+                      value={data.contactNo}
                       onChange={handleChange}
                     />
                   </div>
@@ -360,7 +372,7 @@ function RegistrationPageAlumni() {
                       type="text"
                       id="skill"
                       placeholder="Skill/Domain"
-                      value={data.skill}
+                      value={data.domain}
                       onChange={handleChange}
                     />
                   </div>
@@ -373,12 +385,14 @@ function RegistrationPageAlumni() {
                 </section>
               )}
             </form>
-
           </div>
         </div>
       </div>
 
-      <ApprovalCard status={requestCardActive} setActive={setRequestCardActive} />
+      <ApprovalCard
+        status={requestCardActive}
+        setActive={setRequestCardActive}
+      />
     </div>
   );
 }

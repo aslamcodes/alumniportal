@@ -5,7 +5,7 @@ import { a, config, useTransition } from "react-spring";
 import ReactPortal from "components/Modal/ReactPortal";
 import Styles from "./PostModal.module.css";
 
-const PostModal = ({ handleClose, isOpen, setProfileActive }) => {
+const PostModal = ({ handleClose, isOpen, setProfileActive, post }) => {
   const postModalTransitions = useTransition(isOpen, {
     from: {
       opacity: 0,
@@ -43,81 +43,20 @@ const PostModal = ({ handleClose, isOpen, setProfileActive }) => {
                   <div className={Styles.user_info_container}>
                     <img
                       className={Styles.profile_image}
-                      src={"https://picsum.photos/536/354"}
+                      src={`http://localhost:8000/api/v1/users/user-avatar/${post.user._id}`}
                       onClick={() => {
                         handleClose();
                         setProfileActive();
                       }}
                     />
                     <div className={Styles.user_info}>
-                      <p className={Styles.username}>username</p>
+                      <p className={Styles.username}>{post.user.name}</p>
                       <p className={Styles.user_designation}>Designation</p>
                     </div>
                   </div>
                   <FaTimes color="white" size="25px" onClick={handleClose} />
                 </div>
-                <p className={Styles.post_content}>
-                  Lorem Lorem Ipsum is simply dummy text of the printing and
-                  typesetting industry. Lorem Ipsum has been the industry's
-                  standard dummy text ever since the 1500s, but also the leap
-                  into electronic typesetting, remaining essentially unchanged.
-                  It was popularised in the 1960s with the release of Letraset
-                  sheets containing Lorem Ipsum passages, and more recently with
-                  desktop publishing software like Aldus PageMaker including
-                  versions of Lorem Ipsum. View MoreLorem Lorem Ipsum is simply
-                  dummy text of the printing and typesetting industry. Lorem
-                  Ipsum has been the industry's standard dummy text ever since
-                  the 1500s, but also the leap into electronic typesetting,
-                  remaining essentially unchanged. It was popularised in the
-                  1960s with the release of Letraset sheets containing Lorem
-                  like Aldus PageMaker including versions of Lorem Ipsum. View
-                  Ipsum passages, and more recently with desktop publishing
-                  software Ipsum passages, and more recently with desktop
-                  publishing software Ipsum passages, and more recently with
-                  desktop publishing software Ipsum passages, and more recently
-                  with desktop publishing software Ipsum passages, and more
-                  recently with desktop publishing software Ipsum passages, and
-                  more recently with desktop publishing software Ipsum passages,
-                  and more recently with desktop publishing software Ipsum
-                  passages, and more recently with desktop publishing software
-                  Ipsum passages, and more recently with desktop publishing
-                  software Ipsum passages, and more recently with desktop
-                  publishing software Ipsum passages, and more recently with
-                  desktop publishing software Ipsum passages, and more recently
-                  with desktop publishing software Ipsum passages, and more
-                  recently with desktop publishing software Ipsum passages, and
-                  more recently with desktop publishing software Ipsum passages,
-                  and more recently with desktop publishing software Ipsum
-                  passages, and more recently with desktop publishing software
-                  Ipsum passages, and more recently with desktop publishing
-                  software Ipsum passages, and more recently with desktop
-                  publishing software Ipsum passages, and more recently with
-                  desktop publishing software Ipsum passages, and more recently
-                  with desktop publishing software Ipsum passages, and more
-                  recently with desktop publishing software Ipsum passages, and
-                  more recently with desktop publishing software Ipsum passages,
-                  and more recently with desktop publishing software Ipsum
-                  passages, and more recently with desktop publishing software
-                  Ipsum passages, and more recently with desktop publishing
-                  software Ipsum passages, and more recently with desktop
-                  publishing software Ipsum passages, and more recently with
-                  desktop publishing software MoreLorem Lorem Ipsum is simply
-                  dummy text of the printing and typesetting industry. Lorem
-                  Ipsum has been the industry's standard dummy text ever since
-                  the 1500s, but also the leap into electronic typesetting,
-                  remaining essentially unchanged. It was popularised in the
-                  1960s with the release of Letraset sheets containing Lorem
-                  Ipsum passages, and more recently with desktop publishing
-                  software like Aldus PageMaker including versions of Lorem
-                  Ipsum. View MoreLorem Lorem Ipsum is simply dummy text of the
-                  printing and typesetting industry. Lorem Ipsum has been the
-                  industry's standard dummy text ever since the 1500s, but also
-                  the leap into electronic typesetting, remaining essentially
-                  unchanged. It was popularised in the 1960s with the release of
-                  Letraset sheets containing Lorem Ipsum passages, and more
-                  recently with desktop publishing software like Aldus PageMaker
-                  including versions of Lorem Ipsum. View More
-                </p>
+                <p className={Styles.post_content}>{post.post.desc}</p>
               </div>
             </a.div>
           </IconContext.Provider>

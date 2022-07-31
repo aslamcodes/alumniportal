@@ -1,12 +1,22 @@
-import React from 'react'
-import GalleryTemplate from 'components/GalleryComponents/GalleryTemplate'
+import React, { useEffect } from "react";
+import GalleryTemplate from "components/GalleryComponents/GalleryTemplate";
+import { useGetGalleryImages } from "hooks/useGetGalleryImages";
 
 function AllPhotos() {
+  const { isLoading, error, images } = useGetGalleryImages(0);
+
+  useEffect(() => {
+    if (error) alert(error);
+  }, [error]);
+
   return (
-    <div>
-      <GalleryTemplate fname="ALL" sname="PHOTOS" />
-    </div>
-  )
+    <GalleryTemplate
+      fname="ALL"
+      sname="PHOTOS"
+      data={images}
+      isLoading={isLoading}
+    />
+  );
 }
 
-export default AllPhotos
+export default AllPhotos;

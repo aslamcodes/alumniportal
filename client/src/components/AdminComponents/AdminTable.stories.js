@@ -1,8 +1,8 @@
-import AdminTable from "./AdminTable";
+import AlumniTable from "./AdminTable";
 
 export default {
   title: "Admin Page/Table",
-  component: AdminTable,
+  component: AlumniTable,
 };
 
-export const Table = () => <AdminTable />;
+export const Table = () => <alumniTable />;

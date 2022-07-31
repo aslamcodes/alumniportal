@@ -4,10 +4,12 @@ const ReplyBox = ({ reply }) => {
   return (
     <div className={Styles.reply_box}>
       <div className={Styles.header}>
-        <img src={reply.user_profile_picture} />
-        <p className={Styles.username}>{reply.username}</p>
+        <img
+          src={`http://localhost:8000/api/v1/users/user-avatar/${reply.user._id}`}
+        />
+        <p className={Styles.username}>{reply.user.name}</p>
       </div>
-      <p>{reply.text}</p>
+      <p>{reply.reply}</p>
     </div>
   );
 };

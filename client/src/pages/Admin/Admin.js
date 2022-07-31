@@ -1,16 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Styles from "./Admin.module.css";
 import AdminSidebar from "components/AdminComponents/AdminSidebar";
-import AdminTable from "components/AdminComponents/AdminTable";
+import AlumniTable from "components/AdminComponents/AdminTable";
+import { useNavigate } from "react-router-dom";
+import { useAuthContext } from "context/auth/authContext";
 
 const Admin = () => {
+  const { user } = useAuthContext();
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user?.isAdmin || !user) navigate("/");
+  }, []);
+
   return (
     <div className={Styles.admin_container}>
       <AdminSidebar />
       <main className={Styles.main}>
-
-        <AdminTable />
-
+        <AlumniTable />
       </main>
     </div>
   );

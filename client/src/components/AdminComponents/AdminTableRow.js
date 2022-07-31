@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useSpring, a, config } from "react-spring";
 import Styles from "./AdminTableRow.module.css";
-const AdminTableRow = ({ roll, type }) => {
+
+const AdminTableRow = ({ alumni, type }) => {
   const [isHovered, setIsHover] = useState(false);
   const props = useSpring({
     config: config.stiff,
@@ -20,45 +21,31 @@ const AdminTableRow = ({ roll, type }) => {
       onMouseOut={() => {
         setIsHover(false);
       }}
+      className={Styles.fixed_col}
     >
-      <td>20TUIT0{roll}</td>
-      <td>Yolo Ramesh</td>
-      <td>Computer Science</td>
-      <td>Software Engineer</td>
-      <td>Jumpack Co</td>
-      <td>7878789898</td>
-      <td>yr12j2@gmail.com</td>
-      <td>Yolo Ramesh</td>
-      <td>Computer Science</td>
-      <td>Software Engineer</td>
-      <td>Jumpack Co</td>
-      <td>7878789898</td>
-      <td>yr12j2@gmail.com</td>
-
-      <a.tr style={props}
-        onMouseOver={() => setIsHover(true)}
-        onMouseOut={() => {
-          setIsHover(false);
-        }} className={Styles.fixed_col}>
-
-        {type == "alumni-details" &&
-          <td >
-            <p className={Styles.decline}>Delete</p>
-          </td>
-
-        }
-        {type == "request-details" &&
-          <td>
-            <p className={Styles.accept}>Accept</p>
-            <p className={Styles.decline}>Reject</p>
-          </td>
-        }
-        {type == "reject-details" &&
-          <td>
-            <p className={Styles.accept}>Reaccept</p>
-          </td>
-        }
-      </a.tr>
+      <td>{alumni?.user?.registerNumber}</td>
+      <td>{alumni?.user?.name}</td>
+      <td>{alumni?.user?.course}</td>
+      <td>{alumni?.designation}</td>
+      <td>{alumni?.organization}</td>
+      <td>{alumni?.user?.phoneNumber}</td>
+      <td>{alumni?.user?.email}</td>
+      {type == "alumni-details" && (
+        <td>
+          <p className={Styles.decline}>Delete</p>
+        </td>
+      )}
+      {type == "request-details" && (
+        <td>
+          <p className={Styles.accept}>Accept</p>
+          <p className={Styles.decline}>Reject</p>
+        </td>
+      )}
+      {type == "reject-details" && (
+        <td>
+          <p className={Styles.accept}>Reaccept</p>
+        </td>
+      )}
     </a.tr>
   );
 };

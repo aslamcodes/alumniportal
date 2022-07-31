@@ -78,7 +78,7 @@ const CommentModal = ({ handleClose, isOpen, comments }) => {
                     <div className={Styles.comments_container}>
                       {comments.map((comment, idx) => (
                         <CommentBox
-                          key={`${comment.user.name}${comment.comment}}${idx}`}
+                          key={`${comment.user.name}${comment._id}}${idx}`}
                           commentData={comment}
                         />
                       ))}

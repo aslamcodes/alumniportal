@@ -154,6 +154,9 @@ export const getAllPosts_V2 = asyncHandler(async (req, res) => {
                 {
                   $unset: unwantedUserFields,
                 },
+                {
+                  $unwind: "$user",
+                },
               ],
               as: "replies",
             },

@@ -32,26 +32,52 @@ export const registerUser = asyncHandler(async (req, res) => {
 
   if (existingUser) {
     return res.status(400).json({
-      error: "User already exists",
+      message: "User already exists",
     });
   }
+  try {
+    const user = await User.create({
+      email,
+      name,
+      password,
+      avatar: id && id,
+      registerNumber,
+      department,
+      course,
+      phoneNumber,
+      country,
+      state,
+      city,
+    });
 
-  const user = await User.create({
-    email,
-    name,
-    password,
-    avatar: id && id,
-    registerNumber,
-    department,
-    course,
-    phoneNumber,
-    country,
-    state,
-    city,
-  });
+    return res.status(200).json({
+      _id: user._id,
+      email: user.email,
+      name: user.name,
+      isAdmin: user.isAdmin,
+      registerNumber: user.registerNumber,
+      department: user.department,
+      course: user.course,
+      phoneNumber: user.phoneNumber,
+      country: user.country,
+      state: user.state,
+      city: user.city,
+      avatar: user.avatar,
+      token: generateToken(user._id),
+    });
+  } catch (error) {
+    console.log(error);
+    throw new Error(error);
+  }
+});
 
-  if (user) {
-    res.status(200).json({
+export const loginUser = asyncHandler(async (req, res) => {
+  const { email, password } = req.body;
+
+  const user = await User.findOne({ email });
+
+  if (user && (await user.matchPassword(password))) {
+    res.json({
       _id: user._id,
       email: user.email,
       name: user.name,
@@ -67,28 +93,8 @@ export const registerUser = asyncHandler(async (req, res) => {
       token: generateToken(user._id),
     });
   } else {
-    res.status(400).json({
-      error: "User could not be created",
-    });
-  }
-});
-
-export const loginUser = asyncHandler(async (req, res) => {
-  const { email, password } = req.body;
-
-  const user = await User.findOne({ email });
-
-  if (user && (await user.matchPassword(password))) {
-    res.json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      isAdmin: user.isAdmin,
-      token: generateToken(user._id),
-    });
-  } else {
     res.status(401).json({
-      error: "Invalid credentials",
+      message: "Invalid credentials",
     });
   }
 });
@@ -106,7 +112,7 @@ export const getUserDetailsById = asyncHandler(async (req, res) => {
     res.json(user);
   } else {
     res.status(404).json({
-      error: "User not found",
+      message: "User not found",
     });
   }
 });

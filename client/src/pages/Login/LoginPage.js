@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import styles from "./LoginPage.module.css";
 import { RiErrorWarningFill } from "react-icons/ri";
 import RegisterOptions from "components/RegistrationComponents/RegisterOptions";
+import {
+  useAuthContext,
+  useAuthDispatchContext,
+} from "context/auth/authContext";
+import { login } from "context/auth/actions";
+import Loader from "components/UI/Loader";
 
 function getWindowDimensions() {
   const { innerWidth: width, innerHeight: height } = window;
@@ -14,16 +20,35 @@ function getWindowDimensions() {
 }
 
 const LoginForm = () => {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
+  const dispatch = useAuthDispatchContext();
+  const location = useLocation();
+
   const [registerOptions, setRegisterOptions] = useState(false);
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm();
-  const onSubmit = (data) => {
-    navigate("/");
+
+  const { user, error, isLoading } = useAuthContext();
+
+  const onSubmit = async ({ userName, password }) => {
+    await login(dispatch, { email: userName, password });
   };
+
+  useEffect(() => {
+    if (user) navigate(location?.state?.from ?? "/");
+  });
+
+  useEffect(() => {
+    if (error) {
+      alert(error);
+    }
+  }, [error]);
+
+  if (isLoading) return <Loader />;
+
   return (
     <div className={`${styles.loginBox} `}>
       <p className={`${styles.loginTitle}`}>Login Now</p>
@@ -75,16 +100,33 @@ const LoginForm = () => {
         </div>
       </form>
       <hr />
-      <div className={styles["sign-up-container"]} onMouseLeave={() => { setRegisterOptions(false) }}>
+      <div
+        className={styles["sign-up-container"]}
+        onMouseLeave={() => {
+          setRegisterOptions(false);
+        }}
+      >
         <p>
-          Dont have an account yet ?{" "}
-          <a onMouseEnter={() => { setRegisterOptions(true) }} >Create Account</a>
-          <RegisterOptions onMouseEnter={() => { setRegisterOptions(true) }} active={registerOptions} />
+          Don't have an account yet ?{" "}
+          <a
+            onMouseEnter={() => {
+              setRegisterOptions(true);
+            }}
+          >
+            Create Account
+          </a>
+          <RegisterOptions
+            onMouseEnter={() => {
+              setRegisterOptions(true);
+            }}
+            active={registerOptions}
+          />
         </p>
       </div>
     </div>
   );
 };
+
 const LoginPage = () => {
   const [windowDimensions, setWindowDimensions] = useState(
     getWindowDimensions()

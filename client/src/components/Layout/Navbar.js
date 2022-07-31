@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import Menu from "./Menu";
 import { useWindowScrollPositions } from "hooks/useWindowScrollPositions";
+import { useAuthContext } from "context/auth/authContext";
 
 function getWindowDimensions() {
   const { innerWidth: width, innerHeight: height } = window;
@@ -20,6 +21,8 @@ const Navbar = () => {
   );
   const [menuActive, setMenuActive] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+
+  const { user } = useAuthContext();
 
   if (useWindowScrollPositions().scrollY > 30 && !isScrolled) {
     setIsScrolled(true);
@@ -41,8 +44,9 @@ const Navbar = () => {
     <>
       <div className={styles.container}>
         <div
-          className={`${styles.navbar} ${styles.background_blur} ${isScrolled && styles.scrolled
-            }`}
+          className={`${styles.navbar} ${styles.background_blur} ${
+            isScrolled && styles.scrolled
+          }`}
         >
           {windowDimensions.width > 790 && (
             <div className={`${styles.navLink}`}>
@@ -81,7 +85,12 @@ const Navbar = () => {
           )}
           {windowDimensions.width > 790 ? (
             <div className={`${styles.navLink} ${styles.right}`}>
-              <Link to="/admin">Admin</Link>
+              {!user && <Link to="login">Login</Link>}
+              {user?.isAdmin && <Link to="/admin">Admin</Link>}
+              {!user?.isAlumni && !user?.isAdmin && user && (
+                <Link to="/register-alumni">Apply as Alumni</Link>
+              )}
+              {user?.isAlumni && <Link to="/profile">Profile</Link>}
               <Link to="/alumni-forum">Alumni Forum</Link>
               <Link to="/office-bearers">Office Bearers</Link>
             </div>
