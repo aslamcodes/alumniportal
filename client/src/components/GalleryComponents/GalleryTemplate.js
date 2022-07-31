@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import styles from "./GalleryTemplate.module.css"
+import React, { useEffect, useState } from "react";
+import styles from "./GalleryTemplate.module.css";
 import ReactPortal from "components/Modal/ReactPortal";
-
+import Loader from "components/UI/Loader";
 
 function getWindowDimensions() {
   const { innerWidth: width, innerHeight: height } = window;
@@ -11,63 +11,63 @@ function getWindowDimensions() {
   };
 }
 
-
-function GalleryTemplate({ fname, sname, data }) {
+function GalleryTemplate({ fname, sname, data = [], isLoading }) {
   const [windowDimensions, setWindowDimensions] = useState(
     getWindowDimensions()
   );
 
-  const [noImage, setNoImage] = useState(1);
-  const [imageSwitch, setImageSwitch] = useState(
-    {
-      imageActive: 0,
-      imageTop: null,
-      imageBottom: 1,
-    }
-  )
+  const [numberOfImages, setNumberOfImages] = useState(1);
+  const [imageSwitch, setImageSwitch] = useState({
+    imageActive: 0,
+    imageTop: null,
+    imageBottom: 1,
+  });
   const [expand, setExpand] = useState({
     active: false,
-    id: 1
+    id: 1,
   });
-  // test data:
-  let Data = [];
-  const testData = (n) => {
-    const imgSrc = "https://source.unsplash.com/random/"
-    const dimension = ["300x300", "400x400", "500x500", "600x600", "700x700", "800x800", "900x900", "1000x1000"];
-    for (let i = 0; i < n; i++) {
-      let images = [];
-      for (let j = 0; j < 10; j++) {
-        let d = Math.floor(Math.random() * 8);
-        let dm = dimension[d];
-        let Src = imgSrc.concat(dm);
-        images.push(Src);
-      }
-      Data.push(images);
-    }
-    return Data;
-  }
 
-  Data = testData(noImage);
+  let images = [];
+  const getImages = (n) => {
+    if (n == 1) {
+      images.push(data);
+      return images;
+    }
+
+    if (n == 2) {
+      images.push(data.slice(0, Math.ceil(data.length / 2)));
+      images.push(data.slice(Math.ceil(data.length / 2)));
+      return images;
+    }
+
+    if (n == 3) {
+      images.push(data.slice(0, Math.ceil(data.length / 3)));
+      images.push(
+        data.slice(Math.ceil(data.length / 3), Math.ceil(data.length / 3) * 2)
+      );
+      images.push(data.slice(Math.ceil(data.length / 3) * 2));
+      return images;
+    }
+  };
 
   useEffect(() => {
     function handleResize() {
       setWindowDimensions(getWindowDimensions());
     }
     if (windowDimensions.width > 1020) {
-      setNoImage(3);
+      setNumberOfImages(3);
     } else if (windowDimensions.width > 780) {
-      setNoImage(2);
+      setNumberOfImages(2);
     } else {
-      setNoImage(1);
+      setNumberOfImages(1);
     }
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-
   const handleClose = () => {
-    setExpand({ ...expand, active: false })
-  }
+    setExpand({ ...expand, active: false });
+  };
   useEffect(() => {
     const closeOnEscapeKey = (e) => (e.key === "Escape" ? handleClose() : null);
     document.body.addEventListener("keydown", closeOnEscapeKey);
@@ -81,53 +81,82 @@ function GalleryTemplate({ fname, sname, data }) {
     if (id === imageSwitch.imageActive) {
       setExpand({
         active: true,
-        id: index1 * 10 + id
+        id: index1 * 10 + id,
       });
-      console.log(id, index1);
     }
     setImageSwitch({
       imageActive: id,
       imageTop: id - 1,
       imageBottom: id + 1,
-    })
-  }
+    });
+  };
 
   return (
-
     <div className={styles.gallery_container}>
       <div className={styles.header}>
-        <h1>{fname} <span>{sname}</span></h1>
+        <h1>
+          {fname} <span>{sname}</span>
+        </h1>
       </div>
-
-      <div className={styles.gallery_content} >
-
-        {Data.map((images, index1) => {
-          return (
-            <div key={index1} className={styles.gallery_img}>
-              {images.map((image, index) => {
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <div className={styles.gallery_content}>
+          {data.length === 0 ? (
+            <p>No Images</p>
+          ) : (
+            <>
+              {getImages(numberOfImages).map((images, index1) => {
                 return (
-                  <div key={index}>
-                    <img id={index} src={image} alt="" className={
-                      `${imageSwitch.imageActive === index && styles.image_active || imageSwitch.imageTop === index && styles.image_top || imageSwitch.imageBottom === index && styles.image_bottom} ${styles.image}`
-                    }
-                      onClick={(e) => handleClick(e, index1)}
-                    />
-                    <div className={`${styles.expand_container} ${expand.active && expand.id == (index1 * 10 + index) && styles.expand_container_active}`} onClick={handleClose}>
-                      <img id={index} src={image} alt="" className={`${styles.image_expand} `} onClick={(e) => e.stopPropagation()} />
-                    </div>
+                  <div key={index1} className={styles.gallery_img}>
+                    {images.map(({ image }, index) => {
+                      console.log(
+                        `http://localhost:8000/api/v1/gallery/${image}`
+                      );
+                      return (
+                        <div key={index}>
+                          <img
+                            id={index}
+                            src={`/api/v1/gallery/${image}`}
+                            alt=""
+                            className={`${
+                              (imageSwitch.imageActive === index &&
+                                styles.image_active) ||
+                              (imageSwitch.imageTop === index &&
+                                styles.image_top) ||
+                              (imageSwitch.imageBottom === index &&
+                                styles.image_bottom)
+                            } ${styles.image}`}
+                            onClick={(e) => handleClick(e, index1)}
+                          />
+                          <div
+                            className={`${styles.expand_container} ${
+                              expand.active &&
+                              expand.id == index1 * 10 + index &&
+                              styles.expand_container_active
+                            }`}
+                            onClick={handleClose}
+                          >
+                            <img
+                              id={index}
+                              src={image}
+                              alt=""
+                              className={`${styles.image_expand} `}
+                              onClick={(e) => e.stopPropagation()}
+                            />
+                          </div>
+                        </div>
+                      );
+                    })}
                   </div>
-                )
+                );
               })}
-
-            </div>
-          )
-        })}
-
-
-      </div>
+            </>
+          )}
+        </div>
+      )}
     </div>
-
-  )
+  );
 }
 
-export default GalleryTemplate
+export default GalleryTemplate;
