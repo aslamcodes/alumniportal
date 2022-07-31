@@ -13,12 +13,14 @@ import {
   getAlumniRequests,
   rejectAlumniRequest,
   getRejectedApplications,
+  getAllAlumniV2,
 } from "../controllers/alumniControllers.js";
 import { admin, protect } from "../middleware/authMiddlewares.js";
 
 const router = express.Router();
 
 router.get("/", getAllAlumni);
+router.get("/v2", getAllAlumniV2);
 router.get("/cities/", getAlumniCities);
 router.get("/requests/", protect, admin, getAlumniRequests);
 router.get("/rejected-applications/", protect, admin, getRejectedApplications);
