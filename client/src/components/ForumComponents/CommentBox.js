@@ -6,7 +6,7 @@ import ReplyButton from "components/ForumComponents/ReplyButton";
 import ReplyForm from "components/ForumComponents/ReplyForm";
 
 const CommentBox = ({ commentData }) => {
-  const { user, comment, replies } = commentData;
+  const { user, text, replies } = commentData;
   const [showReplies, setShowReplies] = useState(false);
   const [showReplyForm, setShowReplyForm] = useState(false);
   return (
@@ -20,10 +20,10 @@ const CommentBox = ({ commentData }) => {
         }}
       >
         <div className={Styles.heading}>
-          <img src={user.profile_image} />
+          <img src={`/api/v1/users/user-avatar/${user.avatar}`} />
           <p className={Styles.username}>{user.name}</p>
         </div>
-        <p>{comment}</p>
+        <p>{text}</p>
         {!showReplies && !showReplyForm && (
           <Divider bgColor={"#000"} mb={".5em"} mt={".5em"} />
         )}
