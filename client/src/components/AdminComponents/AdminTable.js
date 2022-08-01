@@ -78,43 +78,6 @@ const AlumniTable = () => {
         onIncrease={OnIncreaseHandler}
         onDecrease={onDecreaseHandler}
       />
-      <AdminTableHeader onSelect={onEntriesPerPageSelectHandler} />
-      {isLoading ? (
-        <Loader />
-      ) : (
-        <>
-          <table className={Styles.table}>
-            <a.thead style={props} ref={tableHeadRef}>
-              <tr className={Styles.table_row}>
-                <th>Regno</th>
-                <th>Name</th>
-                <th>Department</th>
-                <th>Designation</th>
-                <th>Organization</th>
-                <th>Contact</th>
-                <th>Email</th>
-                <th>Actions</th>
-              </tr>
-            </a.thead>
-            <tbody>
-              {alumni
-                ?.slice(
-                  currentPage * entriesPerPage - entriesPerPage,
-                  currentPage * entriesPerPage
-                )
-                .map((alumni) => (
-                  <AdminTableRow alumni={alumni} />
-                ))}
-            </tbody>
-          </table>
-          <AdminTablePagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onIncrease={OnIncreaseHandler}
-            onDecrease={onDecreaseHandler}
-          />
-        </>
-      )}
     </div>
   );
 };

@@ -287,6 +287,11 @@ export const getAllAlumniV2 = asyncHandler(async (_, res) => {
 
   const alumni = await Alumni.aggregate([
     {
+      $match: {
+        isApproved: true,
+      },
+    },
+    {
       $lookup: {
         from: "users",
         localField: "user",
