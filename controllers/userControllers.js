@@ -3,6 +3,8 @@ import User from "../models/User.js";
 import asyncHandler from "express-async-handler";
 import mongoose from "mongoose";
 import Notification from "../models/Notification.js";
+import fs from "fs";
+import { __dirname } from "../index.js";
 
 let userAvatarImagesBucket;
 const conn = mongoose.connection;
@@ -13,20 +15,7 @@ conn.on("open", () => {
 });
 
 export const registerUser = asyncHandler(async (req, res) => {
-  const {
-    name,
-    email,
-    password,
-    registerNumber,
-    department,
-    course,
-    phoneNumber,
-    country,
-    state,
-    city,
-  } = req.body;
-
-  const existingUser = await User.findOne({ email });
+  const existingUser = await User.findOne({ email: req.body.email });
 
   const id = req.file?.id;
 
@@ -37,17 +26,8 @@ export const registerUser = asyncHandler(async (req, res) => {
   }
   try {
     const user = await User.create({
-      email,
-      name,
-      password,
+      ...req.body,
       avatar: id && id,
-      registerNumber,
-      department,
-      course,
-      phoneNumber,
-      country,
-      state,
-      city,
     });
 
     return res.status(200).json({
@@ -126,7 +106,14 @@ export const getUserAvatarImage = asyncHandler(async (req, res) => {
     );
 
     readStream.on("error", (err) => {
-      return res.status(400).json({ error: err.message || "No image found" });
+      var filename = __dirname + "/uploads/default.jpeg";
+      var readStream = fs.createReadStream(filename);
+      readStream.on("open", function () {
+        readStream.pipe(res);
+      });
+      readStream.on("error", function (err) {
+        res.end(err);
+      });
     });
 
     return readStream.pipe(res);

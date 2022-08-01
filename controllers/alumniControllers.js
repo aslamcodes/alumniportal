@@ -8,20 +8,7 @@ import Notification from "../models/Notification.js";
 import RejectedApplication from "../models/RejectedApplication.js";
 
 export const registerAlumni = asyncHandler(async (req, res) => {
-  const {
-    user,
-    isEntrepreneur,
-    isInHigherStudies,
-    designation,
-    companyName,
-    companyEmail,
-    organization,
-    secondaryCollegeName,
-    domain,
-    courseName,
-    social: { facebook, twitter, linkedin, github },
-    profileDescription,
-  } = req.body;
+  const { user } = req.body;
 
   const existingAlumni = await Alumni.findOne({ user });
 
@@ -31,25 +18,7 @@ export const registerAlumni = asyncHandler(async (req, res) => {
     });
   }
 
-  const alumni = await Alumni.create({
-    user,
-    isEntrepreneur,
-    isInHigherStudies,
-    designation,
-    companyName,
-    companyEmail,
-    organization,
-    secondaryCollegeName,
-    domain,
-    courseName,
-    social: {
-      facebook,
-      twitter,
-      linkedin,
-      github,
-    },
-    profileDescription,
-  });
+  const alumni = await Alumni.create(req.body);
 
   if (alumni) {
     await User.findOneAndUpdate(

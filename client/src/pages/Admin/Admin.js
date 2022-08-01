@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Styles from "./Admin.module.css";
 import AdminSidebar from "components/AdminComponents/AdminSidebar";
 import AlumniTable from "components/AdminComponents/AdminTable";
@@ -12,7 +12,7 @@ const Admin = () => {
 
   useEffect(() => {
     if (!user?.isAdmin || !user) navigate("/");
-  }, []);
+  }, [user, navigate]);
 
   return (
     <div className={Styles.admin_container}>

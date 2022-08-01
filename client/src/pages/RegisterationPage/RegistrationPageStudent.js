@@ -65,7 +65,7 @@ function RegistrationPageStudent() {
   return (
     <div className={styles.container}>
       <div className={styles.image_container}>
-        <img src={Compguy} alt="register image" />
+        <img src={Compguy} alt="register" />
       </div>
       {isLoading ? (
         <Loader />
@@ -130,7 +130,7 @@ function RegistrationPageStudent() {
                       <select
                         name="graduationLevel"
                         type="text"
-                        id="gradlevel"
+                        id="graduationLevel"
                         value={data.graduationLevel}
                         onChange={handleChange}
                       >

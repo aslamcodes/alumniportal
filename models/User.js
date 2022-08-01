@@ -17,7 +17,6 @@ const userSchema = new Schema(
     },
     avatar: {
       type: String,
-      default: "62db786ae96b953f907d118a",
     },
     name: {
       type: String,
@@ -68,6 +67,7 @@ const userSchema = new Schema(
     },
     graduationLevel: {
       type: String,
+      required: true,
       enum: ["Under graduate", "Post graduate"],
     },
     skill: {

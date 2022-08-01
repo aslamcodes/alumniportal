@@ -41,14 +41,12 @@ const RequestTable = () => {
   const onEntriesPerPageSelectHandler = (value) => {
     setEntriesPerPage(value);
   };
-  console.log(applications);
   return (
     <div>
       <AdminTableHeader
         onSelect={onEntriesPerPageSelectHandler}
         type="New Applications"
       />
-
       <table className={Styles.table}>
         <a.thead style={props} ref={tableHeadRef}>
           <tr className={Styles.table_row}>
@@ -59,7 +57,6 @@ const RequestTable = () => {
             <th>Organization</th>
             <th>Contact</th>
             <th>Email</th>
-
             <div className={Styles.fixed_col}>
               <th>Actions</th>
             </div>
@@ -72,7 +69,6 @@ const RequestTable = () => {
               currentPage * entriesPerPage
             )
             .filter((application) => !application.rejected)
-
             .map((alumni) => (
               <AdminTableRow alumni={alumni} type="request-details" />
             ))}
