@@ -1,48 +1,51 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./RegistrationPageAlumni.module.css";
 import Compguy from "assets/compguy.png";
 import ApprovalCard from "components/RegistrationComponents/ApprovalCard";
-import { register } from "context/auth/actions";
 import { useAuthContext } from "context/auth/authContext";
+import { applyAsAlumni } from "context/alumni/actions";
+import {
+  useAlumniContext,
+  useAlumniDispatchContext,
+} from "context/alumni/alumniContext";
+import Loader from "components/UI/Loader";
 
 const currentYear = new Date().getFullYear();
 const range = (start, stop, step) =>
   Array.from({ length: (stop - start) / step + 1 }, (_, i) => start + i * step);
-
 const YearOfPassing = range(1985, currentYear, 1);
-const Department = ["IT", "CSE", "ECE", "EEE", "MECH", "CIVIL", "MBA"];
-const GraduationLevel = ["Under graduate", "Post graduate"];
 
 function RegistrationPageAlumni() {
   const navigate = useNavigate();
+  const dispatch = useAlumniDispatchContext();
   const { user } = useAuthContext();
+  const { error, isLoading, alumni } = useAlumniContext();
   const [formOptions, setFormOptions] = useState({
-    isEntrepreneur: "",
-    isInHigherStudies: "",
+    isEntrepreneur: false,
+    isInHigherStudies: false,
   });
-  const [form, setForm] = useState(1);
   const [requestCardActive, setRequestCardActive] = useState(false);
   const [data, setData] = useState({
     user: user?._id,
     yearOfPassing: "",
-    department: "",
-    graduationLevel: "",
-    registerNumber: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
     companyName: "",
-    companyMail: "",
+    companyEmail: "",
     secondaryCollegeName: "",
     courseName: "",
     designation: "",
     organization: "",
-    city: "",
-    state: "",
-    country: "",
     domain: "",
   });
+
+  useEffect(() => {
+    !user && navigate("/login");
+  }, [user, navigate]);
+
+  useEffect(() => {
+    error && alert(error);
+    alumni && navigate("/");
+  }, [error, alumni, navigate]);
 
   const handleChange = (e) => {
     setData({
@@ -51,13 +54,14 @@ function RegistrationPageAlumni() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    Object.keys(data).forEach((key) => formData.append(key, data[key]));
-    Object.keys(formOptions);
-    console.log(formData);
-    // setRequestCardActive(true);
+    Object.keys(data).forEach((key) => {
+      if (data[key] === "") {
+        delete data[key];
+      }
+    });
+    await applyAsAlumni(dispatch, { ...data, ...formOptions });
   };
 
   return (
@@ -65,211 +69,142 @@ function RegistrationPageAlumni() {
       <div className={styles.image_container}>
         <img src={Compguy} alt="register" />
       </div>
-      <div className={styles.form_container}>
-        <div className={styles.form}>
-          <div className={styles.form_header}>
-            <h1>Apply as Alumni</h1>
-          </div>
-          <div className={styles.form_body}>
-            <div className={styles.form_options}>
-              <div>
-                <div className={styles.name}>
-                  <p>Are you an entrepreneur</p>
-                </div>
-                <div className={styles.options}>
-                  <button
-                    className={!formOptions.isEntrepreneur && styles.selected}
-                    onClick={() =>
-                      setFormOptions({
-                        ...formOptions,
-                        isEntrepreneur: false,
-                      })
-                    }
-                  >
-                    no
-                  </button>
-                  <button
-                    className={formOptions.isEntrepreneur && styles.selected}
-                    onClick={() =>
-                      setFormOptions({ ...formOptions, isEntrepreneur: true })
-                    }
-                  >
-                    yes
-                  </button>
-                </div>
-              </div>
-              <div>
-                <div className={styles.name}>
-                  <p>Are you doing higher studies </p>
-                </div>
-                <div className={styles.options}>
-                  <button
-                    className={
-                      !formOptions.isInHigherStudies && styles.selected
-                    }
-                    onClick={() =>
-                      setFormOptions({
-                        ...formOptions,
-                        isInHigherStudies: false,
-                      })
-                    }
-                  >
-                    no
-                  </button>
-                  <button
-                    className={formOptions.isInHigherStudies && styles.selected}
-                    onClick={() =>
-                      setFormOptions({
-                        ...formOptions,
-                        isInHigherStudies: true,
-                      })
-                    }
-                  >
-                    yes
-                  </button>
-                </div>
-              </div>
+      {!isLoading ? (
+        <div className={styles.form_container}>
+          <div className={styles.form}>
+            <div className={styles.form_header}>
+              <h1>Apply as Alumni</h1>
             </div>
-
-            <form onSubmit={handleSubmit}>
-              <section>
-                <div
-                  className={`${styles.form_input_container} ${styles.split_container}`}
-                >
-                  <select
-                    name="yearOfPassing"
-                    type="text"
-                    id="yop"
-                    value={data.yearOfPassing}
-                    onChange={handleChange}
-                  >
-                    <option
-                      value="Year of passing"
-                      className={styles.select_items}
+            <div className={styles.form_body}>
+              <div className={styles.form_options}>
+                <div>
+                  <div className={styles.name}>
+                    <p>Are you an entrepreneur</p>
+                  </div>
+                  <div className={styles.options}>
+                    <button
+                      className={!formOptions.isEntrepreneur && styles.selected}
+                      onClick={() =>
+                        setFormOptions({
+                          ...formOptions,
+                          isEntrepreneur: false,
+                        })
+                      }
                     >
-                      {" "}
-                      year of passing
-                    </option>
-                    {YearOfPassing.map((year) => (
-                      <option
-                        key={year}
-                        value={year}
-                        className={styles.select_items}
-                      >
-                        {year}
-                      </option>
-                    ))}
-                  </select>
-                  <select
-                    name="department"
-                    type="text"
-                    id="dept"
-                    value={data.department}
-                    onChange={handleChange}
-                  >
-                    <option value="department"> Department</option>
-                    {Department.map((dept) => (
-                      <option key={dept} value={dept}>
-                        {dept}
-                      </option>
-                    ))}
-                  </select>
+                      no
+                    </button>
+                    <button
+                      className={formOptions.isEntrepreneur && styles.selected}
+                      onClick={() =>
+                        setFormOptions({ ...formOptions, isEntrepreneur: true })
+                      }
+                    >
+                      yes
+                    </button>
+                  </div>
                 </div>
-                <div className={styles.form_input_container}>
-                  <select
-                    name="graduationLevel"
-                    type="text"
-                    id="gradlevel"
-                    value={data.graduationLevel}
-                    onChange={handleChange}
-                  >
-                    <option value="">Graduation level</option>
-                    {GraduationLevel.map((level) => (
-                      <option key={level} value={level}>
-                        {level}
-                      </option>
-                    ))}
-                  </select>
+                <div>
+                  <div className={styles.name}>
+                    <p>Are you doing higher studies </p>
+                  </div>
+                  <div className={styles.options}>
+                    <button
+                      className={
+                        !formOptions.isInHigherStudies && styles.selected
+                      }
+                      onClick={() =>
+                        setFormOptions({
+                          ...formOptions,
+                          isInHigherStudies: false,
+                        })
+                      }
+                    >
+                      no
+                    </button>
+                    <button
+                      className={
+                        formOptions.isInHigherStudies && styles.selected
+                      }
+                      onClick={() =>
+                        setFormOptions({
+                          ...formOptions,
+                          isInHigherStudies: true,
+                        })
+                      }
+                    >
+                      yes
+                    </button>
+                  </div>
                 </div>
+              </div>
 
-                <div className={styles.form_input_container}>
-                  <input
-                    name="registerNumber"
-                    type="text"
-                    id="register_no"
-                    placeholder="Register Number"
-                    value={data.registerNumber}
-                    onChange={handleChange}
-                  />
-                </div>
-              </section>
-
-              <section>
-                {formOptions.isEntrepreneur && (
-                  <div
-                    className={`${styles.form_input_container} ${styles.split_container}`}
-                  >
+              <form onSubmit={handleSubmit}>
+                <section>
+                  {formOptions.isEntrepreneur && (
+                    <div
+                      className={`${styles.form_input_container} ${styles.split_container}`}
+                    >
+                      <input
+                        name="companyName"
+                        type="text"
+                        id="companyName"
+                        placeholder="Company Name"
+                        value={data.companyName}
+                        onChange={handleChange}
+                      />
+                      <input
+                        name="companyEmail"
+                        type="text"
+                        id="companyEmail"
+                        placeholder="Company Email ID"
+                        value={data.companyEmail}
+                        onChange={handleChange}
+                      />
+                    </div>
+                  )}
+                  {formOptions.isInHigherStudies && (
+                    <div
+                      className={`${styles.form_input_container} ${styles.split_container}`}
+                    >
+                      <input
+                        name="secondaryCollegeName"
+                        type="text"
+                        id="secondaryCollegeName"
+                        placeholder="College Name"
+                        value={data.secondaryCollegeName}
+                        onChange={handleChange}
+                      />
+                      <input
+                        name="courseName"
+                        type="text"
+                        id="courseName"
+                        placeholder="Course Name"
+                        value={data.courseName}
+                        onChange={handleChange}
+                      />
+                    </div>
+                  )}
+                  <div className={styles.form_input_container}>
                     <input
-                      name="cname"
+                      name="designation"
                       type="text"
-                      id="cname"
-                      placeholder="Company Name"
-                      value={data.companyName}
-                      onChange={handleChange}
-                    />
-                    <input
-                      name="cemail"
-                      type="text"
-                      id="cemail"
-                      placeholder="Company Email ID"
-                      value={data.companyMail}
+                      id="designation"
+                      placeholder="Your designation (working professional)"
+                      value={data.designation}
                       onChange={handleChange}
                     />
                   </div>
-                )}
-                {formOptions.isInHigherStudies && (
-                  <div
-                    className={`${styles.form_input_container} ${styles.split_container}`}
-                  >
+                  <div className={styles.form_input_container}>
                     <input
-                      name="clgname"
+                      name="organization"
                       type="text"
-                      id="clgname"
-                      placeholder="College Name"
-                      value={data.secondaryCollegeName}
-                      onChange={handleChange}
-                    />
-                    <input
-                      name="crname"
-                      type="text"
-                      id="crname"
-                      placeholder="Course Name"
-                      value={data.courseName}
+                      id="organization"
+                      placeholder="Organization name"
+                      value={data.organization}
                       onChange={handleChange}
                     />
                   </div>
-                )}
-                <div className={styles.form_input_container}>
-                  <input
-                    name="designation"
-                    type="text"
-                    id="designation"
-                    placeholder="Your designation (working professional)"
-                    value={data.designation}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className={styles.form_input_container}>
-                  <input
-                    name="organization"
-                    type="text"
-                    id="organization"
-                    placeholder="Organization name"
-                    value={data.organization}
-                    onChange={handleChange}
-                  />
-                </div>
-                {/* <div
+                  {/* <div
                     className={`${styles.form_input_container} ${styles.split_container}`}
                   >
                     <input
@@ -289,7 +224,7 @@ function RegistrationPageAlumni() {
                       onChange={handleChange}
                     />
                   </div> */}
-                {/* <div className={styles.form_input_container}>
+                  {/* <div className={styles.form_input_container}>
                     <input
                       name="country"
                       type="text"
@@ -300,24 +235,27 @@ function RegistrationPageAlumni() {
                     />
                   </div> */}
 
-                <div className={styles.form_input_container}>
-                  <input
-                    name="skill"
-                    type="text"
-                    id="skill"
-                    placeholder="Skill/Domain"
-                    value={data.domain}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className={`${styles.form_button_container}`}>
-                  <button type="submit"> Submit</button>
-                </div>
-              </section>
-            </form>
+                  <div className={styles.form_input_container}>
+                    <input
+                      name="domain"
+                      type="text"
+                      id="domain"
+                      placeholder="Skill/Domain"
+                      value={data.domain}
+                      onChange={handleChange}
+                    />
+                  </div>
+                  <div className={`${styles.form_button_container}`}>
+                    <button type="submit"> Submit</button>
+                  </div>
+                </section>
+              </form>
+            </div>
           </div>
         </div>
-      </div>
+      ) : (
+        <Loader />
+      )}
 
       <ApprovalCard
         status={requestCardActive}

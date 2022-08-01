@@ -50,7 +50,7 @@ function RegistrationPageFaculty() {
   return (
     <div className={styles.container}>
       <div className={styles.image_container}>
-        <img src={Compguy} alt="register image" />
+        <img src={Compguy} alt="register" />
       </div>
       {isLoading ? (
         <Loader />
