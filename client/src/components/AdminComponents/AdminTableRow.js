@@ -1,9 +1,11 @@
+import Loader from "components/UI/Loader";
 import React, { useState } from "react";
 import { useSpring, a, config } from "react-spring";
 import Styles from "./AdminTableRow.module.css";
 
-const AdminTableRow = ({ alumni, type }) => {
+const AdminTableRow = ({ alumni, type, ...rest }) => {
   const [isHovered, setIsHover] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const props = useSpring({
     config: config.stiff,
     from: {
@@ -13,6 +15,24 @@ const AdminTableRow = ({ alumni, type }) => {
       background: isHovered ? "#FFFCDC" : "#fff",
     },
   });
+
+  const handleOnApproveAlumni = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    await rest.approveAlumniHandler(alumni?.user?._id);
+    setIsLoading(false);
+  };
+
+  const handleOnRejectAlumni = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    await rest.rejectAlumni(alumni?._id);
+    setIsLoading(false);
+  };
+
+  const handleOnDeleteAlumni = () => {};
+
+  const handleReapproveAlumni = () => {};
 
   return (
     <a.tr
@@ -60,18 +80,25 @@ const AdminTableRow = ({ alumni, type }) => {
 
       {type === "alumni-details" && (
         <td>
-          <p className={Styles.decline}>Delete</p>
+          <button className={Styles.decline}>Delete</button>
         </td>
       )}
-      {type === "request-details" && (
-        <td>
-          <p className={Styles.accept}>Accept</p>
-          <p className={Styles.decline}>Reject</p>
-        </td>
-      )}
+      {type === "request-details" &&
+        (isLoading ? (
+          <Loader />
+        ) : (
+          <td>
+            <button onClick={handleOnApproveAlumni} className={Styles.accept}>
+              Accept
+            </button>
+            <button onClick={handleOnRejectAlumni} className={Styles.decline}>
+              Reject
+            </button>
+          </td>
+        ))}
       {type === "reject-details" && (
         <td>
-          <p className={Styles.accept}>Reaccept</p>
+          <button className={Styles.accept}>Reaccept</button>
         </td>
       )}
     </a.tr>
