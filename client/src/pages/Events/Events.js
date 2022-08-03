@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import EventCard from "components/EventComponents/EventCard";
 import AddEventCard from "components/EventComponents/AddEventCard";
 import styles from "./Events.module.css";
@@ -11,6 +11,10 @@ const Events = () => {
   const [isCardActive, setIsCardActive] = useState(false);
   const { isLoading, events, error, setTrigger } = useGetEvents();
   const { user } = useAuthContext();
+
+  useEffect(() => {
+    if (error) alert(error);
+  }, [error]);
 
   return (
     <div className={styles["event_page"]}>
