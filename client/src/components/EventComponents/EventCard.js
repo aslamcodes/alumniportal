@@ -1,6 +1,7 @@
+import Loader from "components/UI/Loader";
 import { useAuthContext } from "context/auth/authContext";
 import useAxiosWithCallback from "hooks/useAxiosWithCallback";
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./EventCard.module.css";
 
 const EventCard = ({ isActive, isCardActive, event, isAdmin, trigger }) => {
@@ -23,9 +24,12 @@ const EventCard = ({ isActive, isCardActive, event, isAdmin, trigger }) => {
     "Dec",
   ];
 
+  useEffect(() => {
+    if (error) alert(error);
+  });
+
   const handleDeleteEvent = async (e) => {
     e.preventDefault();
-    console.log(user?.token);
     const deleteConfig = {
       headers: {
         Authorization: `Bearer ${user?.token}`,
@@ -38,6 +42,8 @@ const EventCard = ({ isActive, isCardActive, event, isAdmin, trigger }) => {
     });
     trigger((prev) => !prev);
   };
+
+  if (isLoading) return <Loader />;
 
   return (
     <div className={`${styles.event_card} ${isActive && styles.active} `}>
