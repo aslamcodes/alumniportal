@@ -13,7 +13,6 @@ const Carousel = ({ testimonials }) => {
     } else {
       setActiveIndex((activeIndex - 1));
     }
-    console.log('active' + activeIndex);
   };
 
   const rightButtonHandler = () => {
@@ -22,7 +21,6 @@ const Carousel = ({ testimonials }) => {
     } else {
       setActiveIndex((activeIndex + 1));
     }
-    console.log('active' + activeIndex);
   };
 
   const mouseEnterHandler = () => {
@@ -36,7 +34,6 @@ const Carousel = ({ testimonials }) => {
     if (!scrollPause) {
       scrollInterval = setTimeout(() => {
         setActiveIndex((activeIndex + 1) % testimonials.length);
-        console.log('active' + activeIndex);
       }, 5000);
       return () => clearTimeout(scrollInterval);
     }
