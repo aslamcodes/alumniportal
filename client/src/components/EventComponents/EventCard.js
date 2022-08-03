@@ -30,6 +30,16 @@ const EventCard = ({ isActive, isCardActive, event, isAdmin, trigger }) => {
 
   const handleDeleteEvent = async (e) => {
     e.preventDefault();
+    const confirmation = window
+      .prompt(`Do want to delete ${event?.eventName}? Type ${event?.eventName}`)
+      .trim()
+      .toLowerCase();
+
+    if (!confirmation === event?.eventName) {
+      alert("Event Name Didn't matched. Try again");
+      return;
+    }
+
     const deleteConfig = {
       headers: {
         Authorization: `Bearer ${user?.token}`,
@@ -37,9 +47,11 @@ const EventCard = ({ isActive, isCardActive, event, isAdmin, trigger }) => {
       url: `/api/v1/events/${event?._id}`,
       method: "delete",
     };
+
     await fetchData(deleteConfig, (res) => {
-      console.log(res);
+      alert(`Deleted event ${res.eventName}`);
     });
+
     trigger((prev) => !prev);
   };
 

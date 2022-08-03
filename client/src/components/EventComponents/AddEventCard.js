@@ -1,10 +1,17 @@
 import { useAuthContext } from "context/auth/authContext";
 import useAxiosWithCallback from "hooks/useAxiosWithCallback";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./AddEventCard.module.css";
 const AddEventCard = ({ onNewItemAdd }) => {
   const { user } = useAuthContext();
-  const { fetchData } = useAxiosWithCallback();
+  const { fetchData: addEvent, error: errorOnAddEvent } =
+    useAxiosWithCallback();
+
+  useEffect(() => {
+    if (errorOnAddEvent)
+      alert(errorOnAddEvent.response.data.message ?? errorOnAddEvent);
+  }, [errorOnAddEvent]);
+
   const [eventData, setEventData] = useState({
     title: "",
     date: "2022-07-13",
@@ -29,7 +36,7 @@ const AddEventCard = ({ onNewItemAdd }) => {
       url: "/api/v1/events/",
       method: "post",
     };
-    await fetchData({
+    await addEvent({
       ...eventConfig,
       data: {
         eventName: eventData.title,
@@ -44,6 +51,14 @@ const AddEventCard = ({ onNewItemAdd }) => {
 
         venue: eventData.location,
       },
+    });
+
+    setEventData({
+      title: "",
+      date: "2022-07-13",
+      startTime: "11:00",
+      endTime: "14:00",
+      location: "",
     });
 
     onNewItemAdd((prev) => !prev);
