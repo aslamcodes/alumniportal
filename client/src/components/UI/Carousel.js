@@ -7,9 +7,23 @@ const Carousel = ({ testimonials }) => {
   const [scrollPause, setScrollPause] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   let scrollInterval = null;
-  const leftButtonHandler = () => {};
+  const leftButtonHandler = () => {
+    if (activeIndex === 0) {
+      setActiveIndex((testimonials.length - 1));
+    } else {
+      setActiveIndex((activeIndex - 1));
+    }
+    console.log('active' + activeIndex);
+  };
 
-  const rightButtonHandler = () => {};
+  const rightButtonHandler = () => {
+    if (activeIndex === (testimonials.length - 1)) {
+      setActiveIndex(0);
+    } else {
+      setActiveIndex((activeIndex + 1));
+    }
+    console.log('active' + activeIndex);
+  };
 
   const mouseEnterHandler = () => {
     setScrollPause(true);
@@ -22,6 +36,7 @@ const Carousel = ({ testimonials }) => {
     if (!scrollPause) {
       scrollInterval = setTimeout(() => {
         setActiveIndex((activeIndex + 1) % testimonials.length);
+        console.log('active' + activeIndex);
       }, 5000);
       return () => clearTimeout(scrollInterval);
     }
@@ -29,6 +44,12 @@ const Carousel = ({ testimonials }) => {
 
   return (
     <div className={styles["carousel"]}>
+      <div className={styles.navigate_left} onClick={leftButtonHandler}>
+        <BsChevronLeft />
+      </div>
+      <div className={styles.navigate_right} onClick={rightButtonHandler}>
+        <BsChevronRight />
+      </div>
       <div
         className={styles["inner"]}
         style={{ transform: `translateX(-${activeIndex * 100}%)` }}
