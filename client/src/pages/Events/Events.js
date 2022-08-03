@@ -9,7 +9,7 @@ import { useAuthContext } from "context/auth/authContext";
 const Events = () => {
   const [isActive, setIsActive] = useState(false);
   const [isCardActive, setIsCardActive] = useState(false);
-  const { isLoading, events, error } = useGetEvents();
+  const { isLoading, events, error, setTrigger } = useGetEvents();
   const { user } = useAuthContext();
 
   return (
@@ -28,7 +28,7 @@ const Events = () => {
                 onClick={() => setIsCardActive(!isCardActive)}
               />
             )}
-            {isCardActive && <AddEventCard />}
+            {isCardActive && <AddEventCard onNewItemAdd={setTrigger} />}
           </div>
           <div className={styles["events"]}>
             {isLoading ? (
@@ -41,6 +41,7 @@ const Events = () => {
                     isActive={true}
                     isCardActive={isCardActive}
                     event={event}
+                    trigger={setTrigger}
                   />
                 ))}
               </div>
