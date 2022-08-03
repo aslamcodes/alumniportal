@@ -32,7 +32,12 @@ const AdminTableRow = ({ alumni, type, ...rest }) => {
 
   const handleOnDeleteAlumni = () => {};
 
-  const handleReapproveAlumni = () => {};
+  const handleReapproveAlumni = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    await rest.reapproveAlumni(alumni?.user?._id);
+    setIsLoading(false);
+  };
 
   return (
     <a.tr
@@ -96,11 +101,16 @@ const AdminTableRow = ({ alumni, type, ...rest }) => {
             </button>
           </td>
         ))}
-      {type === "reject-details" && (
-        <td>
-          <button className={Styles.accept}>Reaccept</button>
-        </td>
-      )}
+      {type === "reject-details" &&
+        (isLoading ? (
+          <Loader />
+        ) : (
+          <td>
+            <button className={Styles.accept} onClick={handleReapproveAlumni}>
+              Reaccept
+            </button>
+          </td>
+        ))}
     </a.tr>
   );
 };
