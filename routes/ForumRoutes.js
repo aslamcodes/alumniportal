@@ -53,7 +53,7 @@ router.get("/replies/:commentId", getRepliesOnComment);
 router.patch("/like/:id", protect, likePost);
 router.patch("/unlike/:id", protect, unlikePost);
 
-router.post("/", protect, alumniOrAdmin, upload.array("images", 6), createPost);
+router.post("/", protect, upload.array("images", 6), createPost);
 router.post("/comment/:id", protect, createComment);
 router.post("/reply/:id", protect, createReply);
 

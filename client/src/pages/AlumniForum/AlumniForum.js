@@ -38,7 +38,7 @@ function AlumniForum() {
         </div>
       )}
 
-      {(user?.isAlumni || user?.isAdmin) && (
+      {user?.token && (
         <div
           className={Styles.new_post_button}
           onClick={() => setNewPostActive(true)}

@@ -68,6 +68,7 @@ function NewPostModal({ setNewPostActive }) {
     postFormData.append("title", postData.title);
     postFormData.append("desc", postData.description);
     postFormData.append("images", postData.image);
+    postFormData.append("isApproved", user?.isAlumni || user?.isAdmin);
 
     const postConfig = {
       url: "/api/v1/forum/",

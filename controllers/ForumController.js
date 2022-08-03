@@ -21,7 +21,7 @@ conn.once("open", () => {
 
 export const createPost = asyncHandler(async (req, res, next) => {
   const { user } = req;
-  const { title, desc } = req.body;
+  const { title, desc, isApproved } = req.body;
 
   const images = req.files.map((file) => file.id);
 
@@ -32,6 +32,7 @@ export const createPost = asyncHandler(async (req, res, next) => {
       images,
       desc,
     },
+    isApproved,
   });
   if (!NewPost) {
     return res.json({
@@ -75,6 +76,11 @@ export const getAllPosts_V2 = asyncHandler(async (req, res) => {
     "user.__v",
   ];
   const ForumFeed = await ForumPost.aggregate([
+    {
+      $match: {
+        isApproved: true,
+      },
+    },
     {
       $sort: { createdAt: -1 },
     },
