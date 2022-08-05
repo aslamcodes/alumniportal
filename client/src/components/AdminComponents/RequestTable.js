@@ -27,7 +27,6 @@ const RequestTable = () => {
 
   const { user } = useAuthContext();
   const { applications, isLoading, error } = useGetNewApplications();
-
   const { fetchData: approveAlumni } = useAxiosWithCallback();
   const { fetchData: rejectAlumni } = useAxiosWithCallback();
 

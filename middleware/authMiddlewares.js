@@ -16,7 +16,7 @@ const protect = asyncHandler(async (req, res, next) => {
       const alumni = await Alumni.findOne({ user: decoded.id });
       req.user = await User.findById(decoded.id).select("-password");
       req.user.isAlumni = false;
-      if (alumni) {
+      if (alumni?.isApproved) {
         req.user.isAlumni = true;
       }
       next();

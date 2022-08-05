@@ -30,7 +30,12 @@ const AdminTableRow = ({ alumni, type, ...rest }) => {
     setIsLoading(false);
   };
 
-  const handleOnDeleteAlumni = () => {};
+  const handleOnDeleteAlumni = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    await rest.onDeleteAlumni(alumni?.user?._id);
+    setIsLoading(false);
+  };
 
   const handleReapproveAlumni = async (e) => {
     e.preventDefault();
@@ -85,7 +90,9 @@ const AdminTableRow = ({ alumni, type, ...rest }) => {
 
       {type === "alumni-details" && (
         <td>
-          <button className={Styles.decline}>Delete</button>
+          <button onClick={handleOnDeleteAlumni} className={Styles.decline}>
+            Delete
+          </button>
         </td>
       )}
       {type === "request-details" &&

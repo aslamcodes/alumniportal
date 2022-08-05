@@ -21,10 +21,11 @@ export const registerAlumni = asyncHandler(async (req, res) => {
   const alumni = await Alumni.create(req.body);
 
   if (alumni) {
-    await User.findOneAndUpdate(
-      { _id: user },
-      { isAlumni: true, alumni: alumni._id }
-    );
+    await User.findByIdAndUpdate(user, {
+      $set: {
+        alumni: alumni._id,
+      },
+    });
 
     await Notification.create({
       user,
@@ -63,6 +64,16 @@ export const deleteAlumni = asyncHandler(async (req, res) => {
   const alumni = await Alumni.findOneAndDelete({ user: id });
 
   if (alumni) {
+    await User.updateOne(
+      { _id: alumni.user },
+      {
+        $set: {
+          isAlumni: false,
+          alumni: null,
+        },
+      }
+    );
+
     res.status(200).json({
       message: "Alumni deleted successfully",
     });
@@ -86,6 +97,10 @@ export const approveAlumni = asyncHandler(async (req, res) => {
   );
 
   if (alumni) {
+    await User.findByIdAndUpdate(id, { isAlumni: true, alumni: alumni._id });
+
+    await AlumniRequest.deleteOne({ user: id });
+
     await Notification.create({
       user: alumni.user,
       type: notificationConstants.ALUMNI_APPROVED,
@@ -281,8 +296,6 @@ export const getAllAlumniV2 = asyncHandler(async (_, res) => {
     "user.updatedAt",
     "user.alumni",
     "user.isAdmin",
-    "user.isAlumni",
-    "isApproved",
   ];
 
   const alumni = await Alumni.aggregate([
@@ -360,6 +373,7 @@ export const getAlumniRequests = asyncHandler(async (req, res) => {
       requests,
     });
   }
+
   return res.status(400).json({
     success: false,
     message: "Cannot find Alumni Requests at this time, please try again later",
