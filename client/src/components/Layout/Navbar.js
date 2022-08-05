@@ -6,7 +6,11 @@ import { Outlet } from "react-router-dom";
 import Menu from "./Menu";
 import { useWindowScrollPositions } from "hooks/useWindowScrollPositions";
 import { useAuthContext } from "context/auth/authContext";
-import { useAlumniContext } from "context/alumni/alumniContext";
+import {
+  useAlumniContext,
+  useAlumniDispatchContext,
+} from "context/alumni/alumniContext";
+import { getAlumni } from "context/alumni/actions";
 
 function getWindowDimensions() {
   const { innerWidth: width, innerHeight: height } = window;
@@ -26,12 +30,22 @@ const Navbar = () => {
   const { user } = useAuthContext();
   const { alumni } = useAlumniContext();
 
+  const alumniDispatch = useAlumniDispatchContext();
+
   if (useWindowScrollPositions().scrollY > 30 && !isScrolled) {
     setIsScrolled(true);
   }
   if (useWindowScrollPositions().scrollY < 30 && isScrolled) {
     setIsScrolled(false);
   }
+
+  useEffect(() => {
+    const fetchAlumni = async () => {
+      if (user) await getAlumni(alumniDispatch, { user: user?._id });
+    };
+
+    fetchAlumni();
+  }, [user, alumniDispatch]);
 
   useEffect(() => {
     function handleResize() {
@@ -89,7 +103,7 @@ const Navbar = () => {
             <div className={`${styles.navLink} ${styles.right}`}>
               {!user && <Link to="login">Login</Link>}
               {user?.isAdmin && <Link to="/admin">Admin</Link>}
-              {!user?.isAlumni && !user?.isAdmin && !alumni && user && (
+              {!user?.isAdmin && !alumni && user && (
                 <Link to="/register-alumni">Apply as Alumni</Link>
               )}
               {user?.isAlumni && <Link to="/profile">Profile</Link>}

@@ -62,6 +62,7 @@ export const loginUser = asyncHandler(async (req, res) => {
       email: user.email,
       name: user.name,
       isAdmin: user.isAdmin,
+      isAlumni: user.isAlumni,
       registerNumber: user.registerNumber,
       department: user.department,
       course: user.course,
