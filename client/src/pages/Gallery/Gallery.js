@@ -11,7 +11,6 @@ const Gallery = () => {
   });
 
   const handleClick = (id) => {
-    console.log("id: ", id, "itemSwitch: ", itemSwitch);
     if (itemSwitch.itemActive === 0 && id === 0) {
       navigate("all-photos");
     } else if (itemSwitch.itemActive === -1 && id === -1) {
