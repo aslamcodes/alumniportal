@@ -15,7 +15,11 @@ import {
 import dotenv from "dotenv";
 import { GridFsStorage } from "multer-gridfs-storage";
 import multer from "multer";
-import { protect, alumni } from "../middleware/authMiddlewares.js";
+import {
+  protect,
+  alumni,
+  alumniOrAdmin,
+} from "../middleware/authMiddlewares.js";
 dotenv.config();
 
 const storage = new GridFsStorage({
@@ -45,7 +49,7 @@ router.get("/feed_v2_alpha/", getAllPosts_V2);
 router.patch("/like/:id", protect, likePost);
 router.patch("/unlike/:id", protect, unlikePost);
 
-router.post("/", protect, alumni, upload.array("images", 6), createPost);
+router.post("/", protect, alumniOrAdmin, upload.array("images", 6), createPost);
 router.post("/comment/:id", protect, createComment);
 router.post("/reply/:id", protect, createReply);
 

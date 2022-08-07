@@ -26,7 +26,7 @@ function AlumniForum() {
           />
         ))}
       </div>
-      {user?.isAlumni && (
+      {(user?.isAlumni || user?.isAdmin) && (
         <div
           className={Styles.new_post_button}
           onClick={() => setNewPostActive(true)}
