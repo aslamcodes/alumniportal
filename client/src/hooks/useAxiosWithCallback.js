@@ -4,7 +4,6 @@ import axios from "axios";
 export default function useAxiosWithCallback() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [refresh, setRefresh] = useState(null);
 
   const fetchData = useCallback(
     async (config, callback = () => {}) => {
@@ -31,12 +30,8 @@ export default function useAxiosWithCallback() {
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [refresh]
+    []
   );
 
-  const trigger = () => {
-    setRefresh(Math.random());
-  };
-
-  return { isLoading, error, fetchData, trigger };
+  return { isLoading, error, fetchData };
 }

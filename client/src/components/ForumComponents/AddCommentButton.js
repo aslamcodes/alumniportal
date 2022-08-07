@@ -36,7 +36,6 @@ const AddCommentButton = ({ postId, onAddComment }) => {
 
     await createComment(commentConfig, async (res) => {
       await onAddComment();
-      if (!error) alert("Commented Successfully");
     });
   };
 
@@ -68,7 +67,9 @@ const AddCommentButton = ({ postId, onAddComment }) => {
           }
         }}
       />
-      <button>{isFormOpen ? <RiSendPlaneFill /> : <GrFormEdit />}</button>
+      <button type="submit">
+        {isFormOpen ? <RiSendPlaneFill /> : <GrFormEdit />}
+      </button>
     </a.form>
   );
 };

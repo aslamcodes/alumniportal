@@ -185,7 +185,7 @@ export const getAllPosts_V2 = asyncHandler(async (req, res) => {
 export const getCommentsOnPost = asyncHandler(async (req, res) => {
   const comments = await Comment.find({
     post: req.params.postId,
-  });
+  }).populate("user");
 
   if (!comments) {
     return res.status(400).json({
@@ -199,7 +199,7 @@ export const getCommentsOnPost = asyncHandler(async (req, res) => {
 export const getRepliesOnComment = asyncHandler(async (req, res) => {
   const replies = await Reply.find({
     comment: req.params.commentId,
-  });
+  }).populate("user");
 
   if (!replies) {
     return res.status(400).json({
