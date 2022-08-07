@@ -45,7 +45,7 @@ router.get("/feed_v2_alpha/", getAllPosts_V2);
 router.patch("/like/:id", protect, likePost);
 router.patch("/unlike/:id", protect, unlikePost);
 
-router.post("/", protect, alumni, upload.array("post_images", 6), createPost);
+router.post("/", protect, alumni, upload.array("images", 6), createPost);
 router.post("/comment/:id", protect, createComment);
 router.post("/reply/:id", protect, createReply);
 

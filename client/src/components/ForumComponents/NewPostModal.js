@@ -67,14 +67,14 @@ function NewPostModal({ setNewPostActive }) {
 
     postFormData.append("title", postData.title);
     postFormData.append("desc", postData.description);
-    postFormData.append("post_images", [].push(postData.image));
+    postFormData.append("images", postData.image);
 
     const postConfig = {
-      url: "/api/v1/forum",
+      url: "/api/v1/forum/",
       method: "post",
       headers: {
         Authorization: `Bearer ${user?.token}`,
-        "content-type": "multipart/form-data",
+        "Content-Type": "multipart/form-data",
       },
       data: postFormData,
     };
@@ -184,7 +184,7 @@ function NewPostModal({ setNewPostActive }) {
                           <p>Add Image</p>
                         </label>
                         <input
-                          name="image"
+                          name="post_images"
                           id="img-input"
                           type="file"
                           onChange={onSelectFile}
