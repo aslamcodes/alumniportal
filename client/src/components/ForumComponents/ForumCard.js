@@ -8,9 +8,7 @@ import PostModal from "./PostModal";
 const ForumCard = ({ data, setProfileActive, profileActive }) => {
   const [isCommentsModalOpen, setIsCommentsModalOpen] = useState(false);
   const [isPostModalOpen, setIsPostModalOpen] = useState(false);
-  console.log(
-    `http://localhost:8000/api/v1/users/user-avatar/${data.user._id}`
-  );
+
   return (
     <div className={`${styles.post_container} `}>
       <CommentModal
@@ -33,6 +31,7 @@ const ForumCard = ({ data, setProfileActive, profileActive }) => {
           <img
             src={`http://localhost:8000/api/v1/users/user-avatar/${data.user._id}`}
             onClick={setProfileActive}
+            alt={data?.post?.title}
           />
           <p className={styles.user_name}>{data.user.name}</p>
         </div>

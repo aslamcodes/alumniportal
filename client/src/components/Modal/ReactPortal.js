@@ -17,7 +17,6 @@ export const ReactPortal = ({
     document.body.style.overflow = "hidden";
     setWrapperElement(element);
     return () => {
-      console.log("reset");
       if (systemCreated && element.parentNode) {
         element.parentNode.removeChild(element);
       }

@@ -21,8 +21,8 @@ conn.once("open", () => {
 
 export const createPost = asyncHandler(async (req, res, next) => {
   const { user } = req;
-  const { post } = req.body;
-  const { title, desc } = post;
+  const { title, desc } = req.body;
+
   const images = req.files.map((file) => file.id);
 
   const NewPost = await ForumPost.create({

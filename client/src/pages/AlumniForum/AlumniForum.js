@@ -14,7 +14,7 @@ function AlumniForum() {
   const { user } = useAuthContext();
 
   const { isLoading, error, posts } = useGetForumPosts(0);
-  console.log(user);
+
   return (
     <div className={Styles.container}>
       <div className={Styles.forum_container}>

@@ -3,9 +3,7 @@ import React from "react";
 import styles from "./Testimonial.module.css";
 function Testimonial({ type, quotes, name, testimonialId }) {
   const { user } = useAuthContext();
-  console.log(
-    `http://localhost:8000/api/v1/testimonial/user-image/${testimonialId}`
-  );
+
   return (
     <div className={`${styles["Testimonial"]} `}>
       <div className={styles["Testimonial-content"]}>

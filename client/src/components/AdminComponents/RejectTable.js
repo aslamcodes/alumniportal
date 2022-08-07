@@ -59,7 +59,6 @@ const RejectTable = () => {
     setIsLoading(false);
   };
 
-  console.log(rejectedApplications);
   return (
     <div>
       <AdminTableHeader

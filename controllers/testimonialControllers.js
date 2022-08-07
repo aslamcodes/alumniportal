@@ -25,7 +25,6 @@ export const getAllTestimonials = asyncHandler(async (req, res) => {
 export const createTestimonial = asyncHandler(async (req, res) => {
   const { name, quote } = req.body;
   const image = req.file;
-  console.log(req.file);
 
   const testimonial = await Testimonial.create({
     name,
