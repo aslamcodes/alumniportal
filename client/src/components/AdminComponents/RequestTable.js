@@ -26,7 +26,7 @@ const RequestTable = () => {
   });
 
   const { user } = useAuthContext();
-  const { applications, isLoading, error } = useGetNewApplications();
+  const { applications, isLoading, error, trigger } = useGetNewApplications();
   const { fetchData: approveAlumni } = useAxiosWithCallback();
   const { fetchData: rejectAlumni } = useAxiosWithCallback();
 
@@ -57,19 +57,29 @@ const RequestTable = () => {
   };
 
   const onApproveAlumni = async (alumni) => {
-    await approveAlumni({
-      ...adminConfig,
-      method: "patch",
-      url: `/api/v1/alumni/approve/${alumni}`,
-    });
+    await approveAlumni(
+      {
+        ...adminConfig,
+        method: "patch",
+        url: `/api/v1/alumni/approve/${alumni}`,
+      },
+      (res) => {
+        trigger();
+      }
+    );
   };
 
   const onRejectAlumni = async (alumni) => {
-    await rejectAlumni({
-      ...adminConfig,
-      method: "patch",
-      url: `/api/v1/alumni/reject/${alumni}`,
-    });
+    await rejectAlumni(
+      {
+        ...adminConfig,
+        method: "patch",
+        url: `/api/v1/alumni/reject/${alumni}`,
+      },
+      (res) => {
+        trigger();
+      }
+    );
   };
 
   return (
