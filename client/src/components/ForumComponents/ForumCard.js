@@ -12,6 +12,7 @@ const ForumCard = ({ data, setProfileActive, profileActive }) => {
   return (
     <div className={`${styles.post_container} `}>
       <CommentModal
+        postId={data._id}
         comments={data.comments}
         handleClose={() => {
           setIsCommentsModalOpen(false);
@@ -51,6 +52,7 @@ const ForumCard = ({ data, setProfileActive, profileActive }) => {
         <img
           src={`http://localhost:8000/api/v1/forum/image/${data.post.images[0]}`}
           className={`${profileActive && styles.shadow}`}
+          alt="post"
         />
         <div className={styles.post_overlay}></div>
         <div className={styles.post_caption_container}>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ForumCard from "components/ForumComponents/ForumCard";
 import NewPostModal from "components/ForumComponents/NewPostModal";
 import ProfileModal from "components/ForumComponents/ProfileModal";
@@ -7,6 +7,7 @@ import { AiOutlinePlus } from "react-icons/ai";
 import useGetForumPosts from "hooks/useGetForumPosts";
 
 import { useAuthContext } from "context/auth/authContext";
+import Loader from "components/UI/Loader";
 
 function AlumniForum() {
   const [newPostActive, setNewPostActive] = useState(false);
@@ -15,17 +16,28 @@ function AlumniForum() {
 
   const { isLoading, error, posts } = useGetForumPosts(0);
 
+  useEffect(() => {
+    if (error) {
+      alert(error);
+    }
+  });
+
   return (
     <div className={Styles.container}>
-      <div className={Styles.forum_container}>
-        {posts.map((post) => (
-          <ForumCard
-            key={post.id}
-            data={post}
-            setProfileActive={() => setProfileActive(true)}
-          />
-        ))}
-      </div>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <div className={Styles.forum_container}>
+          {posts.map((post) => (
+            <ForumCard
+              key={post.id}
+              data={post}
+              setProfileActive={() => setProfileActive(true)}
+            />
+          ))}
+        </div>
+      )}
+
       {(user?.isAlumni || user?.isAdmin) && (
         <div
           className={Styles.new_post_button}

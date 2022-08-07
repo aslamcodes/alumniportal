@@ -182,6 +182,36 @@ export const getAllPosts_V2 = asyncHandler(async (req, res) => {
   res.json(ForumFeed);
 });
 
+export const getCommentsOnPost = asyncHandler(async (req, res) => {
+  const comments = await Comment.find({
+    post: req.params.postId,
+  });
+
+  if (!comments) {
+    return res.status(400).json({
+      message: "Couldn't get comments at the moment",
+    });
+  }
+
+  return res.json({ comments });
+});
+
+export const getRepliesOnComment = asyncHandler(async (req, res) => {
+  const replies = await Reply.find({
+    comment: req.params.commentId,
+  });
+
+  if (!replies) {
+    return res.status(400).json({
+      message: "Couldn't get replies at the moment",
+    });
+  }
+
+  res.json({
+    replies,
+  });
+});
+
 export const getPostImageById = asyncHandler(async (req, res) => {
   try {
     const readStream = forumImagesBucket.openDownloadStream(

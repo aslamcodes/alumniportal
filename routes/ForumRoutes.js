@@ -8,7 +8,9 @@ import {
   deleteReply,
   getAllPosts,
   getAllPosts_V2,
+  getCommentsOnPost,
   getPostImageById,
+  getRepliesOnComment,
   likePost,
   unlikePost,
 } from "../controllers/ForumController.js";
@@ -45,6 +47,8 @@ const router = express.Router();
 router.get("/image/:id", getPostImageById);
 router.get("/feed", getAllPosts);
 router.get("/feed_v2_alpha/", getAllPosts_V2);
+router.get("/comments/:postId", getCommentsOnPost);
+router.get("/replies/:commentId", getRepliesOnComment);
 
 router.patch("/like/:id", protect, likePost);
 router.patch("/unlike/:id", protect, unlikePost);

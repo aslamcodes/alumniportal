@@ -9,6 +9,7 @@ const CommentBox = ({ commentData }) => {
   const { user, text, replies } = commentData;
   const [showReplies, setShowReplies] = useState(false);
   const [showReplyForm, setShowReplyForm] = useState(false);
+
   return (
     <div className={Styles.comment_container}>
       <div
@@ -20,7 +21,10 @@ const CommentBox = ({ commentData }) => {
         }}
       >
         <div className={Styles.heading}>
-          <img src={`/api/v1/users/user-avatar/${user.avatar}`} />
+          <img
+            src={`http://localhost:8000/api/v1/users/user-avatar/${user._id}`}
+            alt="profile"
+          />
           <p className={Styles.username}>{user.name}</p>
         </div>
         <p>{text}</p>

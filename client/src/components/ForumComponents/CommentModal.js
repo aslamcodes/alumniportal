@@ -1,13 +1,33 @@
-import React, { useEffect } from "react";
 import ReactPortal from "components/Modal/ReactPortal";
+import React, { useEffect, useState } from "react";
 import Styles from "./CommentModal.module.css";
 import Divider from "components/UI/Divider";
 import { GrClose } from "react-icons/gr";
 import CommentBox from "components/ForumComponents/CommentBox";
 import AddCommentButton from "components/ForumComponents/AddCommentButton";
 import { animated, config, useTransition } from "react-spring";
+import useAxiosWithCallback from "hooks/useAxiosWithCallback";
+import Loader from "components/UI/Loader";
 
-const CommentModal = ({ handleClose, isOpen, comments }) => {
+const CommentModal = ({
+  handleClose,
+  isOpen,
+  comments: commentsOnPost,
+  postId,
+}) => {
+  const [comments, setComments] = useState(commentsOnPost);
+  const { fetchData: getComments, isLoading, error } = useAxiosWithCallback();
+
+  const onAddNewComment = async () => {
+    if (error) alert(error);
+    await getComments(
+      {
+        url: `/api/v1/forum/comments/${postId}`,
+      },
+      ({ comments }) => setComments(comments)
+    );
+  };
+
   const modalTransition = useTransition(isOpen, {
     config: config.wobbly,
     from: {
@@ -75,15 +95,22 @@ const CommentModal = ({ handleClose, isOpen, comments }) => {
                       </div>
                       <Divider />
                     </div>
-                    <div className={Styles.comments_container}>
-                      {comments.map((comment, idx) => (
-                        <CommentBox
-                          key={`${comment.user.name}${comment._id}}${idx}`}
-                          commentData={comment}
+                    {isLoading ? (
+                      <Loader />
+                    ) : (
+                      <div className={Styles.comments_container}>
+                        {comments.map((comment, idx) => (
+                          <CommentBox
+                            key={`${comment.user.name}${comment._id}}${idx}`}
+                            commentData={comment}
+                          />
+                        ))}
+                        <AddCommentButton
+                          onAddComment={onAddNewComment}
+                          postId={postId}
                         />
-                      ))}
-                      <AddCommentButton />
-                    </div>
+                      </div>
+                    )}
                   </animated.section>
                 )
             )}
