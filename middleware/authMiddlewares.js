@@ -51,4 +51,13 @@ const alumni = (req, res, next) => {
   }
 };
 
-export { protect, admin, alumni };
+const alumniOrAdmin = (req, res, next) => {
+  if (req.user && (req.user.isAlumni || req.user.isAdmin)) {
+    next();
+  } else {
+    res.status(401);
+    throw new Error("Not authorized as an alumni or admin");
+  }
+};
+
+export { protect, admin, alumni, alumniOrAdmin };
