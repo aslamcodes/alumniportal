@@ -3,7 +3,7 @@ import styles from "./Carousel.module.css";
 import Testimonial from "components/HomeComponents/Testimonial";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 
-const Carousel = ({ testimonials }) => {
+const Carousel = ({ testimonials, onDelete }) => {
   const [scrollPause, setScrollPause] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   let scrollInterval = null;
@@ -22,7 +22,7 @@ const Carousel = ({ testimonials }) => {
     if (!scrollPause) {
       scrollInterval = setTimeout(() => {
         setActiveIndex((activeIndex + 1) % testimonials.length);
-      }, 5000);
+      }, 3500);
       return () => clearTimeout(scrollInterval);
     }
   });
@@ -47,6 +47,7 @@ const Carousel = ({ testimonials }) => {
                 quotes={testimonial.quote}
                 name={testimonial.name}
                 testimonialId={testimonial._id}
+                onDelete={onDelete}
               />
             </div>
           );

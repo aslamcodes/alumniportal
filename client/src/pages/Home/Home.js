@@ -8,7 +8,13 @@ import useGetTestimonial from "hooks/useGetTestimonial";
 const Home = () => {
   const [newTestimonialActive, setNewTestimonialActive] = useState(false);
   const { user } = useAuthContext();
-  const { testimonials, error, isLoading } = useGetTestimonial();
+  const { testimonials, error, isLoading, trigger } = useGetTestimonial();
+
+  const onChangeTestimonial = (message) => {
+    trigger();
+    alert(message);
+    setNewTestimonialActive(false);
+  };
 
   return (
     <div className={`${styles.Body} `}>
@@ -27,7 +33,10 @@ const Home = () => {
 
         <div id={styles["Testimonials"]}>
           <div className={`${styles.Container}`}>
-            <Carousel testimonials={testimonials} />
+            <Carousel
+              testimonials={testimonials}
+              onDelete={onChangeTestimonial}
+            />
             <img
               src={require("assets/testimonial.png")}
               alt="testimonial-img"
@@ -43,7 +52,10 @@ const Home = () => {
               </button>
             )}
 
-            <NewTestimonialCard active={newTestimonialActive} />
+            <NewTestimonialCard
+              active={newTestimonialActive}
+              onNewTestimonial={onChangeTestimonial}
+            />
           </div>
         </div>
       </div>

@@ -3,6 +3,7 @@ import useAxiosWithCallback from "./useAxiosWithCallback";
 
 const useGetTestimonial = () => {
   const [testimonials, setTestimonial] = useState([]);
+  const [refresh, setRefresh] = useState();
   const { isLoading, fetchData, error } = useAxiosWithCallback();
 
   useEffect(() => {
@@ -10,12 +11,17 @@ const useGetTestimonial = () => {
       url: "/api/v1/testimonial",
     };
     fetchData(config, setTestimonial);
-  }, []);
+  }, [refresh, fetchData]);
+
+  const trigger = () => {
+    setRefresh(Math.random());
+  };
 
   return {
     isLoading,
     error,
     testimonials,
+    trigger,
   };
 };
 

@@ -35,7 +35,6 @@ function RegistrationPageAlumni() {
     courseName: "",
     designation: "",
     organization: "",
-    domain: "",
   });
 
   useEffect(() => {
@@ -235,16 +234,6 @@ function RegistrationPageAlumni() {
                     />
                   </div> */}
 
-                  <div className={styles.form_input_container}>
-                    <input
-                      name="domain"
-                      type="text"
-                      id="domain"
-                      placeholder="Skill/Domain"
-                      value={data.domain}
-                      onChange={handleChange}
-                    />
-                  </div>
                   <div className={`${styles.form_button_container}`}>
                     <button type="submit"> Submit</button>
                   </div>
