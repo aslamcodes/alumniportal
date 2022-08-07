@@ -1,35 +1,54 @@
 import React, { useState } from "react";
 import styles from "./NewTestimonialCard.module.css";
 import { BiImageAdd } from "react-icons/bi";
-function NewTestimonialCard({ active }) {
-  const [data, setData] = useState({
-    img: undefined,
+import { useAuthContext } from "context/auth/authContext";
+import useAxiosWithCallback from "hooks/useAxiosWithCallback";
+
+function NewTestimonialCard({ active, onNewTestimonial }) {
+  const [testimonialData, setTestimonialData] = useState({
+    img: null,
     name: "",
     quote: "",
   });
 
+  const { user } = useAuthContext();
+  const { fetchData, error, isLoading } = useAxiosWithCallback();
+
   const handleChange = (e) => {
-    setData({
-      ...data,
+    setTestimonialData({
+      ...testimonialData,
       [e.target.name]: e.target.value,
     });
   };
+
   const onSelectFile = (event) => {
-    if (!event.target.files || event.target.files.length === 0) {
-      setData({
-        ...data,
-        img: data.img || undefined,
-      });
-      return;
-    }
-    let reader = new FileReader();
-    reader.onload = (e) => {
-      setData({
-        ...data,
-        img: e.target.result,
-      });
+    if (!event.target.files || event.target.files.length === 0) return;
+
+    setTestimonialData({
+      ...testimonialData,
+      img: event.target.files[0],
+    });
+  };
+
+  const onAddNewTestimonial = () => {
+    const formData = new FormData();
+    formData.append("name", testimonialData.name);
+    formData.append("quote", testimonialData.quote);
+    formData.append("image", testimonialData.img);
+
+    const testimonialConfig = {
+      url: "/api/v1/testimonial/",
+      method: "post",
+      data: formData,
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${user?.token}`,
+      },
     };
-    reader.readAsDataURL(event.target.files[0]);
+
+    fetchData(testimonialConfig, (res) => {
+      onNewTestimonial("New Testimonial Created");
+    });
   };
 
   return (
@@ -49,7 +68,9 @@ function NewTestimonialCard({ active }) {
           onChange={onSelectFile}
         />
 
-        {data.img && <img src={data.img} alt="upload-image" />}
+        {testimonialData.img && (
+          <img src={URL.createObjectURL(testimonialData.img)} alt="upload" />
+        )}
       </div>
       <div className={styles.input_container}>
         <label>Name</label>
@@ -58,7 +79,7 @@ function NewTestimonialCard({ active }) {
           name="name"
           id="name"
           placeholder="Enter your name"
-          value={data.name}
+          value={testimonialData.name}
           onChange={handleChange}
         />
         <label>Quote</label>
@@ -67,10 +88,10 @@ function NewTestimonialCard({ active }) {
           name="quote"
           id="quote"
           placeholder="Enter the quote"
-          value={data.quote}
+          value={testimonialData.quote}
           onChange={handleChange}
         />
-        <button>Add</button>
+        <button onClick={onAddNewTestimonial}>Add</button>
       </div>
     </div>
   );
