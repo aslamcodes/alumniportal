@@ -4,6 +4,7 @@ import useAxiosWithCallback from "./useAxiosWithCallback";
 export default function useGetAlumni() {
   const [alumni, setAlumni] = useState();
   const { isLoading, fetchData, error } = useAxiosWithCallback();
+  const [refresh, setRefresh] = useState();
 
   useEffect(() => {
     const applyAlumni = ({ alumni }) => setAlumni(alumni);
@@ -18,7 +19,11 @@ export default function useGetAlumni() {
     };
 
     fetchAlumni();
-  }, [fetchData]);
+  }, [fetchData, refresh]);
 
-  return { isLoading, error, alumni };
+  const trigger = () => {
+    setRefresh(Math.random());
+  };
+
+  return { isLoading, error, alumni, trigger };
 }

@@ -10,7 +10,7 @@ import useAxiosWithCallback from "hooks/useAxiosWithCallback";
 import { useAuthContext } from "context/auth/authContext";
 
 const AlumniTable = () => {
-  const { alumni, error, isLoading } = useGetAlumni();
+  const { alumni, error, isLoading, trigger } = useGetAlumni();
   const [entriesPerPage, setEntriesPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [tableHeadOnTop, setTableHeadOnTop] = useState(false);
@@ -36,8 +36,9 @@ const AlumniTable = () => {
       method: "delete",
       url: `/api/v1/alumni/${userId}`,
     };
+
     await deleteAlumni(deleteConfig, () => {
-      alert("Deleted Successfully");
+      trigger();
     });
   };
 
