@@ -4,10 +4,30 @@ import { AiOutlineHeart, AiFillHeart, AiOutlineShareAlt } from "react-icons/ai";
 import { BsChat } from "react-icons/bs";
 import CommentModal from "./CommentModal";
 import PostModal from "./PostModal";
+import { useAuthContext } from "context/auth/authContext";
+import useAxiosWithCallback from "hooks/useAxiosWithCallback";
 
 const ForumCard = ({ data, setProfileActive, profileActive }) => {
   const [isCommentsModalOpen, setIsCommentsModalOpen] = useState(false);
   const [isPostModalOpen, setIsPostModalOpen] = useState(false);
+  const { user } = useAuthContext();
+  const { fetchData, isLoading } = useAxiosWithCallback();
+  const [liked, setLiked] = useState(
+    user ? data.likes.map((like) => like.user._id).includes(user?._id) : false
+  );
+
+  const onLikePostHandler = async () => {
+    const likeConfig = {
+      url: `/api/v1/forum/like/${data._id}`,
+      method: "patch",
+      headers: {
+        Authorization: `Bearer ${user?.token}`,
+      },
+    };
+    await fetchData(likeConfig, (res) => {
+      setLiked((prev) => !prev);
+    });
+  };
 
   return (
     <div className={`${styles.post_container} `}>
@@ -37,7 +57,9 @@ const ForumCard = ({ data, setProfileActive, profileActive }) => {
           <p className={styles.user_name}>{data.user.name}</p>
         </div>
         <div className={styles.post_action_container}>
-          {false ? <AiFillHeart /> : <AiOutlineHeart />}
+          <button disabled={isLoading} onClick={onLikePostHandler}>
+            {liked ? <AiFillHeart /> : <AiOutlineHeart />}
+          </button>
           <div
             onClick={() => {
               setIsCommentsModalOpen(true);
