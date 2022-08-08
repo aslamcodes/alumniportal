@@ -85,3 +85,10 @@
   gap: 1rem;
   margin-right: 1em;
 }
+
+.post_action_container button {
+  /* todo: fix like button */
+  border: none;
+  background: none;
+  cursor: pointer;
+}

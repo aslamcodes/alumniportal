@@ -67,12 +67,12 @@ export const getAllPosts = asyncHandler(async (req, res, next) => {
 
 export const getAllPosts_V2 = asyncHandler(async (req, res) => {
   const { offset = 0 } = req.query;
-  const pipeline = [];
-  const unwantedUserFields = [
+  const unwantedFields = [
     "user.password",
     "user.email",
     "user.createdAt",
     "user.updatedAt",
+    "user.__v",
   ];
   const ForumFeed = await ForumPost.aggregate([
     {
@@ -101,10 +101,28 @@ export const getAllPosts_V2 = asyncHandler(async (req, res) => {
           {
             $unwind: "$likes",
           },
+          {
+            $replaceRoot: {
+              newRoot: "$likes",
+            },
+          },
+          {
+            $lookup: {
+              from: "users",
+              localField: "user",
+              foreignField: "_id",
+              as: "user",
+            },
+          },
+          { $unwind: "$user" },
+          {
+            $unset: unwantedFields,
+          },
         ],
         as: "likes",
       },
     },
+
     {
       $lookup: {
         from: "forumcomments",
@@ -129,7 +147,7 @@ export const getAllPosts_V2 = asyncHandler(async (req, res) => {
             $unwind: "$user",
           },
           {
-            $unset: unwantedUserFields,
+            $unset: unwantedFields,
           },
           {
             $lookup: {
@@ -152,7 +170,7 @@ export const getAllPosts_V2 = asyncHandler(async (req, res) => {
                   },
                 },
                 {
-                  $unset: unwantedUserFields,
+                  $unset: unwantedFields,
                 },
                 {
                   $unwind: "$user",
@@ -166,7 +184,7 @@ export const getAllPosts_V2 = asyncHandler(async (req, res) => {
       },
     },
     {
-      $unset: unwantedUserFields,
+      $unset: unwantedFields,
     },
     {
       $unwind: "$user",
