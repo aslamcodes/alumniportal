@@ -1,18 +1,21 @@
 import fs from "fs";
 import path from "path";
 import papa from "papaparse";
+
 import { fileURLToPath } from "url";
 
-const __dirname = fileURLToPath(import.meta.url).replace("data-upload.js", "");
+const __filename = fileURLToPath(import.meta.url);
+
+const __dirname = __filename.replace(path.basename(__filename), "");
 
 const files = fs.readdirSync(path.resolve(__dirname, "./raw"));
 
-let headers = [];
+let headers = {};
 
 files.forEach((file) => {
+  if (!file.includes(".csv")) return;
   let data = [];
   const fileStream = fs.createReadStream(path.join(__dirname, `./raw/${file}`));
-
   const papaStream = papa.parse(papa.NODE_STREAM_INPUT, {
     header: true,
   });
@@ -29,12 +32,11 @@ files.forEach((file) => {
       JSON.stringify(data)
     );
 
-    headers.push({ [file]: Object.keys(data[0]) });
+    headers[file.replace(".csv", ".json")] = Object.keys(data[0]);
 
-    headers.length === files.length &&
-      fs.writeFileSync(
-        path.join(__dirname, `/headers.json`),
-        JSON.stringify(headers)
-      );
+    fs.writeFileSync(
+      path.join(__dirname, `/headers.json`),
+      JSON.stringify(headers)
+    );
   });
 });
