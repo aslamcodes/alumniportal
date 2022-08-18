@@ -27,7 +27,7 @@ const alumniDataSchema = new Schema({
   company: {
     type: String,
   },
-  place: {
+  companyAddress: {
     type: String,
   },
 });

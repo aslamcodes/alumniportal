@@ -25,28 +25,84 @@ connectDB(process.env.URI).then(async () => {
       const registerNumber = getDataForHeader(alumnus, "^reg");
       const email = getDataForHeader(alumnus, "mail");
       const contact = getDataForHeader(alumnus, "contact|phone|mobile");
-      // Work in progress - need to find a RegExp to get the below fields
-      const dateOfBirth = getDataForHeader(alumnus, "^date of birth");
-      const natureOfWork = getDataForHeader(alumnus, "^nature of work");
-      const designation = getDataForHeader(alumnus, "^designation");
-      const company = getDataForHeader(alumnus, "^company");
-      const place = getDataForHeader(alumnus, "^place");
+      const company = getDataForHeader(alumnus, "(company)$|^(company name)");
+      let dateOfBirth = getDataForHeader(alumnus, "DOB|Date ")
+        .split(".")
+        .join("-");
+      const designation = getDataForHeader(alumnus, "designation").trim();
+      const companyAddress = getDataForHeader(
+        alumnus,
+        "place|company address"
+      ).trim();
+      const natureOfWork = getDataForHeader(alumnus, "^working")
+        .trim()
+        .toLowerCase();
+      if (dateOfBirth.includes(".")) {
+        dateOfBirth = dateOfBirth.split(".").join("-");
+      }
 
-      const data = {
-        batch,
-        name,
-        registerNumber,
-        // dateOfBirth,
-        address,
-        email,
-        contact: contact.replace("#ERROR!", ""),
-        natureOfWork,
-        designation,
-        company,
-        place,
-      };
+      if (dateOfBirth.includes("/")) {
+        dateOfBirth = dateOfBirth.split("/").join("-");
+      }
 
-      docs.push(data);
+      const yearLength = dateOfBirth.split("-").sort(function (a, b) {
+        return b.length - a.length;
+      })[0];
+
+      let year = dateOfBirth.split("-")[2];
+      let month = dateOfBirth.split("-")[1];
+      let day = dateOfBirth.split("-")[0];
+
+      if (yearLength.length === 2) {
+        const currentYear = new Date().getFullYear().toString().slice(-2);
+        if (year === "00") {
+          year = "2000";
+          dateOfBirth = [year, month, day].join("-");
+        } else if (+year <= +currentYear) {
+          year = "20" + year;
+          dateOfBirth = [year, month, day].join("-");
+        } else if (+year > +currentYear) {
+          year = "19" + year;
+          dateOfBirth = [year, month, day].join("-");
+        }
+      }
+
+      if (+month > 12) {
+        let temp;
+        temp = month;
+        month = day;
+        day = temp;
+        dateOfBirth = [year, month, day].join("-");
+      }
+
+      if (dateOfBirth.indexOf("-") === 2) {
+        dateOfBirth = dateOfBirth.split("-").reverse().join("-");
+      }
+
+      try {
+        const data = {
+          batch,
+          name,
+          registerNumber,
+          dateOfBirth: dateOfBirth ? new Date(dateOfBirth).toISOString() : null,
+          address,
+          email,
+          contact: contact.replace("#ERROR!", ""),
+          natureOfWork,
+          designation,
+          company,
+          companyAddress,
+        };
+        docs.push(data);
+      } catch (error) {
+        console.log(
+          `Invalid date ${dateOfBirth.red} processed from date of birth ${
+            getDataForHeader(alumnus, "DOB|Date ").green
+          } of ${name.green} \nfrom ${batch.green} batch \nin ${
+            file.green
+          } file, \nRoll number ${registerNumber.green}\n`
+        );
+      }
     });
   });
 
@@ -54,7 +110,7 @@ connectDB(process.env.URI).then(async () => {
 });
 
 const getAlumniValueByHeader = (headersOfFile, alumni, regex) => {
-  const regExp = new RegExp(regex);
+  const regExp = new RegExp(regex, "i");
   return headersOfFile
     .filter((header) => regExp.test(header.toLowerCase()))
     .map((header) => alumni[header])
