@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Carousel.module.css";
+import { useSwipeable } from "react-swipeable";
 import Testimonial from "components/HomeComponents/Testimonial";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 
@@ -39,8 +40,19 @@ const Carousel = ({ testimonials }) => {
     }
   });
 
+  const handlers = useSwipeable({
+    onSwipedLeft: () => {
+      rightButtonHandler();
+    },
+    onSwipedRight: () => {
+      leftButtonHandler();
+    }
+  });
+
   return (
-    <div className={styles["carousel"]}>
+    <div
+      {...handlers}
+      className={styles["carousel"]}>
       <div className={styles.navigate_left} onClick={leftButtonHandler}>
         <BsChevronLeft />
       </div>
