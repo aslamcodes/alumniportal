@@ -32,9 +32,7 @@ function OfficeBearers() {
     } else {
       setActiveIndex(id);
     }
-    console.log("if" + activeIndex);
   };
-  console.log(alumni);
 
   return (
     <div className={styles.OfficeBearers_container}>

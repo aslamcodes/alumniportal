@@ -6,7 +6,12 @@
 }
 .accept,
 .decline {
+  display: block;
+  margin: 0.5em 0;
+  font-size: 1rem;
   cursor: pointer;
+  background-color: transparent;
+  border: none;
 }
 .accept:hover {
   color: green;

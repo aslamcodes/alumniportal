@@ -1,20 +1,50 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { RiSendPlaneFill } from "react-icons/ri";
 import { GrFormEdit } from "react-icons/gr";
 import Styles from "./AddCommentButton.module.css";
 import { useSpring, a } from "react-spring";
+import useAxiosWithCallback from "hooks/useAxiosWithCallback";
+import { useAuthContext } from "context/auth/authContext";
+import Loader from "components/UI/Loader";
 
-const AddCommentButton = () => {
+const AddCommentButton = ({ postId, onAddComment }) => {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [comment, setComment] = useState("");
   const inputRef = useRef(null);
   const props = useSpring({});
-  return (
+
+  const { fetchData: createComment, isLoading, error } = useAxiosWithCallback();
+  const { user } = useAuthContext();
+
+  useEffect(() => {
+    if (error) alert(error);
+  }, [error]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const commentConfig = {
+      url: `/api/v1/forum/comment/${postId}`,
+      method: "post",
+      headers: {
+        Authorization: `Bearer ${user?.token}`,
+      },
+      data: {
+        comment,
+      },
+    };
+
+    await createComment(commentConfig, async (res) => {
+      await onAddComment();
+    });
+  };
+
+  return isLoading ? (
+    <Loader />
+  ) : (
     <a.form
       style={props}
-      onSubmit={(e) => {
-        e.preventDefault();
-      }}
+      onSubmit={handleSubmit}
       onClick={() => {
         setIsFormOpen(true);
         inputRef.current.focus();
@@ -37,7 +67,9 @@ const AddCommentButton = () => {
           }
         }}
       />
-      {isFormOpen ? <RiSendPlaneFill /> : <GrFormEdit />}
+      <button type="submit">
+        {isFormOpen ? <RiSendPlaneFill /> : <GrFormEdit />}
+      </button>
     </a.form>
   );
 };

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Testimonial from "components/HomeComponents/Testimonial";
 import Carousel from "components/UI/Carousel";
 import styles from "./Home.module.css";
 import NewTestimonialCard from "components/HomeComponents/NewTestimonialCard";
@@ -9,31 +8,13 @@ import useGetTestimonial from "hooks/useGetTestimonial";
 const Home = () => {
   const [newTestimonialActive, setNewTestimonialActive] = useState(false);
   const { user } = useAuthContext();
-  const { testimonials, error, isLoading } = useGetTestimonial();
-  //testData:
-  const testData = [
-    {
-      quotes: "“Hi, This is Ben i am working at Jakash corporation”",
-      imgSrc: "https://via.placeholder.com/150",
-      name: "Mr.Jesso Clarence.M Engineering Manager, Akamai Technology, Bangalore Batch: 2006-2010",
-    },
-    {
-      quotes:
-        "“Choosing Sri Krishna College of Technology to pursue B.Tech IT was one of the best decisions in my life.”",
-      imgSrc: "https://via.placeholder.com/200",
-      name: "Mr.Jesso Clarence.M Engineering Manager, Akamai Technology, Bangalore Batch: 2006-2010",
-    },
-    {
-      quotes: "I am a test quote3",
-      imgSrc: "https://via.placeholder.com/150",
-      name: "Mr.Jesso Clarence.M Engineering Manager, Akamai Technology, Bangalore Batch: 2006-2010",
-    },
-    {
-      quotes: "I am a test quote4",
-      imgSrc: "https://via.placeholder.com/150",
-      name: "Mr.Jesso Clarence.M Engineering Manager, Akamai Technology, Bangalore Batch: 2006-2010",
-    },
-  ];
+  const { testimonials, error, isLoading, trigger } = useGetTestimonial();
+
+  const onChangeTestimonial = (message) => {
+    trigger();
+    alert(message);
+    setNewTestimonialActive(false);
+  };
 
   return (
     <div className={`${styles.Body} `}>
@@ -52,7 +33,10 @@ const Home = () => {
 
         <div id={styles["Testimonials"]}>
           <div className={`${styles.Container}`}>
-            <Carousel testimonials={testimonials} />
+            <Carousel
+              testimonials={testimonials}
+              onDelete={onChangeTestimonial}
+            />
             <img
               src={require("assets/testimonial.png")}
               alt="testimonial-img"
@@ -68,7 +52,10 @@ const Home = () => {
               </button>
             )}
 
-            <NewTestimonialCard active={newTestimonialActive} />
+            <NewTestimonialCard
+              active={newTestimonialActive}
+              onNewTestimonial={onChangeTestimonial}
+            />
           </div>
         </div>
       </div>

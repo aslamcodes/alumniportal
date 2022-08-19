@@ -1,17 +1,44 @@
-import React from "react";
+import { useAuthContext } from "context/auth/authContext";
+import useAxiosWithCallback from "hooks/useAxiosWithCallback";
+import React, { useState } from "react";
 import { RiSendPlaneFill } from "react-icons/ri";
 import Styles from "./ReplyForm.module.css";
-const ReplyForm = () => {
+const ReplyForm = ({ comment, onAddNewReply }) => {
+  const { user } = useAuthContext();
+  const [reply, setReply] = useState("");
+  const { fetchData, isLoading, error } = useAxiosWithCallback();
+
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    const replyConfig = {
+      url: `/api/v1/forum/reply/${comment._id}`,
+      method: "post",
+      headers: {
+        Authorization: `Bearer ${user?.token}`,
+      },
+      data: {
+        reply: reply,
+      },
+    };
+    await fetchData(replyConfig, async (res) => {
+      await onAddNewReply();
+    });
+  };
+
   return (
-    <div className={Styles.reply_form_container}>
-      <input placeholder="Your Reply Here" />
-      <div className={Styles.reply_button}>
-        <p>Reply to Zahra</p>
+    <form className={Styles.reply_form_container} onSubmit={submitHandler}>
+      <input
+        placeholder="Your Reply Here"
+        value={reply}
+        onChange={(e) => setReply(e.target.value)}
+      />
+      <button type="submit" className={Styles.reply_button}>
+        <p>Reply to {comment.user.name}</p>
         <p className={Styles.share_icon}>
           <RiSendPlaneFill />
         </p>
-      </div>
-    </div>
+      </button>
+    </form>
   );
 };
 

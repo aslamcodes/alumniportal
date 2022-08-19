@@ -16,7 +16,7 @@ const protect = asyncHandler(async (req, res, next) => {
       const alumni = await Alumni.findOne({ user: decoded.id });
       req.user = await User.findById(decoded.id).select("-password");
       req.user.isAlumni = false;
-      if (alumni) {
+      if (alumni?.isApproved) {
         req.user.isAlumni = true;
       }
       next();
@@ -51,4 +51,13 @@ const alumni = (req, res, next) => {
   }
 };
 
-export { protect, admin, alumni };
+const alumniOrAdmin = (req, res, next) => {
+  if (req.user && (req.user.isAlumni || req.user.isAdmin)) {
+    next();
+  } else {
+    res.status(401);
+    throw new Error("Not authorized as an alumni or admin");
+  }
+};
+
+export { protect, admin, alumni, alumniOrAdmin };

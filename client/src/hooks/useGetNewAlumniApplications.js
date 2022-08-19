@@ -6,6 +6,7 @@ const useGetNewApplications = () => {
   const { isLoading, fetchData, error } = useAxiosWithCallback();
   const [applications, setApplications] = useState([]);
   const { user } = useAuthContext();
+  const [refresh, setRefresh] = useState(null);
 
   useEffect(() => {
     const config = {
@@ -15,9 +16,13 @@ const useGetNewApplications = () => {
       },
     };
     fetchData(config, ({ requests }) => setApplications(requests));
-  }, [fetchData, user]);
+  }, [fetchData, user, refresh]);
 
-  return { isLoading, applications, error };
+  const trigger = () => {
+    setRefresh(Math.random());
+  };
+
+  return { isLoading, applications, error, trigger };
 };
 
 export default useGetNewApplications;

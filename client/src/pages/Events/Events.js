@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import EventCard from "components/EventComponents/EventCard";
 import AddEventCard from "components/EventComponents/AddEventCard";
 import styles from "./Events.module.css";
@@ -9,8 +9,12 @@ import { useAuthContext } from "context/auth/authContext";
 const Events = () => {
   const [isActive, setIsActive] = useState(false);
   const [isCardActive, setIsCardActive] = useState(false);
-  const { isLoading, events, error } = useGetEvents();
+  const { isLoading, events, error, setTrigger } = useGetEvents();
   const { user } = useAuthContext();
+
+  useEffect(() => {
+    if (error) alert(error);
+  }, [error]);
 
   return (
     <div className={styles["event_page"]}>
@@ -28,7 +32,7 @@ const Events = () => {
                 onClick={() => setIsCardActive(!isCardActive)}
               />
             )}
-            {isCardActive && <AddEventCard />}
+            {isCardActive && <AddEventCard onNewItemAdd={setTrigger} />}
           </div>
           <div className={styles["events"]}>
             {isLoading ? (
@@ -41,6 +45,7 @@ const Events = () => {
                     isActive={true}
                     isCardActive={isCardActive}
                     event={event}
+                    trigger={setTrigger}
                   />
                 ))}
               </div>

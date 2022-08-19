@@ -110,9 +110,6 @@ function GalleryTemplate({ fname, sname, data = [], isLoading }) {
                 return (
                   <div key={index1} className={styles.gallery_img}>
                     {images.map(({ image }, index) => {
-                      console.log(
-                        `http://localhost:8000/api/v1/gallery/${image}`
-                      );
                       return (
                         <div key={index}>
                           <img

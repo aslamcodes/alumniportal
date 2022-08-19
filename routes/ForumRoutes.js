@@ -8,14 +8,20 @@ import {
   deleteReply,
   getAllPosts,
   getAllPosts_V2,
+  getCommentsOnPost,
   getPostImageById,
+  getRepliesOnComment,
   likePost,
   unlikePost,
 } from "../controllers/ForumController.js";
 import dotenv from "dotenv";
 import { GridFsStorage } from "multer-gridfs-storage";
 import multer from "multer";
-import { protect, alumni } from "../middleware/authMiddlewares.js";
+import {
+  protect,
+  alumni,
+  alumniOrAdmin,
+} from "../middleware/authMiddlewares.js";
 dotenv.config();
 
 const storage = new GridFsStorage({
@@ -41,11 +47,13 @@ const router = express.Router();
 router.get("/image/:id", getPostImageById);
 router.get("/feed", getAllPosts);
 router.get("/feed_v2_alpha/", getAllPosts_V2);
+router.get("/comments/:postId", getCommentsOnPost);
+router.get("/replies/:commentId", getRepliesOnComment);
 
 router.patch("/like/:id", protect, likePost);
 router.patch("/unlike/:id", protect, unlikePost);
 
-router.post("/", protect, alumni, upload.array("post_images", 6), createPost);
+router.post("/", protect, alumniOrAdmin, upload.array("images", 6), createPost);
 router.post("/comment/:id", protect, createComment);
 router.post("/reply/:id", protect, createReply);
 

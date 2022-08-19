@@ -1,11 +1,27 @@
 import { useAuthContext } from "context/auth/authContext";
+import useAxiosWithCallback from "hooks/useAxiosWithCallback";
 import React from "react";
 import styles from "./Testimonial.module.css";
-function Testimonial({ type, quotes, name, testimonialId }) {
+function Testimonial({ onDelete, quotes, name, testimonialId }) {
   const { user } = useAuthContext();
-  console.log(
-    `http://localhost:8000/api/v1/testimonial/user-image/${testimonialId}`
-  );
+
+  const { fetchData, error, isLoading } = useAxiosWithCallback();
+
+  const onTestimonialDelete = () => {
+    fetchData(
+      {
+        method: "delete",
+        url: `/api/v1/testimonial/${testimonialId}`,
+        headers: {
+          Authorization: `Bearer ${user?.token}`,
+        },
+      },
+      (res) => {
+        onDelete("Testimonial Deleted");
+      }
+    );
+  };
+
   return (
     <div className={`${styles["Testimonial"]} `}>
       <div className={styles["Testimonial-content"]}>
@@ -22,8 +38,11 @@ function Testimonial({ type, quotes, name, testimonialId }) {
         </div>
 
         {user?.isAdmin && (
-          <div className={` ${styles.testimonial_edit}`}>
-            <img src={require("assets/icons/block.png")} alt="edit icon" />
+          <div
+            onClick={onTestimonialDelete}
+            className={` ${styles.testimonial_edit}`}
+          >
+            <img src={require("assets/icons/block.png")} alt="edit-icon" />
           </div>
         )}
       </div>

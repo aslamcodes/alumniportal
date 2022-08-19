@@ -10,7 +10,7 @@ const useGetForumPosts = (offset = 0) => {
       url: `/api/v1/forum/feed_v2_alpha?offset=${offset}`,
     };
     fetchData(config, setPosts);
-  }, [offset]);
+  }, [offset, fetchData]);
 
   return { isLoading, error, posts };
 };

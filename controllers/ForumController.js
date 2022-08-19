@@ -21,8 +21,8 @@ conn.once("open", () => {
 
 export const createPost = asyncHandler(async (req, res, next) => {
   const { user } = req;
-  const { post } = req.body;
-  const { title, desc } = post;
+  const { title, desc } = req.body;
+
   const images = req.files.map((file) => file.id);
 
   const NewPost = await ForumPost.create({
@@ -67,12 +67,12 @@ export const getAllPosts = asyncHandler(async (req, res, next) => {
 
 export const getAllPosts_V2 = asyncHandler(async (req, res) => {
   const { offset = 0 } = req.query;
-  const pipeline = [];
-  const unwantedUserFields = [
+  const unwantedFields = [
     "user.password",
     "user.email",
     "user.createdAt",
     "user.updatedAt",
+    "user.__v",
   ];
   const ForumFeed = await ForumPost.aggregate([
     {
@@ -101,10 +101,28 @@ export const getAllPosts_V2 = asyncHandler(async (req, res) => {
           {
             $unwind: "$likes",
           },
+          {
+            $replaceRoot: {
+              newRoot: "$likes",
+            },
+          },
+          {
+            $lookup: {
+              from: "users",
+              localField: "user",
+              foreignField: "_id",
+              as: "user",
+            },
+          },
+          { $unwind: "$user" },
+          {
+            $unset: unwantedFields,
+          },
         ],
         as: "likes",
       },
     },
+
     {
       $lookup: {
         from: "forumcomments",
@@ -129,7 +147,7 @@ export const getAllPosts_V2 = asyncHandler(async (req, res) => {
             $unwind: "$user",
           },
           {
-            $unset: unwantedUserFields,
+            $unset: unwantedFields,
           },
           {
             $lookup: {
@@ -152,7 +170,7 @@ export const getAllPosts_V2 = asyncHandler(async (req, res) => {
                   },
                 },
                 {
-                  $unset: unwantedUserFields,
+                  $unset: unwantedFields,
                 },
                 {
                   $unwind: "$user",
@@ -166,7 +184,7 @@ export const getAllPosts_V2 = asyncHandler(async (req, res) => {
       },
     },
     {
-      $unset: unwantedUserFields,
+      $unset: unwantedFields,
     },
     {
       $unwind: "$user",
@@ -180,6 +198,36 @@ export const getAllPosts_V2 = asyncHandler(async (req, res) => {
   }
 
   res.json(ForumFeed);
+});
+
+export const getCommentsOnPost = asyncHandler(async (req, res) => {
+  const comments = await Comment.find({
+    post: req.params.postId,
+  }).populate("user");
+
+  if (!comments) {
+    return res.status(400).json({
+      message: "Couldn't get comments at the moment",
+    });
+  }
+
+  return res.json({ comments });
+});
+
+export const getRepliesOnComment = asyncHandler(async (req, res) => {
+  const replies = await Reply.find({
+    comment: req.params.commentId,
+  }).populate("user");
+
+  if (!replies) {
+    return res.status(400).json({
+      message: "Couldn't get replies at the moment",
+    });
+  }
+
+  res.json({
+    replies,
+  });
 });
 
 export const getPostImageById = asyncHandler(async (req, res) => {

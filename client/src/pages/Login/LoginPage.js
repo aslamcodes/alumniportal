@@ -21,7 +21,7 @@ function getWindowDimensions() {
 
 const LoginForm = () => {
   const navigate = useNavigate();
-  const dispatch = useAuthDispatchContext();
+  const authDispatch = useAuthDispatchContext();
   const location = useLocation();
 
   const [registerOptions, setRegisterOptions] = useState(false);
@@ -34,12 +34,12 @@ const LoginForm = () => {
   const { user, error, isLoading } = useAuthContext();
 
   const onSubmit = async ({ userName, password }) => {
-    await login(dispatch, { email: userName, password });
+    await login(authDispatch, { email: userName, password });
   };
 
   useEffect(() => {
     if (user) navigate(location?.state?.from ?? "/");
-  });
+  }, [user, navigate, location]);
 
   useEffect(() => {
     if (error) {

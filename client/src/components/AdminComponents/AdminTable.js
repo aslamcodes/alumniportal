@@ -6,12 +6,16 @@ import AdminTableRow from "./AdminTableRow";
 import { a, useSpring } from "react-spring";
 import useGetAlumni from "hooks/useFetchAlumni";
 import Loader from "components/UI/Loader";
+import useAxiosWithCallback from "hooks/useAxiosWithCallback";
+import { useAuthContext } from "context/auth/authContext";
 
 const AlumniTable = () => {
-  const { alumni, error, isLoading } = useGetAlumni(0);
+  const { alumni, error, isLoading, trigger } = useGetAlumni();
   const [entriesPerPage, setEntriesPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [tableHeadOnTop, setTableHeadOnTop] = useState(false);
+  const { fetchData: deleteAlumni } = useAxiosWithCallback();
+  const { user } = useAuthContext();
   const totalPages = alumni ? Math.ceil(alumni.length / entriesPerPage) : 0;
   const tableHeadRef = useRef(null);
 
@@ -23,6 +27,20 @@ const AlumniTable = () => {
       backgroundColor: tableHeadOnTop ? "#bddcf3" : "#e2e2e2",
     },
   });
+
+  const onDeleteAlumniHandler = async (userId) => {
+    const deleteConfig = {
+      headers: {
+        Authorization: `Bearer ${user?.token}`,
+      },
+      method: "delete",
+      url: `/api/v1/alumni/${userId}`,
+    };
+
+    await deleteAlumni(deleteConfig, () => {
+      trigger();
+    });
+  };
 
   const OnIncreaseHandler = () => {
     if (currentPage > totalPages - 1) return null;
@@ -67,7 +85,11 @@ const AlumniTable = () => {
               currentPage * entriesPerPage
             )
             .map((alumni) => (
-              <AdminTableRow alumni={alumni} type="alumni-details" />
+              <AdminTableRow
+                alumni={alumni}
+                type="alumni-details"
+                onDeleteAlumni={onDeleteAlumniHandler}
+              />
             ))}
         </tbody>
       </table>
