@@ -41,17 +41,8 @@ const Carousel = ({ testimonials, onDelete }) => {
     }
   });
 
-  const handlers = useSwipeable({
-    onSwipedLeft: () => {
-      rightButtonHandler();
-    },
-    onSwipedRight: () => {
-      leftButtonHandler();
-    },
-  });
-
   return (
-    <div {...handlers} className={styles["carousel"]}>
+    <div className={styles["carousel"]}>
       <div className={styles.navigate_left} onClick={leftButtonHandler}>
         <BsChevronLeft />
       </div>
