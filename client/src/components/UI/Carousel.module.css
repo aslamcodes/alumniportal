@@ -1,6 +1,6 @@
 .carousel {
+  position: relative;
   max-width: 100vw;
-
   overflow: hidden;
 }
 .inner {
@@ -13,4 +13,24 @@
   display: inline-block;
   align-items: center;
   justify-content: center;
+}
+
+.navigate_left,
+.navigate_right {
+  position: absolute;
+  padding: 2rem;
+  z-index: 10;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  border-radius: 50%;
+  font-size: 1.5rem;
+}
+
+.navigate_left {
+  left: 0;
+}
+
+.navigate_right {
+  right: 0;
 }
