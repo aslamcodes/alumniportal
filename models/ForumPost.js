@@ -11,6 +11,9 @@ const postSchema = new Schema(
       ref: "User",
       required: true,
     },
+    isApproved: {
+      type: Boolean,
+    },
     post: {
       images: [
         {

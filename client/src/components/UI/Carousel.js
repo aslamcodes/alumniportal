@@ -10,17 +10,17 @@ const Carousel = ({ testimonials, onDelete }) => {
   let scrollInterval = null;
   const leftButtonHandler = () => {
     if (activeIndex === 0) {
-      setActiveIndex((testimonials.length - 1));
+      setActiveIndex(testimonials.length - 1);
     } else {
-      setActiveIndex((activeIndex - 1));
+      setActiveIndex(activeIndex - 1);
     }
   };
 
   const rightButtonHandler = () => {
-    if (activeIndex === (testimonials.length - 1)) {
+    if (activeIndex === testimonials.length - 1) {
       setActiveIndex(0);
     } else {
-      setActiveIndex((activeIndex + 1));
+      setActiveIndex(activeIndex + 1);
     }
   };
 
@@ -35,24 +35,14 @@ const Carousel = ({ testimonials, onDelete }) => {
     if (!scrollPause) {
       scrollInterval = setTimeout(() => {
         setActiveIndex((activeIndex + 1) % testimonials.length);
-      }, 3500);
+        console.log("active" + activeIndex);
+      }, 5000);
       return () => clearTimeout(scrollInterval);
     }
   });
 
-  const handlers = useSwipeable({
-    onSwipedLeft: () => {
-      rightButtonHandler();
-    },
-    onSwipedRight: () => {
-      leftButtonHandler();
-    }
-  });
-
   return (
-    <div
-      {...handlers}
-      className={styles["carousel"]}>
+    <div className={styles["carousel"]}>
       <div className={styles.navigate_left} onClick={leftButtonHandler}>
         <BsChevronLeft />
       </div>

@@ -21,7 +21,7 @@ conn.once("open", () => {
 
 export const createPost = asyncHandler(async (req, res, next) => {
   const { user } = req;
-  const { title, desc } = req.body;
+  const { title, desc, isApproved } = req.body;
 
   const images = req.files.map((file) => file.id);
 
@@ -32,6 +32,7 @@ export const createPost = asyncHandler(async (req, res, next) => {
       images,
       desc,
     },
+    isApproved,
   });
   if (!NewPost) {
     return res.json({
@@ -41,7 +42,9 @@ export const createPost = asyncHandler(async (req, res, next) => {
 
   await Notification.create({
     user: user._id,
-    message: "Post has been created",
+    message: isApproved
+      ? "Post has been created"
+      : "Post created and will be reflected when its authorized by admin",
     type: notificationConstants.POST_CREATED,
     post: NewPost._id,
   });
@@ -75,6 +78,11 @@ export const getAllPosts_V2 = asyncHandler(async (req, res) => {
     "user.__v",
   ];
   const ForumFeed = await ForumPost.aggregate([
+    {
+      $match: {
+        isApproved: true,
+      },
+    },
     {
       $sort: { createdAt: -1 },
     },
@@ -247,6 +255,8 @@ export const getPostImageById = asyncHandler(async (req, res) => {
     res.json({ error: "No image found" });
   }
 });
+
+export const getPostRequests = asyncHandler(async (req, res) => {});
 
 export const createComment = asyncHandler(async (req, res, next) => {
   const { user } = req;
