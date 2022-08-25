@@ -42,7 +42,9 @@ export const createPost = asyncHandler(async (req, res, next) => {
 
   await Notification.create({
     user: user._id,
-    message: "Post has been created",
+    message: isApproved
+      ? "Post has been created"
+      : "Post created and will be reflected when its authorized by admin",
     type: notificationConstants.POST_CREATED,
     post: NewPost._id,
   });
@@ -253,6 +255,8 @@ export const getPostImageById = asyncHandler(async (req, res) => {
     res.json({ error: "No image found" });
   }
 });
+
+export const getPostRequests = asyncHandler(async (req, res) => {});
 
 export const createComment = asyncHandler(async (req, res, next) => {
   const { user } = req;

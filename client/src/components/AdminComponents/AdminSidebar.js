@@ -12,7 +12,7 @@ import {
   AiOutlineUsergroupAdd,
   AiOutlineUsergroupDelete,
 } from "react-icons/ai";
-import { MdOutlineReduceCapacity } from "react-icons/md";
+import { MdOutlineReduceCapacity, MdOutlinePostAdd } from "react-icons/md";
 import { BsCalendar4Event, BsPeople } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 
@@ -128,6 +128,17 @@ const AdminSidebar = ({ onClose }) => {
           <MdOutlineReduceCapacity />
           {sidebarItemTransistion((style, item) => {
             return item && <a.p style={style}>Office Bearers</a.p>;
+          })}
+        </div>
+        <div
+          className={Styles.sidebar_item}
+          onClick={() => {
+            navigate("/admin/post-requests");
+          }}
+        >
+          <MdOutlinePostAdd />
+          {sidebarItemTransistion((style, item) => {
+            return item && <a.p style={style}>Post Requests</a.p>;
           })}
         </div>
       </div>
