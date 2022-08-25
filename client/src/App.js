@@ -20,6 +20,7 @@ import {
   RegistrationPageFaculty,
   ForgotPassword,
 } from "pages";
+import AdminOfficeBearers from "pages/Admin/AdminOfficeBearers";
 
 function App() {
   return (
@@ -29,22 +30,37 @@ function App() {
           <Route path="/admin" element={<Admin />} />
           <Route path="/admin/request-details" element={<RequestDetails />} />
           <Route path="/admin/reject-details" element={<RejectDetails />} />
-
+          <Route
+            path="/admin/office-bearers"
+            element={<AdminOfficeBearers />}
+          />
           <Route element={<Navbar />}>
             <Route path="/alumni-forum" element={<AlumniForum />} />
           </Route>
           <Route element={<WithNavAndFooter />}>
             <Route index path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/register-alumni" element={<RegistrationPageAlumni />} />
-            <Route path="/register-student" element={<RegistrationPageStudent />} />
-            <Route path="/register-faculty" element={<RegistrationPageFaculty />} />
+            <Route
+              path="/register-alumni"
+              element={<RegistrationPageAlumni />}
+            />
+            <Route
+              path="/register-student"
+              element={<RegistrationPageStudent />}
+            />
+            <Route
+              path="/register-faculty"
+              element={<RegistrationPageFaculty />}
+            />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/events" element={<Events />} />
             <Route path="/gallery" element={<GalleryPage />} />
             <Route path="/gallery/alumni-meet" element={<AlumniMeet />} />
             <Route path="/gallery/all-photos" element={<AllPhotos />} />
-            <Route path="/gallery/seminar-sessions" element={<SeminarSessions />} />
+            <Route
+              path="/gallery/seminar-sessions"
+              element={<SeminarSessions />}
+            />
             <Route path="/office-bearers" element={<OfficeBearers />} />
           </Route>
         </Routes>
