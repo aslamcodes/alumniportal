@@ -42,6 +42,9 @@
   gap: 1rem;
   font-size: 0.9em;
 }
+.form_section {
+  width: 100%;
+}
 .form_header {
   font-size: 1em;
   text-align: center;
