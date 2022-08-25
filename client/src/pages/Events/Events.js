@@ -4,10 +4,11 @@ import AddEventCard from "components/EventComponents/AddEventCard";
 import styles from "./Events.module.css";
 import useGetEvents from "hooks/useGetEvents";
 import Loader from "components/UI/Loader";
+import { AiOutlinePlus } from "react-icons/ai";
 import { useAuthContext } from "context/auth/authContext";
 
 const Events = () => {
-  const [isActive, setIsActive] = useState(false);
+  // const [isActive, setIsActive] = useState(false);
   const [isCardActive, setIsCardActive] = useState(false);
   const { isLoading, events, error, setTrigger } = useGetEvents();
   const { user } = useAuthContext();
@@ -17,7 +18,7 @@ const Events = () => {
   }, [error]);
 
   return (
-    <div className={styles["event_page"]}>
+    <div className={styles["event_page"]} onClick={() => isCardActive && setIsCardActive(false)}>
       <div className={styles["event_body"]}>
         <div className={styles["event_page_content"]}>
           <div className={styles["header"]}>
@@ -26,11 +27,14 @@ const Events = () => {
             </h2>
             {user?.isAdmin && (
               <div
-                className={`${styles["add_event_button"]} ${
-                  isCardActive && styles["active"]
-                }`}
+                className={styles.add_event_button}
                 onClick={() => setIsCardActive(!isCardActive)}
-              />
+              >
+                <p>Add Event</p>
+                <div className={`${styles.add_event_icon} ${isCardActive && styles.active}`}>
+                  <AiOutlinePlus />
+                </div>
+              </div>
             )}
             {isCardActive && <AddEventCard onNewItemAdd={setTrigger} />}
           </div>
@@ -39,10 +43,10 @@ const Events = () => {
               <Loader />
             ) : (
               <div className={styles["child"]}>
-                {events.map((event) => (
+                {events.map((event, index) => (
                   <EventCard
                     isAdmin={user?.isAdmin}
-                    isActive={true}
+                    isActive={index === 0 ? true : false}
                     isCardActive={isCardActive}
                     event={event}
                     trigger={setTrigger}

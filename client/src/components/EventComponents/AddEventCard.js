@@ -65,7 +65,7 @@ const AddEventCard = ({ onNewItemAdd }) => {
   };
 
   return (
-    <div className={styles.add_event_card}>
+    <div className={styles.add_event_card} onClick={(e) => e.stopPropagation()}>
       <form onSubmit={handleSubmit}>
         <div className={styles.input_container}>
           <label htmlFor="eventName">Title</label>
@@ -118,7 +118,7 @@ const AddEventCard = ({ onNewItemAdd }) => {
             type="text"
             name="location"
             id="eventLocation"
-            placeholder="@venue"
+            placeholder="venue"
             value={eventData.location}
             onChange={handleChange}
           />

@@ -31,25 +31,36 @@
   font-size: 2.3rem;
 }
 
-.header .add_event_button::after {
-  content: "+";
-  position: absolute;
-  right: 0;
+.add_event_button {
+  display: flex;
+  align-items: center;
+  right: max(2rem, 2vw);
+  bottom: 3rem;
+  padding: 0.05em 0.05em 0.05em 1em;
+  border-radius: 2rem;
+  background: #fff;
+  font-size: 1em;
+  gap: 0.5rem;
+  z-index: 5;
+  cursor: pointer;
+}
+.add_event_button > p {
+  font-weight: bold;
+  color: rgb(50, 50, 50);
+}
+.add_event_icon {
   display: grid;
   place-items: center;
-  width: 1.7em;
-  height: 1.7em;
+  width: 2em;
+  height: 2em;
   background-color: #0676cc;
-  border-radius: 50%;
   color: #fff;
-  font-size: 1em;
-  font-weight: bold;
-  font-family: "Old Standard TT", serif;
+  clip-path: circle();
+  font-size: 1.2em;
+  transform: rotate(0);
   transition: transform 0.2s linear;
-  transform-origin: center center;
 }
-
-.add_event_button.active::after {
+.add_event_icon.active {
   transform: rotate(135deg);
 }
 
@@ -58,13 +69,17 @@
   margin: 1.8rem 0.7rem;
   max-width: 100%;
   overflow-x: scroll;
-  scroll-snap-type: x mandatory;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;
+}
+
+.events::-webkit-scrollbar {
+  display: none;
 }
 
 .events .child {
   display: flex;
   flex-direction: row;
-  scroll-snap-align: start;
 }
 
 @media (min-width: 790px) {
