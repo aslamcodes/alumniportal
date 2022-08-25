@@ -45,13 +45,15 @@ const PostRequestTable = () => {
             Created by <strong>{request.user.name}</strong> Register Number{" "}
             <strong>{request.user.registerNumber}</strong>
           </p>
-          <button
-            onClick={() => {
-              onApproveHandler(request._id);
-            }}
-          >
-            Approve
-          </button>
+          {!request.postData.isApproved && (
+            <button
+              onClick={() => {
+                onApproveHandler(request._id);
+              }}
+            >
+              Approve
+            </button>
+          )}
         </>
       ))}
     </div>
