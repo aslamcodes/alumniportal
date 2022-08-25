@@ -26,9 +26,8 @@ const Events = () => {
             </h2>
             {user?.isAdmin && (
               <div
-                className={`${styles["add_event_button"]} ${
-                  isCardActive && styles["active"]
-                }`}
+                className={`${styles["add_event_button"]} ${isCardActive && styles["active"]
+                  }`}
                 onClick={() => setIsCardActive(!isCardActive)}
               />
             )}
@@ -39,10 +38,10 @@ const Events = () => {
               <Loader />
             ) : (
               <div className={styles["child"]}>
-                {events.map((event) => (
+                {events.map((event, index) => (
                   <EventCard
                     isAdmin={user?.isAdmin}
-                    isActive={true}
+                    isActive={index === 0 ? true : false}
                     isCardActive={isCardActive}
                     event={event}
                     trigger={setTrigger}
