@@ -31,6 +31,8 @@ function RegistrationPageAlumni() {
     yearOfPassing: "",
     companyName: "",
     companyEmail: "",
+    companyPan: "",
+    companyTin: "",
     secondaryCollegeName: "",
     courseName: "",
     designation: "",
@@ -138,28 +140,43 @@ function RegistrationPageAlumni() {
               </div>
 
               <form onSubmit={handleSubmit}>
-                <section>
+                <section className={styles.form_section}>
                   {formOptions.isEntrepreneur && (
-                    <div
-                      className={`${styles.form_input_container} ${styles.split_container}`}
-                    >
-                      <input
-                        name="companyName"
-                        type="text"
-                        id="companyName"
-                        placeholder="Company Name"
-                        value={data.companyName}
-                        onChange={handleChange}
-                      />
-                      <input
-                        name="companyEmail"
-                        type="text"
-                        id="companyEmail"
-                        placeholder="Company Email ID"
-                        value={data.companyEmail}
-                        onChange={handleChange}
-                      />
-                    </div>
+                    <section>
+                      <div
+                        className={`${styles.form_input_container} `}
+                      >
+                        <input
+                          name="companyName"
+                          type="text"
+                          id="companyName"
+                          placeholder="Company Name"
+                          value={data.companyName}
+                          onChange={handleChange}
+                        />
+
+                      </div>
+                      <div
+                        className={`${styles.form_input_container} ${styles.split_container}`}
+                      >
+                        <input
+                          name="companyPanNumber"
+                          type="text"
+                          id="companyPanNumber"
+                          placeholder="Company Pan"
+                          value={data.companyPan}
+                          onChange={handleChange}
+                        />
+                        <input
+                          name="companyTinNumber"
+                          type="text"
+                          id="companyTinNumber"
+                          placeholder="Company Tin"
+                          value={data.companyTin}
+                          onChange={handleChange}
+                        />
+                      </div>
+                    </section>
                   )}
                   {formOptions.isInHigherStudies && (
                     <div
@@ -185,16 +202,6 @@ function RegistrationPageAlumni() {
                   )}
                   <div className={styles.form_input_container}>
                     <input
-                      name="designation"
-                      type="text"
-                      id="designation"
-                      placeholder="Your designation (working professional)"
-                      value={data.designation}
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className={styles.form_input_container}>
-                    <input
                       name="organization"
                       type="text"
                       id="organization"
@@ -203,36 +210,29 @@ function RegistrationPageAlumni() {
                       onChange={handleChange}
                     />
                   </div>
-                  {/* <div
-                    className={`${styles.form_input_container} ${styles.split_container}`}
+                  <div className={styles.form_input_container}>
+                    <input
+                      name="designation"
+                      type="text"
+                      id="designation"
+                      placeholder="Your designation (working professional)"
+                      value={data.designation}
+                      onChange={handleChange}
+                    />
+                  </div>
+                  <div
+                    className={`${styles.form_input_container} `}
                   >
                     <input
-                      name="city"
+                      name="companyEmail"
                       type="text"
-                      id="city"
-                      placeholder="Select your city"
-                      value={data.city}
+                      id="companyEmail"
+                      placeholder="Company Email ID"
+                      value={data.companyEmail}
                       onChange={handleChange}
                     />
-                    <input
-                      name="state"
-                      type="text"
-                      id="state"
-                      placeholder="Select your state"
-                      value={data.state}
-                      onChange={handleChange}
-                    />
-                  </div> */}
-                  {/* <div className={styles.form_input_container}>
-                    <input
-                      name="country"
-                      type="text"
-                      id="country"
-                      placeholder="Select your country"
-                      value={data.country}
-                      onChange={handleChange}
-                    />
-                  </div> */}
+                  </div>
+
 
                   <div className={`${styles.form_button_container}`}>
                     <button type="submit"> Submit</button>
