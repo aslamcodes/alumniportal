@@ -42,7 +42,9 @@ export const createPost = asyncHandler(async (req, res, next) => {
 
   await Notification.create({
     user: user._id,
-    message: "Post has been created",
+    message: isApproved
+      ? "Post has been created"
+      : "Post created and will be reflected when its authorized by admin",
     type: notificationConstants.POST_CREATED,
     post: NewPost._id,
   });
