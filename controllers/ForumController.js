@@ -5,7 +5,7 @@ import Comment from "../models/ForumComment.js";
 import Reply from "../models/ForumCommentReply.js";
 import mongoose from "mongoose";
 import Grid from "gridfs-stream";
-
+import ForumPostRequest from "../models/ForumPostRequest.js";
 import ForumCommentReply from "../models/ForumCommentReply.js";
 import Notification from "../models/Notification.js";
 import notificationConstants from "../constants/notification-constants.js";
@@ -18,6 +18,14 @@ conn.once("open", () => {
   });
   gfs = Grid(conn.db, mongoose.mongo);
 });
+
+const unwantedUserFields = [
+  "user.password",
+  "user.email",
+  "user.createdAt",
+  "user.updatedAt",
+  "user.__v",
+];
 
 export const createPost = asyncHandler(async (req, res, next) => {
   const { user } = req;
@@ -37,6 +45,15 @@ export const createPost = asyncHandler(async (req, res, next) => {
   if (!NewPost) {
     return res.json({
       error: "Something went wrong. Please try again later.",
+    });
+  }
+
+  console.log(isApproved);
+
+  if (isApproved === "false") {
+    console.log("Its a brat");
+    await ForumPostRequest.create({
+      post: NewPost._id,
     });
   }
 
@@ -70,13 +87,7 @@ export const getAllPosts = asyncHandler(async (req, res, next) => {
 
 export const getAllPosts_V2 = asyncHandler(async (req, res) => {
   const { offset = 0 } = req.query;
-  const unwantedFields = [
-    "user.password",
-    "user.email",
-    "user.createdAt",
-    "user.updatedAt",
-    "user.__v",
-  ];
+  const unwantedFields = [...unwantedUserFields];
   const ForumFeed = await ForumPost.aggregate([
     {
       $match: {
@@ -256,7 +267,65 @@ export const getPostImageById = asyncHandler(async (req, res) => {
   }
 });
 
-export const getPostRequests = asyncHandler(async (req, res) => {});
+export const getPostRequests = asyncHandler(async (req, res) => {
+  const unwantedFields = ["post.__v", ...unwantedUserFields];
+
+  const postRequests = await ForumPostRequest.aggregate([
+    {
+      $sort: {
+        createdAt: -1,
+      },
+    },
+    {
+      $lookup: {
+        localField: "post",
+        from: "forumposts",
+        as: "post",
+        foreignField: "_id",
+        pipeline: [
+          {
+            $lookup: {
+              localField: "user",
+              from: "users",
+              as: "user",
+              foreignField: "_id",
+            },
+          },
+
+          {
+            $unset: unwantedUserFields,
+          },
+        ],
+      },
+    },
+
+    {
+      $lookup: {
+        localField: "approvedBy",
+        from: "users",
+        as: "approvedBy",
+        foreignField: "_id",
+      },
+    },
+    {
+      $unwind: { path: "$approvedBy", preserveNullAndEmptyArrays: true },
+    },
+    {
+      $unwind: { path: "$post", preserveNullAndEmptyArrays: true },
+    },
+    {
+      $unset: unwantedFields,
+    },
+  ]);
+
+  if (!postRequests) {
+    return res.status(400).json({
+      message: "There's no new requests",
+    });
+  }
+
+  return res.json(postRequests);
+});
 
 export const createComment = asyncHandler(async (req, res, next) => {
   const { user } = req;
