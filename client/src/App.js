@@ -21,6 +21,7 @@ import {
   ForgotPassword,
 } from "pages";
 import AdminOfficeBearers from "pages/Admin/AdminOfficeBearers";
+import PostRequest from "pages/Admin/PostRequest";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path="/admin" element={<Admin />} />
           <Route path="/admin/request-details" element={<RequestDetails />} />
           <Route path="/admin/reject-details" element={<RejectDetails />} />
+          <Route path="/admin/post-requests" element={<PostRequest />} />
           <Route
             path="/admin/office-bearers"
             element={<AdminOfficeBearers />}
