@@ -1,14 +1,14 @@
 import React from "react";
 import Styles from "./Admin.module.css";
 import AdminSidebar from "components/AdminComponents/AdminSidebar";
-import RequestTable from "components/AdminComponents/RequestTable";
+import PostRequestTable from "components/AdminComponents/PostRequestTable";
 
 const PostRequest = () => {
   return (
     <div className={Styles.admin_container}>
       <AdminSidebar />
       <main className={Styles.main}>
-        <RequestTable />
+        <PostRequestTable />
       </main>
     </div>
   );

@@ -8,4 +8,6 @@ export default {
   POST_CREATED: "post-created",
   POST_UPDATED: "post-updated",
   POST_DELETED: "post-deleted",
+  POST_APPROVED: "post-approved",
+  POST_APPROVAL_REQUESTED: "post-approved",
 };

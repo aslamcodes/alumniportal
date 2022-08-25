@@ -48,12 +48,10 @@ export const createPost = asyncHandler(async (req, res, next) => {
     });
   }
 
-  console.log(isApproved);
-
   if (isApproved === "false") {
-    console.log("Its a brat");
     await ForumPostRequest.create({
       post: NewPost._id,
+      createdBy: user._id,
     });
   }
 
@@ -62,7 +60,9 @@ export const createPost = asyncHandler(async (req, res, next) => {
     message: isApproved
       ? "Post has been created"
       : "Post created and will be reflected when its authorized by admin",
-    type: notificationConstants.POST_CREATED,
+    type: isApproved
+      ? notificationConstants.POST_CREATED
+      : notificationConstants.POST_APPROVAL_REQUESTED,
     post: NewPost._id,
   });
 
@@ -280,25 +280,28 @@ export const getPostRequests = asyncHandler(async (req, res) => {
       $lookup: {
         localField: "post",
         from: "forumposts",
-        as: "post",
+        as: "postData",
         foreignField: "_id",
-        pipeline: [
-          {
-            $lookup: {
-              localField: "user",
-              from: "users",
-              as: "user",
-              foreignField: "_id",
-            },
-          },
-
-          {
-            $unset: unwantedUserFields,
-          },
-        ],
+      },
+    },
+    {
+      $lookup: {
+        localField: "postData.user",
+        from: "users",
+        as: "user",
+        foreignField: "_id",
       },
     },
 
+    {
+      $unset: unwantedUserFields,
+    },
+    {
+      $unwind: {
+        path: "$user",
+        preserveNullAndEmptyArrays: true,
+      },
+    },
     {
       $lookup: {
         localField: "approvedBy",
@@ -314,7 +317,7 @@ export const getPostRequests = asyncHandler(async (req, res) => {
       $unwind: { path: "$approvedBy", preserveNullAndEmptyArrays: true },
     },
     {
-      $unwind: { path: "$post", preserveNullAndEmptyArrays: true },
+      $unwind: { path: "$postData", preserveNullAndEmptyArrays: true },
     },
     {
       $unset: unwantedFields,
@@ -344,6 +347,12 @@ export const approvePost = asyncHandler(async (req, res) => {
   request.approvedBy = user?._id;
   await post.save();
   await request.save();
+
+  await Notification.create({
+    user: request.createdBy,
+    type: notificationConstants.POST_APPROVED,
+    message: "Your post has been approved by alumni.",
+  });
 
   return res.json({
     message: "Post Approved Successfully",
