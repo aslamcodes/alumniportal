@@ -22,6 +22,7 @@ import {
 } from "pages";
 import AdminOfficeBearers from "pages/Admin/AdminOfficeBearers";
 import PostRequest from "pages/Admin/PostRequest";
+import EventRequest from "pages/Admin/EventRequest";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
           <Route path="/admin/request-details" element={<RequestDetails />} />
           <Route path="/admin/reject-details" element={<RejectDetails />} />
           <Route path="/admin/post-requests" element={<PostRequest />} />
+          <Route path="/admin/event-requests" element={<EventRequest />} />
           <Route
             path="/admin/office-bearers"
             element={<AdminOfficeBearers />}

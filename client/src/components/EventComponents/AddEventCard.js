@@ -36,6 +36,7 @@ const AddEventCard = ({ onNewItemAdd }) => {
       url: "/api/v1/events/",
       method: "post",
     };
+
     await addEvent({
       ...eventConfig,
       data: {
@@ -50,6 +51,8 @@ const AddEventCard = ({ onNewItemAdd }) => {
         ).toISOString(),
 
         venue: eventData.location,
+
+        isApproved: user?.isAlumni || user?.isAdmin,
       },
     });
 
@@ -62,6 +65,12 @@ const AddEventCard = ({ onNewItemAdd }) => {
     });
 
     onNewItemAdd((prev) => !prev);
+
+    alert(
+      user?.isAlumni || user?.isAdmin
+        ? "Event Created Successfully"
+        : "Event details has sent to admin for verification, You will be notified shortly"
+    );
   };
 
   return (

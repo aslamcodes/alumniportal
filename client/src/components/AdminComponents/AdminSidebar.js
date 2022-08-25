@@ -12,7 +12,11 @@ import {
   AiOutlineUsergroupAdd,
   AiOutlineUsergroupDelete,
 } from "react-icons/ai";
-import { MdOutlineReduceCapacity, MdOutlinePostAdd } from "react-icons/md";
+import {
+  MdOutlineReduceCapacity,
+  MdOutlinePostAdd,
+  MdOutlineEvent,
+} from "react-icons/md";
 import { BsCalendar4Event, BsPeople } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 
@@ -28,7 +32,7 @@ const AdminSidebar = ({ onClose }) => {
       width: "6rem",
     },
     to: {
-      width: isExpanded ? "15rem" : "6rem",
+      width: isExpanded ? "18rem" : "6rem",
     },
   });
 
@@ -139,6 +143,17 @@ const AdminSidebar = ({ onClose }) => {
           <MdOutlinePostAdd />
           {sidebarItemTransistion((style, item) => {
             return item && <a.p style={style}>Post Requests</a.p>;
+          })}
+        </div>
+        <div
+          className={Styles.sidebar_item}
+          onClick={() => {
+            navigate("/admin/event-requests");
+          }}
+        >
+          <MdOutlineEvent />
+          {sidebarItemTransistion((style, item) => {
+            return item && <a.p style={style}>Event Requests</a.p>;
           })}
         </div>
       </div>
