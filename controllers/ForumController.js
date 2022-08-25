@@ -256,6 +256,8 @@ export const getPostImageById = asyncHandler(async (req, res) => {
   }
 });
 
+export const getPostRequests = asyncHandler(async (req, res) => {});
+
 export const createComment = asyncHandler(async (req, res, next) => {
   const { user } = req;
   const post = req.params.id;
