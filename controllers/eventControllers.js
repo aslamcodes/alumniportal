@@ -2,12 +2,15 @@ import Event from "../models/Event.js";
 import asyncHandler from "express-async-handler";
 
 export const createEvent = asyncHandler(async (req, res) => {
-  const { eventName, startDate, endDate, venue } = req.body;
+  const { eventName, startDate, endDate, venue, isApproved } = req.body;
+  const { user } = req;
   const event = await Event.create({
     eventName,
     startDate,
     endDate,
     venue,
+    isApproved,
+    createdBy: user,
   });
   if (event) {
     res.status(201).json({
@@ -26,7 +29,18 @@ export const createEvent = asyncHandler(async (req, res) => {
 });
 
 export const getEvents = asyncHandler(async (req, res) => {
-  const events = await Event.find();
+  const events = await Event.aggregate([
+    {
+      $match: {
+        isApproved: true,
+      },
+    },
+    {
+      $sort: {
+        startDate: 1,
+      },
+    },
+  ]);
   if (events) {
     res.status(200).json(events);
   } else {
@@ -34,6 +48,57 @@ export const getEvents = asyncHandler(async (req, res) => {
       error: "Events could not be found",
     });
   }
+});
+
+export const getNewEventsRequests = asyncHandler(async (req, res) => {
+  const requests = await Event.aggregate([
+    {
+      $lookup: {
+        from: "users",
+        localField: "createdBy",
+        foreignField: "_id",
+        as: "createdBy",
+      },
+    },
+    {
+      $lookup: {
+        from: "users",
+        localField: "approvedBy",
+        foreignField: "_id",
+        as: "approvedBy",
+      },
+    },
+    {
+      $unwind: {
+        path: "$createdBy",
+        preserveNullAndEmptyArrays: true,
+      },
+    },
+    {
+      $unwind: {
+        path: "$approvedBy",
+        preserveNullAndEmptyArrays: true,
+      },
+    },
+    {
+      $unset: [
+        "createdBy.password",
+        "createdBy.createdAt",
+        "createdBy.updatedAt",
+        "createdBy.alumni",
+        "createdBy.isAdmin",
+        "createdBy.__v",
+        "__v",
+      ],
+    },
+  ]);
+
+  if (!requests)
+    return res.status(400).json({
+      message: "No Requests Found",
+    });
+
+  return res.json(requests);
 });
 
 export const getEventById = asyncHandler(async (req, res) => {
@@ -58,6 +123,17 @@ export const updateEvent = asyncHandler(async (req, res) => {
       error: "Event could not be updated",
     });
   }
+});
+
+export const approveEvent = asyncHandler(async (req, res) => {
+  const { id: eventId } = req.params;
+  const { user } = req;
+  const event = await Event.findById(eventId);
+  if (!event) return res.status(400).json({ message: "Event not found" });
+  event.isApproved = true;
+  event.approvedBy = user;
+  await event.save();
+  return res.json({ message: "Event Approved Successfully" });
 });
 
 export const deleteEvent = asyncHandler(async (req, res) => {

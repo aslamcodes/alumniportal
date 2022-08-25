@@ -8,7 +8,6 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { useAuthContext } from "context/auth/authContext";
 
 const Events = () => {
-  // const [isActive, setIsActive] = useState(false);
   const [isCardActive, setIsCardActive] = useState(false);
   const { isLoading, events, error, setTrigger } = useGetEvents();
   const { user } = useAuthContext();
@@ -18,20 +17,27 @@ const Events = () => {
   }, [error]);
 
   return (
-    <div className={styles["event_page"]} onClick={() => isCardActive && setIsCardActive(false)}>
+    <div
+      className={styles["event_page"]}
+      onClick={() => isCardActive && setIsCardActive(false)}
+    >
       <div className={styles["event_body"]}>
         <div className={styles["event_page_content"]}>
           <div className={styles["header"]}>
             <h2>
               <span>U</span>PCOMING <span>E</span>VENTS
             </h2>
-            {user?.isAdmin && (
+            {user?.token && (
               <div
                 className={styles.add_event_button}
                 onClick={() => setIsCardActive(!isCardActive)}
               >
                 <p>Add Event</p>
-                <div className={`${styles.add_event_icon} ${isCardActive && styles.active}`}>
+                <div
+                  className={`${styles.add_event_icon} ${
+                    isCardActive && styles.active
+                  }`}
+                >
                   <AiOutlinePlus />
                 </div>
               </div>

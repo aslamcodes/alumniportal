@@ -5,15 +5,22 @@ import {
   createEvent,
   deleteEvent,
   updateEvent,
+  getNewEventsRequests,
+  approveEvent,
 } from "../controllers/eventControllers.js";
 import { admin, protect } from "../middleware/authMiddlewares.js";
 
 const router = express.Router();
 
 router.get("/", getEvents);
+router.get("/requests", getNewEventsRequests);
 router.get("/:id", getEventById);
-router.post("/", protect, admin, createEvent);
+
+router.post("/", protect, createEvent);
+
 router.patch("/:id", protect, admin, updateEvent);
+router.patch("/approve/:id", protect, admin, approveEvent);
+
 router.delete("/:id", protect, admin, deleteEvent);
 
 export default router;
