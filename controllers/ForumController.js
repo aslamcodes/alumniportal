@@ -308,6 +308,9 @@ export const getPostRequests = asyncHandler(async (req, res) => {
       },
     },
     {
+      $unset: unwantedUserFields.map((field) => "approvedBy" + field.slice(4)),
+    },
+    {
       $unwind: { path: "$approvedBy", preserveNullAndEmptyArrays: true },
     },
     {
@@ -325,6 +328,26 @@ export const getPostRequests = asyncHandler(async (req, res) => {
   }
 
   return res.json(postRequests);
+});
+
+export const approvePost = asyncHandler(async (req, res) => {
+  const { user } = req;
+  const { id: requestId } = req.params;
+  const request = await ForumPostRequest.findById(requestId);
+  const post = await ForumPost.findById(request.post);
+
+  if (!post || !request) {
+    return res.status(400).json("Invalid Request Id");
+  }
+
+  post.isApproved = true;
+  request.approvedBy = user?._id;
+  await post.save();
+  await request.save();
+
+  return res.json({
+    message: "Post Approved Successfully",
+  });
 });
 
 export const createComment = asyncHandler(async (req, res, next) => {

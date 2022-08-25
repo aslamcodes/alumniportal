@@ -1,5 +1,6 @@
 import express from "express";
 import {
+  approvePost,
   createComment,
   createPost,
   createReply,
@@ -22,6 +23,7 @@ import {
   protect,
   alumni,
   alumniOrAdmin,
+  admin,
 } from "../middleware/authMiddlewares.js";
 dotenv.config();
 
@@ -54,6 +56,7 @@ router.get("/replies/:commentId", getRepliesOnComment);
 
 router.patch("/like/:id", protect, likePost);
 router.patch("/unlike/:id", protect, unlikePost);
+router.patch("/approve-post/:id", protect, admin, approvePost);
 
 router.post("/", protect, upload.array("images", 6), createPost);
 router.post("/comment/:id", protect, createComment);
