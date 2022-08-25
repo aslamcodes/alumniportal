@@ -5,7 +5,7 @@ import Comment from "../models/ForumComment.js";
 import Reply from "../models/ForumCommentReply.js";
 import mongoose from "mongoose";
 import Grid from "gridfs-stream";
-
+import ForumPostRequest from "../models/ForumPostRequest.js";
 import ForumCommentReply from "../models/ForumCommentReply.js";
 import Notification from "../models/Notification.js";
 import notificationConstants from "../constants/notification-constants.js";
@@ -18,6 +18,14 @@ conn.once("open", () => {
   });
   gfs = Grid(conn.db, mongoose.mongo);
 });
+
+const unwantedUserFields = [
+  "user.password",
+  "user.email",
+  "user.createdAt",
+  "user.updatedAt",
+  "user.__v",
+];
 
 export const createPost = asyncHandler(async (req, res, next) => {
   const { user } = req;
@@ -40,12 +48,21 @@ export const createPost = asyncHandler(async (req, res, next) => {
     });
   }
 
+  if (isApproved === "false") {
+    await ForumPostRequest.create({
+      post: NewPost._id,
+      createdBy: user._id,
+    });
+  }
+
   await Notification.create({
     user: user._id,
     message: isApproved
       ? "Post has been created"
       : "Post created and will be reflected when its authorized by admin",
-    type: notificationConstants.POST_CREATED,
+    type: isApproved
+      ? notificationConstants.POST_CREATED
+      : notificationConstants.POST_APPROVAL_REQUESTED,
     post: NewPost._id,
   });
 
@@ -70,13 +87,7 @@ export const getAllPosts = asyncHandler(async (req, res, next) => {
 
 export const getAllPosts_V2 = asyncHandler(async (req, res) => {
   const { offset = 0 } = req.query;
-  const unwantedFields = [
-    "user.password",
-    "user.email",
-    "user.createdAt",
-    "user.updatedAt",
-    "user.__v",
-  ];
+  const unwantedFields = [...unwantedUserFields];
   const ForumFeed = await ForumPost.aggregate([
     {
       $match: {
@@ -256,7 +267,97 @@ export const getPostImageById = asyncHandler(async (req, res) => {
   }
 });
 
-export const getPostRequests = asyncHandler(async (req, res) => {});
+export const getPostRequests = asyncHandler(async (req, res) => {
+  const unwantedFields = ["post.__v", ...unwantedUserFields];
+
+  const postRequests = await ForumPostRequest.aggregate([
+    {
+      $sort: {
+        createdAt: -1,
+      },
+    },
+    {
+      $lookup: {
+        localField: "post",
+        from: "forumposts",
+        as: "postData",
+        foreignField: "_id",
+      },
+    },
+    {
+      $lookup: {
+        localField: "postData.user",
+        from: "users",
+        as: "user",
+        foreignField: "_id",
+      },
+    },
+
+    {
+      $unset: unwantedUserFields,
+    },
+    {
+      $unwind: {
+        path: "$user",
+        preserveNullAndEmptyArrays: true,
+      },
+    },
+    {
+      $lookup: {
+        localField: "approvedBy",
+        from: "users",
+        as: "approvedBy",
+        foreignField: "_id",
+      },
+    },
+    {
+      $unset: unwantedUserFields.map((field) => "approvedBy" + field.slice(4)),
+    },
+    {
+      $unwind: { path: "$approvedBy", preserveNullAndEmptyArrays: true },
+    },
+    {
+      $unwind: { path: "$postData", preserveNullAndEmptyArrays: true },
+    },
+    {
+      $unset: unwantedFields,
+    },
+  ]);
+
+  if (!postRequests) {
+    return res.status(400).json({
+      message: "There's no new requests",
+    });
+  }
+
+  return res.json(postRequests);
+});
+
+export const approvePost = asyncHandler(async (req, res) => {
+  const { user } = req;
+  const { id: requestId } = req.params;
+  const request = await ForumPostRequest.findById(requestId);
+  const post = await ForumPost.findById(request.post);
+
+  if (!post || !request) {
+    return res.status(400).json("Invalid Request Id");
+  }
+
+  post.isApproved = true;
+  request.approvedBy = user?._id;
+  await post.save();
+  await request.save();
+
+  await Notification.create({
+    user: request.createdBy,
+    type: notificationConstants.POST_APPROVED,
+    message: "Your post has been approved by alumni.",
+  });
+
+  return res.json({
+    message: "Post Approved Successfully",
+  });
+});
 
 export const createComment = asyncHandler(async (req, res, next) => {
   const { user } = req;

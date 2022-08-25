@@ -1,5 +1,6 @@
 import express from "express";
 import {
+  approvePost,
   createComment,
   createPost,
   createReply,
@@ -10,6 +11,7 @@ import {
   getAllPosts_V2,
   getCommentsOnPost,
   getPostImageById,
+  getPostRequests,
   getRepliesOnComment,
   likePost,
   unlikePost,
@@ -21,6 +23,7 @@ import {
   protect,
   alumni,
   alumniOrAdmin,
+  admin,
 } from "../middleware/authMiddlewares.js";
 dotenv.config();
 
@@ -47,11 +50,13 @@ const router = express.Router();
 router.get("/image/:id", getPostImageById);
 router.get("/feed", getAllPosts);
 router.get("/feed_v2_alpha/", getAllPosts_V2);
+router.get("/post-requests", getPostRequests);
 router.get("/comments/:postId", getCommentsOnPost);
 router.get("/replies/:commentId", getRepliesOnComment);
 
 router.patch("/like/:id", protect, likePost);
 router.patch("/unlike/:id", protect, unlikePost);
+router.patch("/approve-post/:id", protect, admin, approvePost);
 
 router.post("/", protect, upload.array("images", 6), createPost);
 router.post("/comment/:id", protect, createComment);
