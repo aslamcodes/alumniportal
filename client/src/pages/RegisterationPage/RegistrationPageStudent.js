@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import styles from "./RegistrationPageStudent.module.css";
 import Compguy from "assets/compguy.png";
@@ -8,6 +8,7 @@ import {
   useAuthDispatchContext,
 } from "context/auth/authContext";
 import Loader from "components/UI/Loader";
+import { useFetchAlumniStoredData } from "hooks/useFetchAlumniStoredData";
 
 const currentYear = new Date().getFullYear();
 const range = (start, stop, step) =>
@@ -40,11 +41,27 @@ function RegistrationPageStudent() {
     skill: "",
   });
 
+  const emailRef = useRef("");
+  const registerNumberRef = useRef("");
+  const departmentRef = useRef("");
+
+  const temp = useFetchAlumniStoredData({
+    email: emailRef.current,
+    registerNumber: registerNumberRef.current,
+    department: departmentRef.current,
+  });
+
   const handleChange = (e) => {
     setData({
       ...data,
       [e.target.name]: e.target.value,
     });
+  };
+
+  const handleInputBlur = (e) => {
+    emailRef.current = data.email;
+    registerNumberRef.current = data.registerNumber;
+    departmentRef.current = data.department;
   };
 
   const handleSubmit = async (e) => {
@@ -117,6 +134,7 @@ function RegistrationPageStudent() {
                         id="dept"
                         value={data.department}
                         onChange={handleChange}
+                        onBlur={handleInputBlur}
                       >
                         <option value="department"> Department</option>
                         {Department.map((dept) => (
@@ -160,6 +178,7 @@ function RegistrationPageStudent() {
                         placeholder="Register Number"
                         value={data.registerNumber}
                         onChange={handleChange}
+                        onBlur={handleInputBlur}
                       />
                     </div>
                     <div
@@ -179,6 +198,7 @@ function RegistrationPageStudent() {
                         placeholder="Email"
                         value={data.email}
                         onChange={handleChange}
+                        onBlur={handleInputBlur}
                       />
                     </div>
                     <div className={styles.form_input_container}>

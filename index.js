@@ -8,6 +8,7 @@ import alumniRouter from "./routes/alumniRoutes.js";
 import forumRouter from "./routes/forumRoutes.js";
 import galleryRouter from "./routes/galleryRoutes.js";
 import testimonialRouter from "./routes/testimonialRoutes.js";
+import alumniDataRouter from "./routes/alumniDataRoutes.js";
 
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 import path from "path";
@@ -28,6 +29,7 @@ app.use("/api/v1/events", eventRouter);
 app.use("/api/v1/forum", forumRouter);
 app.use("/api/v1/gallery", galleryRouter);
 app.use("/api/v1/testimonial", testimonialRouter);
+app.use("/api/v1/alumni-data", alumniDataRouter);
 
 if (process.env.NODE_ENV === "DEVELOPMENT") {
   console.log("Development mode".yellow);
