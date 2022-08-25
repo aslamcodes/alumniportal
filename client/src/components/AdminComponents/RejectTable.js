@@ -7,6 +7,7 @@ import { a, useSpring } from "react-spring";
 import useGetRejectedApplications from "hooks/useGetRejectedAlumniApplications";
 import useAxiosWithCallback from "hooks/useAxiosWithCallback";
 import { useAuthContext } from "context/auth/authContext";
+
 const RejectTable = () => {
   const data = [...Array.from(Array(1000).keys())];
   const [entriesPerPage, setEntriesPerPage] = useState(10);

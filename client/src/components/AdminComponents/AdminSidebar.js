@@ -122,7 +122,7 @@ const AdminSidebar = ({ onClose }) => {
         <div
           className={Styles.sidebar_item}
           onClick={() => {
-            navigate("/admin/reject-details");
+            navigate("/admin/office-bearers");
           }}
         >
           <MdOutlineReduceCapacity />
