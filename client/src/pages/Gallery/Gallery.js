@@ -39,7 +39,7 @@ const Gallery = () => {
           }`}
           onClick={() => handleClick(-1)}
         >
-          <img src="https://source.unsplash.com/random/600x600" alt="gallery" />
+          <img src="/images/alumni-cover.jpg" alt="gallery" />
           <h2>
             ALUMNI <span>MEET</span>
           </h2>
@@ -53,7 +53,7 @@ const Gallery = () => {
           }`}
           onClick={() => handleClick(0)}
         >
-          <img src="https://source.unsplash.com/random/400x400" alt="gallery" />
+          <img src="/images/all-photos.jpg" alt="gallery" />
           <h2>
             <span>ALL</span> PHOTOS
           </h2>
@@ -67,7 +67,7 @@ const Gallery = () => {
           }`}
           onClick={() => handleClick(1)}
         >
-          <img src="https://source.unsplash.com/random/500x500" alt="gallery" />
+          <img src="/images/seminar-cover.jpg" alt="gallery" />
           <h2>
             <span>SEMINAR</span> SESSIONS
           </h2>
