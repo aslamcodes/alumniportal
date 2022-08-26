@@ -155,7 +155,7 @@ function RegistrationPageAlumni() {
                         className={`${styles.form_input_container} ${styles.split_container}`}
                       >
                         <input
-                          name="companyPanNumber"
+                          name="companyPan"
                           type="text"
                           id="companyPanNumber"
                           placeholder="Company Pan"
@@ -163,7 +163,7 @@ function RegistrationPageAlumni() {
                           onChange={handleChange}
                         />
                         <input
-                          name="companyTinNumber"
+                          name="companyTin"
                           type="text"
                           id="companyTinNumber"
                           placeholder="Company Tin"
