@@ -69,6 +69,7 @@ const Navbar = () => {
               <Link to="/">Home</Link>
               <Link to="/gallery">Gallery</Link>
               <Link to="/events">Events</Link>
+              {user?.token && <Link to="/alumni">Alumni</Link>}
             </div>
           )}
           {windowDimensions.width > 790 ? (
