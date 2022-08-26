@@ -1,0 +1,32 @@
+.add_photos_container {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 0.5rem;
+  cursor: default;
+}
+.image_input_container {
+  display: grid;
+  place-items: center;
+  text-align: center;
+  min-width: 15rem;
+  min-height: 15rem;
+  border-radius: 0.5rem;
+  background-color: #ddd;
+  color: #555;
+  padding: 1rem;
+  z-index: 0;
+  cursor: pointer;
+}
+button {
+  border: none;
+  background-color: #8085f0;
+  margin-top: 0.5rem;
+  float: right;
+  padding: 0.3rem 0.5rem;
+  color: #fff;
+  border-radius: 20px;
+  cursor: pointer;
+}

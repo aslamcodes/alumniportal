@@ -37,8 +37,8 @@
 }
 
 .add_image_button {
+  position: relative;
   margin-right: 1rem;
-  /* float: right; */
   width: fit-content;
   display: flex;
   align-items: center;

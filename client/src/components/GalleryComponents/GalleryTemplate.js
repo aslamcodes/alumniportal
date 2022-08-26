@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./GalleryTemplate.module.css";
 import ReactPortal from "components/Modal/ReactPortal";
+import AddPhotos from "./AddPhotos";
 import Loader from "components/UI/Loader";
 import { AiOutlinePlus } from "react-icons/ai";
 import { useAuthContext } from "context/auth/authContext";
@@ -115,7 +116,9 @@ function GalleryTemplate({ fname, sname, data = [], isLoading }) {
           >
             <AiOutlinePlus fontSize={30} />
           </div>
+          <AddPhotos />
         </div>
+
         {/* )} */}
 
       </div>
