@@ -23,6 +23,7 @@ import {
 import AdminOfficeBearers from "pages/Admin/AdminOfficeBearers";
 import PostRequest from "pages/Admin/PostRequest";
 import EventRequest from "pages/Admin/EventRequest";
+import Alumni from "pages/Alumni/Alumni";
 
 function App() {
   return (
@@ -58,6 +59,7 @@ function App() {
             />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/events" element={<Events />} />
+            <Route path="/alumni" element={<Alumni />} />
             <Route path="/gallery" element={<GalleryPage />} />
             <Route path="/gallery/alumni-meet" element={<AlumniMeet />} />
             <Route path="/gallery/all-photos" element={<AllPhotos />} />
