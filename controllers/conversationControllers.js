@@ -16,7 +16,15 @@ export const getConversationForUser = asyncHandler(async (req, res) => {
 });
 
 export const getConversationById = asyncHandler(async (req, res) => {
-  return res.json("Work in Progress:  Get Conversation by ID");
+  const { conversationId } = req.params;
+  const conversation = await Conversation.findById(conversationId);
+
+  if (!conversation)
+    return res.status(400).json({
+      message: "Couldn't find conversation",
+    });
+
+  return res.json(conversation);
 });
 
 export const createConversation = asyncHandler(async (req, res) => {
@@ -34,5 +42,18 @@ export const createConversation = asyncHandler(async (req, res) => {
 });
 
 export const deleteConversation = asyncHandler(async (req, res) => {
-  return res.json("Work in Progress:  Delete Conversation by Id");
+  const { conversationId } = req.params;
+
+  const conversation = await Conversation.deleteOne({
+    _id: conversationId,
+  });
+
+  if (!conversation.deletedCount)
+    return res.status(400).json({
+      message: "Couldn't delete conversation",
+    });
+
+  return res.json({
+    message: "Conversation deleted successfully",
+  });
 });
