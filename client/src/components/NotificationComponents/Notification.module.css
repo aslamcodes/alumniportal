@@ -1,0 +1,73 @@
+.notification_container {
+  position: absolute;
+  top: calc(100% + 3rem);
+  right: 0;
+  width: clamp(15rem, 24vw, 25rem);
+  max-height: 50vh;
+  overflow: auto;
+}
+.notification_container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Handle */
+.notification_container::-webkit-scrollbar-thumb {
+  background: #a5a5a5;
+  border-radius: 3px;
+}
+
+/* Handle on hover */
+.notification_container::-webkit-scrollbar-thumb:hover {
+  background: #555;
+  cursor: pointer;
+}
+
+.notification_card {
+  display: flex;
+  align-items: center;
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.34);
+  padding: 1rem;
+  padding-right: 0.5rem;
+  margin-bottom: 0.5rem;
+  max-height: 5rem;
+  -webkit-transition: max-height 1s;
+  -moz-transition: max-height 1s;
+  -ms-transition: max-height 1s;
+  -o-transition: max-height 1s;
+  transition: max-height 0.7s;
+  border-radius: 15px;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: max-height 1s ease-in-out;
+  cursor: default;
+}
+.notification_card > .message {
+  display: block;
+  overflow: hidden;
+  max-width: 90%;
+}
+.notification_card.expanded {
+  max-height: 100rem;
+}
+.notification_card.expanded > .message {
+  white-space: normal;
+}
+.close_btn,
+.arrow_btn {
+  cursor: pointer;
+}
+.close_btn {
+  position: absolute;
+  top: 0.4rem;
+  right: 0.5rem;
+}
+.arrow_btn {
+  transform: rotate(0);
+  transition: transform 1s ease-in-out;
+  transform-origin: center center;
+}
+
+.notification_card.expanded > .arrow_btn {
+  transform: rotate(180deg);
+}
