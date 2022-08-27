@@ -13,6 +13,7 @@ import {
 import { getAlumni } from "context/alumni/actions";
 import ProfileModal from "components/ForumComponents/ProfileModal";
 import { IoIosNotificationsOutline } from "react-icons/io";
+import Notification from "components/NotificationComponents/Notification";
 function getWindowDimensions() {
   const { innerWidth: width, innerHeight: height } = window;
   return {
@@ -141,6 +142,7 @@ const Navbar = () => {
           )}
           <div className={`${styles.notification_icon} ${isNotificationActive && styles.active}`}>
             <IoIosNotificationsOutline fontSize={25} />
+            <Notification />
           </div>
         </div>
         {menuActive && windowDimensions.width < 790 && (
