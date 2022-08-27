@@ -44,6 +44,7 @@ const PostModal = ({ handleClose, isOpen, setProfileActive, post }) => {
                     <img
                       className={Styles.profile_image}
                       src={`http://localhost:8000/api/v1/users/user-avatar/${post.user._id}`}
+                      alt={"profile"}
                       onClick={() => {
                         handleClose();
                         setProfileActive();

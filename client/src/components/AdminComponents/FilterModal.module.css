@@ -1,0 +1,51 @@
+.filter_modal_overlay {
+  position: fixed;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.filter_modal_main {
+  border-radius: 1rem;
+  padding: 2rem;
+  max-height: 75%;
+  min-height: clamp(20rem, 70%, 80rem);
+  overflow-y: scroll;
+  background-color: #fff;
+  width: clamp(30rem, 70%, 80rem);
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.filter_options {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.filter_header {
+  margin-bottom: 0.4em;
+}
+
+.filter_options p {
+  padding: 1em;
+  border-radius: 1em;
+  border: 2px solid #4e96c0;
+  margin: 0.3em 0.5em;
+  cursor: pointer;
+}
+
+.filter_options .selected {
+  background-color: #7aabc8;
+  color: white;
+  border: 2px solid #7aabc8;
+}

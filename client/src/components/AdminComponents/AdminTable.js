@@ -18,7 +18,7 @@ const AlumniTable = () => {
   const { user } = useAuthContext();
   const totalPages = alumni ? Math.ceil(alumni.length / entriesPerPage) : 0;
   const tableHeadRef = useRef(null);
-
+  const filters = getAlumniFilters(alumni);
   const props = useSpring({
     from: {
       backgroundColor: "#e2e2e2",
@@ -61,6 +61,7 @@ const AlumniTable = () => {
       <AdminTableHeader
         onSelect={onEntriesPerPageSelectHandler}
         type="Alumni"
+        filters={filters}
       />
 
       <table className={Styles.table}>
@@ -103,5 +104,37 @@ const AlumniTable = () => {
     </div>
   );
 };
+
+const getAlumniFilters = (alumni) =>
+  alumni?.reduce(
+    (filters, alumnus) => {
+      return {
+        ...filters,
+        Designation: [...filters.Designation, alumnus.designation],
+        GraduationLevel: [
+          ...filters.GraduationLevel,
+          alumnus.user.graduationLevel,
+        ],
+        Entrepreneur: [
+          ...filters.Entrepreneur,
+          alumnus.isEntrepreneur ? "Yes" : "No",
+        ],
+        City: [...filters.City, alumnus.user.city],
+        "Year of Passing": [
+          ...filters["Year of Passing"],
+          new Date(alumnus.user.yearOfPassing).getFullYear(),
+        ],
+        Organization: [...filters.Organization, alumnus.organization],
+      };
+    },
+    {
+      Designation: [],
+      GraduationLevel: [],
+      Entrepreneur: [],
+      City: [],
+      Organization: [],
+      "Year of Passing": [],
+    }
+  );
 
 export default AlumniTable;
