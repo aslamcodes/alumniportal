@@ -27,7 +27,8 @@ const Navbar = () => {
     getWindowDimensions()
   );
   const [menuActive, setMenuActive] = useState(false);
-  const [isNotificationActive, setIsNotificationActive] = useState(true);
+  const [isNotification, setIsNotification] = useState(true);
+  const [isNotificationActive, setIsNotificationActive] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
   const { user } = useAuthContext();
@@ -140,9 +141,9 @@ const Navbar = () => {
               )}
             </div>
           )}
-          <div className={`${styles.notification_icon} ${isNotificationActive && styles.active}`}>
-            <IoIosNotificationsOutline fontSize={25} />
-            <Notification />
+          <div className={`${styles.notification_icon} ${isNotification && styles.active}`}>
+            <IoIosNotificationsOutline fontSize={25} onClick={() => setIsNotificationActive(!isNotificationActive)} />
+            <Notification isActive={isNotificationActive} />
           </div>
         </div>
         {menuActive && windowDimensions.width < 790 && (
