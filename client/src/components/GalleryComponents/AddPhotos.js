@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { BiImageAdd } from 'react-icons/bi';
 import styles from './AddPhotos.module.css';
-const AddPhotos = () => {
+const AddPhotos = ({ isCardActive }) => {
   const [image, setImage] = useState(undefined);
   const [imageSwitch, setImageSwitch] = useState(false);
   const onSelectFile = (e) => {
@@ -17,6 +17,7 @@ const AddPhotos = () => {
   };
 
   return (
+
     <div className={styles.add_photos_container} onClick={(e) => e.stopPropagation()}>
       <div className={styles.image_input_container}
         onMouseEnter={() => setImageSwitch(true)}

@@ -116,7 +116,7 @@ function GalleryTemplate({ fname, sname, data = [], isLoading }) {
           >
             <AiOutlinePlus fontSize={30} />
           </div>
-          <AddPhotos />
+          <AddPhotos isCardActive={isCardActive} />
         </div>
 
         {/* )} */}
