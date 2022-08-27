@@ -11,10 +11,6 @@ import {
 } from "context/alumni/alumniContext";
 import Loader from "components/UI/Loader";
 
-const currentYear = new Date().getFullYear();
-const range = (start, stop, step) =>
-  Array.from({ length: (stop - start) / step + 1 }, (_, i) => start + i * step);
-const YearOfPassing = range(1985, currentYear, 1);
 
 function RegistrationPageAlumni() {
   const navigate = useNavigate();
@@ -28,7 +24,6 @@ function RegistrationPageAlumni() {
   const [requestCardActive, setRequestCardActive] = useState(false);
   const [data, setData] = useState({
     user: user?._id,
-    yearOfPassing: "",
     companyName: "",
     companyEmail: "",
     companyPan: "",
@@ -160,7 +155,7 @@ function RegistrationPageAlumni() {
                         className={`${styles.form_input_container} ${styles.split_container}`}
                       >
                         <input
-                          name="companyPanNumber"
+                          name="companyPan"
                           type="text"
                           id="companyPanNumber"
                           placeholder="Company Pan"
@@ -168,7 +163,7 @@ function RegistrationPageAlumni() {
                           onChange={handleChange}
                         />
                         <input
-                          name="companyTinNumber"
+                          name="companyTin"
                           type="text"
                           id="companyTinNumber"
                           placeholder="Company Tin"
