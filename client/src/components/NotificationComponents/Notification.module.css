@@ -40,10 +40,11 @@
   font-weight: 500;
   white-space: nowrap;
   transition: max-height 1s ease-in-out;
+  cursor: default;
 }
 .notification_card > .message {
   display: block;
-  overflow-x: hidden;
+  overflow: hidden;
   max-width: 90%;
 }
 .notification_card.expanded {
@@ -52,7 +53,10 @@
 .notification_card.expanded > .message {
   white-space: normal;
 }
-
+.close_btn,
+.arrow_btn {
+  cursor: pointer;
+}
 .close_btn {
   position: absolute;
   top: 0.4rem;
