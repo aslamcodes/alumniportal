@@ -25,7 +25,7 @@ function OfficeBearers() {
   const [selectedCity, setSelectedCity] = useState(null);
 
   const { alumni, cities, isLoading, error } = useGetAlumniWithCities(null);
-  console.log(cities);
+
   const handleClick = (e) => {
     const id = e.target.id;
     if (id === activeIndex) {
