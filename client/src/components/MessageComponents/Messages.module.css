@@ -1,0 +1,37 @@
+.messages_container {
+  position: fixed;
+  right: 2rem;
+  bottom: 3rem;
+  padding: 0.5rem;
+  width: 20rem;
+  border-radius: 15px;
+  background-color: #fff;
+}
+
+.messages_container hr {
+  border: none;
+  border-top: 2px solid #000;
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+
+.messages_header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.messages_actions > * {
+  display: inline-block;
+  vertical-align: middle;
+}
+.arrow_btn,
+.close_btn {
+  cursor: pointer;
+}
+
+.arrow_btn {
+  transform: rotate(180deg);
+  transition: transform 0.7s ease-in-out;
+  transform-origin: center center;
+}
