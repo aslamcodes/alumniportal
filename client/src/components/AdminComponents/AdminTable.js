@@ -110,21 +110,31 @@ const getAlumniFilters = (alumni) =>
     (filters, alumnus) => {
       return {
         ...filters,
-        Designation: [...filters.Designation, alumnus.designation],
+        Designation: [
+          ...new Set([...filters.Designation, alumnus.designation]),
+        ],
         GraduationLevel: [
-          ...filters.GraduationLevel,
-          alumnus.user.graduationLevel,
+          ...new Set([
+            ...filters.GraduationLevel,
+            alumnus.user.graduationLevel,
+          ]),
         ],
         Entrepreneur: [
-          ...filters.Entrepreneur,
-          alumnus.isEntrepreneur ? "Yes" : "No",
+          ...new Set([
+            ...filters.Entrepreneur,
+            alumnus.isEntrepreneur ? "Yes" : "No",
+          ]),
         ],
-        City: [...filters.City, alumnus.user.city],
+        City: [...new Set([...filters.City, alumnus.user.city])],
         "Year of Passing": [
-          ...filters["Year of Passing"],
-          new Date(alumnus.user.yearOfPassing).getFullYear(),
+          ...new Set([
+            ...filters["Year of Passing"],
+            new Date(alumnus.user.yearOfPassing).getFullYear(),
+          ]),
         ],
-        Organization: [...filters.Organization, alumnus.organization],
+        Organization: [
+          ...new Set([...filters.Organization, alumnus.organization]),
+        ],
       };
     },
     {

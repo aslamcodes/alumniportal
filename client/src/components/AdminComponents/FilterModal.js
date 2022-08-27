@@ -1,9 +1,10 @@
 import ReactPortal from "components/Modal/ReactPortal";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { a, useTransition } from "react-spring";
 import Styles from "./FilterModal.module.css";
 
 const FilterModal = ({ filters, isFilterModalOpen, handleClose }) => {
+  const [selectedFilters, setSelectedFilters] = useState({});
   const filterModalTransitions = useTransition(isFilterModalOpen, {
     from: {
       opacity: 0,
@@ -22,7 +23,7 @@ const FilterModal = ({ filters, isFilterModalOpen, handleClose }) => {
       document.body.removeEventListener("keydown", closeOnEscapeKey);
     };
   }, [handleClose]);
-
+  console.log(selectedFilters);
   return filterModalTransitions(
     (style, item) =>
       item && (
@@ -30,7 +31,7 @@ const FilterModal = ({ filters, isFilterModalOpen, handleClose }) => {
           <a.div
             style={style}
             className={Styles.filter_modal_overlay}
-            onClick={handleClose}
+            // onClick={handleClose}
           >
             <main className={Styles.filter_modal_main}>
               {filters &&
@@ -39,7 +40,28 @@ const FilterModal = ({ filters, isFilterModalOpen, handleClose }) => {
                     <h2 className={Styles.filter_header}>{filter}</h2>
                     <div className={Styles.filter_options}>
                       {filters[filter].map((option) => (
-                        <p>{option}</p>
+                        <p
+                          onClick={() => {
+                            setSelectedFilters((prev) => {
+                              if (!prev[filter]) {
+                                return {
+                                  ...prev,
+                                  [filter]: [option],
+                                };
+                              }
+
+                              if (!prev[filter].includes(option))
+                                return {
+                                  ...prev,
+                                  [filter]: [...prev[filter], option],
+                                };
+
+                              return prev;
+                            });
+                          }}
+                        >
+                          {option}
+                        </p>
                       ))}
                     </div>
                   </div>
