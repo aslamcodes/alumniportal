@@ -16,6 +16,7 @@ const FilterModal = ({ filters, isFilterModalOpen, handleClose }) => {
       opacity: 0,
     },
   });
+
   useEffect(() => {
     const closeOnEscapeKey = (e) => (e.key === "Escape" ? handleClose() : null);
     document.body.addEventListener("keydown", closeOnEscapeKey);
@@ -23,7 +24,35 @@ const FilterModal = ({ filters, isFilterModalOpen, handleClose }) => {
       document.body.removeEventListener("keydown", closeOnEscapeKey);
     };
   }, [handleClose]);
+
+  const handleOptionSelect = (filter, option) => {
+    setSelectedFilters((prev) => {
+      if (!prev[filter]) {
+        return {
+          ...prev,
+          [filter]: [option],
+        };
+      }
+
+      if (!prev[filter].includes(option))
+        return {
+          ...prev,
+          [filter]: [...prev[filter], option],
+        };
+
+      return {
+        ...prev,
+        [filter]: [
+          ...prev[filter]?.filter(
+            (selectedOption) => option !== selectedOption
+          ),
+        ],
+      };
+    });
+  };
+
   console.log(selectedFilters);
+
   return filterModalTransitions(
     (style, item) =>
       item && (
@@ -41,23 +70,12 @@ const FilterModal = ({ filters, isFilterModalOpen, handleClose }) => {
                     <div className={Styles.filter_options}>
                       {filters[filter].map((option) => (
                         <p
+                          className={`${
+                            selectedFilters[filter]?.includes(option) &&
+                            Styles.selected
+                          }`}
                           onClick={() => {
-                            setSelectedFilters((prev) => {
-                              if (!prev[filter]) {
-                                return {
-                                  ...prev,
-                                  [filter]: [option],
-                                };
-                              }
-
-                              if (!prev[filter].includes(option))
-                                return {
-                                  ...prev,
-                                  [filter]: [...prev[filter], option],
-                                };
-
-                              return prev;
-                            });
+                            handleOptionSelect(filter, option);
                           }}
                         >
                           {option}
