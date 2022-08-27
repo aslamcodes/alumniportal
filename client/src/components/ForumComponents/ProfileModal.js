@@ -9,7 +9,8 @@ import {
 import { Link } from "react-router-dom";
 import { useAlumniContext } from "context/alumni/alumniContext";
 import { logout } from "context/auth/actions";
-import { navigate } from "@storybook/addon-links";
+import { BsPeople } from "react-icons/bs";
+import { IoLogOutOutline } from "react-icons/io5";
 
 const DUMMY_POST_DATA = [
   {
@@ -218,8 +219,6 @@ function ProfileModal({ handleClose }) {
           className={styles.profile_container}
           onClick={(e) => e.stopPropagation()}
         >
-          {" "}
-          {/* to prevent closing on click inside the modal */}
           <div className={styles.profile_header}>{pick_image()}</div>
           <div className={styles.profile_body}>
             <div className={styles.profile_img}>
@@ -349,11 +348,11 @@ function ProfileModal({ handleClose }) {
                     className={styles.profile_controls}
                     onClick={() => setEditProfile(true)}
                   >
-                    <p>Edit Profile</p>
                     <img
                       src={require("assets/icons/edit.png")}
                       alt="edit icon"
                     />
+                    <p>Edit Profile</p>
                   </div>
                 ) : (
                   <div
@@ -363,16 +362,19 @@ function ProfileModal({ handleClose }) {
                     <p>Done</p>
                   </div>
                 )}
-                <div>
-                  <p>
-                    {!user?.isAdmin && !alumni && user && (
+                {!user?.isAdmin && !alumni && user && (
+                  <div className={styles.profile_controls}>
+                    <BsPeople />
+
+                    <p>
                       <Link onClick={handleClose} to="/register-alumni">
                         Apply as Alumni
                       </Link>
-                    )}
-                  </p>
-                </div>
-                <div onClick={handleLogout}>
+                    </p>
+                  </div>
+                )}
+                <div className={styles.profile_controls} onClick={handleLogout}>
+                  <IoLogOutOutline />
                   <p>Logout</p>
                 </div>
               </div>
@@ -427,8 +429,8 @@ function ProfileModal({ handleClose }) {
 
 function printDesignation(isAlumni, isAdmin) {
   if (isAlumni) return false;
-  if (isAdmin) return "Admin";
-  else return "Student";
+  if (isAdmin) return "Admin of Alumni Portal";
+  else return "Student at SKCT";
 }
 
 export default ProfileModal;
