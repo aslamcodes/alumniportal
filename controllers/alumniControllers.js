@@ -284,13 +284,6 @@ export const getAlumniCities = asyncHandler(async (req, res) => {
     },
   ]);
 
-  //   {
-  //     "cities": [
-  //         "student",
-  //         "CBE",
-  //         "dasd"
-  //     ]
-  // }
   return res.json({ cities: cities.map((city) => city._id) });
 });
 
