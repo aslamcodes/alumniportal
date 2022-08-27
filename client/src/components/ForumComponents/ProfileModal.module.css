@@ -133,18 +133,23 @@
   vertical-align: middle;
   cursor: pointer;
 }
-.profile_info .edit_profile {
+
+.profile_info .profile_controls_container {
+  display: flex;
+}
+
+.profile_info .profile_controls {
   margin-top: 0.5rem;
   cursor: pointer;
 }
 
-.profile_info .edit_profile > * {
+.profile_info .profile_controls > * {
   font-size: 0.8rem;
   display: inline-block;
   vertical-align: middle;
   font-weight: 500;
 }
-.edit_profile img {
+.profile_controls img {
   width: 1.2em;
   margin: auto 0.2rem;
 }
@@ -255,12 +260,12 @@
     align-items: flex-start;
     margin-left: 30%;
   }
-  .profile_info .edit_profile {
+  .profile_info .profile_controls {
     position: absolute;
     top: 0;
     right: 0;
   }
-  .profile_info .edit_profile p:hover {
+  .profile_info .profile_controls p:hover {
     text-decoration: underline;
   }
 }

@@ -2,6 +2,14 @@ import React, { useEffect, useState } from "react";
 import ReactPortal from "components/Modal/ReactPortal";
 import ForumCard from "components/ForumComponents/ForumCard";
 import styles from "./ProfileModal.module.css";
+import {
+  useAuthContext,
+  useAuthDispatchContext,
+} from "context/auth/authContext";
+import { Link } from "react-router-dom";
+import { useAlumniContext } from "context/alumni/alumniContext";
+import { logout } from "context/auth/actions";
+import { navigate } from "@storybook/addon-links";
 
 const DUMMY_POST_DATA = [
   {
@@ -127,6 +135,9 @@ const PROFILE_IMAGES = [
 ];
 
 function ProfileModal({ handleClose }) {
+  const { user } = useAuthContext();
+  const dispatch = useAuthDispatchContext();
+  const { alumni } = useAlumniContext();
   const [show, setShow] = useState({
     desc: true,
     post: false,
@@ -187,6 +198,11 @@ function ProfileModal({ handleClose }) {
     }
   };
 
+  const handleLogout = async () => {
+    await logout(dispatch);
+    handleClose();
+  };
+
   useEffect(() => {
     const closeOnEscapeKey = (e) => (e.key === "Escape" ? handleClose() : null);
     document.body.addEventListener("keydown", closeOnEscapeKey);
@@ -208,14 +224,14 @@ function ProfileModal({ handleClose }) {
           <div className={styles.profile_body}>
             <div className={styles.profile_img}>
               <img
-                src={require("assets/test/profile_photo.png")}
+                src={`/api/v1/users/user-avatar/${user?._id}`}
                 alt="profile_img"
               />
               {editProfile && (
                 <label htmlFor="img-switch">
                   <img
                     src={require("assets/image-switch.png")}
-                    alt="image-switch-icon"
+                    alt="switch-icon"
                   />
                 </label>
               )}
@@ -232,7 +248,7 @@ function ProfileModal({ handleClose }) {
                 suppressContentEditableWarning={true}
                 onBlur={(e) => handleChange(e, "name")}
               >
-                {profileData.name}
+                {user?.name}
               </h2>
               <h3
                 className={`${editProfile && styles.editActive}`}
@@ -240,7 +256,8 @@ function ProfileModal({ handleClose }) {
                 suppressContentEditableWarning={true}
                 onBlur={(e) => handleChange(e, "designation")}
               >
-                {profileData.designation}
+                {printDesignation(user?.isAlumni, user?.isAdmin) ||
+                  profileData.designation}
               </h3>
               <div
                 className={`${styles.location} ${
@@ -256,7 +273,7 @@ function ProfileModal({ handleClose }) {
                   contentEditable={editProfile}
                   onBlur={(e) => handleChange(e, "location")}
                 >
-                  {profileData.location}
+                  {user?.city},{user?.country}
                 </p>
               </div>
               <h4>Available on</h4>
@@ -326,23 +343,39 @@ function ProfileModal({ handleClose }) {
                   })}
                 </div>
               )}
-
-              {!editProfile ? (
-                <div
-                  className={styles.edit_profile}
-                  onClick={() => setEditProfile(true)}
-                >
-                  <p>Edit Profile</p>
-                  <img src={require("assets/icons/edit.png")} alt="edit icon" />
+              <div className={styles.profile_controls_container}>
+                {!editProfile ? (
+                  <div
+                    className={styles.profile_controls}
+                    onClick={() => setEditProfile(true)}
+                  >
+                    <p>Edit Profile</p>
+                    <img
+                      src={require("assets/icons/edit.png")}
+                      alt="edit icon"
+                    />
+                  </div>
+                ) : (
+                  <div
+                    className={styles.profile_controls}
+                    onClick={() => setEditProfile(false)}
+                  >
+                    <p>Done</p>
+                  </div>
+                )}
+                <div>
+                  <p>
+                    {!user?.isAdmin && !alumni && user && (
+                      <Link onClick={handleClose} to="/register-alumni">
+                        Apply as Alumni
+                      </Link>
+                    )}
+                  </p>
                 </div>
-              ) : (
-                <div
-                  className={styles.edit_profile}
-                  onClick={() => setEditProfile(false)}
-                >
-                  <p>Done</p>
+                <div onClick={handleLogout}>
+                  <p>Logout</p>
                 </div>
-              )}
+              </div>
             </div>
             <div className={styles.profile_description_container}>
               <div className={styles.description_topbar}>
@@ -390,6 +423,12 @@ function ProfileModal({ handleClose }) {
       </div>
     </ReactPortal>
   );
+}
+
+function printDesignation(isAlumni, isAdmin) {
+  if (isAlumni) return false;
+  if (isAdmin) return "Admin";
+  else return "Student";
 }
 
 export default ProfileModal;
