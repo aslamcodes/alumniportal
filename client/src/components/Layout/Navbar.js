@@ -11,6 +11,7 @@ import {
   useAlumniDispatchContext,
 } from "context/alumni/alumniContext";
 import { getAlumni } from "context/alumni/actions";
+import ProfileModal from "components/ForumComponents/ProfileModal";
 
 function getWindowDimensions() {
   const { innerWidth: width, innerHeight: height } = window;
@@ -28,13 +29,15 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
 
   const { user } = useAuthContext();
-  const { alumni } = useAlumniContext();
+
+  const [showProfile, setShowProfile] = useState(false);
 
   const alumniDispatch = useAlumniDispatchContext();
 
   if (useWindowScrollPositions().scrollY > 30 && !isScrolled) {
     setIsScrolled(true);
   }
+
   if (useWindowScrollPositions().scrollY < 30 && isScrolled) {
     setIsScrolled(false);
   }
@@ -58,6 +61,13 @@ const Navbar = () => {
 
   return (
     <>
+      {showProfile && (
+        <ProfileModal
+          handleClose={() => {
+            setShowProfile((prev) => !prev);
+          }}
+        />
+      )}
       <div className={styles.container}>
         <div
           className={`${styles.navbar} ${styles.background_blur} ${
@@ -104,10 +114,19 @@ const Navbar = () => {
             <div className={`${styles.navLink} ${styles.right}`}>
               {!user && <Link to="login">Login</Link>}
               {user?.isAdmin && <Link to="/admin">Admin</Link>}
-              {!user?.isAdmin && !alumni && user && (
+              {/* {!user?.isAdmin && !alumni && user && (
                 <Link to="/register-alumni">Apply as Alumni</Link>
+              )} */}
+              {user?.token && (
+                <Link
+                  to="/"
+                  onClick={() => {
+                    setShowProfile((prev) => !prev);
+                  }}
+                >
+                  Profile
+                </Link>
               )}
-              {user?.isAlumni && <Link to="/profile">Profile</Link>}
               <Link to="/alumni-forum">Alumni Forum</Link>
               <Link to="/office-bearers">Office Bearers</Link>
             </div>
