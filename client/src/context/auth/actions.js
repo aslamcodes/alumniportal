@@ -1,4 +1,9 @@
-import { AUTH_FAILURE, AUTH_REQUEST, AUTH_SUCCESS } from "./authConstants";
+import {
+  AUTH_FAILURE,
+  AUTH_LOGOUT,
+  AUTH_REQUEST,
+  AUTH_SUCCESS,
+} from "./authConstants";
 import axios from "axios";
 
 export const login = async (dispatch, { email, password }) => {
@@ -42,4 +47,8 @@ export const register = async (dispatch, payload) => {
           : error.message,
     });
   }
+};
+
+export const logout = async (dispatch) => {
+  dispatch({ type: AUTH_LOGOUT });
 };

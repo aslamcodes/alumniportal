@@ -1,5 +1,6 @@
 import {
   AUTH_FAILURE,
+  AUTH_LOGOUT,
   AUTH_REQUEST,
   AUTH_SUCCESS,
 } from "context/auth/authConstants";
@@ -18,6 +19,8 @@ export const authReducer = (state = initialState, action) => {
       return { ...state, isLoading: false, user: action.payload };
     case AUTH_FAILURE:
       return { ...state, isLoading: false, error: action.payload };
+    case AUTH_LOGOUT:
+      return { user: null, isLoading: false, error: false };
     default:
       return state;
   }

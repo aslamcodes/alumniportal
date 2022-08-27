@@ -1,22 +1,21 @@
 import { useEffect, useState } from "react";
 import useAxiosWithCallback from "./useAxiosWithCallback";
 
-const useGetAlumniWithCities = (city) => {
+const useGetAlumniWithCities = () => {
   const [alumni, setAlumni] = useState([]);
   const [cities, setCities] = useState([]);
   const { isLoading, error, fetchData } = useAxiosWithCallback();
 
   useEffect(() => {
     const alumniConfig = {
-      url: city ? `/api/v1/alumni/city/${city}` : "/api/v1/alumni",
+      url: "/api/v1/alumni/v2?office-bearer=true",
     };
     const citiesConfig = {
-      url: `/api/v1/alumni/cities`,
+      url: `/api/v1/alumni/cities?office-bearer=true`,
     };
-
     fetchData(alumniConfig, ({ alumni }) => setAlumni(alumni));
     fetchData(citiesConfig, ({ cities }) => setCities(cities));
-  }, [city]);
+  }, [fetchData]);
 
   return {
     alumni,

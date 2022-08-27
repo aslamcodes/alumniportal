@@ -42,6 +42,8 @@ export const registerAlumni = asyncHandler(async (req, res) => {
       designation: alumni.designation,
       companyName: alumni.companyName,
       companyEmail: alumni.companyEmail,
+      companyPan: alumni.companyPan,
+      companyTin: alumni.companyTin,
       organization: alumni.organization,
       secondaryCollegeName: alumni.secondaryCollegeName,
       domain: alumni.domain,
@@ -150,6 +152,8 @@ export const getAlumniById = asyncHandler(async (req, res) => {
       designation: alumni.designation,
       companyName: alumni.companyName,
       companyEmail: alumni.companyEmail,
+      companyPan: alumni.companyPan,
+      companyTin: alumni.companyTin,
       organization: alumni.organization,
       secondaryCollegeName: alumni.secondaryCollegeName,
       domain: alumni.domain,
@@ -233,20 +237,54 @@ export const removeOfficeBearer = asyncHandler(async (req, res) => {
   }
 });
 
-export const getAlumniCities = asyncHandler(async (_, res) => {
-  const alumniIds = await getAlumniIds();
+export const getAlumniCities = asyncHandler(async (req, res) => {
+  const isOnlyOfficeBearer = req.query["office-bearer"] === "true";
+  const unwantedFields = [
+    "user.password",
+    "user.createdAt",
+    "user.updatedAt",
+    "user.alumni",
+    "user.isAdmin",
+  ];
+  const cities = await Alumni.aggregate([
+    {
+      $match: isOnlyOfficeBearer
+        ? {
+            isApproved: true,
+            isOfficeBearer: true,
+          }
+        : {
+            isApproved: true,
+          },
+    },
+    {
+      $lookup: {
+        from: "users",
+        localField: "user",
+        foreignField: "_id",
+        as: "user",
+      },
+    },
+    {
+      $unwind: "$user",
+    },
+    {
+      $unset: unwantedFields,
+    },
+    {
+      $project: {
+        "user.city": 1,
+        _id: 0,
+      },
+    },
+    {
+      $group: {
+        _id: "$user.city",
+      },
+    },
+  ]);
 
-  if (alumniIds) {
-    const alumniCities = await User.find({ _id: { $in: alumniIds } });
-
-    res.status(200).json({
-      cities: [...new Set(alumniCities.map((alumnus) => alumnus.city))],
-    });
-  } else {
-    res.status(400).json({
-      error: "Cannot find Alumni Cities at this time, please try again later",
-    });
-  }
+  return res.json({ cities: cities.map((city) => city._id) });
 });
 
 export const getAlumniByCity = asyncHandler(async (req, res) => {
@@ -289,7 +327,7 @@ export const getAllAlumni = asyncHandler(async (_, res) => {
   }
 });
 
-export const getAllAlumniV2 = asyncHandler(async (_, res) => {
+export const getAllAlumniV2 = asyncHandler(async (req, res) => {
   const unwantedFields = [
     "user.password",
     "user.createdAt",
@@ -298,11 +336,18 @@ export const getAllAlumniV2 = asyncHandler(async (_, res) => {
     "user.isAdmin",
   ];
 
+  const isOnlyOfficeBearer = req.query["office-bearer"] === "true";
+
   const alumni = await Alumni.aggregate([
     {
-      $match: {
-        isApproved: true,
-      },
+      $match: isOnlyOfficeBearer
+        ? {
+            isApproved: true,
+            isOfficeBearer: true,
+          }
+        : {
+            isApproved: true,
+          },
     },
     {
       $lookup: {

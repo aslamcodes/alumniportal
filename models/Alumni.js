@@ -21,6 +21,8 @@ const alumniSchema = new Schema({
   designation: { type: String },
   companyName: { type: String },
   companyEmail: { type: String },
+  companyPan: { type: String },
+  companyTin: { type: String },
   organization: { type: String },
   secondaryCollegeName: { type: String },
   domain: { type: String },
