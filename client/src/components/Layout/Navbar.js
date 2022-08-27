@@ -12,7 +12,7 @@ import {
 } from "context/alumni/alumniContext";
 import { getAlumni } from "context/alumni/actions";
 import ProfileModal from "components/ForumComponents/ProfileModal";
-
+import { IoIosNotificationsOutline } from "react-icons/io";
 function getWindowDimensions() {
   const { innerWidth: width, innerHeight: height } = window;
   return {
@@ -26,6 +26,7 @@ const Navbar = () => {
     getWindowDimensions()
   );
   const [menuActive, setMenuActive] = useState(false);
+  const [isNotificationActive, setIsNotificationActive] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
 
   const { user } = useAuthContext();
@@ -70,9 +71,8 @@ const Navbar = () => {
       )}
       <div className={styles.container}>
         <div
-          className={`${styles.navbar} ${styles.background_blur} ${
-            isScrolled && styles.scrolled
-          }`}
+          className={`${styles.navbar} ${styles.background_blur} ${isScrolled && styles.scrolled
+            }`}
         >
           {windowDimensions.width > 790 && (
             <div className={`${styles.navLink}`}>
@@ -139,6 +139,9 @@ const Navbar = () => {
               )}
             </div>
           )}
+          <div className={`${styles.notification_icon} ${isNotificationActive && styles.active}`}>
+            <IoIosNotificationsOutline fontSize={25} />
+          </div>
         </div>
         {menuActive && windowDimensions.width < 790 && (
           <Menu setMenuActive={setMenuActive} />
