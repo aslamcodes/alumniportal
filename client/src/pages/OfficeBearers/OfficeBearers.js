@@ -1,3 +1,4 @@
+import Loader from "components/UI/Loader";
 import useGetAlumniWithCities from "hooks/useGetAlumniWithCities";
 import React, { useState } from "react";
 import styles from "./OfficeBearers.module.css";
@@ -24,7 +25,7 @@ function OfficeBearers() {
   const [selectedCity, setSelectedCity] = useState(null);
 
   const { alumni, cities, isLoading, error } = useGetAlumniWithCities(null);
-
+  console.log(cities);
   const handleClick = (e) => {
     const id = e.target.id;
     if (id === activeIndex) {
@@ -40,7 +41,7 @@ function OfficeBearers() {
         <div className={styles.city}>
           <h2>CITY</h2>
           <ul>
-            {cities.map((city) => (
+            {cities?.map((city) => (
               <li
                 onClick={() => {
                   setSelectedCity(city);
@@ -55,37 +56,30 @@ function OfficeBearers() {
       <hr />
       <div className={styles.OfficeBearers}>
         {alumni
-          .filter((alumni) => alumni.isAlumni)
+          ?.filter((alumni) => alumni?.user?.isAlumni)
           .filter((alumni) =>
-            selectedCity ? alumni.city === selectedCity : true
+            selectedCity ? alumni.user.city === selectedCity : true
           )
           .map((alumni, index) => {
             return (
               <div
                 className={`${styles.OfficeBearer} ${
-                  activeIndex == index && styles.OfficeBearer_active
+                  activeIndex === index && styles.OfficeBearer_active
                 }`}
                 key={index}
               >
                 <img
-                  src={`http://localhost:8000/api/v1/users/user-avatar/${alumni._id}`}
+                  src={`http://localhost:8000/api/v1/users/user-avatar/${alumni.user._id}`}
                   alt="office bearer"
                   id={index}
                   onClick={handleClick}
                 />
                 <p
                   className={`${styles.show_details} ${
-                    activeIndex == index && styles.show_details_active
+                    activeIndex === index && styles.show_details_active
                   }`}
                 >
                   Show Details{">"}{" "}
-                </p>
-                <p
-                  className={`${styles.make_ob} ${
-                    activeIndex == index && styles.make_ob_active
-                  }`}
-                >
-                  make as OB
                 </p>
               </div>
             );
