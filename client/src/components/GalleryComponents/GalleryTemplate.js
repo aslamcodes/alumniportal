@@ -29,18 +29,18 @@ function GalleryTemplate({ fname, sname, data = [], isLoading }) {
 
   let images = [];
   const getImages = (n) => {
-    if (n == 1) {
+    if (n === 1) {
       images.push(data);
       return images;
     }
 
-    if (n == 2) {
+    if (n === 2) {
       images.push(data.slice(0, Math.ceil(data.length / 2)));
       images.push(data.slice(Math.ceil(data.length / 2)));
       return images;
     }
 
-    if (n == 3) {
+    if (n === 3) {
       images.push(data.slice(0, Math.ceil(data.length / 3)));
       images.push(
         data.slice(Math.ceil(data.length / 3), Math.ceil(data.length / 3) * 2)
@@ -129,14 +129,14 @@ function GalleryTemplate({ fname, sname, data = [], isLoading }) {
                           <div
                             className={`${styles.expand_container} ${
                               expand.active &&
-                              expand.id == index1 * 10 + index &&
+                              expand.id === index1 * 10 + index &&
                               styles.expand_container_active
                             }`}
                             onClick={handleClose}
                           >
                             <img
                               id={index}
-                              src={image}
+                              src={`/api/v1/gallery/${image}`}
                               alt=""
                               className={`${styles.image_expand} `}
                               onClick={(e) => e.stopPropagation()}
