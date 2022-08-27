@@ -4,10 +4,21 @@
   bottom: 3rem;
   padding: 0.5rem;
   width: 25rem;
-  border-radius: 15px;
+  border-radius: 10px;
   background-color: #fff;
+  max-height: 5rem;
+  overflow: hidden;
+  -webkit-transition: max-height 1s ease-in-out;
+  -moz-transition: max-height 1s ease-in-out;
+  -ms-transition: max-height 1s ease-in-out;
+  -o-transition: max-height 1s ease-in-out;
+  transition: max-height 1s ease-in-out;
 }
 
+.messages_container.active {
+  overflow: auto;
+  max-height: 30rem;
+}
 .messages_container hr {
   border: none;
   border-top: 2px solid #000;
@@ -34,4 +45,8 @@
   transform: rotate(180deg);
   transition: transform 0.7s ease-in-out;
   transform-origin: center center;
+}
+
+.messages_container.active .arrow_btn {
+  transform: rotate(0);
 }

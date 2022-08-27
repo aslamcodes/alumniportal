@@ -15,7 +15,7 @@ const ChatCard = () => {
             </h3>
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              {/* Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corrupti non velit mollitia, nostrum earum dolorem ut et, sequi ullam quisquam voluptatibus exercitationem blanditiis ipsam corporis quis, doloribus accusantium alias nemo! */}
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corrupti non velit mollitia, nostrum earum dolorem ut et, sequi ullam quisquam voluptatibus exercitationem blanditiis ipsam corporis quis, doloribus accusantium alias nemo!
             </p>
           </div>
           <IoIosArrowForward className={styles.arrow_forward_btn} fontSize={20} />

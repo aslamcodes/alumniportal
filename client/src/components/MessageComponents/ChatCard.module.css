@@ -21,7 +21,10 @@
   max-width: 80%;
 }
 .chatCard_body hr {
+  border: none;
   border-top: 1px solid #000;
+  width: 100%;
+  margin-bottom: 0.5rem;
 }
 .chatCard_details {
   display: flex;
