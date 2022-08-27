@@ -293,7 +293,7 @@ export const getAllAlumni = asyncHandler(async (_, res) => {
   }
 });
 
-export const getAllAlumniV2 = asyncHandler(async (_, res) => {
+export const getAllAlumniV2 = asyncHandler(async (req, res) => {
   const unwantedFields = [
     "user.password",
     "user.createdAt",
@@ -302,11 +302,18 @@ export const getAllAlumniV2 = asyncHandler(async (_, res) => {
     "user.isAdmin",
   ];
 
+  const isOnlyOfficeBearer = req.query["office-bearer"] === "true";
+
   const alumni = await Alumni.aggregate([
     {
-      $match: {
-        isApproved: true,
-      },
+      $match: isOnlyOfficeBearer
+        ? {
+            isApproved: true,
+            isOfficeBearer: true,
+          }
+        : {
+            isApproved: true,
+          },
     },
     {
       $lookup: {
