@@ -2,7 +2,7 @@ import Loader from "components/UI/Loader";
 import { useAuthContext } from "context/auth/authContext";
 import useAxiosWithCallback from "hooks/useAxiosWithCallback";
 import { useGetPostRequests } from "hooks/useGetNewPostRequests";
-import React from "react";
+import React, { useState } from "react";
 import AdminTableHeader from "./AdminTableHeader";
 import PostRequestTableRow from "./PostRequestTableRow";
 import styles from './PostRequestTable.module.css'
@@ -27,6 +27,7 @@ const PostRequestTable = () => {
     await approveRequest(approvalConfig);
   };
 
+
   if (isLoading) return <Loader />;
 
   return (
@@ -49,7 +50,14 @@ const PostRequestTable = () => {
         </thead>
         <tbody>
           {postRequests.map((request, index) => {
-            return <PostRequestTableRow data={request} key={index} onApproveHandler={onApproveHandler} />
+            return (
+
+              <PostRequestTableRow
+                data={request} key={index} onApproveHandler={onApproveHandler}
+              />
+
+
+            )
           }
           )}
         </tbody>
