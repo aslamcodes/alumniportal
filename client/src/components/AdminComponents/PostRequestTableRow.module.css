@@ -1,0 +1,11 @@
+.post_request_row td {
+  white-space: nowrap;
+}
+.post_img_eye_btn {
+  text-align: center;
+}
+.post_desc {
+  max-width: 20rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
