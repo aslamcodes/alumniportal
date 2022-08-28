@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styles from "./Messages.module.css"
 import { RiArrowDropDownLine } from 'react-icons/ri'
 import ChatCard from './ChatCard'
@@ -39,6 +39,16 @@ const ChatSelectPage = ({ isMessagesActive, setIsMessagesActive, setIsChatSelect
 
 const ChatPage = ({ user, isMessagesActive, setIsMessagesActive, setIsChatSelected }) => {
   const [message, setMessage] = useState("");
+  const messagesEndRef = useRef(null)
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView()
+  }
+
+  useEffect(() => {
+    scrollToBottom()
+  }, []);
+
   return (
     <>
       <div className={styles.messages_header}>
@@ -77,7 +87,7 @@ const ChatPage = ({ user, isMessagesActive, setIsMessagesActive, setIsChatSelect
           <ChatBubble type={0} />
           <ChatBubble type={0} />
           <ChatBubble type={1} />
-
+          <div ref={messagesEndRef} />
           <div className={styles.input_container}>
             <span class={styles.textarea} role="textbox" contentEditable={true} suppressContentEditableWarning={true}
               onBlur={(e) => setMessage(e.currentTarget.textContent)}
