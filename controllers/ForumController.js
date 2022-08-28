@@ -42,6 +42,7 @@ export const createPost = asyncHandler(async (req, res, next) => {
     },
     isApproved,
   });
+
   if (!NewPost) {
     return res.json({
       error: "Something went wrong. Please try again later.",

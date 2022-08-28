@@ -13,6 +13,7 @@ import { BsPeople } from "react-icons/bs";
 import { IoLogOutOutline } from "react-icons/io5";
 import useUserProfileData from "hooks/useUserProfileData";
 import Loader from "components/UI/Loader";
+import useGetForumPosts from "hooks/useGetForumPosts";
 
 const DUMMY_POST_DATA = [
   {
@@ -139,6 +140,13 @@ const PROFILE_IMAGES = [
 
 function ProfileModal({ isOpen, handleClose, userId }) {
   const { user, isLoading, error } = useUserProfileData(userId);
+  const {
+    isLoading: isPostLoading,
+    error: postError,
+    posts,
+  } = useGetForumPosts(0, userId);
+  console.clear();
+  console.log(posts);
   const { user: loggedInUser } = useAuthContext();
   const { alumni } = useAlumniContext();
   const [show, setShow] = useState({
@@ -424,15 +432,9 @@ function ProfileModal({ isOpen, handleClose, userId }) {
               )}
               {show.post && (
                 <div className={styles.posts}>
-                  {DUMMY_POST_DATA.map((post) => {
-                    return (
-                      <ForumCard
-                        key={post.id}
-                        data={post}
-                        profileActive={true}
-                      />
-                    );
-                  })}
+                  {posts.map((post) => (
+                    <ForumCard key={post.id} data={post} />
+                  ))}
                 </div>
               )}
             </div>
