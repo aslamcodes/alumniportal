@@ -4,7 +4,12 @@
   display: grid;
   grid-template-columns: repeat(
     auto-fill,
-    minmax(clamp(25rem, 30%, 30rem), 1fr)
+    minmax(clamp(25rem, 35%, 28rem), 1fr)
   );
-  gap: 1rem;
+  max-height: 100vh;
+  overflow: scroll;
+  grid-template-rows: repeat(auto-fill, 1fr);
+  grid-row-gap: 0rem;
+  row-gap: 1rem;
+  column-gap: 0.3rem;
 }
