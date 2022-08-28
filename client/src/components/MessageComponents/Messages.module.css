@@ -94,7 +94,7 @@
   border-radius: 20px;
   padding: 0.1rem;
   max-height: 10rem;
-  border: 1px solid rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(172, 172, 172, 0.3);
 }
 
 .input_container .textarea {
@@ -108,14 +108,19 @@
   padding: 0.3rem;
 }
 .textarea[contentEditable]:empty::before {
-  content: "Your Message";
+  content: "Place to reply";
   color: gray;
 }
 .input_container .textarea:focus {
   outline: none;
 }
 
+.textarea::-webkit-scrollbar {
+  display: none;
+}
+
 .send_btn {
+  align-self: flex-end;
   background-color: #fff;
   border-radius: 20px;
   padding: 0.1rem;

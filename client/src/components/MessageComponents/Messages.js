@@ -79,7 +79,9 @@ const ChatPage = ({ user, isMessagesActive, setIsMessagesActive, setIsChatSelect
           <ChatBubble type={1} />
 
           <div className={styles.input_container}>
-            <span class={styles.textarea} role="textbox" value={message} contentEditable={true} suppressContentEditableWarning={true}>{message}</span>
+            <span class={styles.textarea} role="textbox" contentEditable={true} suppressContentEditableWarning={true}
+              onBlur={(e) => setMessage(e.currentTarget.textContent)}
+            >{message}</span>
             <IoIosSend font-size={30} className={styles.send_btn} />
           </div>
         </div>
