@@ -1,10 +1,26 @@
 import ReactPortal from "components/Modal/ReactPortal";
 import React, { useEffect, useState } from "react";
+import { FaTimes } from "react-icons/fa";
 import { a, useTransition } from "react-spring";
 import Styles from "./FilterModal.module.css";
 
-const FilterModal = ({ filters, isFilterModalOpen, handleClose }) => {
-  const [selectedFilters, setSelectedFilters] = useState({});
+const FilterModal = ({
+  filters,
+  isFilterModalOpen,
+  handleClose,
+  onApplyFilter,
+}) => {
+  const [selectedFilters, setSelectedFilters] = useState(
+    filters
+      ? Object.keys(filters).reduce(
+          (acc, option) => ({
+            ...acc,
+            [option]: [],
+          }),
+          {}
+        )
+      : {}
+  );
   const filterModalTransitions = useTransition(isFilterModalOpen, {
     from: {
       opacity: 0,
@@ -51,22 +67,25 @@ const FilterModal = ({ filters, isFilterModalOpen, handleClose }) => {
     });
   };
 
-  console.log(selectedFilters);
+  const handleApplyFilter = (e) => {
+    onApplyFilter(selectedFilters);
+    handleClose(e);
+  };
 
   return filterModalTransitions(
     (style, item) =>
       item && (
         <ReactPortal wrapperId="filter_modal_wrapper">
-          <a.div
-            style={style}
-            className={Styles.filter_modal_overlay}
-            // onClick={handleClose}
-          >
+          <a.div style={style} className={Styles.filter_modal_overlay}>
             <main className={Styles.filter_modal_main}>
+              <div className={Styles.filter_header}>
+                <FaTimes onClick={handleClose} />
+                <p onClick={handleApplyFilter}>Apply</p>
+              </div>
               {filters &&
                 Object.keys(filters).map((filter) => (
                   <div className={Styles.filter_group}>
-                    <h2 className={Styles.filter_header}>{filter}</h2>
+                    <h2 className={Styles.filter_title}>{filter}</h2>
                     <div className={Styles.filter_options}>
                       {filters[filter].map((option) => (
                         <p

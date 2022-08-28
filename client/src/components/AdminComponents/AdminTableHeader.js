@@ -6,7 +6,7 @@ import Styles from "./AdminTableHeader.module.css";
 import Select from "react-select";
 import FilterModal from "./FilterModal";
 
-const AdminTableHeader = ({ onSelect, type, filters }) => {
+const AdminTableHeader = ({ onSelect, type, filters, onApplyFilter }) => {
   const [selectedCount, setSelectedCount] = useState(10);
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
 
@@ -23,6 +23,7 @@ const AdminTableHeader = ({ onSelect, type, filters }) => {
   return (
     <>
       <FilterModal
+        onApplyFilter={onApplyFilter}
         isFilterModalOpen={isFilterModalOpen}
         handleClose={handleClose}
         filters={filters}

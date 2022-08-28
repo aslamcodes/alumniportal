@@ -32,8 +32,27 @@
   flex-wrap: wrap;
 }
 
-.filter_header {
+.filter_title {
   margin-bottom: 0.4em;
+}
+
+.filter_header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.filter_header > * {
+  cursor: pointer;
+}
+
+.filter_header :nth-child(1) {
+  font-size: 1.3rem;
+}
+
+.filter_header p {
+  font-size: 1.1rem;
+  font-weight: bold;
 }
 
 .filter_options p {

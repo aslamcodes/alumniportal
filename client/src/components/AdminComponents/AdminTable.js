@@ -10,7 +10,8 @@ import useAxiosWithCallback from "hooks/useAxiosWithCallback";
 import { useAuthContext } from "context/auth/authContext";
 
 const AlumniTable = () => {
-  const { alumni, error, isLoading, trigger } = useGetAlumni();
+  const { alumni: alumniData, error, isLoading, trigger } = useGetAlumni();
+  const [alumni, setAlumni] = useState(alumniData);
   const [entriesPerPage, setEntriesPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [tableHeadOnTop, setTableHeadOnTop] = useState(false);
@@ -18,7 +19,7 @@ const AlumniTable = () => {
   const { user } = useAuthContext();
   const totalPages = alumni ? Math.ceil(alumni.length / entriesPerPage) : 0;
   const tableHeadRef = useRef(null);
-  const filters = getAlumniFilters(alumni);
+  const filters = getAlumniFilters(alumniData);
   const props = useSpring({
     from: {
       backgroundColor: "#e2e2e2",
@@ -27,6 +28,38 @@ const AlumniTable = () => {
       backgroundColor: tableHeadOnTop ? "#bddcf3" : "#e2e2e2",
     },
   });
+
+  useEffect(() => {
+    setAlumni(alumniData);
+  }, [alumniData]);
+
+  const onApplyFilter = (filters) => {
+    console.clear();
+    console.log(filters, alumniData);
+    setAlumni(() =>
+      alumniData.filter((alumnus) => {
+        return (
+          filterForField(filters, "City", alumnus.user.city) &&
+          filterForField(
+            filters,
+            "Entrepreneur",
+            alumnus.isEntrepreneur ? "Yes" : "No"
+          ) &&
+          filterForField(
+            filters,
+            "GraduationLevel",
+            alumnus.user.graduationLevel
+          ) &&
+          filterForField(filters, "Organization", alumnus.organization) &&
+          filterForField(
+            filters,
+            "Year of Passing",
+            new Date(alumnus.user.yearOfPassing).getFullYear()
+          )
+        );
+      })
+    );
+  };
 
   const onDeleteAlumniHandler = async (userId) => {
     const deleteConfig = {
@@ -61,6 +94,7 @@ const AlumniTable = () => {
       <AdminTableHeader
         onSelect={onEntriesPerPageSelectHandler}
         type="Alumni"
+        onApplyFilter={onApplyFilter}
         filters={filters}
       />
 
@@ -146,5 +180,9 @@ const getAlumniFilters = (alumni) =>
       "Year of Passing": [],
     }
   );
+
+const filterForField = (filters, field, data) => {
+  return filters[field]?.length !== 0 ? filters[field]?.includes(data) : true;
+};
 
 export default AlumniTable;
