@@ -6,7 +6,23 @@
   width: 25rem;
   border-radius: 10px;
   background-color: #fff;
-  max-height: 5rem;
+}
+
+.messages_container .hr_header {
+  border: none;
+  border-top: 2px solid #000;
+  width: 0;
+  transition: width 1s ease-in-out, margin-bottom 0.2s linear;
+}
+
+.messages_container.active .hr_header {
+  margin-bottom: 0.5rem;
+  height: 2px;
+  width: 100%;
+}
+
+.chat_container {
+  max-height: 0;
   overflow: hidden;
   -webkit-transition: max-height 1s ease-in-out;
   -moz-transition: max-height 1s ease-in-out;
@@ -14,16 +30,9 @@
   -o-transition: max-height 1s ease-in-out;
   transition: max-height 1s ease-in-out;
 }
-
-.messages_container.active {
+.chat_container.active {
   overflow: auto;
-  max-height: 30rem;
-}
-.messages_container hr {
-  border: none;
-  border-top: 2px solid #000;
-  width: 100%;
-  margin-bottom: 0.5rem;
+  max-height: 20rem;
 }
 
 .messages_header {

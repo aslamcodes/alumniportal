@@ -16,16 +16,22 @@ const Messages = () => {
           <IoClose className={styles.close_btn} fontSize={20} />
         </div>
       </div>
-      {isMessagesActive &&
-        <>
-          <hr />
-          <div className={styles.chat_container}>
-            <ChatCard />
-            <ChatCard />
 
-
-          </div>
-        </>}
+      <>
+        <hr className={styles.hr_header} />
+        <div className={`${styles.chat_container} ${isMessagesActive && styles.active}`}>
+          <ChatCard />
+          <ChatCard />
+          <ChatCard />
+          <ChatCard />
+          <ChatCard />
+          <ChatCard />
+          <ChatCard />
+          <ChatCard />
+          <ChatCard />
+          <ChatCard />
+        </div>
+      </>
     </div>
   )
 }
