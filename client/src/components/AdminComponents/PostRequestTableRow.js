@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { GrClose } from 'react-icons/gr';
-import { IoIosArrowDown } from 'react-icons/io';
+import { IoIosArrowDown, IoIosSend } from 'react-icons/io';
 import { IoEyeOffSharp, IoEyeSharp } from 'react-icons/io5';
 import styles from "./PostRequestTableRow.module.css";
 
@@ -31,11 +31,35 @@ const DescOverlay = ({ data, setIsShowDesc }) => {
   )
 }
 
-
+const RejectReasonOverlay = ({ setIsShowReject }) => {
+  const [reason, setReason] = useState("");
+  const handleSent = () => {
+    console.log(reason);
+    setReason("");
+    setIsShowReject(false);
+  }
+  return (
+    <div className={styles.overlay} onClick={() => setIsShowReject(false)}>
+      <div className={`${styles.container} ${styles.reason}`} onClick={(e) => e.stopPropagation()} >
+        <div className={styles.header}>
+          <h3>Reason</h3>
+          <GrClose className={styles.close_btn} onClick={() => setIsShowReject(false)} />
+        </div>
+        <div className={styles.input_container}>
+          <span class={styles.textarea} role="textbox" contentEditable={true} suppressContentEditableWarning={true}
+            onBlur={(e) => setReason(e.currentTarget.textContent)}
+          >{reason}</span>
+          <IoIosSend font-size={30} className={styles.send_btn} onClick={handleSent} />
+        </div>
+      </div>
+    </div>
+  )
+}
 
 function PostRequestTableRow({ data, onApproveHandler }) {
   const [isShowImage, setIsShowImage] = useState(false);
   const [isShowDesc, setIsShowDesc] = useState(false);
+  const [isShowReject, setIsShowReject] = useState(false);
   const handleEyeClick = () => {
     setIsShowImage(!isShowImage);
 
@@ -60,13 +84,14 @@ function PostRequestTableRow({ data, onApproveHandler }) {
               <p onClick={() => { onApproveHandler(data._id); alert("Approved") }} className={styles.accept}>
                 Approve
               </p>
-              <p className={styles.decline}>
+              <p className={styles.decline} onClick={() => setIsShowReject(true)}>
                 Decline
               </p>
             </>
           ) : `Approved by ${data.approvedBy.name}`}
           {isShowImage && <ImageOverlay data={data} setIsShowImage={setIsShowImage} />}
           {isShowDesc && <DescOverlay data={data} setIsShowDesc={setIsShowDesc} />}
+          {isShowReject && <RejectReasonOverlay setIsShowReject={setIsShowReject} />}
         </td>
 
       </tr>
