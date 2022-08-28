@@ -2,7 +2,10 @@ import Loader from "components/UI/Loader";
 import { useAuthContext } from "context/auth/authContext";
 import useAxiosWithCallback from "hooks/useAxiosWithCallback";
 import { useGetPostRequests } from "hooks/useGetNewPostRequests";
-import React from "react";
+import React, { useState } from "react";
+import AdminTableHeader from "./AdminTableHeader";
+import PostRequestTableRow from "./PostRequestTableRow";
+import styles from './PostRequestTable.module.css'
 
 const PostRequestTable = () => {
   const { isLoading, error, postRequests } = useGetPostRequests();
@@ -24,38 +27,38 @@ const PostRequestTable = () => {
     await approveRequest(approvalConfig);
   };
 
+
   if (isLoading) return <Loader />;
 
   return (
-    <div>
-      {postRequests.map((request, index) => (
-        <>
-          <p>{index + 1}</p>
-          <p>{request.postData.post.title}</p>
-          <p>{request.postData.post.desc}</p>
-          <p>
-            Approval Status{" "}
-            <strong>
-              {request.postData.isApproved
-                ? `Approved by ${request.approvedBy.name}`
-                : "Not Yet Approved"}
-            </strong>
-          </p>
-          <p>
-            Created by <strong>{request.user.name}</strong> Register Number{" "}
-            <strong>{request.user.registerNumber}</strong>
-          </p>
-          {!request.postData.isApproved && (
-            <button
-              onClick={() => {
-                onApproveHandler(request._id);
-              }}
-            >
-              Approve
-            </button>
+    <div className={styles.post_request_container}>
+      <AdminTableHeader
+        type="Post Requests"
+
+      />
+
+      <table id={styles.post_table}>
+        <thead>
+          <tr>
+            <th>Regno</th>
+            <th>Name</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Image</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {postRequests.map((request, index) => {
+            return (
+              <PostRequestTableRow
+                data={request} key={index} onApproveHandler={onApproveHandler}
+              />
+            )
+          }
           )}
-        </>
-      ))}
+        </tbody>
+      </table>
     </div>
   );
 };

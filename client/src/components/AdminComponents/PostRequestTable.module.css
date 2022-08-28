@@ -1,0 +1,19 @@
+#post_table {
+  margin-top: 1rem;
+  table-layout: fixed;
+  max-width: 100%;
+  border-collapse: collapse;
+  background-color: #e5e5e5;
+}
+#post_table thead {
+  text-align: left;
+}
+#post_table th {
+  padding: 1.2rem 1rem;
+}
+#post_table tbody > tr {
+  transition: background-color 0.4s ease-in-out;
+}
+#post_table tbody > tr:hover {
+  background-color: #fffcdc;
+}
