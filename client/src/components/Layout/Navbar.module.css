@@ -92,6 +92,19 @@
   max-width: 3.5em;
 }
 
+/* notification icon */
+.notification_icon {
+  position: relative;
+  cursor: pointer;
+}
+.notification_icon.active::after {
+  content: "⚫";
+  position: absolute;
+  font-size: 8px;
+  top: 0.03rem;
+  right: 0.1rem;
+}
+
 /* Dropdown component for small screens */
 
 .dropdown-btn {

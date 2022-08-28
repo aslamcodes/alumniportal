@@ -24,6 +24,7 @@ import AdminOfficeBearers from "pages/Admin/AdminOfficeBearers";
 import PostRequest from "pages/Admin/PostRequest";
 import EventRequest from "pages/Admin/EventRequest";
 import Alumni from "pages/Alumni/Alumni";
+import Messages from "components/MessageComponents/Messages";
 
 function App() {
   return (
@@ -39,10 +40,16 @@ function App() {
             path="/admin/office-bearers"
             element={<AdminOfficeBearers />}
           />
-          <Route element={<Navbar />}>
+
+          <Route element={
+            <>
+              <Navbar />
+              <Messages />
+            </>
+          }>
             <Route path="/alumni-forum" element={<AlumniForum />} />
           </Route>
-          <Route element={<WithNavAndFooter />}>
+          <Route element={<WithNavMessagesFooter />}>
             <Route index path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route
@@ -68,6 +75,7 @@ function App() {
               element={<SeminarSessions />}
             />
             <Route path="/office-bearers" element={<OfficeBearers />} />
+
           </Route>
         </Routes>
       </Router>
@@ -75,10 +83,11 @@ function App() {
   );
 }
 
-const WithNavAndFooter = () => {
+const WithNavMessagesFooter = () => {
   return (
     <>
       <Navbar />
+      <Messages />
       <Footer />
     </>
   );

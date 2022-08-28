@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styles from "./GalleryTemplate.module.css";
 import ReactPortal from "components/Modal/ReactPortal";
+import AddPhotos from "./AddPhotos";
 import Loader from "components/UI/Loader";
+import { AiOutlinePlus } from "react-icons/ai";
+import { useAuthContext } from "context/auth/authContext";
 
 function getWindowDimensions() {
   const { innerWidth: width, innerHeight: height } = window;
@@ -16,6 +19,7 @@ function GalleryTemplate({ fname, sname, data = [], isLoading }) {
     getWindowDimensions()
   );
 
+
   const [numberOfImages, setNumberOfImages] = useState(1);
   const [imageSwitch, setImageSwitch] = useState({
     imageActive: 0,
@@ -26,6 +30,8 @@ function GalleryTemplate({ fname, sname, data = [], isLoading }) {
     active: false,
     id: 1,
   });
+  const [isCardActive, setIsCardActive] = useState(false);
+  const { user } = useAuthContext();
 
   let images = [];
   const getImages = (n) => {
@@ -94,9 +100,27 @@ function GalleryTemplate({ fname, sname, data = [], isLoading }) {
   return (
     <div className={styles.gallery_container}>
       <div className={styles.header}>
-        <h1>
-          {fname} <span>{sname}</span>
-        </h1>
+        <div>
+          <h1>
+            {fname} <span>{sname}</span>
+          </h1>
+        </div>
+        {/* {user?.token && ( */}
+        <div
+          className={styles.add_image_button}
+          onClick={() => setIsCardActive(!isCardActive)}
+        >
+          <p>Add </p>
+          <div
+            className={`${styles.add_image_icon} ${isCardActive && styles.active}`}
+          >
+            <AiOutlinePlus fontSize={30} />
+          </div>
+          <AddPhotos isCardActive={isCardActive} />
+        </div>
+
+        {/* )} */}
+
       </div>
       {isLoading ? (
         <Loader />
@@ -116,22 +140,20 @@ function GalleryTemplate({ fname, sname, data = [], isLoading }) {
                             id={index}
                             src={`/api/v1/gallery/${image}`}
                             alt=""
-                            className={`${
-                              (imageSwitch.imageActive === index &&
-                                styles.image_active) ||
+                            className={`${(imageSwitch.imageActive === index &&
+                              styles.image_active) ||
                               (imageSwitch.imageTop === index &&
                                 styles.image_top) ||
                               (imageSwitch.imageBottom === index &&
                                 styles.image_bottom)
-                            } ${styles.image}`}
+                              } ${styles.image}`}
                             onClick={(e) => handleClick(e, index1)}
                           />
                           <div
-                            className={`${styles.expand_container} ${
-                              expand.active &&
+                            className={`${styles.expand_container} ${expand.active &&
                               expand.id === index1 * 10 + index &&
                               styles.expand_container_active
-                            }`}
+                              }`}
                             onClick={handleClose}
                           >
                             <img

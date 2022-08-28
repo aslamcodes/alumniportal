@@ -1,0 +1,127 @@
+.messages_container {
+  position: fixed;
+  right: 2rem;
+  bottom: 3rem;
+  padding: 0.5rem;
+  width: 25rem;
+  border-radius: 10px;
+  background-color: #fff;
+  z-index: 20;
+}
+
+.messages_container .hr_header {
+  border: none;
+  border-top: 2px solid #000;
+  width: 0;
+  transition: width 1s ease-in-out, margin-bottom 0.2s linear;
+}
+
+.messages_container.active .hr_header {
+  margin-block: 0.5rem;
+  height: 2px;
+  width: 100%;
+}
+
+.chat_container {
+  max-height: 0;
+  overflow: hidden;
+  -webkit-transition: max-height 1s ease-in-out;
+  -moz-transition: max-height 1s ease-in-out;
+  -ms-transition: max-height 1s ease-in-out;
+  -o-transition: max-height 1s ease-in-out;
+  transition: max-height 1s ease-in-out;
+}
+.chat_container.active {
+  overflow: auto;
+  max-height: 20rem;
+}
+
+.messages_header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 500;
+}
+
+.messages_actions > * {
+  display: inline-block;
+  vertical-align: middle;
+}
+.arrow_btn,
+.add_btn,
+.back_btn,
+.send_btn {
+  cursor: pointer;
+}
+
+.arrow_btn {
+  transform: rotate(180deg);
+  transition: transform 0.7s ease-in-out;
+  transform-origin: center center;
+}
+
+.messages_container.active .arrow_btn {
+  transform: rotate(0);
+}
+
+.chat_profile {
+  display: flex;
+  align-items: center;
+  width: 50%;
+}
+
+.chat_profile img {
+  width: 3rem;
+  height: 3rem;
+  margin-right: 1rem;
+  clip-path: circle();
+  object-fit: cover;
+}
+
+.chat_container.chat {
+  display: flex;
+  flex-direction: column;
+}
+
+.input_container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+  background-color: #dcdcdc;
+  border-radius: 20px;
+  padding: 0.1rem;
+  max-height: 10rem;
+  border: 1px solid rgba(172, 172, 172, 0.3);
+}
+
+.input_container .textarea {
+  width: 90%;
+  border: none;
+  background-color: transparent;
+  overflow: auto;
+  resize: none;
+  max-height: 10rem;
+  border-radius: 20px;
+  padding: 0.3rem;
+}
+.textarea[contentEditable]:empty::before {
+  content: "Place to reply";
+  color: gray;
+}
+.input_container .textarea:focus {
+  outline: none;
+}
+
+.textarea::-webkit-scrollbar {
+  display: none;
+}
+
+.send_btn {
+  align-self: flex-end;
+  background-color: #fff;
+  border-radius: 20px;
+  padding: 0.1rem;
+}
