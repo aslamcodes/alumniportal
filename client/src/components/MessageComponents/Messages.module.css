@@ -1,0 +1,62 @@
+.messages_container {
+  position: fixed;
+  right: 2rem;
+  bottom: 3rem;
+  padding: 0.5rem;
+  width: 25rem;
+  border-radius: 10px;
+  background-color: #fff;
+}
+
+.messages_container .hr_header {
+  border: none;
+  border-top: 2px solid #000;
+  width: 0;
+  transition: width 1s ease-in-out, margin-bottom 0.2s linear;
+}
+
+.messages_container.active .hr_header {
+  margin-bottom: 0.5rem;
+  height: 2px;
+  width: 100%;
+}
+
+.chat_container {
+  max-height: 0;
+  overflow: hidden;
+  -webkit-transition: max-height 1s ease-in-out;
+  -moz-transition: max-height 1s ease-in-out;
+  -ms-transition: max-height 1s ease-in-out;
+  -o-transition: max-height 1s ease-in-out;
+  transition: max-height 1s ease-in-out;
+}
+.chat_container.active {
+  overflow: auto;
+  max-height: 20rem;
+}
+
+.messages_header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 500;
+}
+
+.messages_actions > * {
+  display: inline-block;
+  vertical-align: middle;
+}
+.arrow_btn,
+.close_btn {
+  cursor: pointer;
+}
+
+.arrow_btn {
+  transform: rotate(180deg);
+  transition: transform 0.7s ease-in-out;
+  transform-origin: center center;
+}
+
+.messages_container.active .arrow_btn {
+  transform: rotate(0);
+}

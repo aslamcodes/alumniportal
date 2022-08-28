@@ -39,7 +39,6 @@
   border-radius: 15px;
   font-weight: 500;
   white-space: nowrap;
-  transition: max-height 1s ease-in-out;
   cursor: default;
 }
 .notification_card > .message {
