@@ -4,7 +4,7 @@ import { RiArrowDropDownLine } from 'react-icons/ri'
 import ChatCard from './ChatCard'
 import { AiOutlinePlus } from 'react-icons/ai'
 import { IoIosArrowBack, IoIosSend } from 'react-icons/io'
-import ChatBubble from './ChatBubble'
+import ChatBubble from './ChatBubble.js'
 
 const ChatSelectPage = ({ isMessagesActive, setIsMessagesActive, setIsChatSelected }) => {
   return (
