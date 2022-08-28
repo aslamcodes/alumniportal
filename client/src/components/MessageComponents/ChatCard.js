@@ -1,14 +1,14 @@
 import React from 'react'
 import { IoIosArrowForward } from 'react-icons/io'
 import styles from "./ChatCard.module.css"
-const ChatCard = () => {
+const ChatCard = ({ setIsActive }) => {
   return (
     <div className={styles.chatCard_container}>
       <div className={styles.chatCard_profile}>
         <img src={require("assets/christopher.jpg")} alt="" />
       </div>
       <div className={styles.chatCard_body}>
-        <div className={styles.chatCard_details}>
+        <div className={styles.chatCard_details} onClick={() => setIsActive(true)}>
           <div>
             <h3>
               Jennifer
