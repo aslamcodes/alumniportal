@@ -76,3 +76,8 @@
   clip-path: circle();
   object-fit: cover;
 }
+
+.chat_container.chat {
+  display: flex;
+  flex-direction: column;
+}

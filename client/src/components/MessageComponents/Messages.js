@@ -4,6 +4,7 @@ import { RiArrowDropDownLine } from 'react-icons/ri'
 import ChatCard from './ChatCard'
 import { AiOutlinePlus } from 'react-icons/ai'
 import { IoIosArrowBack } from 'react-icons/io'
+import ChatBubble from './ChatBubble'
 
 const ChatSelectPage = ({ isMessagesActive, setIsMessagesActive, setIsChatSelected }) => {
   return (
@@ -56,7 +57,14 @@ const ChatPage = ({ user, isMessagesActive, setIsMessagesActive, setIsChatSelect
 
       <>
         <hr className={styles.hr_header} />
-        <div className={`${styles.chat_container} ${isMessagesActive && styles.active}`}>
+        <div className={`${styles.chat_container} ${styles.chat} ${isMessagesActive && styles.active}`}>
+          {/* type 0 recieved message and type 1 message sent*/}
+          <ChatBubble type={0} />
+          <ChatBubble type={1} />
+          <ChatBubble type={0} />
+          <ChatBubble type={0} />
+          <ChatBubble type={1} />
+
           <div className={styles.input_container}>
             <input type="text" />
           </div>
