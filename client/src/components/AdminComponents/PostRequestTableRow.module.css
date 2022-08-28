@@ -7,7 +7,8 @@
   backdrop-filter: blur(1px);
   z-index: 100;
 }
-.overlay img {
+.overlay img,
+.container {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -16,6 +17,25 @@
   max-height: 80%;
   object-fit: contain;
 }
+.overlay .container hr {
+  width: 100%;
+  border: none;
+  border-top: 1px solid #000000;
+}
+.overlay .container {
+  border-radius: 15px;
+  padding: 1rem;
+  background-color: #c9ffff;
+  white-space: normal;
+}
+.overlay .container .header {
+  display: flex;
+  justify-content: space-between;
+}
+.overlay .container > * {
+  margin-bottom: 0.2rem;
+}
+
 .post_request_row td {
   white-space: nowrap;
 }
@@ -32,7 +52,8 @@
 }
 
 .post_request_row .actions > p,
-.arrow_btn {
+.arrow_btn,
+.close_btn {
   cursor: pointer;
 }
 

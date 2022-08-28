@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { GrClose } from 'react-icons/gr';
 import { IoIosArrowDown } from 'react-icons/io';
 import { IoEyeOffSharp, IoEyeSharp } from 'react-icons/io5';
 import styles from "./PostRequestTableRow.module.css";
@@ -9,9 +10,27 @@ const ImageOverlay = ({ data, setIsShowImage }) => {
   return (
     <div className={styles.overlay} onClick={() => setIsShowImage(false)}>
       <img src={`http://localhost:8000/api/v1/forum/image/${data.postData.post.images[0]}`} alt="post-image" onClick={(e) => e.stopPropagation()} />
+      <GrClose className={styles.close_btn} onClick={() => setIsShowImage(false)} />
     </div>
   )
 }
+
+
+const DescOverlay = ({ data, setIsShowDesc }) => {
+  return (
+    <div className={styles.overlay} onClick={() => setIsShowDesc(false)}>
+      <div className={styles.container} onClick={(e) => e.stopPropagation()} >
+        <div className={styles.header}>
+          <h4>Description</h4>
+          <GrClose className={styles.close_btn} onClick={() => setIsShowDesc(false)} />
+        </div>
+        <hr />
+        <p>{data.postData.post.desc}</p>
+      </div>
+    </div>
+  )
+}
+
 
 
 function PostRequestTableRow({ data, onApproveHandler }) {
@@ -47,6 +66,7 @@ function PostRequestTableRow({ data, onApproveHandler }) {
             </>
           ) : `Approved by ${data.approvedBy.name}`}
           {isShowImage && <ImageOverlay data={data} setIsShowImage={setIsShowImage} />}
+          {isShowDesc && <DescOverlay data={data} setIsShowDesc={setIsShowDesc} />}
         </td>
 
       </tr>
