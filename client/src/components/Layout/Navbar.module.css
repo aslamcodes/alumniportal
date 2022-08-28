@@ -31,25 +31,26 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 1em;
+  gap: 0.9em;
   text-align: left;
   max-width: 100%;
 }
 
 .navLink a {
-  font-size: 0.9em;
+  font-size: 1em;
   font-weight: 600;
   color: #4d4d4d;
   text-decoration: none;
   text-align: center;
 }
+
 .navLink a:hover {
   color: #000;
 }
 
 /* Brand */
 .navbar-brand {
-  flex: 40%;
+  flex: 30%;
   display: flex;
   flex-direction: row;
   justify-content: center;

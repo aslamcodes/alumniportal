@@ -1,3 +1,4 @@
+import AlumnusCard from "components/AlumniComponents/AlumnusCard";
 import Loader from "components/UI/Loader";
 import { useAuthContext } from "context/auth/authContext";
 import useGetAlumni from "hooks/useFetchAlumni";
@@ -10,7 +11,7 @@ const Alumni = () => {
   const { user } = useAuthContext();
   const location = useLocation();
   const navigate = useNavigate();
-  console.log(location);
+
   useEffect(() => {
     if (!user?.token)
       navigate("/login", {
@@ -25,18 +26,7 @@ const Alumni = () => {
   return (
     <main className={styles.main}>
       {alumni?.map((alumnus) => (
-        <div>
-          <p>{alumnus.user.name}</p>
-          <p>
-            working as {alumnus.designation} at {alumnus.organization}
-          </p>
-          <p>Department {alumnus.user.department}</p>
-          <p>City {alumnus.user.city}</p>
-          <p>Current Country {alumnus.user.country}</p>
-          <button>Message</button>
-          <br />
-          <br />
-        </div>
+        <AlumnusCard alumnus={alumnus} />
       ))}
     </main>
   );
