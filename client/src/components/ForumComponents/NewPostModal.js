@@ -154,7 +154,7 @@ function NewPostModal({ setNewPostActive }) {
 
                   <div className={styles.img_input_container}>
                     {postData.image && imageSwitch && (
-                      <label for="img-switch">
+                      <label for="img-switch" alt="image-switch">
                         <img
                           src={require("assets/image-switch.png")}
                           alt="switch-icon"

@@ -44,7 +44,7 @@ function App() {
           <Route element={
             <>
               <Navbar />
-              <Messages />
+              {/* <Messages /> */}
             </>
           }>
             <Route path="/alumni-forum" element={<AlumniForum />} />
