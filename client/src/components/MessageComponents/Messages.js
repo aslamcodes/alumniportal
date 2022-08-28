@@ -79,7 +79,6 @@ const ChatPage = ({ user, isMessagesActive, setIsMessagesActive, setIsChatSelect
           <ChatBubble type={0} />
           <ChatBubble type={1} />
           <ChatBubble type={0} />
-
           <ChatBubble type={1} />
           <ChatBubble type={1} />
           <ChatBubble type={0} />
