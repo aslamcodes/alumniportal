@@ -49,7 +49,8 @@
 }
 .arrow_btn,
 .add_btn,
-.back_btn {
+.back_btn,
+.send_btn {
   cursor: pointer;
 }
 
@@ -80,4 +81,42 @@
 .chat_container.chat {
   display: flex;
   flex-direction: column;
+}
+
+.input_container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+  background-color: #dcdcdc;
+  border-radius: 20px;
+  padding: 0.1rem;
+  max-height: 10rem;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.input_container .textarea {
+  width: 90%;
+  border: none;
+  background-color: transparent;
+  overflow: auto;
+  resize: none;
+  max-height: 10rem;
+  border-radius: 20px;
+  padding: 0.3rem;
+}
+.textarea[contentEditable]:empty::before {
+  content: "Your Message";
+  color: gray;
+}
+.input_container .textarea:focus {
+  outline: none;
+}
+
+.send_btn {
+  background-color: #fff;
+  border-radius: 20px;
+  padding: 0.1rem;
 }

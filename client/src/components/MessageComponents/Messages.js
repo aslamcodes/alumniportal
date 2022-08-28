@@ -3,7 +3,7 @@ import styles from "./Messages.module.css"
 import { RiArrowDropDownLine } from 'react-icons/ri'
 import ChatCard from './ChatCard'
 import { AiOutlinePlus } from 'react-icons/ai'
-import { IoIosArrowBack } from 'react-icons/io'
+import { IoIosArrowBack, IoIosSend } from 'react-icons/io'
 import ChatBubble from './ChatBubble'
 
 const ChatSelectPage = ({ isMessagesActive, setIsMessagesActive, setIsChatSelected }) => {
@@ -38,6 +38,7 @@ const ChatSelectPage = ({ isMessagesActive, setIsMessagesActive, setIsChatSelect
 }
 
 const ChatPage = ({ user, isMessagesActive, setIsMessagesActive, setIsChatSelected }) => {
+  const [message, setMessage] = useState("");
   return (
     <>
       <div className={styles.messages_header}>
@@ -64,9 +65,22 @@ const ChatPage = ({ user, isMessagesActive, setIsMessagesActive, setIsChatSelect
           <ChatBubble type={0} />
           <ChatBubble type={0} />
           <ChatBubble type={1} />
+          <ChatBubble type={1} />
+          <ChatBubble type={0} />
+          <ChatBubble type={1} />
+          <ChatBubble type={0} />
+
+          <ChatBubble type={1} />
+          <ChatBubble type={1} />
+          <ChatBubble type={0} />
+          <ChatBubble type={1} />
+          <ChatBubble type={0} />
+          <ChatBubble type={0} />
+          <ChatBubble type={1} />
 
           <div className={styles.input_container}>
-            <input type="text" />
+            <span class={styles.textarea} role="textbox" value={message} contentEditable={true} suppressContentEditableWarning={true}>{message}</span>
+            <IoIosSend font-size={30} className={styles.send_btn} />
           </div>
         </div>
       </>
