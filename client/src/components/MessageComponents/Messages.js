@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import styles from "./Messages.module.css"
-import { IoClose } from 'react-icons/io5'
 import { RiArrowDropDownLine } from 'react-icons/ri'
 import ChatCard from './ChatCard'
+import { AiOutlinePlus } from 'react-icons/ai'
 const Messages = () => {
 
   const [isMessagesActive, setIsMessagesActive] = useState(false);
@@ -12,8 +12,8 @@ const Messages = () => {
       <div className={styles.messages_header}>
         Messages
         <div className={styles.messages_actions}>
+          <AiOutlinePlus className={styles.add_btn} fontSize={20} />
           <RiArrowDropDownLine className={styles.arrow_btn} fontSize={35} onClick={() => setIsMessagesActive(!isMessagesActive)} />
-          <IoClose className={styles.close_btn} fontSize={20} />
         </div>
       </div>
 
