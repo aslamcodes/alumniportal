@@ -51,12 +51,9 @@ const PostRequestTable = () => {
         <tbody>
           {postRequests.map((request, index) => {
             return (
-
               <PostRequestTableRow
                 data={request} key={index} onApproveHandler={onApproveHandler}
               />
-
-
             )
           }
           )}
