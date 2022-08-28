@@ -67,9 +67,9 @@ const FilterModal = ({
     });
   };
 
-  const handleApplyFilter = (e) => {
+  const handleApplyFilter = () => {
     onApplyFilter(selectedFilters);
-    handleClose(e);
+    handleClose();
   };
 
   return filterModalTransitions(

@@ -6,18 +6,28 @@ import Styles from "./AdminTableHeader.module.css";
 import Select from "react-select";
 import FilterModal from "./FilterModal";
 
-const AdminTableHeader = ({ onSelect, type, filters, onApplyFilter }) => {
+const AdminTableHeader = ({
+  onSelect,
+  type,
+  filters,
+  onApplyFilter,
+  onSearch,
+}) => {
   const [selectedCount, setSelectedCount] = useState(10);
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const onChangeHandler = ({ value }) => {
     setSelectedCount(value);
     onSelect(value);
   };
 
-  const handleClose = (e) => {
-    e.stopPropagation();
+  const handleClose = () => {
     setIsFilterModalOpen(false);
+  };
+
+  const handleOnSearch = () => {
+    onSearch(searchQuery);
   };
 
   return (
@@ -33,8 +43,12 @@ const AdminTableHeader = ({ onSelect, type, filters, onApplyFilter }) => {
       <Divider mb={".6em"} mt={0} bgColor={"#ADADAD"} />
       <div className={Styles.table_controls}>
         <div className={Styles.search}>
-          <FiSearch />
-          <input placeholder="Search" />
+          <FiSearch onClick={handleOnSearch} />
+          <input
+            placeholder="Search"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value.toLowerCase())}
+          />
         </div>
         <div className={Styles.table_actions}>
           <button

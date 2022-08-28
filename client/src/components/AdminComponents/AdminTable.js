@@ -34,8 +34,6 @@ const AlumniTable = () => {
   }, [alumniData]);
 
   const onApplyFilter = (filters) => {
-    console.clear();
-    console.log(filters, alumniData);
     setAlumni(() =>
       alumniData.filter((alumnus) => {
         return (
@@ -59,6 +57,17 @@ const AlumniTable = () => {
         );
       })
     );
+  };
+
+  const onSearch = (query) => {
+    setAlumni(
+      alumniData.filter((alumnus) =>
+        (alumnus.user.registerNumber + " " + alumnus.user.name)
+          .toLowerCase()
+          .includes(query)
+      )
+    );
+    console.log("Mohamed Aslam".toLowerCase().includes(query));
   };
 
   const onDeleteAlumniHandler = async (userId) => {
@@ -93,6 +102,7 @@ const AlumniTable = () => {
     <div>
       <AdminTableHeader
         onSelect={onEntriesPerPageSelectHandler}
+        onSearch={onSearch}
         type="Alumni"
         onApplyFilter={onApplyFilter}
         filters={filters}
