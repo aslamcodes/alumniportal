@@ -9,3 +9,14 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.post_request_row .actions > p {
+  cursor: pointer;
+}
+
+p.accept:hover {
+  color: green;
+}
+p.decline:hover {
+  color: red;
+}

@@ -14,29 +14,20 @@ function PostRequestTableRow({ data, onApproveHandler }) {
       <td className={styles.post_desc}>{data.postData.post.desc}</td>
 
       <td className={styles.post_img_eye_btn}>{isShowImage ? <IoEyeSharp fontSize={20} onClick={handleEyeClick} /> : <IoEyeOffSharp fontSize={20} onClick={handleEyeClick} />}</td>
-      {/* <td>
-        Approval Status{" "}
-        <strong>
-          {data.postData.isApproved
-            ? `Approved by ${data.approvedBy.name}`
-            : "Not Yet Approved"}
-        </strong>
-      </td> */}
 
-      {!data.postData.isApproved && (
-        <td>
-          <p
-            onClick={() => {
-              onApproveHandler(data._id);
-            }}
-          >
-            Approve
-          </p>
-          <p>
-            Decline
-          </p>
-        </td>
-      )}
+      <td className={styles.actions}>
+        {!data.postData.isApproved ? (
+          <>
+            <p onClick={() => { onApproveHandler(data._id); alert("Approved") }} className={styles.accept}>
+              Approve
+            </p>
+            <p className={styles.decline}>
+              Decline
+            </p>
+          </>
+        ) : `Approved by ${data.approvedBy.name}`}
+
+      </td>
 
     </tr>
   )
