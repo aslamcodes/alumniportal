@@ -6,6 +6,7 @@
   width: 25rem;
   border-radius: 10px;
   background-color: #fff;
+  z-index: 20;
 }
 
 .messages_container .hr_header {
@@ -16,7 +17,7 @@
 }
 
 .messages_container.active .hr_header {
-  margin-bottom: 0.5rem;
+  margin-block: 0.5rem;
   height: 2px;
   width: 100%;
 }
@@ -47,7 +48,9 @@
   vertical-align: middle;
 }
 .arrow_btn,
-.close_btn {
+.add_btn,
+.back_btn,
+.send_btn {
   cursor: pointer;
 }
 
@@ -59,4 +62,66 @@
 
 .messages_container.active .arrow_btn {
   transform: rotate(0);
+}
+
+.chat_profile {
+  display: flex;
+  align-items: center;
+  width: 50%;
+}
+
+.chat_profile img {
+  width: 3rem;
+  height: 3rem;
+  margin-right: 1rem;
+  clip-path: circle();
+  object-fit: cover;
+}
+
+.chat_container.chat {
+  display: flex;
+  flex-direction: column;
+}
+
+.input_container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+  background-color: #dcdcdc;
+  border-radius: 20px;
+  padding: 0.1rem;
+  max-height: 10rem;
+  border: 1px solid rgba(172, 172, 172, 0.3);
+}
+
+.input_container .textarea {
+  width: 90%;
+  border: none;
+  background-color: transparent;
+  overflow: auto;
+  resize: none;
+  max-height: 10rem;
+  border-radius: 20px;
+  padding: 0.3rem;
+}
+.textarea[contentEditable]:empty::before {
+  content: "Place to reply";
+  color: gray;
+}
+.input_container .textarea:focus {
+  outline: none;
+}
+
+.textarea::-webkit-scrollbar {
+  display: none;
+}
+
+.send_btn {
+  align-self: flex-end;
+  background-color: #fff;
+  border-radius: 20px;
+  padding: 0.1rem;
 }
