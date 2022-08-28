@@ -29,11 +29,7 @@ function AlumniForum() {
       ) : (
         <div className={Styles.forum_container}>
           {posts.map((post) => (
-            <ForumCard
-              key={post.id}
-              data={post}
-              setProfileActive={() => setProfileActive(true)}
-            />
+            <ForumCard key={post.id} data={post} />
           ))}
         </div>
       )}

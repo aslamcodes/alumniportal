@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import styles from "./Navbar.module.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import Menu from "./Menu";
 import { useWindowScrollPositions } from "hooks/useWindowScrollPositions";
@@ -26,6 +26,7 @@ const Navbar = () => {
   const [windowDimensions, setWindowDimensions] = useState(
     getWindowDimensions()
   );
+  const location = useLocation();
   const [menuActive, setMenuActive] = useState(false);
   const [isNotification, setIsNotification] = useState(true);
   const [isNotificationActive, setIsNotificationActive] = useState(false);
@@ -66,6 +67,7 @@ const Navbar = () => {
     <>
       {showProfile && (
         <ProfileModal
+          userId={user._id}
           handleClose={() => {
             setShowProfile((prev) => !prev);
           }}
@@ -73,8 +75,9 @@ const Navbar = () => {
       )}
       <div className={styles.container}>
         <div
-          className={`${styles.navbar} ${styles.background_blur} ${isScrolled && styles.scrolled
-            }`}
+          className={`${styles.navbar} ${styles.background_blur} ${
+            isScrolled && styles.scrolled
+          }`}
         >
           {windowDimensions.width > 790 && (
             <div className={`${styles.navLink}`}>
@@ -118,7 +121,7 @@ const Navbar = () => {
               {user?.isAdmin && <Link to="/admin">Admin</Link>}
               {user?.token && (
                 <Link
-                  to="/"
+                  to={location.pathname}
                   onClick={() => {
                     setShowProfile((prev) => !prev);
                   }}
@@ -141,8 +144,15 @@ const Navbar = () => {
               )}
             </div>
           )}
-          <div className={`${styles.notification_icon} ${isNotification && styles.active}`}>
-            <IoIosNotificationsOutline fontSize={25} onClick={() => setIsNotificationActive(!isNotificationActive)} />
+          <div
+            className={`${styles.notification_icon} ${
+              isNotification && styles.active
+            }`}
+          >
+            <IoIosNotificationsOutline
+              fontSize={25}
+              onClick={() => setIsNotificationActive(!isNotificationActive)}
+            />
             <Notification isActive={isNotificationActive} />
           </div>
         </div>
