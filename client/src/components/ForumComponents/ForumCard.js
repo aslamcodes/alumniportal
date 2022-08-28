@@ -6,10 +6,12 @@ import CommentModal from "./CommentModal";
 import PostModal from "./PostModal";
 import { useAuthContext } from "context/auth/authContext";
 import useAxiosWithCallback from "hooks/useAxiosWithCallback";
+import ProfileModal from "./ProfileModal";
 
-const ForumCard = ({ data, setProfileActive, profileActive }) => {
+const ForumCard = ({ data, profileActive }) => {
   const [isCommentsModalOpen, setIsCommentsModalOpen] = useState(false);
   const [isPostModalOpen, setIsPostModalOpen] = useState(false);
+  const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const { user } = useAuthContext();
   const { fetchData, isLoading } = useAxiosWithCallback();
   const [liked, setLiked] = useState(
@@ -29,6 +31,8 @@ const ForumCard = ({ data, setProfileActive, profileActive }) => {
     });
   };
 
+  console.log(data);
+
   return (
     <div className={`${styles.post_container} `}>
       <CommentModal
@@ -45,13 +49,24 @@ const ForumCard = ({ data, setProfileActive, profileActive }) => {
         handleClose={() => {
           setIsPostModalOpen(false);
         }}
-        setProfileActive={setProfileActive}
       />
+      {isProfileModalOpen && (
+        <ProfileModal
+          userId={data?.user?._id}
+          handleClose={() => {
+            setIsProfileModalOpen(false);
+          }}
+        />
+      )}
       <div className={`${styles.header} ${profileActive && styles.shadow}`}>
-        <div className={styles.userinfo_container}>
+        <div
+          className={styles.userinfo_container}
+          onClick={() => {
+            setIsProfileModalOpen(true);
+          }}
+        >
           <img
             src={`http://localhost:8000/api/v1/users/user-avatar/${data.user._id}`}
-            onClick={setProfileActive}
             alt={data?.post?.title}
           />
           <p className={styles.user_name}>{data.user.name}</p>

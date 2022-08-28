@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import ReactPortal from "components/Modal/ReactPortal";
 import ForumCard from "components/ForumComponents/ForumCard";
 import styles from "./ProfileModal.module.css";
@@ -11,6 +11,9 @@ import { useAlumniContext } from "context/alumni/alumniContext";
 import { logout } from "context/auth/actions";
 import { BsPeople } from "react-icons/bs";
 import { IoLogOutOutline } from "react-icons/io5";
+import useUserProfileData from "hooks/useUserProfileData";
+import Loader from "components/UI/Loader";
+import useGetForumPosts from "hooks/useGetForumPosts";
 
 const DUMMY_POST_DATA = [
   {
@@ -135,15 +138,25 @@ const PROFILE_IMAGES = [
   <img src={require("assets/Profile_images/5.png")} alt="cover_img" />,
 ];
 
-function ProfileModal({ handleClose }) {
-  const { user } = useAuthContext();
-  const dispatch = useAuthDispatchContext();
+function ProfileModal({ isOpen, handleClose, userId }) {
+  const { user, isLoading, error } = useUserProfileData(userId);
+  const {
+    isLoading: isPostLoading,
+    error: postError,
+    posts,
+  } = useGetForumPosts(0, userId);
+  console.clear();
+  console.log(posts);
+  const { user: loggedInUser } = useAuthContext();
   const { alumni } = useAlumniContext();
   const [show, setShow] = useState({
     desc: true,
     post: false,
   });
   const [editProfile, setEditProfile] = useState(false);
+  const dispatch = useAuthDispatchContext();
+
+  const isUser = user ? user._id === loggedInUser._id : false;
 
   const [profileData, setProfileData] = useState({
     profile_image: "",
@@ -173,10 +186,10 @@ function ProfileModal({ handleClose }) {
     },
   });
 
-  const pick_image = () => {
+  const pick_image = useCallback(() => {
     const random_number = Math.floor(Math.random() * PROFILE_IMAGES.length);
     return PROFILE_IMAGES[random_number];
-  };
+  }, []);
 
   const handleChange = (e, name) => {
     setProfileData({
@@ -212,6 +225,8 @@ function ProfileModal({ handleClose }) {
     };
   }, [handleClose]);
 
+  if (isLoading) return <Loader />;
+
   return (
     <ReactPortal wrapperId="profile_content_wrapper">
       <div className={styles.profile_overlay} onClick={handleClose}>
@@ -223,7 +238,7 @@ function ProfileModal({ handleClose }) {
           <div className={styles.profile_body}>
             <div className={styles.profile_img}>
               <img
-                src={`/api/v1/users/user-avatar/${user?._id}`}
+                src={`/api/v1/users/user-avatar/${userId}`}
                 alt="profile_img"
               />
               {editProfile && (
@@ -275,55 +290,59 @@ function ProfileModal({ handleClose }) {
                   {user?.city},{user?.country}
                 </p>
               </div>
-              <h4>Available on</h4>
-              {!editProfile ? (
-                <div className={styles.social}>
-                  <img
-                    src={require("assets/icons/social/slack.png")}
-                    alt="slack icon"
-                  />
-                  <img
-                    src={require("assets/icons/social/twitter.png")}
-                    alt="twitter icon"
-                  />
-                  <img
-                    src={require("assets/icons/social/gmail.png")}
-                    alt="gmail icon"
-                  />
-                  <img
-                    src={require("assets/icons/social/gitHub.png")}
-                    alt="gitHub icon"
-                  />
-                  <img
-                    src={require("assets/icons/social/facebook.png")}
-                    alt="facebook icon"
-                  />
-                </div>
-              ) : (
-                <div className={styles.editSocial_container}>
-                  {Object.keys(profileData.social).map((key, index) => {
-                    return (
-                      <div
-                        key={index}
-                        className={`${styles.editSocial} ${
-                          editProfile && styles.editActive
-                        }`}
-                      >
-                        <p
-                          suppressContentEditableWarning={true}
-                          contentEditable={editProfile}
-                          onBlur={(e) => handleChange(e, `social.${key}`)}
-                        >
-                          {profileData.social[key]}
-                        </p>
-                        <img
-                          src={require(`assets/icons/social/${key}.png`)}
-                          alt="social icon"
-                        />
-                      </div>
-                    );
-                  })}
-                </div>
+              {user?.isAlumni && (
+                <>
+                  <h4>Available on</h4>
+                  {!editProfile ? (
+                    <div className={styles.social}>
+                      <img
+                        src={require("assets/icons/social/slack.png")}
+                        alt="slack icon"
+                      />
+                      <img
+                        src={require("assets/icons/social/twitter.png")}
+                        alt="twitter icon"
+                      />
+                      <img
+                        src={require("assets/icons/social/gmail.png")}
+                        alt="gmail icon"
+                      />
+                      <img
+                        src={require("assets/icons/social/gitHub.png")}
+                        alt="gitHub icon"
+                      />
+                      <img
+                        src={require("assets/icons/social/facebook.png")}
+                        alt="facebook icon"
+                      />
+                    </div>
+                  ) : (
+                    <div className={styles.editSocial_container}>
+                      {Object.keys(profileData.social).map((key, index) => {
+                        return (
+                          <div
+                            key={index}
+                            className={`${styles.editSocial} ${
+                              editProfile && styles.editActive
+                            }`}
+                          >
+                            <p
+                              suppressContentEditableWarning={true}
+                              contentEditable={editProfile}
+                              onBlur={(e) => handleChange(e, `social.${key}`)}
+                            >
+                              {profileData.social[key]}
+                            </p>
+                            <img
+                              src={require(`assets/icons/social/${key}.png`)}
+                              alt="social icon"
+                            />
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
+                </>
               )}
               {editProfile && (
                 <div className={styles.otherDetails}>
@@ -342,42 +361,47 @@ function ProfileModal({ handleClose }) {
                   })}
                 </div>
               )}
-              <div className={styles.profile_controls_container}>
-                {!editProfile ? (
-                  <div
-                    className={styles.profile_controls}
-                    onClick={() => setEditProfile(true)}
-                  >
-                    <img
-                      src={require("assets/icons/edit.png")}
-                      alt="edit icon"
-                    />
-                    <p>Edit Profile</p>
-                  </div>
-                ) : (
-                  <div
-                    className={styles.profile_controls}
-                    onClick={() => setEditProfile(false)}
-                  >
-                    <p>Done</p>
-                  </div>
-                )}
-                {!user?.isAdmin && !alumni && user && (
-                  <div className={styles.profile_controls}>
-                    <BsPeople />
+              {isUser && (
+                <div className={styles.profile_controls_container}>
+                  {!editProfile ? (
+                    <div
+                      className={styles.profile_controls}
+                      onClick={() => setEditProfile(true)}
+                    >
+                      <img
+                        src={require("assets/icons/edit.png")}
+                        alt="edit icon"
+                      />
+                      <p>Edit Profile</p>
+                    </div>
+                  ) : (
+                    <div
+                      className={styles.profile_controls}
+                      onClick={() => setEditProfile(false)}
+                    >
+                      <p>Done</p>
+                    </div>
+                  )}
+                  {!user?.isAdmin && !alumni && user && (
+                    <div className={styles.profile_controls}>
+                      <BsPeople />
 
-                    <p>
-                      <Link onClick={handleClose} to="/register-alumni">
-                        Apply as Alumni
-                      </Link>
-                    </p>
+                      <p>
+                        <Link onClick={handleClose} to="/register-alumni">
+                          Apply as Alumni
+                        </Link>
+                      </p>
+                    </div>
+                  )}
+                  <div
+                    className={styles.profile_controls}
+                    onClick={handleLogout}
+                  >
+                    <IoLogOutOutline />
+                    <p>Logout</p>
                   </div>
-                )}
-                <div className={styles.profile_controls} onClick={handleLogout}>
-                  <IoLogOutOutline />
-                  <p>Logout</p>
                 </div>
-              </div>
+              )}
             </div>
             <div className={styles.profile_description_container}>
               <div className={styles.description_topbar}>
@@ -408,15 +432,9 @@ function ProfileModal({ handleClose }) {
               )}
               {show.post && (
                 <div className={styles.posts}>
-                  {DUMMY_POST_DATA.map((post) => {
-                    return (
-                      <ForumCard
-                        key={post.id}
-                        data={post}
-                        profileActive={true}
-                      />
-                    );
-                  })}
+                  {posts.map((post) => (
+                    <ForumCard key={post.id} data={post} />
+                  ))}
                 </div>
               )}
             </div>

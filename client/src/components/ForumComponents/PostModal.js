@@ -5,7 +5,7 @@ import { a, config, useTransition } from "react-spring";
 import ReactPortal from "components/Modal/ReactPortal";
 import Styles from "./PostModal.module.css";
 
-const PostModal = ({ handleClose, isOpen, setProfileActive, post }) => {
+const PostModal = ({ handleClose, isOpen, post }) => {
   const postModalTransitions = useTransition(isOpen, {
     from: {
       opacity: 0,
@@ -45,10 +45,6 @@ const PostModal = ({ handleClose, isOpen, setProfileActive, post }) => {
                       className={Styles.profile_image}
                       src={`http://localhost:8000/api/v1/users/user-avatar/${post.user._id}`}
                       alt={"profile"}
-                      onClick={() => {
-                        handleClose();
-                        setProfileActive();
-                      }}
                     />
                     <div className={Styles.user_info}>
                       <p className={Styles.username}>{post.user.name}</p>
