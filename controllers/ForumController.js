@@ -86,7 +86,7 @@ export const getAllPosts = asyncHandler(async (req, res, next) => {
 });
 
 export const getAllPosts_V2 = asyncHandler(async (req, res) => {
-  const { offset = 0 } = req.query;
+  const { offset = 0, author } = req.query;
   const unwantedFields = [...unwantedUserFields];
   const ForumFeed = await ForumPost.aggregate([
     {
@@ -111,6 +111,7 @@ export const getAllPosts_V2 = asyncHandler(async (req, res) => {
         as: "user",
       },
     },
+
     {
       $lookup: {
         from: "forumpostlikes",
@@ -134,6 +135,7 @@ export const getAllPosts_V2 = asyncHandler(async (req, res) => {
             },
           },
           { $unwind: "$user" },
+
           {
             $unset: unwantedFields,
           },
@@ -216,7 +218,11 @@ export const getAllPosts_V2 = asyncHandler(async (req, res) => {
     });
   }
 
-  res.json(ForumFeed);
+  res.json(
+    author
+      ? ForumFeed.filter((feed) => feed.user._id.toString() === author)
+      : ForumFeed
+  );
 });
 
 export const getCommentsOnPost = asyncHandler(async (req, res) => {
