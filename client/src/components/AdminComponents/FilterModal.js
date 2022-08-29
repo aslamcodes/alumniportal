@@ -1,5 +1,5 @@
 import ReactPortal from "components/Modal/ReactPortal";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { FaTimes } from "react-icons/fa";
 import { a, useTransition } from "react-spring";
 import Styles from "./FilterModal.module.css";
@@ -10,17 +10,8 @@ const FilterModal = ({
   handleClose,
   onApplyFilter,
 }) => {
-  const [selectedFilters, setSelectedFilters] = useState(
-    filters
-      ? Object.keys(filters).reduce(
-          (acc, option) => ({
-            ...acc,
-            [option]: [],
-          }),
-          {}
-        )
-      : {}
-  );
+  const [selectedFilters, setSelectedFilters] = useState();
+
   const filterModalTransitions = useTransition(isFilterModalOpen, {
     from: {
       opacity: 0,
@@ -40,6 +31,17 @@ const FilterModal = ({
       document.body.removeEventListener("keydown", closeOnEscapeKey);
     };
   }, [handleClose]);
+
+  useEffect(() => {
+    setSelectedFilters((prev) => {
+      return filters
+        ? Object.keys(filters).reduce((acc, option) => {
+            console.log(prev[option]);
+            return { ...acc, [option]: prev?.option || [] };
+          }, {})
+        : {};
+    });
+  }, [filters]);
 
   const handleOptionSelect = (filter, option) => {
     setSelectedFilters((prev) => {
