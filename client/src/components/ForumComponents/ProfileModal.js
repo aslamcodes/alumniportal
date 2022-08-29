@@ -15,121 +15,6 @@ import useUserProfileData from "hooks/useUserProfileData";
 import Loader from "components/UI/Loader";
 import useGetForumPosts from "hooks/useGetForumPosts";
 
-const DUMMY_POST_DATA = [
-  {
-    id: 1,
-    user: {
-      name: "Ben Tennyson",
-      profile_image: require("assets/ben.png"),
-    },
-    post: {
-      images: ["https://picsum.photos/536/354"],
-      caption: {
-        title: "Tile - Testing Postcard",
-        description:
-          "Lorem Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-      },
-    },
-    comments: [
-      {
-        user: {
-          name: "Ben Tennyson",
-          profile_image: "https://picsum.photos/536/354",
-        },
-        comment:
-          "Lorem Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-        replies: [
-          {
-            username: "Ben",
-            user_profile_picture: "https://picsum.photos/536/354",
-            text: "Lorem Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-          },
-        ],
-      },
-      {
-        user: {
-          name: "Enrico",
-          profile_image: require("assets/ben.png"),
-        },
-        comment:
-          "Lorem Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-        replies: [
-          {
-            username: "Zahra",
-            user_profile_picture: "https://picsum.photos/536/354",
-            text: "Lorem Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-          },
-          {
-            username: "Zahra",
-            user_profile_picture: "https://picsum.photos/536/354",
-            text: "Lorem Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-          },
-          {
-            username: "Zahra",
-            user_profile_picture: "https://picsum.photos/536/354",
-            text: "Lorem Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-          },
-          {
-            username: "Zahra",
-            user_profile_picture: "https://picsum.photos/536/354",
-            text: "Hello",
-          },
-          {
-            username: "Zahra",
-            user_profile_picture: "https://picsum.photos/536/354",
-            text: "Hello",
-          },
-          {
-            username: "Zahra",
-            user_profile_picture: "https://picsum.photos/536/354",
-            text: "Hello",
-          },
-        ],
-      },
-      {
-        user: {
-          name: "Enrico",
-          profile_image: require("assets/ben.png"),
-        },
-        comment:
-          "Lorem Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-        replies: [
-          {
-            username: "Zahra",
-            user_profile_picture: "https://picsum.photos/536/354",
-            text: "Lorem Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-          },
-          {
-            username: "Zahra",
-            user_profile_picture: "https://picsum.photos/536/354",
-            text: "Lorem Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-          },
-          {
-            username: "Zahra",
-            user_profile_picture: "https://picsum.photos/536/354",
-            text: "Lorem Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-          },
-          {
-            username: "Zahra",
-            user_profile_picture: "https://picsum.photos/536/354",
-            text: "Hello",
-          },
-          {
-            username: "Zahra",
-            user_profile_picture: "https://picsum.photos/536/354",
-            text: "Hello",
-          },
-          {
-            username: "Zahra",
-            user_profile_picture: "https://picsum.photos/536/354",
-            text: "Hello",
-          },
-        ],
-      },
-    ],
-  },
-];
-
 const PROFILE_IMAGES = [
   <img src={require("assets/Profile_images/2.png")} alt="cover_img" />,
   <img src={require("assets/Profile_images/3.png")} alt="cover_img" />,
@@ -148,12 +33,12 @@ function ProfileModal({ isOpen, handleClose, userId }) {
   const { user: loggedInUser } = useAuthContext();
   const { alumni } = useAlumniContext();
   const [show, setShow] = useState({
-    desc: true,
-    post: false,
+    desc: user?.description === undefined ? false : true,
+    post: user?.description === undefined ? true : false,
   });
+
   const [editProfile, setEditProfile] = useState(false);
   const dispatch = useAuthDispatchContext();
-
   const isUser = user ? user._id === loggedInUser?._id : false;
 
   const [profileData, setProfileData] = useState({
@@ -223,6 +108,13 @@ function ProfileModal({ isOpen, handleClose, userId }) {
     };
   }, [handleClose]);
 
+  useEffect(() => {
+    setShow({
+      desc: user?.description === undefined ? false : true,
+      post: user?.description === undefined ? true : false,
+    });
+  }, [user?.description]);
+
   if (isLoading) return <Loader />;
 
   return (
@@ -269,7 +161,11 @@ function ProfileModal({ isOpen, handleClose, userId }) {
                 onBlur={(e) => handleChange(e, "designation")}
               >
                 {printDesignation(user?.isAlumni, user?.isAdmin) ||
-                  profileData.designation}
+                  user?.alumni?.designation}{" "}
+                {`${
+                  user?.alumni?.organization &&
+                  "at " + user?.alumni?.organization
+                }`}
               </h3>
               <div
                 className={`${styles.location} ${
@@ -288,31 +184,59 @@ function ProfileModal({ isOpen, handleClose, userId }) {
                   {user?.city},{user?.country}
                 </p>
               </div>
-              {user?.isAlumni && (
+              {user?.isAlumni && user?.alumni?.social && (
                 <>
                   <h4>Available on</h4>
                   {!editProfile ? (
                     <div className={styles.social}>
-                      <img
-                        src={require("assets/icons/social/slack.png")}
-                        alt="slack icon"
-                      />
-                      <img
-                        src={require("assets/icons/social/twitter.png")}
-                        alt="twitter icon"
-                      />
-                      <img
-                        src={require("assets/icons/social/gmail.png")}
-                        alt="gmail icon"
-                      />
-                      <img
-                        src={require("assets/icons/social/gitHub.png")}
-                        alt="gitHub icon"
-                      />
-                      <img
-                        src={require("assets/icons/social/facebook.png")}
-                        alt="facebook icon"
-                      />
+                      {user?.alumni?.social?.linkedin && (
+                        <a
+                          rel="noreferrer"
+                          target={"_blank"}
+                          href={user?.alumni?.social?.linkedin}
+                        >
+                          <img
+                            src={require("assets/icons/social/slack.png")}
+                            alt="slack icon"
+                          />
+                        </a>
+                      )}
+                      {user?.alumni?.social?.twitter && (
+                        <a
+                          rel="noreferrer"
+                          target={"_blank"}
+                          href={user?.alumni?.social?.twitter}
+                        >
+                          <img
+                            src={require("assets/icons/social/twitter.png")}
+                            alt="twitter icon"
+                          />
+                        </a>
+                      )}
+                      {user?.alumni?.social?.github && (
+                        <a
+                          rel="noreferrer"
+                          target={"_blank"}
+                          href={user?.alumni?.social?.github}
+                        >
+                          <img
+                            src={require("assets/icons/social/gitHub.png")}
+                            alt="gitHub icon"
+                          />
+                        </a>
+                      )}
+                      {user?.alumni?.social?.facebook && (
+                        <a
+                          rel="noreferrer"
+                          target={"_blank"}
+                          href={user?.alumni?.social?.facebook}
+                        >
+                          <img
+                            src={require("assets/icons/social/facebook.png")}
+                            alt="facebook icon"
+                          />
+                        </a>
+                      )}
                     </div>
                   ) : (
                     <div className={styles.editSocial_container}>
@@ -403,20 +327,22 @@ function ProfileModal({ isOpen, handleClose, userId }) {
             </div>
             <div className={styles.profile_description_container}>
               <div className={styles.description_topbar}>
-                <p
-                  className={`${show.desc && styles.selected}`}
-                  onClick={() => handleShow("desc")}
-                >
-                  Self Description
-                </p>
+                {user?.description && (
+                  <p
+                    className={`${show.desc && styles.selected}`}
+                    onClick={() => handleShow("desc")}
+                  >
+                    Self Description
+                  </p>
+                )}
                 <p
                   className={`${show.post && styles.selected}`}
                   onClick={() => handleShow("post")}
                 >
-                  Post
+                  Posts
                 </p>
               </div>
-              {show.desc && (
+              {user?.description && show.desc && (
                 <div className={styles.description}>
                   <p
                     className={`${editProfile && styles.editActive}`}
@@ -424,10 +350,11 @@ function ProfileModal({ isOpen, handleClose, userId }) {
                     contentEditable={editProfile}
                     onBlur={(e) => handleChange(e, "description")}
                   >
-                    {profileData.description}
+                    {user?.description || "Add Bio"}
                   </p>
                 </div>
               )}
+
               {show.post && (
                 <div className={styles.posts}>
                   {posts.map((post) => (
