@@ -1,12 +1,24 @@
+import ProfileModal from "components/ForumComponents/ProfileModal";
 import Divider from "components/UI/Divider";
-import React from "react";
+import React, { useState } from "react";
 import Styles from "./AlumnusCard.module.css";
 
 const AlumnusCard = ({ alumnus }) => {
-  console.log(alumnus);
+  const [isProfileModalOpen, setIsProfileModalOpen] = useState();
+
+  const handleClose = () => {
+    setIsProfileModalOpen(false);
+  };
   return (
     <div className={Styles.profile_card}>
+      {isProfileModalOpen && (
+        <ProfileModal userId={alumnus.user._id} handleClose={handleClose} />
+      )}
+
       <img
+        onClick={() => {
+          setIsProfileModalOpen(true);
+        }}
         alt={"profile"}
         className={Styles.user_profile}
         src={`/api/v1/users/user-avatar/${alumnus.user._id}`}
