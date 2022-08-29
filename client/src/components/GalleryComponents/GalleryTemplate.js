@@ -135,7 +135,7 @@ function GalleryTemplate({ fname, sname, data = [], isLoading }) {
                   <div key={index1} className={styles.gallery_img}>
                     {images.map(({ image }, index) => {
                       return (
-                        <div key={index}>
+                        <div key={index} className={`${user?.token && styles.active} `}>
                           <img
                             id={index}
                             src={`/api/v1/gallery/${image}`}
@@ -149,6 +149,9 @@ function GalleryTemplate({ fname, sname, data = [], isLoading }) {
                               } ${styles.image}`}
                             onClick={(e) => handleClick(e, index1)}
                           />
+
+
+
                           <div
                             className={`${styles.expand_container} ${expand.active &&
                               expand.id === index1 * 10 + index &&
@@ -164,6 +167,13 @@ function GalleryTemplate({ fname, sname, data = [], isLoading }) {
                               onClick={(e) => e.stopPropagation()}
                             />
                           </div>
+                          {/* {user?.isAdmin && ( */}
+                          {/* <div
+                            className={` ${styles.edit_btn}`}
+                          >
+                            <img src={require("assets/icons/block.png")} alt="edit-icon" />
+                          </div> */}
+                          {/* )} */}
                         </div>
                       );
                     })}
