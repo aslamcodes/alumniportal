@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import AdminTableHeader from "./AdminTableHeader";
 import AdminTablePagination from "./AdminTablePagination";
 import Styles from "./AdminTable.module.css";
@@ -19,7 +19,7 @@ const AlumniTable = () => {
   const { user } = useAuthContext();
   const totalPages = alumni ? Math.ceil(alumni.length / entriesPerPage) : 0;
   const tableHeadRef = useRef(null);
-  const filters = getAlumniFilters(alumniData);
+  const filters = useMemo(() => getAlumniFilters(alumniData), [alumniData]);
   const props = useSpring({
     from: {
       backgroundColor: "#e2e2e2",
@@ -37,6 +37,7 @@ const AlumniTable = () => {
     setAlumni(() =>
       alumniData.filter((alumnus) => {
         return (
+          filterForField(filters, "Designation", alumnus.designation) &&
           filterForField(filters, "City", alumnus.user.city) &&
           filterForField(
             filters,
@@ -67,7 +68,6 @@ const AlumniTable = () => {
           .includes(query)
       )
     );
-    console.log("Mohamed Aslam".toLowerCase().includes(query));
   };
 
   const onDeleteAlumniHandler = async (userId) => {
