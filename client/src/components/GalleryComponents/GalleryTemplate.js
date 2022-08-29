@@ -135,7 +135,7 @@ function GalleryTemplate({ fname, sname, data = [], isLoading }) {
                   <div key={index1} className={styles.gallery_img}>
                     {images.map(({ image }, index) => {
                       return (
-                        <div key={index}>
+                        <div key={index} className={`${user?.token && styles.active} `}>
                           <img
                             id={index}
                             src={`/api/v1/gallery/${image}`}
