@@ -42,7 +42,7 @@ if (process.env.NODE_ENV === "DEVELOPMENT") {
   console.log("Production mode".green);
   app.use(express.static(path.resolve(__dirname, "../build")));
   app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "../build/index.html"));
+    res.sendFile(path.resolve(__dirname, "./client/build/index.html"));
   });
 }
 
