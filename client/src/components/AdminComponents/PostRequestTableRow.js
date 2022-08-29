@@ -65,38 +65,37 @@ function PostRequestTableRow({ data, onApproveHandler }) {
 
   }
   return (
-    <>
-      <tr className={styles.post_request_row}>
-        <td>{data.user.registerNumber}</td>
-        <td>{data.user.name}</td>
-        <td>{data.postData.post.title}</td>
-        <td className={styles.post_desc}>
-          <p>
-            {data.postData.post.desc}
-          </p>
-          <IoIosArrowDown className={styles.arrow_btn} onClick={() => setIsShowDesc(!isShowDesc)} /></td>
+    <tr className={styles.post_request_row}>
+      <td>{data.user.registerNumber}</td>
+      <td>{data.user.name}</td>
+      <td>{data.postData.post.title}</td>
+      <td className={styles.post_desc}>
+        <p>
+          {data.postData.post.desc}
+        </p>
+        <IoIosArrowDown className={styles.arrow_btn} onClick={() => setIsShowDesc(!isShowDesc)} /></td>
 
-        <td className={styles.post_img_eye_btn}>{isShowImage ? <IoEyeSharp fontSize={20} onClick={handleEyeClick} /> : <IoEyeOffSharp fontSize={20} onClick={handleEyeClick} />}</td>
+      <td className={styles.post_img_eye_btn}>{isShowImage ? <IoEyeSharp fontSize={20} onClick={handleEyeClick} /> : <IoEyeOffSharp fontSize={20} onClick={handleEyeClick} />}</td>
 
-        <td className={styles.actions}>
-          {!data.postData.isApproved ? (
-            <>
-              <p onClick={() => { onApproveHandler(data._id); alert("Approved") }} className={styles.accept}>
-                Approve
-              </p>
-              <p className={styles.decline} onClick={() => setIsShowReject(true)}>
-                Decline
-              </p>
-            </>
-          ) : `Approved by ${data.approvedBy.name}`}
-          {isShowImage && <ImageOverlay data={data} setIsShowImage={setIsShowImage} />}
-          {isShowDesc && <DescOverlay data={data} setIsShowDesc={setIsShowDesc} />}
-          {isShowReject && <RejectReasonOverlay setIsShowReject={setIsShowReject} />}
-        </td>
+      <td className={styles.actions}>
+        {!data.postData.isApproved ? (
+          <>
+            <p onClick={() => { onApproveHandler(data._id); alert("Approved") }} className={styles.accept}>
+              Approve
+            </p>
+            <p className={styles.decline} onClick={() => setIsShowReject(true)}>
+              Decline
+            </p>
+          </>
+        ) : `Approved by ${data.approvedBy.name}`}
+        {isShowImage && <ImageOverlay data={data} setIsShowImage={setIsShowImage} />}
+        {isShowDesc && <DescOverlay data={data} setIsShowDesc={setIsShowDesc} />}
+        {isShowReject && <RejectReasonOverlay setIsShowReject={setIsShowReject} />}
+      </td>
 
-      </tr>
+    </tr>
 
-    </>
+
   )
 }
 

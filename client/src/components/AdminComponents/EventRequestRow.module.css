@@ -1,0 +1,9 @@
+.event_request_row tr {
+  width: 100%;
+}
+p.accept:hover {
+  color: green;
+}
+p.decline:hover {
+  color: red;
+}

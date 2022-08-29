@@ -1,0 +1,19 @@
+#event_table {
+  margin-top: 1rem;
+  table-layout: fixed;
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #e5e5e5;
+}
+#event_table thead {
+  text-align: left;
+}
+#event_table th {
+  padding: 1.2rem 1rem;
+}
+#event_table tbody > tr {
+  transition: background-color 0.4s ease-in-out;
+}
+#event_table tbody > tr:hover {
+  background-color: #fffcdc;
+}
