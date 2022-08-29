@@ -168,11 +168,11 @@ function GalleryTemplate({ fname, sname, data = [], isLoading }) {
                             />
                           </div>
                           {/* {user?.isAdmin && ( */}
-                          <div
+                          {/* <div
                             className={` ${styles.edit_btn}`}
                           >
                             <img src={require("assets/icons/block.png")} alt="edit-icon" />
-                          </div>
+                          </div> */}
                           {/* )} */}
                         </div>
                       );
