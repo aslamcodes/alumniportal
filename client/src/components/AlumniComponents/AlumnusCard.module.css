@@ -17,6 +17,7 @@
 .profile_card .user_profile {
   width: 8rem;
   border-radius: 10rem;
+  cursor: pointer;
 }
 
 .profile_card .message_button {
