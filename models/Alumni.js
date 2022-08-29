@@ -46,7 +46,6 @@ const alumniSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "User",
   },
-  profileDescription: { type: String },
 });
 
 alumniSchema.pre("save", async function (next) {

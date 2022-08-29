@@ -73,6 +73,7 @@ const userSchema = new Schema(
     skill: {
       type: String,
     },
+    description: { type: String },
   },
   {
     timestamps: true,
