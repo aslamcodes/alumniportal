@@ -145,8 +145,6 @@ function ProfileModal({ isOpen, handleClose, userId }) {
     error: postError,
     posts,
   } = useGetForumPosts(0, userId);
-  console.clear();
-  console.log(posts);
   const { user: loggedInUser } = useAuthContext();
   const { alumni } = useAlumniContext();
   const [show, setShow] = useState({
@@ -156,7 +154,7 @@ function ProfileModal({ isOpen, handleClose, userId }) {
   const [editProfile, setEditProfile] = useState(false);
   const dispatch = useAuthDispatchContext();
 
-  const isUser = user ? user._id === loggedInUser._id : false;
+  const isUser = user ? user._id === loggedInUser?._id : false;
 
   const [profileData, setProfileData] = useState({
     profile_image: "",
