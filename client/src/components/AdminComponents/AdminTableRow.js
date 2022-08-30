@@ -65,15 +65,13 @@ const AdminTableRow = ({ alumni, type, ...rest }) => {
 
         </>
       )}
-      {type === "request-details" && (
+      {type === "request-details" || type === "reject-details" && (
         <>
-          <td>{alumni?.user?.registerNumber}</td>
-          <td>{alumni?.user?.name}</td>
+
           <td>{alumni?.alumni_data?.courseName}</td>
           <td>{alumni?.alumni_data?.designation}</td>
           <td>{alumni?.alumni_data?.companyName}</td>
-          <td>{alumni?.user?.phoneNumber}</td>
-          <td>{alumni?.user?.email}</td>
+
         </>
       )}
 
@@ -87,17 +85,6 @@ const AdminTableRow = ({ alumni, type, ...rest }) => {
       <td>{alumni?.courseName != undefined ? alumni?.courseName : "NA"}</td>
       <td>{alumni?.user?.skill}</td>
 
-      {type === "reject-details" && (
-        <>
-          <td>{alumni?.user?.registerNumber}</td>
-          <td>{alumni?.user?.name}</td>
-          <td>{alumni?.alumni_data?.courseName}</td>
-          <td>{alumni?.alumni_data?.designation}</td>
-          <td>{alumni?.alumni_data?.companyName}</td>
-          <td>{alumni?.user?.phoneNumber}</td>
-          <td>{alumni?.user?.email}</td>
-        </>
-      )}
 
       {type === "alumni-details" && (
         <td className={Styles.fixed_col}>
