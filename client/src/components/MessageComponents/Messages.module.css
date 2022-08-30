@@ -65,6 +65,11 @@
   transform: rotate(0);
 }
 
+.no_conversation {
+  padding-block: 3rem;
+  text-align: center;
+}
+
 .chat_profile {
   display: flex;
   align-items: center;
