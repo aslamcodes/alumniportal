@@ -51,20 +51,20 @@ const AdminTableRow = ({ alumni, type, ...rest }) => {
       onMouseOut={() => {
         setIsHover(false);
       }}
-      className={Styles.fixed_col}
+
     >
+      <td>{alumni?.user?.registerNumber}</td>
+      <td>{alumni?.user?.name}</td>
       {type === "alumni-details" && (
         <>
-          <td>{alumni?.user?.registerNumber}</td>
-          <td>{alumni?.user?.name}</td>
           <td>{alumni?.user?.course}</td>
           <td>{alumni?.designation}</td>
           <td>{alumni?.organization}</td>
-          <td>{alumni?.user?.phoneNumber}</td>
-          <td>{alumni?.user?.email}</td>
+
+
+
         </>
       )}
-
       {type === "request-details" && (
         <>
           <td>{alumni?.user?.registerNumber}</td>
@@ -76,6 +76,17 @@ const AdminTableRow = ({ alumni, type, ...rest }) => {
           <td>{alumni?.user?.email}</td>
         </>
       )}
+
+      <td>{alumni?.user?.phoneNumber}</td>
+      <td>{alumni?.user?.email}</td>
+      <td>{alumni?.user?.city}</td>
+      <td>{alumni?.user?.state}</td>
+      <td>{alumni?.user?.country}</td>
+      <td>{alumni?.user?.graduationLevel}</td>
+      <td>{alumni?.secondaryCollegeName != undefined ? alumni?.secondaryCollegeName : "NA"}</td>
+      <td>{alumni?.courseName != undefined ? alumni?.courseName : "NA"}</td>
+      <td>{alumni?.user?.skill}</td>
+
       {type === "reject-details" && (
         <>
           <td>{alumni?.user?.registerNumber}</td>
@@ -89,8 +100,8 @@ const AdminTableRow = ({ alumni, type, ...rest }) => {
       )}
 
       {type === "alumni-details" && (
-        <td>
-          <button onClick={handleOnDeleteAlumni} className={Styles.decline}>
+        <td className={Styles.fixed_col}>
+          <button onClick={handleOnDeleteAlumni} className={`${Styles.decline}`}>
             Delete
           </button>
         </td>
