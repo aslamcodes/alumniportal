@@ -10,6 +10,7 @@ import useGetMessagesForConversation from "hooks/useGetMessagesForConversation";
 import Loader from "components/UI/Loader";
 import useGetConversationByID from "hooks/useGetConversationByID";
 import { useAuthContext } from "context/auth/authContext";
+import useAxiosWithCallback from "hooks/useAxiosWithCallback";
 
 const ChatSelectPage = ({
   isConversationsLoading,
@@ -70,6 +71,7 @@ const ChatPage = ({
   isMessagesActive,
   onGoBack,
   conversationId,
+  onSendNewMessage,
 }) => {
   const [message, setMessage] = useState("");
   const messagesEndRef = useRef(null);
@@ -77,6 +79,7 @@ const ChatPage = ({
   const { conversation, isLoading, error } =
     useGetConversationByID(conversationId);
   const { user } = useAuthContext();
+  const { fetchData: sendMessage } = useAxiosWithCallback();
   const recipient = conversation?.participants?.filter(
     (person) => person._id !== conversation?.createdBy._id
   )[0];
@@ -87,7 +90,23 @@ const ChatPage = ({
 
   useEffect(() => {
     scrollToBottom();
-  }, []);
+  }, [messages]);
+
+  const onSubmitHandler = () => {
+    const messageConfig = {
+      url: "/api/v1/conversation/message/" + conversationId,
+      headers: {
+        Authorization: "Bearer " + user?.token,
+      },
+      method: "post",
+      data: {
+        content: message,
+      },
+    };
+    sendMessage(messageConfig);
+    onSendNewMessage();
+    setMessage("");
+  };
 
   return (
     <>
@@ -146,7 +165,11 @@ const ChatPage = ({
             >
               {message}
             </span>
-            <IoIosSend font-size={30} className={styles.send_btn} />
+            <IoIosSend
+              font-size={30}
+              className={styles.send_btn}
+              onClick={onSubmitHandler}
+            />
           </div>
         </div>
       </>
@@ -158,11 +181,14 @@ const Messages = () => {
   const [isChatSelected, setIsChatSelected] = useState(false);
   const [isMessagesActive, setIsMessagesActive] = useState(false);
   const [selectedConversation, setSelectedConversation] = useState();
+
   const {
     messages,
     isLoading: isMessagesLoading,
     error: errorOnMessages,
+    trigger,
   } = useGetMessagesForConversation(selectedConversation);
+
   const {
     conversations,
     isLoading: isConversationsLoading,
@@ -180,6 +206,9 @@ const Messages = () => {
 
   const onGoBackHandler = () => {
     setIsChatSelected(false);
+  };
+  const newMessageHandler = () => {
+    trigger();
   };
 
   return (
@@ -204,6 +233,7 @@ const Messages = () => {
           onMinimize={onMinimize}
           isMessagesActive={isMessagesActive}
           onGoBack={onGoBackHandler}
+          onSendNewMessage={newMessageHandler}
         />
       )}
     </div>

@@ -6,7 +6,7 @@ export default function useGetMessagesForConversation(conversationId) {
   const [messages, setMessages] = useState([]);
   const { isLoading, error, fetchData } = useAxiosWithCallback();
   const { user } = useAuthContext();
-
+  const [count, setCount] = useState(0);
   useEffect(() => {
     const config = {
       url: `/api/v1/conversation/${conversationId}/messages`,
@@ -15,7 +15,11 @@ export default function useGetMessagesForConversation(conversationId) {
       },
     };
     user && fetchData(config, setMessages);
-  }, [fetchData, user, conversationId]);
+  }, [fetchData, user, conversationId, count]);
 
-  return { messages, isLoading, error };
+  const trigger = () => {
+    setCount((prev) => prev + 1);
+  };
+
+  return { messages, isLoading, error, trigger };
 }
