@@ -162,9 +162,7 @@ const Navbar = () => {
                 onClick={() => setIsNotificationActive((prev) => !prev)}
               />
 
-              {isNotificationActive && (
-                <NotificationPanel onResolve={() => {}} />
-              )}
+              {isNotificationActive && <NotificationPanel />}
             </div>
           )}
         </div>
