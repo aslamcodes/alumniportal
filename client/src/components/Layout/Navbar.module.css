@@ -94,7 +94,9 @@
 }
 
 /* notification icon */
-.notification_icon {
+.notification_icon,
+.message_icon {
+  margin-inline: 0.1rem;
   position: relative;
   cursor: pointer;
 }

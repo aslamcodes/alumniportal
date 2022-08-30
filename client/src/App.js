@@ -24,8 +24,6 @@ import AdminOfficeBearers from "pages/Admin/AdminOfficeBearers";
 import PostRequest from "pages/Admin/PostRequest";
 import EventRequest from "pages/Admin/EventRequest";
 import Alumni from "pages/Alumni/Alumni";
-import Messages from "components/MessageComponents/Messages";
-
 function App() {
   return (
     <div className="App">
@@ -42,14 +40,11 @@ function App() {
           />
 
           <Route element={
-            <>
-              <Navbar />
-              {/* <Messages /> */}
-            </>
+            <Navbar />
           }>
             <Route path="/alumni-forum" element={<AlumniForum />} />
           </Route>
-          <Route element={<WithNavMessagesFooter />}>
+          <Route element={<WithNavFooter />}>
             <Route index path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route
@@ -83,11 +78,10 @@ function App() {
   );
 }
 
-const WithNavMessagesFooter = () => {
+const WithNavFooter = () => {
   return (
     <>
       <Navbar />
-      <Messages />
       <Footer />
     </>
   );

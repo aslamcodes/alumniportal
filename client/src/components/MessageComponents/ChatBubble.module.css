@@ -18,7 +18,11 @@
 
 .chat_bubble .delete_btn {
   position: absolute;
+  border: none;
+  padding: 0.3rem 0.6rem;
+  border-radius: 20px;
   bottom: 0.2rem;
+  color: #fff;
   background-color: #848484;
   cursor: pointer;
 }
