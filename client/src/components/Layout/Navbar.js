@@ -13,6 +13,8 @@ import { useAlumniDispatchContext } from "context/alumni/alumniContext";
 import NotificationPanel from "components/NotificationComponents/NotificationPanel";
 import ProfileModal from "components/ForumComponents/ProfileModal";
 import useFetchNotification from "hooks/useFetchNotification";
+import Messages from "components/MessageComponents/Messages";
+
 
 function getWindowDimensions() {
   const { innerWidth: width, innerHeight: height } = window;
@@ -28,6 +30,7 @@ const Navbar = () => {
   );
   const location = useLocation();
   const [menuActive, setMenuActive] = useState(false);
+  const [isMessagesActive, setIsMessagesActive] = useState(false);
   const [showNotificationBadge, setShowNotificationBadge] = useState(true);
   const [isNotificationActive, setIsNotificationActive] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -156,7 +159,8 @@ const Navbar = () => {
               className={`${styles.message_icon} ${styles.active
                 }`}
             >
-              <TiMessages fontSize={25} />
+              <TiMessages fontSize={25} onClick={() => setIsMessagesActive(!isMessagesActive)} />
+
             </div>
           )
           }
@@ -179,7 +183,10 @@ const Navbar = () => {
         {menuActive && windowDimensions.width < 790 && (
           <Menu setMenuActive={setMenuActive} />
         )}
+
+
       </div>
+      {isMessagesActive && <Messages isMessagesActive={isMessagesActive} setIsMessagesPanelActive={setIsMessagesActive} />}
       <Outlet />
     </>
   );

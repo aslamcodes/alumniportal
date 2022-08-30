@@ -1,6 +1,6 @@
 .messages_container {
   position: fixed;
-  right: 0.2rem;
+  right: 0.3rem;
   bottom: 3rem;
   padding: 0.5rem;
   width: 25rem;
@@ -51,7 +51,8 @@
 .arrow_btn,
 .add_btn,
 .back_btn,
-.send_btn {
+.send_btn,
+.close_btn {
   cursor: pointer;
 }
 

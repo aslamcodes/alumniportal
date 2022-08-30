@@ -6,8 +6,9 @@ import { AiOutlinePlus, AiOutlineSmile } from 'react-icons/ai'
 import { IoIosArrowBack, IoIosSend } from 'react-icons/io'
 import ChatBubble from './ChatBubble.js'
 import { MdOutlineTagFaces } from 'react-icons/md'
+import { GrFormClose } from 'react-icons/gr'
 
-const ChatSelectPage = ({ isMessagesActive, setIsMessagesActive, setIsChatSelected }) => {
+const ChatSelectPage = ({ isMessagesActive, setIsMessagesActive, setIsChatSelected, setIsMessagesPanelActive }) => {
   return (
     <>
       <div className={styles.messages_header}>
@@ -15,6 +16,7 @@ const ChatSelectPage = ({ isMessagesActive, setIsMessagesActive, setIsChatSelect
         <div className={styles.messages_actions}>
           <AiOutlinePlus className={styles.add_btn} fontSize={20} />
           <RiArrowDropDownLine className={styles.arrow_btn} fontSize={35} onClick={() => setIsMessagesActive(!isMessagesActive)} />
+          <GrFormClose className={styles.close_btn} fontSize={20} onClick={() => setIsMessagesPanelActive(false)} />
         </div>
       </div>
 
@@ -113,7 +115,7 @@ const ChatPage = ({ user, isMessagesActive, setIsMessagesActive, setIsChatSelect
 }
 
 
-const Messages = () => {
+const Messages = ({ setIsMessagesPanelActive }) => {
   const [isChatSelected, setIsChatSelected] = useState(false);
   const [isMessagesActive, setIsMessagesActive] = useState(false);
 
@@ -123,6 +125,7 @@ const Messages = () => {
         <ChatSelectPage
           isMessagesActive={isMessagesActive} setIsMessagesActive={setIsMessagesActive}
           setIsChatSelected={setIsChatSelected}
+          setIsMessagesPanelActive={setIsMessagesPanelActive}
         />
         :
         <ChatPage
