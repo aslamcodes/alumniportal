@@ -51,72 +51,70 @@ const AdminTableRow = ({ alumni, type, ...rest }) => {
       onMouseOut={() => {
         setIsHover(false);
       }}
-      className={Styles.fixed_col}
+
     >
+      <td>{alumni?.user?.registerNumber}</td>
+      <td>{alumni?.user?.name}</td>
+      <td>{alumni?.user?.department}</td>
       {type === "alumni-details" && (
         <>
-          <td>{alumni?.user?.registerNumber}</td>
-          <td>{alumni?.user?.name}</td>
-          <td>{alumni?.user?.course}</td>
           <td>{alumni?.designation}</td>
           <td>{alumni?.organization}</td>
-          <td>{alumni?.user?.phoneNumber}</td>
-          <td>{alumni?.user?.email}</td>
+
+
+
+        </>
+      )}
+      {type === "request-details" || type === "reject-details" && (
+        <>
+
+
+          <td>{alumni?.alumni_data?.designation}</td>
+          <td>{alumni?.alumni_data?.companyName}</td>
+
         </>
       )}
 
-      {type === "request-details" && (
-        <>
-          <td>{alumni?.user?.registerNumber}</td>
-          <td>{alumni?.user?.name}</td>
-          <td>{alumni?.alumni_data?.courseName}</td>
-          <td>{alumni?.alumni_data?.designation}</td>
-          <td>{alumni?.alumni_data?.companyName}</td>
-          <td>{alumni?.user?.phoneNumber}</td>
-          <td>{alumni?.user?.email}</td>
-        </>
-      )}
-      {type === "reject-details" && (
-        <>
-          <td>{alumni?.user?.registerNumber}</td>
-          <td>{alumni?.user?.name}</td>
-          <td>{alumni?.alumni_data?.courseName}</td>
-          <td>{alumni?.alumni_data?.designation}</td>
-          <td>{alumni?.alumni_data?.companyName}</td>
-          <td>{alumni?.user?.phoneNumber}</td>
-          <td>{alumni?.user?.email}</td>
-        </>
-      )}
+      <td>{alumni?.user?.phoneNumber}</td>
+      <td>{alumni?.user?.email}</td>
+      <td>{alumni?.user?.city}</td>
+      <td>{alumni?.user?.state}</td>
+      <td>{alumni?.user?.country}</td>
+      <td>{alumni?.user?.graduationLevel}</td>
+      <td>{alumni?.secondaryCollegeName != undefined ? alumni?.secondaryCollegeName : "NA"}</td>
+      <td>{alumni?.courseName != undefined ? alumni?.courseName : "NA"}</td>
+      <td>{alumni?.user?.skill}</td>
+
 
       {type === "alumni-details" && (
-        <td>
-          <button onClick={handleOnDeleteAlumni} className={Styles.decline}>
+        <a.td className={Styles.fixed_col} style={props}>
+          <button onClick={handleOnDeleteAlumni} className={`${Styles.decline}`}>
             Delete
           </button>
-        </td>
+        </a.td>
       )}
       {type === "request-details" &&
         (isLoading ? (
           <Loader />
         ) : (
-          <td>
+          <a.td className={Styles.fixed_col} style={props}>
             <button onClick={handleOnApproveAlumni} className={Styles.accept}>
               Accept
             </button>
             <button onClick={handleOnRejectAlumni} className={Styles.decline}>
               Reject
             </button>
-          </td>
+          </a.td>
         ))}
       {type === "reject-details" &&
         (isLoading ? (
           <Loader />
         ) : (
-          <td>
+          <a.td className={Styles.fixed_col} style={props}>
             <button className={Styles.accept} onClick={handleReapproveAlumni}>
               Reaccept
             </button>
-          </td>
+          </a.td>
         ))}
     </a.tr>
   );
