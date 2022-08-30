@@ -4,7 +4,7 @@ import styles from "./Home.module.css";
 import NewTestimonialCard from "components/HomeComponents/NewTestimonialCard";
 import { useAuthContext } from "context/auth/authContext";
 import useGetTestimonial from "hooks/useGetTestimonial";
-import video from 'assets/test/2021-11-13 18-01-22.mkv';
+import video from 'assets/test/skctvideo60fps.mp4';
 
 const Home = () => {
   const [newTestimonialActive, setNewTestimonialActive] = useState(false);
