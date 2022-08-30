@@ -4,7 +4,7 @@ import styles from "./Home.module.css";
 import NewTestimonialCard from "components/HomeComponents/NewTestimonialCard";
 import { useAuthContext } from "context/auth/authContext";
 import useGetTestimonial from "hooks/useGetTestimonial";
-import video from 'assets/Skct_VIdeo/skct_aerialVIEW_60fps_4.mp4';
+import video from 'assets/Skct_VIdeo/Final_Copy_Skct_video_60fps.mp4';
 
 const Home = () => {
   const [newTestimonialActive, setNewTestimonialActive] = useState(false);
