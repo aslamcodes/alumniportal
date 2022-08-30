@@ -55,9 +55,9 @@ const AdminTableRow = ({ alumni, type, ...rest }) => {
     >
       <td>{alumni?.user?.registerNumber}</td>
       <td>{alumni?.user?.name}</td>
+      <td>{alumni?.user?.department}</td>
       {type === "alumni-details" && (
         <>
-          <td>{alumni?.user?.course}</td>
           <td>{alumni?.designation}</td>
           <td>{alumni?.organization}</td>
 
@@ -68,7 +68,7 @@ const AdminTableRow = ({ alumni, type, ...rest }) => {
       {type === "request-details" || type === "reject-details" && (
         <>
 
-          <td>{alumni?.alumni_data?.courseName}</td>
+
           <td>{alumni?.alumni_data?.designation}</td>
           <td>{alumni?.alumni_data?.companyName}</td>
 
@@ -87,34 +87,34 @@ const AdminTableRow = ({ alumni, type, ...rest }) => {
 
 
       {type === "alumni-details" && (
-        <td className={Styles.fixed_col}>
+        <a.td className={Styles.fixed_col} style={props}>
           <button onClick={handleOnDeleteAlumni} className={`${Styles.decline}`}>
             Delete
           </button>
-        </td>
+        </a.td>
       )}
       {type === "request-details" &&
         (isLoading ? (
           <Loader />
         ) : (
-          <td>
+          <a.td className={Styles.fixed_col} style={props}>
             <button onClick={handleOnApproveAlumni} className={Styles.accept}>
               Accept
             </button>
             <button onClick={handleOnRejectAlumni} className={Styles.decline}>
               Reject
             </button>
-          </td>
+          </a.td>
         ))}
       {type === "reject-details" &&
         (isLoading ? (
           <Loader />
         ) : (
-          <td>
+          <a.td className={Styles.fixed_col} style={props}>
             <button className={Styles.accept} onClick={handleReapproveAlumni}>
               Reaccept
             </button>
-          </td>
+          </a.td>
         ))}
     </a.tr>
   );
