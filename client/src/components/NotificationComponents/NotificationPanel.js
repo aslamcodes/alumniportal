@@ -4,8 +4,8 @@ import React, { useEffect, useState } from "react";
 import NotificationCard from "./NotificationCard";
 import styles from "./NotificationPanel.module.css";
 
-const NotificationPanel = ({ onResolve }) => {
-  const { isLoading, error, notifications } = useFetchNotification();
+const NotificationPanel = () => {
+  const { isLoading, error, notifications, trigger } = useFetchNotification();
   const [notificationsOnState, setNotificationOnState] =
     useState(notifications);
 
@@ -17,6 +17,7 @@ const NotificationPanel = ({ onResolve }) => {
     setNotificationOnState((prev) =>
       prev.filter((notification) => notification._id === notificationId)
     );
+    trigger();
   };
 
   return (

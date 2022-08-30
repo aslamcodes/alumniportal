@@ -5,6 +5,7 @@ import useAxiosWithCallback from "./useAxiosWithCallback";
 export default function useFetchNotification() {
   const { isLoading, fetchData, error } = useAxiosWithCallback();
   const [notifications, setNotifications] = useState([]);
+  const [refresh, setRefresh] = useState(0);
   const { user } = useAuthContext();
 
   useEffect(() => {
@@ -15,7 +16,11 @@ export default function useFetchNotification() {
       },
     };
     user && fetchData(config, setNotifications);
-  }, [fetchData, user]);
-  console.log(notifications);
-  return { isLoading, error, notifications };
+  }, [fetchData, user, refresh]);
+
+  const trigger = () => {
+    setRefresh((prev) => prev + 1);
+  };
+
+  return { isLoading, error, notifications, trigger };
 }
