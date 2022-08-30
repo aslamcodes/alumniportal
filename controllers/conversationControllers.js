@@ -5,8 +5,9 @@ export const getConversationForUser = asyncHandler(async (req, res) => {
 
   const conversations = await Conversation.find({
     createdBy: user._id,
-  });
-
+  })
+    .populate("participants", "-password -__v")
+    .populate("createdBy", "-password -__v");
   if (!conversations)
     return res.json({
       message: "No Conversations",

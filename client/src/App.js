@@ -25,6 +25,7 @@ import PostRequest from "pages/Admin/PostRequest";
 import EventRequest from "pages/Admin/EventRequest";
 import Alumni from "pages/Alumni/Alumni";
 import Messages from "components/MessageComponents/Messages";
+import { useAuthContext } from "context/auth/authContext";
 
 function App() {
   return (
@@ -41,12 +42,14 @@ function App() {
             element={<AdminOfficeBearers />}
           />
 
-          <Route element={
-            <>
-              <Navbar />
-              {/* <Messages /> */}
-            </>
-          }>
+          <Route
+            element={
+              <>
+                <Navbar />
+                {/* <Messages /> */}
+              </>
+            }
+          >
             <Route path="/alumni-forum" element={<AlumniForum />} />
           </Route>
           <Route element={<WithNavMessagesFooter />}>
@@ -75,7 +78,6 @@ function App() {
               element={<SeminarSessions />}
             />
             <Route path="/office-bearers" element={<OfficeBearers />} />
-
           </Route>
         </Routes>
       </Router>
@@ -84,10 +86,11 @@ function App() {
 }
 
 const WithNavMessagesFooter = () => {
+  const { user } = useAuthContext();
   return (
     <>
       <Navbar />
-      <Messages />
+      {user && <Messages />}
       <Footer />
     </>
   );
