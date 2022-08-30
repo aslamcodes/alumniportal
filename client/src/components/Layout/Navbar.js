@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
+import Menu from "./Menu";
 import styles from "./Navbar.module.css";
 import { Link, useLocation } from "react-router-dom";
 import { Outlet } from "react-router-dom";
-import Menu from "./Menu";
 import { useWindowScrollPositions } from "hooks/useWindowScrollPositions";
-import { useAuthContext } from "context/auth/authContext";
-import {
-  useAlumniContext,
-  useAlumniDispatchContext,
-} from "context/alumni/alumniContext";
-import { getAlumni } from "context/alumni/actions";
-import ProfileModal from "components/ForumComponents/ProfileModal";
 import { IoIosNotificationsOutline } from "react-icons/io";
+import { useAuthContext } from "context/auth/authContext";
+import { getAlumni } from "context/alumni/actions";
+import { useAlumniDispatchContext } from "context/alumni/alumniContext";
 import Notification from "components/NotificationComponents/Notification";
+import ProfileModal from "components/ForumComponents/ProfileModal";
+import useFetchNotification from "hooks/useFetchNotification";
+
 function getWindowDimensions() {
   const { innerWidth: width, innerHeight: height } = window;
   return {
@@ -28,11 +27,15 @@ const Navbar = () => {
   );
   const location = useLocation();
   const [menuActive, setMenuActive] = useState(false);
-  const [isNotification, setIsNotification] = useState(true);
+  const [showNotificationBadge, setShowNotificationBadge] = useState(true);
   const [isNotificationActive, setIsNotificationActive] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-
   const { user } = useAuthContext();
+  const {
+    isLoading: isNotificationsLoading,
+    error: isErrorOnNotification,
+    notifications,
+  } = useFetchNotification();
 
   const [showProfile, setShowProfile] = useState(false);
 
@@ -62,6 +65,10 @@ const Navbar = () => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  useEffect(() => {
+    setShowNotificationBadge(notifications?.length === 0 ? false : true);
+  }, [notifications]);
 
   return (
     <>
@@ -144,17 +151,21 @@ const Navbar = () => {
               )}
             </div>
           )}
-          <div
-            className={`${styles.notification_icon} ${
-              isNotification && styles.active
-            }`}
-          >
-            <IoIosNotificationsOutline
-              fontSize={25}
-              onClick={() => setIsNotificationActive(!isNotificationActive)}
-            />
-            <Notification isActive={isNotificationActive} />
-          </div>
+          {user && (
+            <div
+              className={`${styles.notification_icon} ${
+                showNotificationBadge && styles.active
+              }`}
+            >
+              <IoIosNotificationsOutline
+                fontSize={25}
+                onClick={() => setIsNotificationActive(!isNotificationActive)}
+              />
+              {notifications.map((notification) => (
+                <Notification notification={notification} />
+              ))}
+            </div>
+          )}
         </div>
         {menuActive && windowDimensions.width < 790 && (
           <Menu setMenuActive={setMenuActive} />

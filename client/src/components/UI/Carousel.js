@@ -35,7 +35,6 @@ const Carousel = ({ testimonials, onDelete }) => {
     if (!scrollPause) {
       scrollInterval = setTimeout(() => {
         setActiveIndex((activeIndex + 1) % testimonials.length);
-        console.log("active" + activeIndex);
       }, 5000);
       return () => clearTimeout(scrollInterval);
     }
