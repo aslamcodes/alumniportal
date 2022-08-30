@@ -177,6 +177,7 @@ const Navbar = () => {
               {isNotificationActive && (
                 <NotificationPanel onResolve={() => { }} />
               )}
+
             </div>
           )}
         </div>
