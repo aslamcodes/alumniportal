@@ -9,7 +9,7 @@ import { IoIosNotificationsOutline } from "react-icons/io";
 import { useAuthContext } from "context/auth/authContext";
 import { getAlumni } from "context/alumni/actions";
 import { useAlumniDispatchContext } from "context/alumni/alumniContext";
-import Notification from "components/NotificationComponents/Notification";
+import NotificationPanel from "components/NotificationComponents/NotificationPanel";
 import ProfileModal from "components/ForumComponents/ProfileModal";
 import useFetchNotification from "hooks/useFetchNotification";
 
@@ -159,11 +159,10 @@ const Navbar = () => {
             >
               <IoIosNotificationsOutline
                 fontSize={25}
-                onClick={() => setIsNotificationActive(!isNotificationActive)}
+                onClick={() => setIsNotificationActive((prev) => !prev)}
               />
-              {notifications.map((notification) => (
-                <Notification notification={notification} />
-              ))}
+
+              {isNotificationActive && <NotificationPanel />}
             </div>
           )}
         </div>
