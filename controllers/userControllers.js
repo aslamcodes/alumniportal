@@ -150,6 +150,7 @@ export const getNotification = asyncHandler(async (req, res) => {
 
   const notifications = await Notification.find({
     user: user._id,
+    resolved: false,
   });
 
   if (!notifications)
