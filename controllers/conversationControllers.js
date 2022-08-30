@@ -4,7 +4,7 @@ export const getConversationForUser = asyncHandler(async (req, res) => {
   const { user } = req;
 
   const conversations = await Conversation.find({
-    createdBy: user._id,
+    participants: user._id,
   })
     .populate("participants", "-password -__v")
     .populate("createdBy", "-password -__v");
@@ -18,7 +18,9 @@ export const getConversationForUser = asyncHandler(async (req, res) => {
 
 export const getConversationById = asyncHandler(async (req, res) => {
   const { conversationId } = req.params;
-  const conversation = await Conversation.findById(conversationId);
+  const conversation = await Conversation.findById(conversationId)
+    .populate("participants", "-password -__v")
+    .populate("createdBy", "-password -__v");
 
   if (!conversation)
     return res.status(400).json({

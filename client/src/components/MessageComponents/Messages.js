@@ -6,14 +6,25 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { IoIosArrowBack, IoIosSend } from "react-icons/io";
 import ChatBubble from "./ChatBubble.js";
 import useGetConversationsForUser from "hooks/useGetConversationsForUser";
+import useGetMessagesForConversation from "hooks/useGetMessagesForConversation";
 import Loader from "components/UI/Loader";
+import useGetConversationByID from "hooks/useGetConversationByID";
+import { useAuthContext } from "context/auth/authContext";
 
 const ChatSelectPage = ({
+  isConversationsLoading,
   isMessagesActive,
-  setIsMessagesActive,
-  setIsChatSelected,
+  onMinimize,
+  onChatSelect,
+  conversations,
 }) => {
-  const { conversations, isLoading, error } = useGetConversationsForUser();
+  const onChatSelectHandler = (conversationId) => {
+    onChatSelect(conversationId);
+  };
+
+  const onMessagesMinimizeHandler = () => {
+    onMinimize();
+  };
 
   return (
     <>
@@ -24,43 +35,51 @@ const ChatSelectPage = ({
           <RiArrowDropDownLine
             className={styles.arrow_btn}
             fontSize={35}
-            onClick={() => setIsMessagesActive(!isMessagesActive)}
+            onClick={onMessagesMinimizeHandler}
           />
         </div>
       </div>
-      {isLoading ? (
-        <Loader />
-      ) : error ? (
-        <p>Error</p>
-      ) : (
-        <>
-          <hr className={styles.hr_header} />
-          <div
-            className={`${styles.chat_container} ${
-              isMessagesActive && styles.active
-            }`}
-          >
-            {conversations?.map((conversation) => (
+
+      <>
+        <hr className={styles.hr_header} />
+        <div
+          className={`${styles.chat_container} ${
+            isMessagesActive && styles.active
+          }`}
+        >
+          {isConversationsLoading ? (
+            <Loader />
+          ) : (
+            conversations?.map((conversation) => (
               <ChatCard
-                setIsActive={setIsChatSelected}
+                onSelect={onChatSelectHandler}
                 conversation={conversation}
               />
-            ))}
-          </div>
-        </>
-      )}
+            ))
+          )}
+        </div>
+      </>
     </>
   );
 };
 
 const ChatPage = ({
-  user,
+  messages,
+  onMinimize,
+  isMessagesLoading,
   isMessagesActive,
-  setIsMessagesActive,
-  setIsChatSelected,
+  onGoBack,
+  conversationId,
 }) => {
   const [message, setMessage] = useState("");
   const messagesEndRef = useRef(null);
+
+  const { conversation, isLoading, error } =
+    useGetConversationByID(conversationId);
+  const { user } = useAuthContext();
+  const recipient = conversation?.participants?.filter(
+    (person) => person._id !== conversation?.createdBy._id
+  )[0];
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView();
@@ -78,17 +97,20 @@ const ChatPage = ({
             <IoIosArrowBack
               className={styles.back_btn}
               fontSize={20}
-              onClick={() => setIsChatSelected(false)}
+              onClick={onGoBack}
             />
           </div>
-          <img src={require("assets/christopher.jpg")} alt="" />
-          <div>{user}</div>
+          <img
+            src={`/api/v1/users/user-avatar/${conversation?.createdBy?._id}`}
+            alt=""
+          />
+          <div>{recipient?.name}</div>
         </div>
         <div className={styles.messages_actions}>
           <RiArrowDropDownLine
             className={styles.arrow_btn}
             fontSize={35}
-            onClick={() => setIsMessagesActive(!isMessagesActive)}
+            onClick={onMinimize}
           />
         </div>
       </div>
@@ -100,23 +122,19 @@ const ChatPage = ({
             isMessagesActive && styles.active
           }`}
         >
-          {/* type 0 recieved message and type 1 message sent*/}
-          <ChatBubble type={0} />
-          <ChatBubble type={1} />
-          <ChatBubble type={0} />
-          <ChatBubble type={0} />
-          <ChatBubble type={1} />
-          <ChatBubble type={1} />
-          <ChatBubble type={0} />
-          <ChatBubble type={1} />
-          <ChatBubble type={0} />
-          <ChatBubble type={1} />
-          <ChatBubble type={1} />
-          <ChatBubble type={0} />
-          <ChatBubble type={1} />
-          <ChatBubble type={0} />
-          <ChatBubble type={0} />
-          <ChatBubble type={1} />
+          {isMessagesLoading ? (
+            <Loader />
+          ) : (
+            messages?.map(({ content, sender }) => {
+              console.log(sender, conversation?.createdBy?._id);
+              return (
+                <ChatBubble
+                  type={sender === user?._id ? 1 : 0}
+                  message={content}
+                />
+              );
+            })
+          )}
           <div ref={messagesEndRef} />
           <div className={styles.input_container}>
             <span
@@ -139,6 +157,30 @@ const ChatPage = ({
 const Messages = () => {
   const [isChatSelected, setIsChatSelected] = useState(false);
   const [isMessagesActive, setIsMessagesActive] = useState(false);
+  const [selectedConversation, setSelectedConversation] = useState();
+  const {
+    messages,
+    isLoading: isMessagesLoading,
+    error: errorOnMessages,
+  } = useGetMessagesForConversation(selectedConversation);
+  const {
+    conversations,
+    isLoading: isConversationsLoading,
+    error: errorOnConversation,
+  } = useGetConversationsForUser();
+
+  const onChatSelectHandler = (conversationId) => {
+    setSelectedConversation(conversationId);
+    setIsChatSelected(true);
+  };
+
+  const onMinimize = () => {
+    setIsMessagesActive((prev) => !prev);
+  };
+
+  const onGoBackHandler = () => {
+    setIsChatSelected(false);
+  };
 
   return (
     <div
@@ -148,16 +190,20 @@ const Messages = () => {
     >
       {!isChatSelected ? (
         <ChatSelectPage
+          isConversationsLoading={isConversationsLoading}
+          conversations={conversations}
+          onMinimize={onMinimize}
           isMessagesActive={isMessagesActive}
-          setIsMessagesActive={setIsMessagesActive}
-          setIsChatSelected={setIsChatSelected}
+          onChatSelect={onChatSelectHandler}
         />
       ) : (
         <ChatPage
-          user="Jennifer"
+          conversationId={selectedConversation}
+          isMessagesLoading={isMessagesLoading}
+          messages={messages}
+          onMinimize={onMinimize}
           isMessagesActive={isMessagesActive}
-          setIsMessagesActive={setIsMessagesActive}
-          setIsChatSelected={setIsChatSelected}
+          onGoBack={onGoBackHandler}
         />
       )}
     </div>
