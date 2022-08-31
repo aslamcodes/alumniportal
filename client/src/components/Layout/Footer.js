@@ -5,13 +5,18 @@ import { useLocation } from "react-router-dom";
 
 const Footer = () => {
   const location = useLocation();
+  const isInLoginPage = /login/.test(location.pathname);
+  const isInRegisterStudent = /register-student/.test(location.pathname);
+  const isInRegisterFaculty = /register-faculty/.test(location.pathname);
+  const isInRegisterAlumni = /register-alumni/.test(location.pathname);
   const isInAlumniPage = /alumni-forum/.test(location.pathname);
   const isInAdminPage = /admin/.test(location.pathname);
   const isFooterVisible = !isInAlumniPage && !isInAdminPage;
-
+  const isFooterOpaque = isInLoginPage || isInRegisterStudent || isInRegisterFaculty || isInRegisterAlumni;
+  console.log(isInLoginPage);
   return (
     isFooterVisible && (
-      <div className={styles["footer"]}>
+      <div className={`${styles["footer"]} ${isFooterOpaque && styles.bg_opaque}`}>
         <div className={styles["footer-container"]}>
           <div className={styles["footer-brand"]}>
             <img src={require("assets/Logo2.png")} alt="College-logo" />
