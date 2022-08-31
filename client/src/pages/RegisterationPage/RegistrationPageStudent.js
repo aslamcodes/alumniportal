@@ -9,6 +9,7 @@ import {
 } from "context/auth/authContext";
 import Loader from "components/UI/Loader";
 import { useFetchAlumniStoredData } from "hooks/useFetchAlumniStoredData";
+import { useAlertContext } from "context/alert/alertContext";
 
 const currentYear = new Date().getFullYear();
 const range = (start, stop, step) =>
@@ -45,6 +46,7 @@ function RegistrationPageStudent() {
     dateOfBirth: "",
     skill: "",
   });
+  const { success } = useAlertContext();
 
   const emailRef = useRef("");
   const registerNumberRef = useRef("");
@@ -99,7 +101,7 @@ function RegistrationPageStudent() {
   }, [data.confirmPassword])
 
   useEffect(() => {
-    if (error) alert(error);
+    if (error) success(error);
   }, [error]);
 
   if (user) {

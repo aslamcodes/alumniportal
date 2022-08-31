@@ -8,6 +8,7 @@ import AddCommentButton from "components/ForumComponents/AddCommentButton";
 import { animated, config, useTransition } from "react-spring";
 import useAxiosWithCallback from "hooks/useAxiosWithCallback";
 import Loader from "components/UI/Loader";
+import { useAlertContext } from "context/alert/alertContext";
 
 const CommentModal = ({
   handleClose,
@@ -17,9 +18,10 @@ const CommentModal = ({
 }) => {
   const [comments, setComments] = useState(commentsOnPost);
   const { fetchData: getComments, isLoading, error } = useAxiosWithCallback();
+  const { success } = useAlertContext();
 
   const onAddNewComment = async () => {
-    if (error) alert(error);
+    if (error) success(error);
     await getComments(
       {
         url: `/api/v1/forum/comments/${postId}`,

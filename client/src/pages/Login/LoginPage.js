@@ -10,6 +10,7 @@ import {
 } from "context/auth/authContext";
 import { login } from "context/auth/actions";
 import Loader from "components/UI/Loader";
+import { useAlertContext } from "context/alert/alertContext";
 
 function getWindowDimensions() {
   const { innerWidth: width, innerHeight: height } = window;
@@ -30,6 +31,7 @@ const LoginForm = () => {
     formState: { errors },
     handleSubmit,
   } = useForm();
+  const { success } = useAlertContext();
 
   const { user, error, isLoading } = useAuthContext();
 
@@ -43,9 +45,9 @@ const LoginForm = () => {
 
   useEffect(() => {
     if (error) {
-      alert(error);
+      success(error);
     }
-  }, [error]);
+  }, [error, success]);
 
   if (isLoading) return <Loader />;
 

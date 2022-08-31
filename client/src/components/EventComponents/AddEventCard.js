@@ -1,18 +1,21 @@
+import { useAlertContext } from "context/alert/alertContext";
 import { useAuthContext } from "context/auth/authContext";
 import useAxiosWithCallback from "hooks/useAxiosWithCallback";
 import React, { useEffect, useState } from "react";
 import styles from "./AddEventCard.module.css";
+
 const AddEventCard = ({ onNewItemAdd }) => {
   const today = new Date().toJSON().slice(0, 10);
 
   const { user } = useAuthContext();
   const { fetchData: addEvent, error: errorOnAddEvent } =
     useAxiosWithCallback();
+  const { success } = useAlertContext();
 
   useEffect(() => {
     if (errorOnAddEvent)
-      alert(errorOnAddEvent.response.data.message ?? errorOnAddEvent);
-  }, [errorOnAddEvent]);
+      success(errorOnAddEvent.response.data.message ?? errorOnAddEvent);
+  }, [errorOnAddEvent, success]);
 
   const [eventData, setEventData] = useState({
     title: "",
@@ -68,7 +71,7 @@ const AddEventCard = ({ onNewItemAdd }) => {
 
     onNewItemAdd((prev) => !prev);
 
-    alert(
+    success(
       user?.isAlumni || user?.isAdmin
         ? "Event Created Successfully"
         : "Event details has sent to admin for verification, You will be notified shortly"

@@ -57,7 +57,7 @@ const Navbar = () => {
 
   useEffect(() => {
     const fetchAlumni = async () => {
-      if (user) await getAlumni(alumniDispatch, { user: user?._id });
+      if (user?.alumni) await getAlumni(alumniDispatch, { user: user?._id });
     };
 
     fetchAlumni();

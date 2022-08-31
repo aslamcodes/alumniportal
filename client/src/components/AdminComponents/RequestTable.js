@@ -8,6 +8,7 @@ import useGetNewApplications from "hooks/useGetNewAlumniApplications";
 import useAxiosWithCallback from "hooks/useAxiosWithCallback";
 import { useAuthContext } from "context/auth/authContext";
 import Loader from "components/UI/Loader";
+import { useAlertContext } from "context/alert/alertContext";
 
 const RequestTable = () => {
   const [entriesPerPage, setEntriesPerPage] = useState(10);
@@ -31,10 +32,11 @@ const RequestTable = () => {
   const { fetchData: rejectAlumni } = useAxiosWithCallback();
 
   const totalPages = Math.ceil(applications?.length / entriesPerPage);
+  const { success } = useAlertContext();
 
   useEffect(() => {
-    if (error) alert(error.response.data.message);
-  }, [error]);
+    if (error) success(error.response.data.message);
+  }, [error, success]);
 
   const OnIncreaseHandler = () => {
     if (currentPage > totalPages - 1) return null;

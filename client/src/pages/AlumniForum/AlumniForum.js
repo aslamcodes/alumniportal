@@ -8,6 +8,7 @@ import useGetForumPosts from "hooks/useGetForumPosts";
 
 import { useAuthContext } from "context/auth/authContext";
 import Loader from "components/UI/Loader";
+import { useAlertContext } from "context/alert/alertContext";
 
 function AlumniForum() {
   const [newPostActive, setNewPostActive] = useState(false);
@@ -15,12 +16,13 @@ function AlumniForum() {
   const { user } = useAuthContext();
 
   const { isLoading, error, posts } = useGetForumPosts(0);
+  const { success } = useAlertContext();
 
   useEffect(() => {
     if (error) {
-      alert(error);
+      success(error);
     }
-  });
+  }, [error, success]);
 
   return (
     <div className={Styles.container}>
