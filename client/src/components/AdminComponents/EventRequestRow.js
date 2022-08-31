@@ -56,9 +56,8 @@ const EventRequestRow = ({ data, onApproveHandler }) => {
         <td>{data.createdBy.registerNumber}</td>
         <td>{data.createdBy.name}</td>
         <td>{data.eventName}</td>
-        <td>{`${startDate.getDate()}/${
-          startDate.getMonth() + 1
-        }/${startDate.getFullYear()}`}</td>
+        <td>{`${startDate.getDate()}/${startDate.getMonth() + 1
+          }/${startDate.getFullYear()}`}</td>
         {/* <td>{`${endDate.getDay()}/${endDate.getMonth() + 1}/${endDate.getFullYear()}`}</td> */}
         <td>
           {startDate.getUTCHours()}:

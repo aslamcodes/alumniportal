@@ -10,7 +10,7 @@ const EventCard = ({ isActive, isCardActive, event, isAdmin, trigger }) => {
   const { user } = useAuthContext();
   const eventStartDate = new Date(event.startDate || event.date);
   const eventEndDate = new Date(event.endDate || event.date);
-  console.log(eventStartDate.toLocaleString());
+
   const monthNames = [
     "Jan",
     "Feb",
