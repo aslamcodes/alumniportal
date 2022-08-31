@@ -22,7 +22,7 @@
 .welcomeContainer .humanImgContainer {
   position: absolute;
   min-width: 16em;
-  padding: 9em 0em;
+  padding: 10.5em 0em;
   top: 10%;
   left: 75%;
   z-index: 1;
@@ -43,7 +43,7 @@
   top: 10%;
   left: 12%;
   width: 60%;
-  padding: 2.2em 2.2em;
+  padding: 2.7em 2.2em;
   color: #f38f32;
   background-color: #fff;
   font-family: "Merriweather", serif;
@@ -145,7 +145,7 @@
   width: 100%;
   margin-bottom: 0.5rem;
 }
-.loginBox p {
+.sign-up-container a {
   position: relative;
 }
 .loginBox p a {
@@ -200,7 +200,7 @@
     z-index: 3;
   }
   .welcomeBox {
-    max-width: 50%;
+    max-width: 60%;
   }
 }
 @media (max-width: 1236px) {

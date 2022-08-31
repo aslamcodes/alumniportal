@@ -130,6 +130,18 @@
   font-size: 1.2em;
 }
 
+.form_input_container > input::-webkit-datetime-edit-day-field:focus,
+.form_input_container > input::-webkit-datetime-edit-month-field:focus,
+.form_input_container > input::-webkit-datetime-edit-year-field:focus,
+.form_input_container > input::-webkit-datetime-edit-hour-field:focus,
+.form_input_container > input::-webkit-datetime-edit-minute-field:focus,
+.form_input_container > input::-webkit-datetime-edit-second-field:focus,
+.form_input_container > input::-webkit-textfield-decoration-container:focus {
+  background: transparent;
+  color: rgb(0, 0, 0);
+  outline: none;
+}
+
 .form_input_container > input::placeholder {
   color: rgb(94, 93, 93);
 }
