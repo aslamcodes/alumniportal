@@ -58,7 +58,13 @@ const AddEventCard = ({ onNewItemAdd }) => {
       },
     });
 
-
+    setEventData({
+      title: "",
+      date: [today],
+      startTime: "11:00",
+      endTime: "14:00",
+      location: "",
+    });
 
     onNewItemAdd((prev) => !prev);
 
