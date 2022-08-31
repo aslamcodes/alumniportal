@@ -16,7 +16,7 @@ import { GrFormClose } from "react-icons/gr";
 const ChatSelectPage = ({
   isConversationsLoading,
   isMessagesActive,
-  onMinimize,
+  onClose,
   onChatSelect,
   conversations,
 }) => {
@@ -24,8 +24,8 @@ const ChatSelectPage = ({
     onChatSelect(conversationId);
   };
 
-  const onMessagesMinimizeHandler = () => {
-    onMinimize();
+  const onCloseHandler = () => {
+    onClose();
   };
 
   return (
@@ -37,7 +37,7 @@ const ChatSelectPage = ({
           <GrFormClose
             className={styles.arrow_btn}
             fontSize={20}
-            onClick={onMessagesMinimizeHandler}
+            onClick={onCloseHandler}
           />
         </div>
       </div>
@@ -177,9 +177,9 @@ const ChatPage = ({
   );
 };
 
-const Messages = () => {
+const Messages = ({ onClose }) => {
   const [isChatSelected, setIsChatSelected] = useState(false);
-  const [isMessagesActive, setIsMessagesActive] = useState(false);
+  const [isMessagesActive, setIsMessagesActive] = useState(true);
   const [selectedConversation, setSelectedConversation] = useState();
 
   const {
@@ -204,6 +204,10 @@ const Messages = () => {
     setIsMessagesActive((prev) => !prev);
   };
 
+  const onCloseHandler = () => {
+    onClose();
+  };
+
   const onGoBackHandler = () => {
     setIsChatSelected(false);
   };
@@ -226,6 +230,7 @@ const Messages = () => {
           conversations={conversations}
           onMinimize={onMinimize}
           onChatSelect={onChatSelectHandler}
+          onClose={onCloseHandler}
         />
       ) : (
         <ChatPage
