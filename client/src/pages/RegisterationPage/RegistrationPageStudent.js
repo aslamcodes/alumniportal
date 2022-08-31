@@ -232,7 +232,7 @@ function RegistrationPageStudent() {
                         type="email"
                         id="email"
                         title="please enter a valid email address"
-                        pattern="[a-zA-Z0-9.-_+]+@[a-zA-Z0-9]+\.[a-z]{2,}"
+                        pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$"
                         required
                         placeholder="Email"
                         value={data.email}

@@ -15,6 +15,8 @@ function RegistrationPageFaculty() {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useAuthDispatchContext();
+  const [isCPasswordDirty, setIsCPasswordDirty] = useState(false);
+  const [isPasswordMatch, setIsPasswordMatch] = useState(false);
   const { user, error, isLoading } = useAuthContext();
   const { success } = useAlertContext();
 
@@ -38,6 +40,15 @@ function RegistrationPageFaculty() {
       ...data,
       [e.target.name]: e.target.value,
     });
+    if (e.target.name === "confirmPassword") {
+      setIsCPasswordDirty(true);
+    }
+    if (e.target.name === "phoneNumber") {
+      setData({
+        ...data,
+        [e.target.name]: e.target.value.slice(0, 10)
+      });
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -46,6 +57,15 @@ function RegistrationPageFaculty() {
     Object.keys(data).forEach((key) => formData.append(key, data[key]));
     await register(dispatch, formData);
   };
+  useEffect(() => {
+    if (isCPasswordDirty) {
+      if (data.password === data.confirmPassword) {
+        setIsPasswordMatch(true);
+      } else {
+        setIsPasswordMatch(false);
+      }
+    }
+  }, [data.confirmPassword])
 
   if (user) {
     navigate(location?.state?.from ?? "/");
@@ -72,6 +92,7 @@ function RegistrationPageFaculty() {
                       name="name"
                       type="text"
                       id="name"
+                      required
                       placeholder="Name"
                       value={data.name}
                       onChange={handleChange}
@@ -82,6 +103,7 @@ function RegistrationPageFaculty() {
                       name="dob"
                       type="date"
                       id="dob"
+                      required
                       value={data.dob}
                       onChange={handleChange}
                       max={today}
@@ -92,6 +114,10 @@ function RegistrationPageFaculty() {
                       name="email"
                       type="email"
                       id="email"
+                      title="please enter a valid email address"
+                      pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$"
+
+                      required
                       placeholder="Email"
                       value={data.email}
                       onChange={handleChange}
@@ -102,6 +128,9 @@ function RegistrationPageFaculty() {
                       name="password"
                       type="password"
                       id="password"
+                      title="password must be at least 8 characters"
+                      pattern="[a-zA-Z0-9!@#$%^\*()]{8,}"
+                      required
                       placeholder="Password"
                       value={data.password}
                       onChange={handleChange}
@@ -112,16 +141,20 @@ function RegistrationPageFaculty() {
                       name="confirmPassword"
                       type="password"
                       id="confirm_password"
+                      pattern="[a-zA-Z0-9!@#$%^\*()]{8,}"
+                      required
                       placeholder="Confirm Password"
                       value={data.confirmPassword}
                       onChange={handleChange}
                     />
                   </div>
+                  {!isPasswordMatch && isCPasswordDirty && <p className={styles.validation_error}>password does not match</p>}
                   <div className={styles.form_input_container}>
                     <input
                       name="phoneNumber"
                       type="number"
                       id="phoneNumber"
+                      required
                       placeholder="Enter your contact no"
                       value={data.phoneNumber}
                       onChange={handleChange}
@@ -131,6 +164,7 @@ function RegistrationPageFaculty() {
                     <input
                       name="city"
                       id="city"
+                      required
                       placeholder="City"
                       value={data.city}
                       onChange={handleChange}
@@ -140,6 +174,7 @@ function RegistrationPageFaculty() {
                     <input
                       name="department"
                       id="department"
+                      required
                       placeholder="Department"
                       value={data.department}
                       onChange={handleChange}
