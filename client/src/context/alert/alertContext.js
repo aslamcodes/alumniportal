@@ -4,9 +4,10 @@ import { useCallback } from "react";
 
 const initialState = {
   alert: AlertStatus.NONE,
-  alertText: "Hello",
+  alertText: "",
   success: (text, timeout) => {},
   clear: () => {},
+  error: () => {},
 };
 
 const AlertContext = createContext(initialState);
@@ -23,6 +24,7 @@ const AlertContextProvider = ({ children }) => {
     setAlertText(text);
     setAlert(AlertStatus.ERROR);
   }, []);
+
   return (
     <AlertContext.Provider
       value={{
