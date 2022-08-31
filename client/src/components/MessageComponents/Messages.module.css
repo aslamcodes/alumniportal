@@ -3,7 +3,7 @@
   right: 0.3rem;
   bottom: 3rem;
   padding: 0.5rem;
-  width: 25rem;
+  width: min(25rem, 80%);
   border-radius: 10px;
   background-color: rgba(255, 255, 255, 0.82);
   backdrop-filter: blur(8px);

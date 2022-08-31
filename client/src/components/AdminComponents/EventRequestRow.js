@@ -56,12 +56,18 @@ const EventRequestRow = ({ data, onApproveHandler }) => {
         <td>{data.createdBy.registerNumber}</td>
         <td>{data.createdBy.name}</td>
         <td>{data.eventName}</td>
-        <td>{`${startDate.getDay()}/${
+        <td>{`${startDate.getDate()}/${
           startDate.getMonth() + 1
         }/${startDate.getFullYear()}`}</td>
         {/* <td>{`${endDate.getDay()}/${endDate.getMonth() + 1}/${endDate.getFullYear()}`}</td> */}
-        <td>{`${startDate.getHours()}:${startDate.getMinutes()}`}</td>
-        <td>{`${endDate.getHours()}:${endDate.getMinutes()}`}</td>
+        <td>
+          {startDate.getUTCHours()}:
+          {(startDate.getUTCMinutes() < 10 && "0") + startDate.getUTCMinutes()}{" "}
+        </td>
+        <td>
+          {endDate.getUTCHours()}:
+          {(endDate.getUTCMinutes() < 10 && "0") + endDate.getUTCMinutes()}{" "}
+        </td>
         <td>{data.venue}</td>
         <td>
           {!data.isApproved ? (

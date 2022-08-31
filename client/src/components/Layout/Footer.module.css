@@ -25,6 +25,9 @@
   box-shadow: 0px -1px 1px #25252524;
 }
 
+.bg_opaque {
+  background-color: #fff;
+}
 .footer-container {
   display: flex;
   flex-direction: column;

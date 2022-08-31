@@ -20,6 +20,9 @@ const Department = ["IT", "CSE", "ECE", "EEE", "MECH", "CIVIL", "MBA"];
 const graduationLevelOptions = ["Under graduate", "Post graduate"];
 
 function RegistrationPageStudent() {
+  const today = new Date().toJSON().slice(0, 10);
+
+
   const navigate = useNavigate();
   const dispatch = useAuthDispatchContext();
   const { user, isLoading, error } = useAuthContext();
@@ -94,7 +97,7 @@ function RegistrationPageStudent() {
             <div className={styles.form_header}>
               <h1>
                 {formStep === 1
-                  ? "Register as Student"
+                  ? "Register"
                   : "Personal Information"}
               </h1>
             </div>
@@ -192,6 +195,7 @@ function RegistrationPageStudent() {
                         id="dateOfBirth"
                         value={data.dateOfBirth}
                         onChange={handleChange}
+                        max="2022-04-17"
                       />
                       <input
                         name="email"
