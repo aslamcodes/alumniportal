@@ -1,4 +1,5 @@
 import Loader from "components/UI/Loader";
+import { useAlertContext } from "context/alert/alertContext";
 import { useAuthContext } from "context/auth/authContext";
 import useAxiosWithCallback from "hooks/useAxiosWithCallback";
 import React, { useEffect } from "react";
@@ -23,22 +24,14 @@ const EventCard = ({ isActive, isCardActive, event, isAdmin, trigger }) => {
     "Nov",
     "Dec",
   ];
+  const { success } = useAlertContext();
 
   useEffect(() => {
-    if (error) alert(error);
-  });
+    if (error) success(error);
+  }, [error, success]);
 
   const handleDeleteEvent = async (e) => {
     e.preventDefault();
-    const confirmation = window
-      .prompt(`Do want to delete ${event?.eventName}? Type ${event?.eventName}`)
-      .trim()
-      .toLowerCase();
-
-    if (!confirmation === event?.eventName) {
-      alert("Event Name Didn't matched. Try again");
-      return;
-    }
 
     const deleteConfig = {
       headers: {
@@ -49,7 +42,7 @@ const EventCard = ({ isActive, isCardActive, event, isAdmin, trigger }) => {
     };
 
     await fetchData(deleteConfig, (res) => {
-      alert(`Deleted event ${res.eventName}`);
+      success(`Deleted event ${res.eventName}`);
     });
 
     trigger((prev) => !prev);

@@ -6,6 +6,7 @@ import { useSpring, a } from "react-spring";
 import useAxiosWithCallback from "hooks/useAxiosWithCallback";
 import { useAuthContext } from "context/auth/authContext";
 import Loader from "components/UI/Loader";
+import { useAlertContext } from "context/alert/alertContext";
 
 const AddCommentButton = ({ postId, onAddComment }) => {
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -15,10 +16,11 @@ const AddCommentButton = ({ postId, onAddComment }) => {
 
   const { fetchData: createComment, isLoading, error } = useAxiosWithCallback();
   const { user } = useAuthContext();
+  const { success } = useAlertContext();
 
   useEffect(() => {
-    if (error) alert(error);
-  }, [error]);
+    if (error) success(error);
+  }, [error, success]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

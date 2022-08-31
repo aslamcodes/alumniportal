@@ -45,8 +45,8 @@ function NewPostModal({ setNewPostActive }) {
   }, [setNewPostActive]);
 
   useEffect(() => {
-    if (error) alert(error?.response?.data?.message);
-  }, [error]);
+    if (error) success(error?.response?.data?.message);
+  }, [error, success]);
 
   const handleMouseEnter = () => {
     setImageSwitch(true);

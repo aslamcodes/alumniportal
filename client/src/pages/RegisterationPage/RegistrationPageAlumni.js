@@ -10,7 +10,7 @@ import {
   useAlumniDispatchContext,
 } from "context/alumni/alumniContext";
 import Loader from "components/UI/Loader";
-
+import { useAlertContext } from "context/alert/alertContext";
 
 function RegistrationPageAlumni() {
   const navigate = useNavigate();
@@ -33,15 +33,16 @@ function RegistrationPageAlumni() {
     designation: "",
     organization: "",
   });
+  const { success } = useAlertContext();
 
   useEffect(() => {
     !user && navigate("/login");
   }, [user, navigate]);
 
   useEffect(() => {
-    error && alert(error);
+    error && success(error);
     alumni && navigate("/");
-  }, [error, alumni, navigate]);
+  }, [error, alumni, navigate, success]);
 
   const handleChange = (e) => {
     setData({
@@ -138,9 +139,7 @@ function RegistrationPageAlumni() {
                 <section className={styles.form_section}>
                   {formOptions.isEntrepreneur && (
                     <section>
-                      <div
-                        className={`${styles.form_input_container} `}
-                      >
+                      <div className={`${styles.form_input_container} `}>
                         <input
                           name="companyName"
                           type="text"
@@ -149,7 +148,6 @@ function RegistrationPageAlumni() {
                           value={data.companyName}
                           onChange={handleChange}
                         />
-
                       </div>
                       <div
                         className={`${styles.form_input_container} ${styles.split_container}`}
@@ -215,9 +213,7 @@ function RegistrationPageAlumni() {
                       onChange={handleChange}
                     />
                   </div>
-                  <div
-                    className={`${styles.form_input_container} `}
-                  >
+                  <div className={`${styles.form_input_container} `}>
                     <input
                       name="companyEmail"
                       type="text"
@@ -227,7 +223,6 @@ function RegistrationPageAlumni() {
                       onChange={handleChange}
                     />
                   </div>
-
 
                   <div className={`${styles.form_button_container}`}>
                     <button type="submit"> Submit</button>

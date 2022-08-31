@@ -4,15 +4,16 @@ import styles from "./Home.module.css";
 import NewTestimonialCard from "components/HomeComponents/NewTestimonialCard";
 import { useAuthContext } from "context/auth/authContext";
 import useGetTestimonial from "hooks/useGetTestimonial";
+import { useAlertContext } from "context/alert/alertContext";
 
 const Home = () => {
   const [newTestimonialActive, setNewTestimonialActive] = useState(false);
   const { user } = useAuthContext();
   const { testimonials, error, isLoading, trigger } = useGetTestimonial();
-
+  const { success } = useAlertContext();
   const onChangeTestimonial = (message) => {
     trigger();
-    alert(message);
+    success(message);
     setNewTestimonialActive(false);
   };
 
