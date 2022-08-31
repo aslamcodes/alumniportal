@@ -26,31 +26,24 @@
 }
 
 .reply_button {
+  display: flex;
+  justify-content: space-between;
   width: 100%;
-  text-align: center;
+  align-items: center;
   background-color: #f3f2db;
-  padding: 0.3em;
-  border-radius: 1em;
+  padding: 0.1em 0.1em 0.1em 0.3em;
+  border-radius: 20px;
   font-weight: bold;
   position: relative;
 }
 
 .share_icon {
-  position: absolute;
   background-color: #000;
   color: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 90%;
-  min-width: 1.5rem;
-  border-radius: 25px;
-  right: 0.5%;
-  top: 50%;
-  transform: translateY(-50%);
-  bottom: 0;
+  padding: 0.3em;
+  border-radius: 50%;
 }
-
 .share_icon > * {
-  margin-top: 2px;
+  display: inline-block;
+  vertical-align: middle;
 }

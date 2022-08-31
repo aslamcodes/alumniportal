@@ -35,7 +35,7 @@ const ReplyForm = ({ comment, onAddNewReply }) => {
       <button type="submit" className={Styles.reply_button}>
         <p>Reply to {comment.user.name}</p>
         <p className={Styles.share_icon}>
-          <RiSendPlaneFill />
+          <RiSendPlaneFill fontSize={25} />
         </p>
       </button>
     </form>
