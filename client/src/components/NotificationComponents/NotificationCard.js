@@ -65,7 +65,7 @@ const NotificationCard = ({ notification, onResolve, type }) => {
             />
           }
 
-          <IoClose className={styles.close_btn} onClick={handleDelete} font-size={20} />
+          <IoClose className={styles.close_btn} onClick={handleDelete} fontSize={20} />
         </>
       }
 
