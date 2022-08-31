@@ -19,6 +19,7 @@ function RegistrationPageFaculty() {
   const [isPasswordMatch, setIsPasswordMatch] = useState(false);
   const { user, error, isLoading } = useAuthContext();
   const { success } = useAlertContext();
+  const graduationLevelOptions = ["Under graduate", "Post graduate", "Others"];
 
   const [data, setData] = useState({
     name: "",
@@ -27,6 +28,7 @@ function RegistrationPageFaculty() {
     password: "",
     confirmPassword: "",
     phoneNumber: "",
+    graduationLevel: "",
     city: "",
     department: "",
   });
@@ -108,6 +110,23 @@ function RegistrationPageFaculty() {
                       onChange={handleChange}
                       max={today}
                     />
+                  </div>
+                  <div className={styles.form_input_container}>
+                    <select
+                      name="graduationLevel"
+                      type="text"
+                      id="graduationLevel"
+                      required
+                      value={data.graduationLevel}
+                      onChange={handleChange}
+                    >
+                      <option value="" disabled selected hidden>Graduation level</option>
+                      {graduationLevelOptions.map((level) => (
+                        <option key={level} value={level}>
+                          {level}
+                        </option>
+                      ))}
+                    </select>
                   </div>
                   <div className={styles.form_input_container}>
                     <input

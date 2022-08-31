@@ -184,7 +184,7 @@ function RegistrationPageStudent() {
                         value={data.graduationLevel}
                         onChange={handleChange}
                       >
-                        <option value="">Graduation level</option>
+                        <option value="" disabled selected hidden>Graduation level</option>
                         {graduationLevelOptions.map((level) => (
                           <option key={level} value={level}>
                             {level}
