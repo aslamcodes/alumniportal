@@ -46,7 +46,6 @@ export const registerUser = asyncHandler(async (req, res) => {
       token: generateToken(user._id),
     });
   } catch (error) {
-    console.log(error);
     throw new Error(error);
   }
 });
