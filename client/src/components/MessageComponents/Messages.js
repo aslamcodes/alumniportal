@@ -46,8 +46,9 @@ const ChatSelectPage = ({
       <>
         <hr className={styles.hr_header} />
         <div
-          className={`${styles.chat_container} ${isMessagesActive && styles.active
-            }`}
+          className={`${styles.chat_container} ${
+            isMessagesActive && styles.active
+          }`}
         >
           {isConversationsLoading ? (
             <Loader />
@@ -138,8 +139,9 @@ const ChatPage = ({
       <>
         <hr className={styles.hr_header} />
         <div
-          className={`${styles.chat_container} ${styles.chat} ${isMessagesActive && styles.active
-            }`}
+          className={`${styles.chat_container} ${styles.chat} ${
+            isMessagesActive && styles.active
+          }`}
         >
           {isMessagesLoading ? (
             <Loader />
@@ -215,10 +217,11 @@ const Messages = ({ onClose }) => {
   };
 
   return (
-    <ReactPortal wrapperId="messages_content_wrapper">
+    <ReactPortal scrollable wrapperId="messages_content_wrapper">
       <div
-        className={`${styles.messages_container} ${isMessagesActive && styles.active
-          }`}
+        className={`${styles.messages_container} ${
+          isMessagesActive && styles.active
+        }`}
       >
         {!isChatSelected ? (
           <ChatSelectPage

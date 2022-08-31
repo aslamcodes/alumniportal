@@ -24,10 +24,12 @@ import AdminOfficeBearers from "pages/Admin/AdminOfficeBearers";
 import PostRequest from "pages/Admin/PostRequest";
 import EventRequest from "pages/Admin/EventRequest";
 import Alumni from "pages/Alumni/Alumni";
+import Alert from "components/UI/Alert";
 
 function App() {
   return (
     <div className="App">
+      <Alert />
       <Router>
         <Routes>
           <Route path="/admin" element={<Admin />} />

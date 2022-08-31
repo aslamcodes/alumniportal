@@ -7,6 +7,7 @@ import { GiPin } from "react-icons/gi";
 import { useAuthContext } from "context/auth/authContext";
 import useAxiosWithCallback from "hooks/useAxiosWithCallback";
 import Loader from "components/UI/Loader";
+import { useAlertContext } from "context/alert/alertContext";
 
 function NewPostModal({ setNewPostActive }) {
   const [imageSwitch, setImageSwitch] = useState(false);
@@ -17,10 +18,9 @@ function NewPostModal({ setNewPostActive }) {
     description: "",
     image: "",
   });
-
   const { user } = useAuthContext();
   const { fetchData: createPost, error, isLoading } = useAxiosWithCallback();
-
+  const { success } = useAlertContext();
   const onSelectFile = (e) => {
     if (!e.target.files || e.target.files.length === 0) {
       setPostData({
@@ -55,12 +55,14 @@ function NewPostModal({ setNewPostActive }) {
   const handleMouseLeave = () => {
     setImageSwitch(false);
   };
+
   const handleChange = (e) => {
     setPostData({
       ...postData,
       [e.target.name]: e.target.value,
     });
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const postFormData = new FormData();
@@ -81,7 +83,11 @@ function NewPostModal({ setNewPostActive }) {
     };
 
     await createPost(postConfig, (res) => {
-      alert("Post Made Successfully");
+      success(
+        user?.isAlumni || user?.isAdmin
+          ? "Your Post Made Successfully"
+          : "Post details sent to admin for verification"
+      );
     });
   };
 

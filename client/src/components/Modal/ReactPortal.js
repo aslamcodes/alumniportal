@@ -1,28 +1,32 @@
 import { createPortal } from "react-dom";
-import { useLayoutEffect, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 
 export const ReactPortal = ({
   children,
+  scrollable = false,
   wrapperId = "react-portal-wrapper",
 }) => {
   const [wrapperElement, setWrapperElement] = useState(null);
-  let systemCreated = false;
+
+  const systemCreated = useRef(false);
 
   useLayoutEffect(() => {
     let element = document.getElementById(wrapperId);
     if (!element) {
-      systemCreated = true;
+      systemCreated.current = true;
       element = createWrapperAndAppendToBody(wrapperId);
     }
-    document.body.style.overflow = "hidden";
+    if (!scrollable) {
+      document.body.style.overflow = "hidden";
+    }
     setWrapperElement(element);
     return () => {
-      if (systemCreated && element.parentNode) {
+      if (systemCreated.current && element.parentNode) {
         element.parentNode.removeChild(element);
       }
       document.body.style.overflow = "unset";
     };
-  }, [wrapperId]);
+  }, [wrapperId, scrollable]);
 
   if (!wrapperElement) return null;
   return createPortal(children, wrapperElement);
