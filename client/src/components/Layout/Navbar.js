@@ -181,14 +181,15 @@ const Navbar = () => {
                 onClick={() => setIsNotificationActive((prev) => !prev)}
               />
 
-              {isNotificationActive && (
-                <NotificationPanel onResolve={() => { }} />
-              )}
+
             </div>
           )}
         </div>
         {menuActive && windowDimensions.width < 790 && (
           <Menu setMenuActive={setMenuActive} />
+        )}
+        {isNotificationActive && (
+          <NotificationPanel onResolve={() => { }} />
         )}
       </div>
 
