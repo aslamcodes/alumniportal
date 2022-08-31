@@ -3,6 +3,8 @@ import useAxiosWithCallback from "hooks/useAxiosWithCallback";
 import React, { useEffect, useState } from "react";
 import styles from "./AddEventCard.module.css";
 const AddEventCard = ({ onNewItemAdd }) => {
+  const today = new Date().toJSON().slice(0, 10);
+
   const { user } = useAuthContext();
   const { fetchData: addEvent, error: errorOnAddEvent } =
     useAxiosWithCallback();
@@ -14,7 +16,7 @@ const AddEventCard = ({ onNewItemAdd }) => {
 
   const [eventData, setEventData] = useState({
     title: "",
-    date: "2022-07-13",
+    date: [today],
     startTime: "11:00",
     endTime: "14:00",
     location: "",
@@ -56,13 +58,7 @@ const AddEventCard = ({ onNewItemAdd }) => {
       },
     });
 
-    setEventData({
-      title: "",
-      date: "2022-07-13",
-      startTime: "11:00",
-      endTime: "14:00",
-      location: "",
-    });
+
 
     onNewItemAdd((prev) => !prev);
 
@@ -95,6 +91,7 @@ const AddEventCard = ({ onNewItemAdd }) => {
             id="eventDate"
             value={eventData.date}
             onChange={handleChange}
+            max="3000-12-31"
           />
         </div>
         <div className={styles.input_container}>
