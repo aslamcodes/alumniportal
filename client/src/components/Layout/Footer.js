@@ -9,10 +9,11 @@ const Footer = () => {
   const isInRegisterStudent = /register-student/.test(location.pathname);
   const isInRegisterFaculty = /register-faculty/.test(location.pathname);
   const isInRegisterAlumni = /register-alumni/.test(location.pathname);
+  const isInHome = location.pathname === "/";
   const isInAlumniPage = /alumni-forum/.test(location.pathname);
   const isInAdminPage = /admin/.test(location.pathname);
   const isFooterVisible = !isInAlumniPage && !isInAdminPage;
-  const isFooterOpaque = isInLoginPage || isInRegisterStudent || isInRegisterFaculty || isInRegisterAlumni;
+  const isFooterOpaque = isInLoginPage || isInRegisterStudent || isInRegisterFaculty || isInRegisterAlumni || isInHome;
   console.log(isInLoginPage);
   return (
     isFooterVisible && (
