@@ -6,12 +6,10 @@
   border-radius: 15px;
   padding: 0.5rem;
   cursor: default;
+  z-index: 10;
 }
 .image_input_container {
   position: relative;
-  display: grid;
-  place-items: center;
-  text-align: center;
   width: 15rem;
   height: 15rem;
   border-radius: 0.5rem;
@@ -19,7 +17,6 @@
   color: #555;
   box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.2);
   z-index: 0;
-  overflow: hidden;
 }
 .image_input_container > label {
   display: grid;
@@ -43,6 +40,7 @@ input[type="file"] {
   height: 100%;
   width: 100%;
   object-fit: cover;
+  object-position: center center;
 }
 .add_photos_container > button {
   border: none;
