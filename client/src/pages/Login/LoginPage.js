@@ -58,7 +58,7 @@ const LoginForm = () => {
           <div className={styles["input"]}>
             <input
               type="text"
-              placeholder="Username"
+              placeholder="Email ID"
               {...register("userName", { required: true })}
               className={styles["input-field"]}
             />
