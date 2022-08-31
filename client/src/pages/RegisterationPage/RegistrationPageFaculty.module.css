@@ -177,6 +177,10 @@
   gap: 0.6rem;
 }
 
+.validation_error {
+  color: red;
+}
+
 @media (min-width: 540px) {
   .container {
     /* min-height: calc(100vh - var(--footer-height)); */

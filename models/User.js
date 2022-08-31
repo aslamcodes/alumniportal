@@ -68,7 +68,7 @@ const userSchema = new Schema(
     graduationLevel: {
       type: String,
       required: true,
-      enum: ["Under graduate", "Post graduate"],
+      enum: ["Under graduate", "Post graduate", "Others"],
     },
     skill: {
       type: String,
