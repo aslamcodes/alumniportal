@@ -12,6 +12,7 @@ const Home = () => {
   const { user } = useAuthContext();
   const { testimonials, error, isLoading, trigger } = useGetTestimonial();
   const { success } = useAlertContext();
+
   const onChangeTestimonial = (message) => {
     trigger();
     success(message);
@@ -22,7 +23,7 @@ const Home = () => {
     <div className={`${styles.Body} `}>
       <div className={styles["Content-Container"]}>
         <div id={styles["Welcome"]}>
-          <video
+          {/* <video
             className={styles.video}
             src={video}
             width="100"
@@ -30,7 +31,7 @@ const Home = () => {
             loop
             autoPlay
             muted
-          />
+          /> */}
           <div className={styles.video_overlay} />
           <div className={`${styles.Container}`}>
             <h1>

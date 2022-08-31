@@ -1,5 +1,6 @@
 import { AlertStatus } from "lib/enum";
 import React, { createContext, useContext, useState } from "react";
+import { useCallback } from "react";
 
 const initialState = {
   alert: AlertStatus.NONE,
@@ -14,19 +15,21 @@ AlertContext.displayName = "AlertContext";
 const AlertContextProvider = ({ children }) => {
   const [alert, setAlert] = useState(AlertStatus.NONE);
   const [alertText, setAlertText] = useState("");
+  const success = useCallback((text, timeout) => {
+    setAlertText(text);
+    setAlert(AlertStatus.SUCCESS);
+  }, []);
+  const error = useCallback((text, timeout) => {
+    setAlertText(text);
+    setAlert(AlertStatus.ERROR);
+  }, []);
   return (
     <AlertContext.Provider
       value={{
         alert,
         alertText,
-        success: (text, timeout) => {
-          setAlertText(text);
-          setAlert(AlertStatus.SUCCESS);
-        },
-        error: (text, timeout) => {
-          setAlertText(text);
-          setAlert(AlertStatus.ERROR);
-        },
+        success,
+        error,
         clear: () => setAlert(AlertStatus.NONE),
       }}
     >
