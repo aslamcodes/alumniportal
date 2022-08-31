@@ -24,6 +24,7 @@ import AdminOfficeBearers from "pages/Admin/AdminOfficeBearers";
 import PostRequest from "pages/Admin/PostRequest";
 import EventRequest from "pages/Admin/EventRequest";
 import Alumni from "pages/Alumni/Alumni";
+
 function App() {
   return (
     <div className="App">
@@ -39,9 +40,7 @@ function App() {
             element={<AdminOfficeBearers />}
           />
 
-          <Route element={
-            <Navbar />
-          }>
+          <Route element={<Navbar />}>
             <Route path="/alumni-forum" element={<AlumniForum />} />
           </Route>
           <Route element={<WithNavFooter />}>
@@ -70,7 +69,6 @@ function App() {
               element={<SeminarSessions />}
             />
             <Route path="/office-bearers" element={<OfficeBearers />} />
-
           </Route>
         </Routes>
       </Router>
