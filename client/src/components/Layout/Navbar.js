@@ -5,13 +5,16 @@ import styles from "./Navbar.module.css";
 import { Link, useLocation } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import { useWindowScrollPositions } from "hooks/useWindowScrollPositions";
-import { IoIosNotificationsOutline } from "react-icons/io";
+import { IoIosNotificationsOutline, IoMdNotificationsOutline } from "react-icons/io";
+import { TiMessages } from "react-icons/ti";
 import { useAuthContext } from "context/auth/authContext";
 import { getAlumni } from "context/alumni/actions";
 import { useAlumniDispatchContext } from "context/alumni/alumniContext";
 import NotificationPanel from "components/NotificationComponents/NotificationPanel";
 import ProfileModal from "components/ForumComponents/ProfileModal";
 import useFetchNotification from "hooks/useFetchNotification";
+import Messages from "components/MessageComponents/Messages";
+
 
 function getWindowDimensions() {
   const { innerWidth: width, innerHeight: height } = window;
@@ -27,6 +30,7 @@ const Navbar = () => {
   );
   const location = useLocation();
   const [menuActive, setMenuActive] = useState(false);
+  const [isMessagesActive, setIsMessagesActive] = useState(false);
   const [showNotificationBadge, setShowNotificationBadge] = useState(true);
   const [isNotificationActive, setIsNotificationActive] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -82,9 +86,8 @@ const Navbar = () => {
       )}
       <div className={styles.container}>
         <div
-          className={`${styles.navbar} ${styles.background_blur} ${
-            isScrolled && styles.scrolled
-          }`}
+          className={`${styles.navbar} ${styles.background_blur} ${isScrolled && styles.scrolled
+            }`}
         >
           {windowDimensions.width > 790 && (
             <div className={`${styles.navLink}`}>
@@ -153,23 +156,38 @@ const Navbar = () => {
           )}
           {user && (
             <div
-              className={`${styles.notification_icon} ${
-                showNotificationBadge && styles.active
-              }`}
+              className={`${styles.message_icon} ${styles.active
+                }`}
             >
-              <IoIosNotificationsOutline
+              <TiMessages fontSize={25} onClick={() => setIsMessagesActive(!isMessagesActive)} />
+
+            </div>
+          )
+          }
+          {user && (
+            <div
+              className={`${styles.notification_icon} ${showNotificationBadge && styles.active
+                }`}
+            >
+              <IoMdNotificationsOutline
                 fontSize={25}
                 onClick={() => setIsNotificationActive((prev) => !prev)}
               />
 
-              {isNotificationActive && <NotificationPanel />}
+              {isNotificationActive && (
+                <NotificationPanel onResolve={() => { }} />
+              )}
+
             </div>
           )}
         </div>
         {menuActive && windowDimensions.width < 790 && (
           <Menu setMenuActive={setMenuActive} />
         )}
+
+
       </div>
+      {isMessagesActive && <Messages isMessagesActive={isMessagesActive} setIsMessagesPanelActive={setIsMessagesActive} />}
       <Outlet />
     </>
   );

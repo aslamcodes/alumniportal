@@ -11,6 +11,7 @@ import Loader from "components/UI/Loader";
 import useGetConversationByID from "hooks/useGetConversationByID";
 import { useAuthContext } from "context/auth/authContext";
 import useAxiosWithCallback from "hooks/useAxiosWithCallback";
+import { GrFormClose } from "react-icons/gr";
 
 const ChatSelectPage = ({
   isConversationsLoading,
@@ -33,9 +34,9 @@ const ChatSelectPage = ({
         Messages
         <div className={styles.messages_actions}>
           <AiOutlinePlus className={styles.add_btn} fontSize={20} />
-          <RiArrowDropDownLine
+          <GrFormClose
             className={styles.arrow_btn}
-            fontSize={35}
+            fontSize={20}
             onClick={onMessagesMinimizeHandler}
           />
         </div>
@@ -65,10 +66,10 @@ const ChatSelectPage = ({
 };
 
 const ChatPage = ({
+  isMessagesActive,
   messages,
   onMinimize,
   isMessagesLoading,
-  isMessagesActive,
   onGoBack,
   conversationId,
   onSendNewMessage,
@@ -145,7 +146,6 @@ const ChatPage = ({
             <Loader />
           ) : (
             messages?.map(({ content, sender }) => {
-              console.log(sender, conversation?.createdBy?._id);
               return (
                 <ChatBubble
                   type={sender === user?._id ? 1 : 0}
@@ -219,10 +219,12 @@ const Messages = () => {
     >
       {!isChatSelected ? (
         <ChatSelectPage
+          isMessagesActive={isMessagesActive}
+          setIsMessagesActive={setIsMessagesActive}
+          setIsChatSelected={setIsChatSelected}
           isConversationsLoading={isConversationsLoading}
           conversations={conversations}
           onMinimize={onMinimize}
-          isMessagesActive={isMessagesActive}
           onChatSelect={onChatSelectHandler}
         />
       ) : (
