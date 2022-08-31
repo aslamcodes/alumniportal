@@ -37,6 +37,7 @@
   right: max(2rem, 2vw);
   bottom: 3rem;
   padding: 0.05em 0.05em 0.05em 1em;
+  max-width: fit-content;
   border-radius: 2rem;
   background: #fff;
   font-size: 1em;
@@ -78,10 +79,14 @@
 .events .child {
   display: flex;
   flex-wrap: wrap;
+  gap: 1rem;
 }
 
 .events .child > * {
+  flex-basis: 20%;
+  flex-grow: 1;
   margin-bottom: 1rem;
+  /* margin-right: auto; */
 }
 
 @media (min-width: 790px) {
