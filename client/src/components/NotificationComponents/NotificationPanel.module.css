@@ -1,8 +1,10 @@
 .notification_container {
   position: absolute;
-  top: calc(100% + 3rem);
+  top: calc(100% + 2rem);
   right: 0;
-  width: clamp(15rem, 24vw, 25rem);
+  padding-top: 1rem;
+  padding-left: 1rem;
+  width: clamp(16rem, 25vw, 26rem);
   max-height: 50vh;
   overflow: auto;
 }

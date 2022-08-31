@@ -7,9 +7,9 @@ import { IoClose } from "react-icons/io5";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import styles from "./NotificationCard.module.css";
 
-const NotificationCard = ({ notification, onResolve }) => {
-  const [isHovered, setIsHovered] = useState(false);
+const NotificationCard = ({ notification, onResolve, type }) => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isContact, setIsContact] = useState(false);
   const { isLoading, error, fetchData } = useAxiosWithCallback();
   const { user } = useAuthContext();
 
@@ -31,22 +31,34 @@ const NotificationCard = ({ notification, onResolve }) => {
   return (
     <div
       className={`${styles.notification_card} ${isExpanded && styles.expanded}`}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
     >
       <div className={styles.message}>
         <p>{notification.message}</p>
+        {type === "approval" && (
+          !isContact ?
+            <div className={styles.actions}>
+              <button className={styles.accept}>Accept</button>
+              <button className={styles.contact} onClick={() => setIsContact(true)}>Contact</button>
+            </div>
+            :
+            <button className={styles.admin_contact}>admin_1@skct.gmail.com</button>
+        )
+        }
+
       </div>
-      {isHovered && (
-        <RiArrowDropDownLine
-          fontSize={30}
-          className={styles.arrow_btn}
-          onClick={() => setIsExpanded(!isExpanded)}
-        />
-      )}
-      {isHovered && (
-        <IoClose className={styles.close_btn} onClick={handleDelete} />
-      )}
+      {type !== 0 &&
+        <>
+          <RiArrowDropDownLine
+            fontSize={30}
+            className={styles.arrow_btn}
+            onClick={() => setIsExpanded(!isExpanded)}
+          />
+
+
+          <IoClose className={styles.close_btn} onClick={handleDelete} font-size={20} />
+        </>
+      }
+
     </div>
   );
 };

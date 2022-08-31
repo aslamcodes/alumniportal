@@ -25,10 +25,14 @@ const NotificationPanel = () => {
       {isLoading ? (
         <Loader />
       ) : notificationsOnState?.length === 0 ? (
-        <p>No New Notifications</p>
+        <NotificationCard notification={{ message: "No new notification" }}
+          type={0}
+        // type 0 is for no notification
+        />
       ) : (
         notificationsOnState.map((notification) => (
           <NotificationCard
+            // type="approval" is for alumni reject notification
             onResolve={onResolveHandler}
             notification={notification}
           />
