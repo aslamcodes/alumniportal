@@ -23,6 +23,7 @@ export default function useAxiosWithCallback() {
           throw new Error("Problem connecting to server");
         }
         callback(response.data);
+        setError(null);
       } catch (error) {
         setError(error);
       } finally {
