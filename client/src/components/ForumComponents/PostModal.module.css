@@ -33,6 +33,9 @@
   align-items: center;
   color: "#fff";
 }
+.post_header :nth-child(2) {
+  cursor: pointer;
+}
 
 .profile_image {
   width: 3.5rem;
