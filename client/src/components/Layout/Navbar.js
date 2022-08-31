@@ -57,7 +57,7 @@ const Navbar = () => {
 
   useEffect(() => {
     const fetchAlumni = async () => {
-      if (user) await getAlumni(alumniDispatch, { user: user?._id });
+      if (user?.alumni) await getAlumni(alumniDispatch, { user: user?._id });
     };
 
     fetchAlumni();
@@ -95,8 +95,9 @@ const Navbar = () => {
       )}
       <div className={styles.container}>
         <div
-          className={`${styles.navbar} ${styles.background_blur} ${isScrolled && styles.scrolled
-            }`}
+          className={`${styles.navbar} ${styles.background_blur} ${
+            isScrolled && styles.scrolled
+          }`}
         >
           {windowDimensions.width > 790 && (
             <div className={`${styles.navLink}`}>
@@ -173,8 +174,9 @@ const Navbar = () => {
           )}
           {user && (
             <div
-              className={`${styles.notification_icon} ${showNotificationBadge && styles.active
-                }`}
+              className={`${styles.notification_icon} ${
+                showNotificationBadge && styles.active
+              }`}
             >
               <IoMdNotificationsOutline
                 fontSize={25}
@@ -182,7 +184,7 @@ const Navbar = () => {
               />
 
               {isNotificationActive && (
-                <NotificationPanel onResolve={() => { }} />
+                <NotificationPanel onResolve={() => {}} />
               )}
             </div>
           )}
