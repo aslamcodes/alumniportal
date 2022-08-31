@@ -27,6 +27,8 @@ function RegistrationPageStudent() {
   const { user, isLoading, error } = useAuthContext();
   const location = useLocation();
   const [formStep, setFormStep] = useState(1);
+  const [isCPasswordDirty, setIsCPasswordDirty] = useState(false);
+  const [isPasswordMatch, setIsPasswordMatch] = useState(false);
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -59,6 +61,15 @@ function RegistrationPageStudent() {
       ...data,
       [e.target.name]: e.target.value,
     });
+    if (e.target.name === "confirmPassword") {
+      setIsCPasswordDirty(true);
+    }
+    if (e.target.name === "phoneNumber") {
+      setData({
+        ...data,
+        [e.target.name]: e.target.value.slice(0, 10)
+      });
+    }
   };
 
   const handleInputBlur = (e) => {
@@ -66,13 +77,26 @@ function RegistrationPageStudent() {
     registerNumberRef.current = data.registerNumber;
     departmentRef.current = data.department;
   };
+  const handleSubmitPage1 = async (e) => {
+    e.preventDefault();
+    setFormStep(2);
 
+  }
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
     Object.keys(data).forEach((key) => formData.append(key, data[key]));
     await register(dispatch, formData);
   };
+  useEffect(() => {
+    if (isCPasswordDirty) {
+      if (data.password === data.confirmPassword) {
+        setIsPasswordMatch(true);
+      } else {
+        setIsPasswordMatch(false);
+      }
+    }
+  }, [data.confirmPassword])
 
   useEffect(() => {
     if (error) alert(error);
@@ -101,8 +125,8 @@ function RegistrationPageStudent() {
             </div>
 
             <div className={styles.form_body}>
-              <form onSubmit={handleSubmit}>
-                {formStep === 1 ? (
+              {formStep === 1 ? (
+                <form onSubmit={handleSubmitPage1}>
                   <section>
                     <div
                       className={`${styles.form_input_container} ${styles.split_container}`}
@@ -111,14 +135,15 @@ function RegistrationPageStudent() {
                         name="yearOfPassing"
                         type="text"
                         id="yop"
+                        required
+
                         value={data.yearOfPassing}
                         onChange={handleChange}
                       >
                         <option
-                          value="Year of passing"
-                          className={styles.select_items}
+                          value="" disabled selected hidden
                         >
-                          {" "}
+
                           Year of passing
                         </option>
                         {YearOfPassing.map((year) => (
@@ -135,11 +160,12 @@ function RegistrationPageStudent() {
                         name="department"
                         type="text"
                         id="dept"
+                        required
                         value={data.department}
                         onChange={handleChange}
                         onBlur={handleInputBlur}
                       >
-                        <option value="department"> Department</option>
+                        <option value="" disabled selected hidden> Department</option>
                         {Department.map((dept) => (
                           <option key={dept} value={dept}>
                             {dept}
@@ -152,6 +178,7 @@ function RegistrationPageStudent() {
                         name="graduationLevel"
                         type="text"
                         id="graduationLevel"
+                        required
                         value={data.graduationLevel}
                         onChange={handleChange}
                       >
@@ -168,6 +195,7 @@ function RegistrationPageStudent() {
                         name="name"
                         type="text"
                         id="name"
+                        required
                         placeholder="Name"
                         value={data.name}
                         onChange={handleChange}
@@ -178,6 +206,7 @@ function RegistrationPageStudent() {
                         name="registerNumber"
                         type="text"
                         id="register_no"
+                        required
                         placeholder="Register Number"
                         value={data.registerNumber}
                         onChange={handleChange}
@@ -191,6 +220,7 @@ function RegistrationPageStudent() {
                         name="dateOfBirth"
                         type="date"
                         id="dateOfBirth"
+                        required
                         value={data.dateOfBirth}
                         onChange={handleChange}
                         max="2022-04-17"
@@ -199,6 +229,9 @@ function RegistrationPageStudent() {
                         name="email"
                         type="email"
                         id="email"
+                        title="please enter a valid email address"
+                        pattern="[a-zA-Z0-9.-_+]+@[a-zA-Z0-9]+\.[a-z]{2,}"
+                        required
                         placeholder="Email"
                         value={data.email}
                         onChange={handleChange}
@@ -210,6 +243,9 @@ function RegistrationPageStudent() {
                         name="password"
                         type="password"
                         id="password"
+                        title="password must be at least 8 characters"
+                        pattern="[a-zA-Z0-9!@#$%^\*()]{8,}"
+                        required
                         placeholder="Password"
                         value={data.password}
                         onChange={handleChange}
@@ -220,27 +256,33 @@ function RegistrationPageStudent() {
                         name="confirmPassword"
                         type="password"
                         id="confirm_password"
+                        pattern="[a-zA-Z0-9!@#$%^\*()]{8,}"
+                        required
                         placeholder="Confirm Password"
                         value={data.confirmPassword}
                         onChange={handleChange}
                       />
                     </div>
+                    {!isPasswordMatch && isCPasswordDirty && <p className={styles.validation_error}>password does not match</p>}
                     <div
                       className={`${styles.form_button_container} ${styles.split_container}`}
                     >
                       <button onClick={() => navigate("/login")}>
                         back to login
                       </button>
-                      <button onClick={() => setFormStep(2)}> next page</button>
+                      <button type="submit"> next page</button>
                     </div>
                   </section>
-                ) : (
+                </form>
+              ) : (
+                <form onSubmit={handleSubmit}>
                   <section>
                     <div className={`${styles.form_input_container} `}>
                       <input
                         name="city"
                         type="text"
                         id="city"
+                        required
                         placeholder="Select your city"
                         value={data.city}
                         onChange={handleChange}
@@ -251,6 +293,7 @@ function RegistrationPageStudent() {
                         name="state"
                         type="text"
                         id="state"
+                        required
                         placeholder="Select your state"
                         value={data.state}
                         onChange={handleChange}
@@ -261,6 +304,7 @@ function RegistrationPageStudent() {
                         name="country"
                         type="text"
                         id="country"
+                        required
                         placeholder="Select your country"
                         value={data.country}
                         onChange={handleChange}
@@ -271,6 +315,9 @@ function RegistrationPageStudent() {
                         name="phoneNumber"
                         type="number"
                         id="phoneNumber"
+                        pattern="[0-9]{10}"
+
+                        required
                         placeholder="Enter your contact no"
                         value={data.phoneNumber}
                         onChange={handleChange}
@@ -293,8 +340,9 @@ function RegistrationPageStudent() {
                       <button type="submit"> Submit</button>
                     </div>
                   </section>
-                )}
-              </form>
+                </form>
+              )}
+
             </div>
           </div>
         </div>
