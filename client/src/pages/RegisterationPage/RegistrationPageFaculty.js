@@ -8,6 +8,7 @@ import {
 } from "context/auth/authContext";
 import { register } from "context/auth/actions";
 import Loader from "components/UI/Loader";
+import { useAlertContext } from "context/alert/alertContext";
 
 function RegistrationPageFaculty() {
   const today = new Date().toJSON().slice(0, 10);
@@ -15,6 +16,8 @@ function RegistrationPageFaculty() {
   const location = useLocation();
   const dispatch = useAuthDispatchContext();
   const { user, error, isLoading } = useAuthContext();
+  const { success } = useAlertContext();
+
   const [data, setData] = useState({
     name: "",
     dob: "",
@@ -27,8 +30,8 @@ function RegistrationPageFaculty() {
   });
 
   useEffect(() => {
-    if (error) alert(error);
-  }, [error]);
+    if (error) success(error);
+  }, [error, success]);
 
   const handleChange = (e) => {
     setData({
