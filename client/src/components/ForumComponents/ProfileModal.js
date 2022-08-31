@@ -6,7 +6,7 @@ import {
   useAuthContext,
   useAuthDispatchContext,
 } from "context/auth/authContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAlumniContext } from "context/alumni/alumniContext";
 import { logout } from "context/auth/actions";
 import { BsPeople } from "react-icons/bs";
@@ -24,6 +24,8 @@ const PROFILE_IMAGES = [
 ];
 
 function ProfileModal({ isOpen, handleClose, userId }) {
+  const navigate = useNavigate();
+
   const { user, isLoading, error } = useUserProfileData(userId);
   const {
     isLoading: isPostLoading,
@@ -367,7 +369,7 @@ function ProfileModal({ isOpen, handleClose, userId }) {
               {show.post && (
                 <div className={styles.posts}>
                   {posts.map((post) => (
-                    <ForumCard key={post.id} data={post} />
+                    <ForumCard key={post.id} data={post} profileActive={true} profileEdit={editProfile} />
                   ))}
                 </div>
               )}

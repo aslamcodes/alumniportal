@@ -26,7 +26,8 @@
 }
 
 .header img {
-  width: 50px;
+  border-radius: 50%;
+  width: 4rem;
   padding: 0.5em;
 }
 
@@ -82,13 +83,13 @@
 
 .post_action_container {
   display: flex;
+  align-items: center;
   gap: 1rem;
   margin-right: 1em;
 }
 
-.post_action_container button {
-  /* todo: fix like button */
-  border: none;
-  background: none;
+.post_action_container > div {
+  display: grid;
+  place-items: center;
   cursor: pointer;
 }
