@@ -1,0 +1,90 @@
+.notification_card {
+  display: flex;
+  align-items: center;
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.34);
+  padding: 1rem;
+  padding-right: 0.5rem;
+  margin-bottom: 0.5rem;
+  max-height: 6rem;
+  -webkit-transition: max-height 1s;
+  -moz-transition: max-height 1s;
+  -ms-transition: max-height 1s;
+  -o-transition: max-height 1s;
+  transition: max-height 0.7s;
+  border-radius: 15px;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: default;
+}
+.notification_card > .message {
+  display: block;
+  overflow: hidden;
+  width: 95%;
+  max-width: 95%;
+}
+.notification_card.expanded {
+  max-height: 100rem;
+}
+.notification_card.expanded > .message {
+  white-space: normal;
+}
+
+.message .actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+}
+
+.actions button {
+  border: none;
+  font-weight: 600;
+  padding: 0.4rem 0.6rem;
+  border-radius: 15px;
+  cursor: pointer;
+  border: 1px solid #1ea4c9;
+}
+.accept {
+  color: #fff;
+  background-color: #1ea4c9;
+}
+.contact {
+  background-color: #fff;
+  color: #1ea4c9;
+}
+
+.admin_contact {
+  width: 100%;
+  margin-top: 0.5rem;
+  border: none;
+  font-weight: 600;
+  padding: 0.4rem 0.6rem;
+  border-radius: 15px;
+  cursor: pointer;
+  border: 1px solid #1ea4c9;
+  background-color: #fff;
+  color: #1ea4c9;
+}
+.close_btn,
+.arrow_btn {
+  cursor: pointer;
+}
+.close_btn {
+  position: absolute;
+  top: -0.3rem;
+  left: -0.3rem;
+
+  background-color: rgba(255, 255, 255, 0.405);
+  backdrop-filter: blur(0.5rem);
+  padding: 0.1rem;
+  border-radius: 50%;
+}
+.arrow_btn {
+  transform: rotate(0);
+  transition: transform 1s ease-in-out;
+  transform-origin: center center;
+}
+
+.notification_card.expanded > .arrow_btn {
+  transform: rotate(180deg);
+}

@@ -77,7 +77,13 @@ const RejectTable = () => {
             <th>Organization</th>
             <th>Contact</th>
             <th>Email</th>
-
+            <th>City</th>
+            <th>State</th>
+            <th>Country</th>
+            <th>Graduation</th>
+            <th>PG College Name</th>
+            <th>Course Name</th>
+            <th>Skills/Domain</th>
             <div className={Styles.fixed_col}>
               <th>Actions</th>
             </div>

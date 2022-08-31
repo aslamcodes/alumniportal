@@ -1,0 +1,19 @@
+#office_bearer_table {
+  margin-top: 1rem;
+  table-layout: fixed;
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #e5e5e5;
+}
+#office_bearer_table thead {
+  text-align: left;
+}
+#office_bearer_table th {
+  padding: 1.2rem 1rem;
+}
+#office_bearer_table tbody > tr {
+  transition: background-color 0.4s ease-in-out;
+}
+#office_bearer_table tbody > tr:hover {
+  background-color: #fffcdc;
+}

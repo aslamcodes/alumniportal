@@ -9,6 +9,7 @@ const EventCard = ({ isActive, isCardActive, event, isAdmin, trigger }) => {
   const { user } = useAuthContext();
   const eventStartDate = new Date(event.startDate || event.date);
   const eventEndDate = new Date(event.endDate || event.date);
+  console.log(eventStartDate.toLocaleString());
   const monthNames = [
     "Jan",
     "Feb",
@@ -68,8 +69,8 @@ const EventCard = ({ isActive, isCardActive, event, isAdmin, trigger }) => {
       </div>
       <div className={styles["venue"]}>
         <p>
-          {eventStartDate.getUTCHours()}:{eventStartDate.getUTCMinutes()} -{" "}
-          {eventEndDate.getUTCHours()}:{eventEndDate.getUTCMinutes()}
+          {eventStartDate.getUTCHours()}:{(eventStartDate.getUTCMinutes() < 10 && "0") + eventStartDate.getUTCMinutes()} -{" "}
+          {eventEndDate.getUTCHours()}:{(eventEndDate.getUTCMinutes() < 10 && "0") + eventEndDate.getUTCMinutes()}
         </p>
         <p>{event.venue}</p>
       </div>

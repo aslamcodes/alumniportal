@@ -9,11 +9,11 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  padding: 0 1.2rem;
-  justify-content: center;
+  padding: calc(var(--navbar-height) + 2rem) 1.2rem;
 }
 .event_page_content {
   text-align: left;
+  min-height: 100vh;
   /* font-family: "Old Standard TT", serif; */
 }
 
@@ -37,6 +37,7 @@
   right: max(2rem, 2vw);
   bottom: 3rem;
   padding: 0.05em 0.05em 0.05em 1em;
+  max-width: fit-content;
   border-radius: 2rem;
   background: #fff;
   font-size: 1em;
@@ -67,10 +68,8 @@
 .events {
   display: flex;
   margin: 1.8rem 0.7rem;
+  min-height: 0;
   max-width: 100%;
-  overflow-x: scroll;
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none;
 }
 
 .events::-webkit-scrollbar {
@@ -79,7 +78,15 @@
 
 .events .child {
   display: flex;
-  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.events .child > * {
+  flex-basis: 20%;
+  flex-grow: 1;
+  margin-bottom: 1rem;
+  /* margin-right: auto; */
 }
 
 @media (min-width: 790px) {

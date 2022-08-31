@@ -1,11 +1,12 @@
 .messages_container {
   position: fixed;
-  right: 2rem;
+  right: 0.3rem;
   bottom: 3rem;
   padding: 0.5rem;
-  width: 25rem;
+  width: min(25rem, 80%);
   border-radius: 10px;
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(8px);
   z-index: 20;
 }
 
@@ -50,7 +51,8 @@
 .arrow_btn,
 .add_btn,
 .back_btn,
-.send_btn {
+.send_btn,
+.close_btn {
   cursor: pointer;
 }
 
@@ -62,6 +64,11 @@
 
 .messages_container.active .arrow_btn {
   transform: rotate(0);
+}
+
+.no_conversation {
+  padding-block: 3rem;
+  text-align: center;
 }
 
 .chat_profile {

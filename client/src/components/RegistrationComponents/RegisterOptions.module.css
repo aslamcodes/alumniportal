@@ -1,7 +1,8 @@
 .register_options_container {
   position: absolute;
   top: 100%;
-  right: 1%;
+  left: 50%;
+  transform: translateX(-50%);
   width: fit-content;
   background: #e5feff;
   overflow: hidden;

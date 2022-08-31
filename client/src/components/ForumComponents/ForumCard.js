@@ -31,8 +31,6 @@ const ForumCard = ({ data, profileActive }) => {
     });
   };
 
-  console.log(data);
-
   return (
     <div className={`${styles.post_container} `}>
       <CommentModal
