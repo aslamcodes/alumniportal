@@ -115,7 +115,7 @@ function NewPostModal({ setNewPostActive }) {
               </div>
               <div className={styles.body}>
                 <form onSubmit={handleSubmit}>
-                  <div className={styles.input_container}>
+                  {/* <div className={styles.input_container}>
                     <input
                       name="cname"
                       type="text"
@@ -134,7 +134,7 @@ function NewPostModal({ setNewPostActive }) {
                       value={postData.designation}
                       onChange={handleChange}
                     />
-                  </div>
+                  </div> */}
                   <div className={styles.description_container}>
                     <div className={styles.input_container}>
                       <input

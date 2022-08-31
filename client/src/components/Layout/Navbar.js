@@ -95,9 +95,8 @@ const Navbar = () => {
       )}
       <div className={styles.container}>
         <div
-          className={`${styles.navbar} ${styles.background_blur} ${
-            isScrolled && styles.scrolled
-          }`}
+          className={`${styles.navbar} ${styles.background_blur} ${isScrolled && styles.scrolled
+            }`}
         >
           {windowDimensions.width > 790 && (
             <div className={`${styles.navLink}`}>
@@ -174,23 +173,23 @@ const Navbar = () => {
           )}
           {user && (
             <div
-              className={`${styles.notification_icon} ${
-                showNotificationBadge && styles.active
-              }`}
+              className={`${styles.notification_icon} ${showNotificationBadge && styles.active
+                }`}
             >
               <IoMdNotificationsOutline
                 fontSize={25}
                 onClick={() => setIsNotificationActive((prev) => !prev)}
               />
 
-              {isNotificationActive && (
-                <NotificationPanel onResolve={() => {}} />
-              )}
+
             </div>
           )}
         </div>
         {menuActive && windowDimensions.width < 790 && (
           <Menu setMenuActive={setMenuActive} />
+        )}
+        {isNotificationActive && (
+          <NotificationPanel onResolve={() => { }} />
         )}
       </div>
 

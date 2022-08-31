@@ -25,7 +25,7 @@ const NotificationPanel = () => {
       {isLoading ? (
         <Loader />
       ) : notificationsOnState?.length === 0 ? (
-        <NotificationCard notification={{ message: "No new notification" }}
+        <NotificationCard notification={{ message: "No new notification " }}
           type={0}
         // type 0 is for no notification
         />

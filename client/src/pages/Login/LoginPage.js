@@ -60,6 +60,8 @@ const LoginForm = () => {
           <div className={styles["input"]}>
             <input
               type="text"
+              title="please enter a valid email address"
+              pattern="[a-zA-Z0-9.-_+]+@[a-zA-Z0-9]+\.[a-z]{2,}"
               placeholder="Email ID"
               {...register("userName", { required: true })}
               className={styles["input-field"]}
@@ -75,6 +77,8 @@ const LoginForm = () => {
             <input
               type="password"
               placeholder="Password"
+              title="password must be at least 8 characters"
+              pattern="[a-zA-Z0-9!@#$%^\*()]{8,}"
               {...register("password", { required: true })}
               className={styles["input-field"]}
             />
