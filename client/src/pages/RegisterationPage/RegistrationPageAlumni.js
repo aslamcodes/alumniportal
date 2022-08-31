@@ -200,7 +200,7 @@ function RegistrationPageAlumni() {
                       name="organization"
                       type="text"
                       id="organization"
-                      placeholder="Organization name"
+                      placeholder="Company name"
                       value={data.organization}
                       onChange={handleChange}
                     />
