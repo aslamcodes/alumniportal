@@ -25,8 +25,17 @@ import PostRequest from "pages/Admin/PostRequest";
 import EventRequest from "pages/Admin/EventRequest";
 import Alumni from "pages/Alumni/Alumni";
 import Alert from "components/UI/Alert";
+import { useEffect } from "react";
+import { useAlertContext } from "context/alert/alertContext";
 
 function App() {
+  const { success } = useAlertContext();
+  useEffect(() => {
+    success(
+      "Alumni-Portal is still on alpha testing, and not stable, expect bugs"
+    );
+  }, [success]);
+
   return (
     <div className="App">
       <Alert />

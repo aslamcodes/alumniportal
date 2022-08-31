@@ -18,7 +18,7 @@ const Alert = ({ ...props }) => {
       <div className={styles.modal_main}>
         <p className={styles.modal_message}>{alertText}</p>
         <div className={styles.modal_actions}>
-          <button onClick={clear}>Cancel</button>
+          {/* <button onClick={clear}>Cancel</button> */}
           <button className={styles.primary} onClick={clear}>
             Ok
           </button>
