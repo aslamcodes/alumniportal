@@ -114,13 +114,13 @@ const LoginForm = () => {
             }}
           >
             Create Account
+            <RegisterOptions
+              onMouseEnter={() => {
+                setRegisterOptions(true);
+              }}
+              active={registerOptions}
+            />
           </a>
-          <RegisterOptions
-            onMouseEnter={() => {
-              setRegisterOptions(true);
-            }}
-            active={registerOptions}
-          />
         </p>
       </div>
     </div>
