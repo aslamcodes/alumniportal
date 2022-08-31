@@ -12,6 +12,7 @@ import useGetConversationByID from "hooks/useGetConversationByID";
 import { useAuthContext } from "context/auth/authContext";
 import useAxiosWithCallback from "hooks/useAxiosWithCallback";
 import { GrFormClose } from "react-icons/gr";
+import ReactPortal from "components/Modal/ReactPortal";
 
 const ChatSelectPage = ({
   isConversationsLoading,
@@ -45,9 +46,8 @@ const ChatSelectPage = ({
       <>
         <hr className={styles.hr_header} />
         <div
-          className={`${styles.chat_container} ${
-            isMessagesActive && styles.active
-          }`}
+          className={`${styles.chat_container} ${isMessagesActive && styles.active
+            }`}
         >
           {isConversationsLoading ? (
             <Loader />
@@ -138,9 +138,8 @@ const ChatPage = ({
       <>
         <hr className={styles.hr_header} />
         <div
-          className={`${styles.chat_container} ${styles.chat} ${
-            isMessagesActive && styles.active
-          }`}
+          className={`${styles.chat_container} ${styles.chat} ${isMessagesActive && styles.active
+            }`}
         >
           {isMessagesLoading ? (
             <Loader />
@@ -216,34 +215,35 @@ const Messages = ({ onClose }) => {
   };
 
   return (
-    <div
-      className={`${styles.messages_container} ${
-        isMessagesActive && styles.active
-      }`}
-    >
-      {!isChatSelected ? (
-        <ChatSelectPage
-          isMessagesActive={isMessagesActive}
-          setIsMessagesActive={setIsMessagesActive}
-          setIsChatSelected={setIsChatSelected}
-          isConversationsLoading={isConversationsLoading}
-          conversations={conversations}
-          onMinimize={onMinimize}
-          onChatSelect={onChatSelectHandler}
-          onClose={onCloseHandler}
-        />
-      ) : (
-        <ChatPage
-          conversationId={selectedConversation}
-          isMessagesLoading={isMessagesLoading}
-          messages={messages}
-          onMinimize={onMinimize}
-          isMessagesActive={isMessagesActive}
-          onGoBack={onGoBackHandler}
-          onSendNewMessage={newMessageHandler}
-        />
-      )}
-    </div>
+    <ReactPortal wrapperId="messages_content_wrapper">
+      <div
+        className={`${styles.messages_container} ${isMessagesActive && styles.active
+          }`}
+      >
+        {!isChatSelected ? (
+          <ChatSelectPage
+            isMessagesActive={isMessagesActive}
+            setIsMessagesActive={setIsMessagesActive}
+            setIsChatSelected={setIsChatSelected}
+            isConversationsLoading={isConversationsLoading}
+            conversations={conversations}
+            onMinimize={onMinimize}
+            onChatSelect={onChatSelectHandler}
+            onClose={onCloseHandler}
+          />
+        ) : (
+          <ChatPage
+            conversationId={selectedConversation}
+            isMessagesLoading={isMessagesLoading}
+            messages={messages}
+            onMinimize={onMinimize}
+            isMessagesActive={isMessagesActive}
+            onGoBack={onGoBackHandler}
+            onSendNewMessage={newMessageHandler}
+          />
+        )}
+      </div>
+    </ReactPortal>
   );
 };
 
