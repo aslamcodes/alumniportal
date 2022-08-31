@@ -11,12 +11,13 @@ import { useAlertContext } from "context/alert/alertContext";
 
 function NewPostModal({ setNewPostActive }) {
   const [imageSwitch, setImageSwitch] = useState(false);
+  const [showError, setShowError] = useState(false);
   const [postData, setPostData] = useState({
     cname: "",
     designation: "",
     title: "",
     description: "",
-    image: "",
+    image: undefined,
   });
   const { user } = useAuthContext();
   const { fetchData: createPost, error, isLoading } = useAxiosWithCallback();
@@ -65,6 +66,10 @@ function NewPostModal({ setNewPostActive }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (postData.image === undefined) {
+      setShowError(true);
+      console.log(showError);
+    }
     const postFormData = new FormData();
 
     postFormData.append("title", postData.title);
@@ -89,6 +94,7 @@ function NewPostModal({ setNewPostActive }) {
           : "Post details sent to admin for verification"
       );
     });
+
   };
 
   return (
@@ -141,6 +147,7 @@ function NewPostModal({ setNewPostActive }) {
                         type="text"
                         name="title"
                         id="title"
+                        required
                         placeholder="title"
                         value={postData.title}
                         onChange={handleChange}
@@ -186,19 +193,21 @@ function NewPostModal({ setNewPostActive }) {
                       />
                     ) : (
                       <div className={styles.img_input}>
-                        <label for="img-input">
+                        <label for="img-input" >
                           <BiImageAdd size="50px" />
                           <p>Add Image</p>
                         </label>
                         <input
                           name="post_images"
                           id="img-input"
+                          required
                           type="file"
                           onChange={onSelectFile}
                         />
                       </div>
                     )}
                   </div>
+                  {showError && <p>please upload image</p>}
                   <button className={styles.post_btn} type="submit">
                     <div className={styles.post_name}>Post</div>
                     <div className={styles.post_icon}>

@@ -39,6 +39,9 @@
   margin-bottom: 1em;
   padding: 1.3em 1.3em 0 1.3em;
 }
+.comment_modal_header :nth-child(2) {
+  cursor: pointer;
+}
 
 .comments_container {
   margin: 1.5em 0;

@@ -51,13 +51,13 @@ const AddCommentButton = ({ postId, onAddComment }) => {
         setIsFormOpen(true);
         inputRef.current.focus();
       }}
-      className={`${Styles.comment_form} ${
-        isFormOpen && Styles.comment_form_expanded
-      }`}
+      className={`${Styles.comment_form} ${isFormOpen && Styles.comment_form_expanded
+        }`}
     >
       <input
         ref={inputRef}
         value={comment}
+        required
         onChange={(e) => {
           setComment(e.target.value);
         }}

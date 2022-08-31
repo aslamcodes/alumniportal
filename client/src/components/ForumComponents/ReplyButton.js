@@ -53,9 +53,8 @@ const ReplyButton = ({ onAddNewReply, commentId }) => {
         inputRef.current.focus();
       }}
       style={props}
-      className={`${Styles.reply_form} ${
-        isFormOpen && Styles.reply_form_expanded
-      }`}
+      className={`${Styles.reply_form} ${isFormOpen && Styles.reply_form_expanded
+        }`}
     >
       <input
         ref={inputRef}
@@ -69,7 +68,7 @@ const ReplyButton = ({ onAddNewReply, commentId }) => {
         }}
       />
       <button type="submit">
-        {isFormOpen ? <RiSendPlaneFill /> : <GrFormEdit />}
+        {isFormOpen ? <RiSendPlaneFill fontSize={25} /> : <GrFormEdit fontSize={30} />}
       </button>
     </a.form>
   );
