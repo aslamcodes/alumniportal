@@ -10,6 +10,7 @@ import { register } from "context/auth/actions";
 import Loader from "components/UI/Loader";
 
 function RegistrationPageFaculty() {
+  const today = new Date().toJSON().slice(0, 10);
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useAuthDispatchContext();
@@ -80,6 +81,7 @@ function RegistrationPageFaculty() {
                       id="dob"
                       value={data.dob}
                       onChange={handleChange}
+                      max={today}
                     />
                   </div>
                   <div className={styles.form_input_container}>
