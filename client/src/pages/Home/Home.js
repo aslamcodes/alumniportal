@@ -35,7 +35,7 @@ const Home = () => {
         </div>
 
 
-        <div id={styles["Testimonials"]}>
+        {/* <div id={styles["Testimonials"]}>
           <div className={`${styles.Container}`}>
             <Carousel
               testimonials={testimonials}
@@ -60,7 +60,7 @@ const Home = () => {
               onNewTestimonial={onChangeTestimonial}
             />
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
