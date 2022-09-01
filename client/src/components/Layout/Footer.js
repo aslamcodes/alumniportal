@@ -13,11 +13,11 @@ const Footer = () => {
   const isInAlumniPage = /alumni-forum/.test(location.pathname);
   const isInAdminPage = /admin/.test(location.pathname);
   const isFooterVisible = !isInAlumniPage && !isInAdminPage;
-  const isFooterOpaque = isInLoginPage || isInRegisterStudent || isInRegisterFaculty || isInRegisterAlumni || isInHome;
+  const isFooterTranslucent = isInLoginPage || isInRegisterStudent || isInRegisterFaculty || isInRegisterAlumni || isInHome;
 
   return (
     isFooterVisible && (
-      <div className={`${styles["footer"]} ${isFooterOpaque && styles.bg_opaque}`}>
+      <div className={`${styles["footer"]} ${isFooterTranslucent && styles.bg_translucent}`}>
         <div className={styles["footer-container"]}>
           <div className={styles["footer-brand"]}>
             <img src={require("assets/Logo2.png")} alt="College-logo" />
