@@ -16,6 +16,8 @@ const AdminTableRow = ({ alumni, type, ...rest }) => {
     },
   });
 
+  console.log(alumni);
+
   const handleOnApproveAlumni = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -65,12 +67,21 @@ const AdminTableRow = ({ alumni, type, ...rest }) => {
 
         </>
       )}
-      {type === "request-details" || type === "reject-details" && (
+      {type === "reject-details" && (
         <>
 
 
           <td>{alumni?.alumni_data?.designation}</td>
           <td>{alumni?.alumni_data?.companyName}</td>
+
+        </>
+      )}
+      {type === "request-details" && (
+        <>
+
+
+          <td>{alumni?.alumni_data?.designation}</td>
+          <td>{alumni?.alumni_data?.organization}</td>
 
         </>
       )}

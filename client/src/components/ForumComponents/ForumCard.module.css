@@ -26,8 +26,10 @@
 }
 
 .header img {
-  width: 50px;
+  border-radius: 50%;
+  width: 4rem;
   padding: 0.5em;
+  cursor: pointer;
 }
 
 .post_caption_container {
@@ -38,11 +40,18 @@
 
 .post_image_container {
   position: relative;
+  display: flex;
+  align-items: center;
+  height: 70vh;
+  background-color: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  border-radius: 0 0 0.5em 0.5em;
 }
 
 .post_image_container img {
   width: 100%;
-  border-radius: 0 0 0.5em 0.5em;
+  max-height: 100%;
+  object-fit: contain;
 }
 
 .post_overlay {
@@ -51,7 +60,7 @@
   background: linear-gradient(
     to bottom,
     rgba(0, 0, 0, 0) 70%,
-    rgba(0, 0, 0, 1) 100%
+    rgba(0, 0, 0, 0.6) 100%
   );
   position: absolute;
   z-index: 2;
@@ -82,13 +91,13 @@
 
 .post_action_container {
   display: flex;
+  align-items: center;
   gap: 1rem;
   margin-right: 1em;
 }
 
-.post_action_container button {
-  /* todo: fix like button */
-  border: none;
-  background: none;
+.post_action_container > div {
+  display: grid;
+  place-items: center;
   cursor: pointer;
 }

@@ -14,7 +14,7 @@ const Footer = () => {
   const isInAdminPage = /admin/.test(location.pathname);
   const isFooterVisible = !isInAlumniPage && !isInAdminPage;
   const isFooterOpaque = isInLoginPage || isInRegisterStudent || isInRegisterFaculty || isInRegisterAlumni || isInHome;
-  console.log(isInLoginPage);
+
   return (
     isFooterVisible && (
       <div className={`${styles["footer"]} ${isFooterOpaque && styles.bg_opaque}`}>

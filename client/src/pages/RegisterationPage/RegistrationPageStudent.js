@@ -114,7 +114,7 @@ function RegistrationPageStudent() {
         setIsPasswordMatch(false);
       }
     }
-  }, [data.confirmPassword]);
+  }, [data.confirmPassword, isCPasswordDirty, data.password]);
 
   useEffect(() => {
     if (error) success(error);

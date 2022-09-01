@@ -22,19 +22,15 @@
 
 .comment_form button {
   position: absolute;
+  height: 100%;
   right: 0;
   top: 0;
-  bottom: 0;
-}
-
-.comment_form :nth-child(2) {
+  border-radius: 1.56rem;
   color: #000;
   background-color: #fff;
   border-radius: 1.5rem;
-  padding: 0.1em;
+  padding: 0.2em 0.25em;
   font-size: 1.7rem;
-  min-width: 1.7rem;
-  margin-right: 0.3em;
 
   display: flex;
   align-items: center;

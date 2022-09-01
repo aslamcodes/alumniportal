@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import styles from "./ForumCard.module.css";
-import { AiOutlineHeart, AiFillHeart, AiOutlineShareAlt } from "react-icons/ai";
+import { AiOutlineHeart, AiFillHeart, AiOutlineShareAlt, AiOutlineClose } from "react-icons/ai";
 import { BsChat } from "react-icons/bs";
 import CommentModal from "./CommentModal";
 import PostModal from "./PostModal";
 import { useAuthContext } from "context/auth/authContext";
 import useAxiosWithCallback from "hooks/useAxiosWithCallback";
 import ProfileModal from "./ProfileModal";
+import { GrClose } from "react-icons/gr";
 
-const ForumCard = ({ data, profileActive }) => {
+const ForumCard = ({ data, profileActive, profileEdit }) => {
   const [isCommentsModalOpen, setIsCommentsModalOpen] = useState(false);
   const [isPostModalOpen, setIsPostModalOpen] = useState(false);
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
@@ -70,17 +71,22 @@ const ForumCard = ({ data, profileActive }) => {
           <p className={styles.user_name}>{data.user.name}</p>
         </div>
         <div className={styles.post_action_container}>
-          <button disabled={isLoading} onClick={onLikePostHandler}>
-            {liked ? <AiFillHeart /> : <AiOutlineHeart />}
-          </button>
+          <div disabled={isLoading} onClick={onLikePostHandler}>
+            {liked ? <AiFillHeart fontSize={22} /> : <AiOutlineHeart fontSize={22} />}
+          </div>
           <div
             onClick={() => {
               setIsCommentsModalOpen(true);
             }}
           >
-            <BsChat />
+            <BsChat fontSize={20} />
           </div>
-          <AiOutlineShareAlt />
+          <div>
+            <AiOutlineShareAlt fontSize={21} />
+          </div>
+          {profileActive && profileEdit &&
+            <GrClose fontSize={20} />
+          }
         </div>
       </div>
       <div className={styles.post_image_container}>

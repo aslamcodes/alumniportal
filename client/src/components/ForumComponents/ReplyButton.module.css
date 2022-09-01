@@ -1,6 +1,8 @@
 .reply_form {
   display: flex;
   flex-direction: row;
+  padding: 0.1em 0.1em 0.1em 0.3em;
+  align-items: center;
   justify-content: flex-end;
   gap: 0.5rem;
   position: sticky;
@@ -11,14 +13,13 @@
   background-color: #000;
   border-radius: 1.56rem;
   transition: all 0.4s ease-in-out;
-  padding: 0.3em;
 }
 
-.reply_form :nth-child(2) {
+.reply_form button {
   color: #000;
   background-color: #fff;
   border-radius: 1.5rem;
-  padding: 0.2em;
+  padding: 0.1em 0.15em;
   font-size: 1.2rem;
   min-width: 1.4rem;
   height: 100%;

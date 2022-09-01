@@ -156,6 +156,7 @@ function RegistrationPageAlumni() {
                           name="companyPan"
                           type="text"
                           id="companyPanNumber"
+                          pattern="[A-Z0-9]{10}"
                           placeholder="Company Pan"
                           value={data.companyPan}
                           onChange={handleChange}
@@ -198,7 +199,8 @@ function RegistrationPageAlumni() {
                       name="organization"
                       type="text"
                       id="organization"
-                      placeholder="Organization name"
+                      required
+                      placeholder="Company name"
                       value={data.organization}
                       onChange={handleChange}
                     />
@@ -208,6 +210,7 @@ function RegistrationPageAlumni() {
                       name="designation"
                       type="text"
                       id="designation"
+                      required
                       placeholder="Your designation (working professional)"
                       value={data.designation}
                       onChange={handleChange}
@@ -218,6 +221,9 @@ function RegistrationPageAlumni() {
                       name="companyEmail"
                       type="text"
                       id="companyEmail"
+                      required
+                      title="please enter a valid email address"
+                      pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$"
                       placeholder="Company Email ID"
                       value={data.companyEmail}
                       onChange={handleChange}

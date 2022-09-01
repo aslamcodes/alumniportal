@@ -60,6 +60,8 @@ const LoginForm = () => {
           <div className={styles["input"]}>
             <input
               type="text"
+              title="please enter a valid email address"
+              pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$"
               placeholder="Email ID"
               {...register("userName", { required: true })}
               className={styles["input-field"]}
