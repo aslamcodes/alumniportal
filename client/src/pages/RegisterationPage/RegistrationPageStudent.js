@@ -17,7 +17,7 @@ const range = (start, stop, step) =>
   Array.from({ length: (stop - start) / step + 1 }, (_, i) => start + i * step);
 
 const YearOfPassing = range(1985, currentYear + 4, 1);
-const Department = ["IT", "CSE", "ECE", "EEE", "MECH", "CIVIL", "MBA"];
+const Department = ["B.TECH IT", "B.E CSE", "B.E ECE", "B.E EEE", "B.E MECH", "B.E CIVIL", "MBA"];
 const graduationLevelOptions = ["Under graduate", "Post graduate"];
 
 function RegistrationPageStudent() {
