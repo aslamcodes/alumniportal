@@ -180,12 +180,12 @@ export const updateUser = asyncHandler(async (req, res) => {
       user[key] = req.body[key];
     });
 
-    user.avatar = imageId && imageId;
+    if (req.file) user.avatar = imageId && imageId;
 
     await user.save();
 
     return res.json({
-      message: "Successfully updated user accounts",
+      message: "Successfully updated user account",
     });
   } catch (error) {
     throw new Error(error);
