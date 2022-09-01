@@ -95,9 +95,8 @@ const Navbar = () => {
       )}
       <div className={styles.container}>
         <div
-          className={`${styles.navbar} ${styles.background_blur} ${
-            isScrolled && styles.scrolled
-          }`}
+          className={`${styles.navbar} ${styles.background_blur} ${isScrolled && styles.scrolled
+            }`}
         >
           {windowDimensions.width > 790 && (
             <div className={`${styles.navLink}`}>
@@ -135,7 +134,7 @@ const Navbar = () => {
               </div>
             </div>
           )}
-          {windowDimensions.width > 790 ? (
+          {windowDimensions.width > 790 && (
             <div className={`${styles.navLink} ${styles.right}`}>
               {!user && <Link to="login">Login</Link>}
               {user?.isAdmin && <Link to="/admin">Admin</Link>}
@@ -152,17 +151,6 @@ const Navbar = () => {
               <Link to="/alumni-forum">Alumni Forum</Link>
               <Link to="/office-bearers">Office Bearers</Link>
             </div>
-          ) : (
-            <div className={`${styles.dropdown} `}>
-              {!menuActive && (
-                <MenuIcon
-                  className={styles["dropdown-btn"]}
-                  onClick={() => {
-                    setMenuActive(true);
-                  }}
-                />
-              )}
-            </div>
           )}
           {user && (
             <div className={`${styles.message_icon} ${styles.active}`}>
@@ -174,9 +162,8 @@ const Navbar = () => {
           )}
           {user && (
             <div
-              className={`${styles.notification_icon} ${
-                showNotificationBadge && styles.active
-              }`}
+              className={`${styles.notification_icon} ${showNotificationBadge && styles.active
+                }`}
             >
               <IoMdNotificationsOutline
                 fontSize={25}
@@ -184,12 +171,24 @@ const Navbar = () => {
               />
             </div>
           )}
+          {windowDimensions.width < 790 && (
+            <div className={`${styles.dropdown} `}>
+              {!menuActive && (
+                <MenuIcon
+                  className={styles["dropdown-btn"]}
+                  onClick={() => {
+                    setMenuActive(true);
+                  }}
+                />
+              )}
+            </div>
+          )}
         </div>
-        {menuActive && windowDimensions.width < 790 && (
-          <Menu setMenuActive={setMenuActive} />
-        )}
-        {isNotificationActive && <NotificationPanel onResolve={() => {}} />}
+        {isNotificationActive && <NotificationPanel onResolve={() => { }} />}
       </div>
+      {menuActive && windowDimensions.width < 790 && (
+        <Menu setMenuActive={setMenuActive} setShowProfile={setShowProfile} />
+      )}
 
       <Outlet />
     </>
