@@ -16,7 +16,6 @@ const AdminTableRow = ({ alumni, type, ...rest }) => {
     },
   });
 
-  console.log(alumni);
 
   const handleOnApproveAlumni = async (e) => {
     e.preventDefault();
