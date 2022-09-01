@@ -358,7 +358,7 @@ export const approvePost = asyncHandler(async (req, res) => {
   await Notification.create({
     user: request.createdBy,
     type: notificationConstants.POST_APPROVED,
-    message: "Your post has been approved by alumni.",
+    message: "Your post has been approved by admin.",
   });
 
   return res.json({

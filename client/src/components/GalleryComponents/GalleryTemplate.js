@@ -133,10 +133,10 @@ function GalleryTemplate({ fname, sname, data = [], isLoading }) {
             <p>No Images</p>
           ) : (
             <>
-              {getImages(numberOfImages).map((images, index1) => {
+              {getImages(numberOfImages)?.map((images, index1) => {
                 return (
                   <div key={index1} className={styles.gallery_img}>
-                    {images.map(({ image }, index) => {
+                    {images?.map(({ image }, index) => {
                       return (
                         <div
                           key={index}

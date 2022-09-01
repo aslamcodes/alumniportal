@@ -14,6 +14,8 @@ import { IoLogOutOutline } from "react-icons/io5";
 import useUserProfileData from "hooks/useUserProfileData";
 import Loader from "components/UI/Loader";
 import useGetForumPosts from "hooks/useGetForumPosts";
+import useAxiosWithCallback from "hooks/useAxiosWithCallback";
+import { useAlertContext } from "context/alert/alertContext";
 
 const PROFILE_IMAGES = [
   <img src={require("assets/Profile_images/2.png")} alt="cover_img" />,
@@ -25,13 +27,13 @@ const PROFILE_IMAGES = [
 
 function ProfileModal({ isOpen, handleClose, userId }) {
   const navigate = useNavigate();
-
   const { user, isLoading, error } = useUserProfileData(userId);
   const {
     isLoading: isPostLoading,
     error: postError,
     posts,
   } = useGetForumPosts(0, userId);
+
   const { user: loggedInUser } = useAuthContext();
   const { alumni } = useAlumniContext();
   const [show, setShow] = useState({
@@ -42,38 +44,15 @@ function ProfileModal({ isOpen, handleClose, userId }) {
   const [image, setImage] = useState(undefined);
   const dispatch = useAuthDispatchContext();
   const isUser = user ? user._id === loggedInUser?._id : false;
-  const [profileData, setProfileData] = useState({
-    profile_image: "",
-    name: "Jenifer Aswin",
-    designation: "Software Developer",
-    location: "Coimbatore, India",
-    social: {
-      slack: "https://join.slack.com/team_test/shared_inviteas",
-      twitter: "https://twitter.com/team_test/shared_inviteas",
-      gmail: "teamwork123_a@gmail.com",
-      gitHub: "https://github.com/team_test/shared_inviteas",
-      facebook: "Enter the Facebook link",
-      linkedin: "Enter Linkedin Account Link",
-    },
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit.Pellentesque euismod, nisi vel consectetur euismod,nisi nisl aliquet nisl, eget euismod nisl nisl eget nisi.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque euismod, nisi vel consectetur euismod, nisi nisl aliquet nisl, eget euismod nisl nisl egenisi.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Pellentesque euismod, nisi vel consectetur euismod,nisi nisl aliquet nisl, eget euismod nisl nisl egetnisi.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Pellentesque euismod, nisi vel consectetur euismod,nisi nisl aliquet nisl, eget euismod nisl nisl egetnisi.",
-
-    other: {
-      company: "Company Name",
-      organization: "Organisation Name",
-      skills: "Skills / Domain",
-      contact: "Contact Number",
-      ugCollege: "Under Graduation College Name",
-      ugCourse: "Under  Graduation Course Name",
-      pgCollege: "Post Graduation College Name if any",
-      pgCourse: "Post Graduation Course Name if any",
-    },
-  });
+  const [editedData, setEditedData] = useState(user);
+  const { fetchData: updateProfile } = useAxiosWithCallback();
+  const { success } = useAlertContext();
 
   const pick_image = useCallback(() => {
     const random_number = Math.floor(Math.random() * PROFILE_IMAGES.length);
     return PROFILE_IMAGES[random_number];
   }, []);
+
   const handleChangeProfileImage = (e) => {
     if (!e.target.files || e.target.files.length === 0) {
       setImage(image || undefined);
@@ -81,9 +60,23 @@ function ProfileModal({ isOpen, handleClose, userId }) {
     }
     setImage(e.target.files[0]);
   };
+
+  const handleSocialChange = (e, name) => {
+    setEditedData((prev) => ({
+      ...prev,
+      alumni: {
+        ...prev?.alumni,
+        social: {
+          ...prev?.alumni?.social,
+          [name]: e.target.value,
+        },
+      },
+    }));
+  };
+
   const handleChange = (e, name) => {
-    setProfileData({
-      ...profileData,
+    setEditedData({
+      ...editedData,
       [name]: e.currentTarget.textContent,
     });
   };
@@ -107,6 +100,25 @@ function ProfileModal({ isOpen, handleClose, userId }) {
     handleClose();
   };
 
+  const handleUpdate = async (e) => {
+    const updateData = new FormData();
+    updateData.append("avatar", image);
+
+    const updateConfig = {
+      url: "/api/v1/users/",
+      method: "patch",
+      headers: {
+        Authorization: "Bearer " + loggedInUser?.token,
+      },
+      data: updateData,
+    };
+
+    await updateProfile(updateConfig, () => {
+      success("Profile updated successfully ");
+    });
+    setEditProfile(false);
+  };
+
   useEffect(() => {
     const closeOnEscapeKey = (e) => (e.key === "Escape" ? handleClose() : null);
     document.body.addEventListener("keydown", closeOnEscapeKey);
@@ -122,6 +134,10 @@ function ProfileModal({ isOpen, handleClose, userId }) {
     });
   }, [user?.description]);
 
+  useEffect(() => {
+    setEditedData(user);
+  }, [user]);
+
   if (isLoading) return <Loader />;
 
   return (
@@ -135,7 +151,11 @@ function ProfileModal({ isOpen, handleClose, userId }) {
           <div className={styles.profile_body}>
             <div className={styles.profile_img}>
               <img
-                src={`/api/v1/users/user-avatar/${userId}`}
+                src={
+                  image
+                    ? URL.createObjectURL(image)
+                    : `/api/v1/users/user-avatar/${userId}`
+                }
                 alt="profile_img"
               />
               {editProfile && (
@@ -181,8 +201,7 @@ function ProfileModal({ isOpen, handleClose, userId }) {
                   }`}
                 </h3>
               )}
-
-              <div
+              {/* <div
                 className={`${styles.location} ${
                   editProfile && styles.editActive
                 }`}
@@ -198,11 +217,11 @@ function ProfileModal({ isOpen, handleClose, userId }) {
                 >
                   {user?.city}, {user?.country}
                 </p>
-              </div>
+              </div> */}
               {user?.isAlumni && user?.alumni?.social && (
                 <>
                   <h4>Available on</h4>
-                  {!editProfile ? (
+                  {!editProfile && (
                     <div className={styles.social}>
                       {user?.alumni?.social?.linkedin && (
                         <a
@@ -228,6 +247,7 @@ function ProfileModal({ isOpen, handleClose, userId }) {
                           />
                         </a>
                       )}
+
                       {user?.alumni?.social?.github && (
                         <a
                           rel="noreferrer"
@@ -240,6 +260,7 @@ function ProfileModal({ isOpen, handleClose, userId }) {
                           />
                         </a>
                       )}
+
                       {user?.alumni?.social?.facebook && (
                         <a
                           rel="noreferrer"
@@ -253,51 +274,82 @@ function ProfileModal({ isOpen, handleClose, userId }) {
                         </a>
                       )}
                     </div>
-                  ) : (
-                    <div className={styles.editSocial_container}>
-                      {Object.keys(profileData.social).map((key, index) => {
-                        return (
-                          <div
-                            key={index}
-                            className={`${styles.editSocial} ${
-                              editProfile && styles.editActive
-                            }`}
-                          >
-                            <p
-                              suppressContentEditableWarning={true}
-                              contentEditable={editProfile}
-                              onBlur={(e) => handleChange(e, `social.${key}`)}
-                            >
-                              {profileData.social[key]}
-                            </p>
-                            <img
-                              src={require(`assets/icons/social/${key}.png`)}
-                              alt="social icon"
-                            />
-                          </div>
-                        );
-                      })}
-                    </div>
                   )}
                 </>
               )}
+
               {editProfile && (
-                <div className={styles.otherDetails}>
-                  {Object.keys(profileData.other).map((key, index) => {
-                    return (
-                      <p
-                        key={index}
-                        className={styles.editActive}
-                        suppressContentEditableWarning={true}
-                        contentEditable={editProfile}
-                        onBlur={(e) => handleChange(e, `other.${key}`)}
-                      >
-                        {profileData.other[key]}
-                      </p>
-                    );
-                  })}
+                <div className={styles.editSocial_container}>
+                  <div
+                    className={`${styles.editSocial} ${
+                      editProfile && styles.editActive
+                    }`}
+                  >
+                    <input
+                      placeholder={"Add your Twitter handle link"}
+                      onChange={(e) => {
+                        handleSocialChange(e, "twitter");
+                      }}
+                    ></input>
+                    <img
+                      src={require(`assets/icons/social/twitter.png`)}
+                      alt="social icon"
+                    />
+                  </div>
+
+                  <div
+                    className={`${styles.editSocial} ${
+                      editProfile && styles.editActive
+                    }`}
+                  >
+                    <input
+                      onChange={(e) => handleSocialChange(e, `linkedIn}`)}
+                      placeholder={"Your Linked Handle link"}
+                      value={editedData?.alumni?.social?.linkedIn}
+                    />
+
+                    <img
+                      src={require(`assets/icons/social/linkedin.png`)}
+                      alt="social icon"
+                    />
+                  </div>
+
+                  <div
+                    className={`${styles.editSocial} ${
+                      editProfile && styles.editActive
+                    }`}
+                  >
+                    <input
+                      placeholder="Add your Github profile link"
+                      value={editedData?.alumni?.social?.github}
+                      onChange={(e) => {
+                        handleChange(e, `github`);
+                      }}
+                    />
+                    <img
+                      src={require(`assets/icons/social/gitHub.png`)}
+                      alt="social icon"
+                    />
+                  </div>
+
+                  <div
+                    className={`${styles.editSocial} ${
+                      editProfile && styles.editActive
+                    }`}
+                  >
+                    <input
+                      value={editedData?.alumni?.social?.facebook}
+                      onChange={(e) => handleChange(e, `facebook`)}
+                      placeholder="Add your Facebook profile link"
+                    />
+                    <img
+                      src={require(`assets/icons/social/facebook.png`)}
+                      alt="social icon"
+                    />
+                  </div>
                 </div>
               )}
+
               {isUser && (
                 <div className={styles.profile_controls_container}>
                   {!editProfile ? (
@@ -314,9 +366,11 @@ function ProfileModal({ isOpen, handleClose, userId }) {
                   ) : (
                     <div
                       className={styles.profile_controls}
-                      onClick={() => setEditProfile(false)}
+                      onClick={() => {
+                        handleUpdate();
+                      }}
                     >
-                      <p>Done</p>
+                      <p>Save</p>
                     </div>
                   )}
                   {!editProfile && !user?.isAdmin && !alumni && user && (
