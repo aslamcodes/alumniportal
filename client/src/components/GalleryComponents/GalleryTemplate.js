@@ -147,8 +147,8 @@ function GalleryTemplate({ fname, sname, data = [], isLoading }) {
                             src={`/api/v1/gallery/${image}`}
                             alt=""
                             loading="lazy"
-                            width={500}
-                            height={500}
+                            width="500"
+                            height="500"
                             className={`${(imageSwitch.imageActive === index &&
                               styles.image_active) ||
                               (imageSwitch.imageTop === index &&
