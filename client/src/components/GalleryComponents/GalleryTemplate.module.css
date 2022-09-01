@@ -103,6 +103,10 @@
   filter: blur(2px);
   transform-origin: center;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+  -webkit-transition: transform, filter 0.8s, 0.2s linear;
+  -moz-transition: transform, filter 0.8s, 0.2s linear;
+  -ms-transition: transform, filter 0.8s, 0.2s linear;
+  -o-transition: transform, filter 0.8s, 0.2s linear;
   transition: transform, filter 0.8s, 0.2s linear;
   cursor: pointer;
 }
