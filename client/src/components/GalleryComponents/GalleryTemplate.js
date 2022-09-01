@@ -109,9 +109,8 @@ function GalleryTemplate({ fname, sname, data = [], isLoading }) {
           >
             <p>Add </p>
             <div
-              className={`${styles.add_image_icon} ${
-                isCardActive && styles.active
-              }`}
+              className={`${styles.add_image_icon} ${isCardActive && styles.active
+                }`}
             >
               <AiOutlinePlus fontSize={30} />
             </div>
@@ -147,23 +146,24 @@ function GalleryTemplate({ fname, sname, data = [], isLoading }) {
                             id={index}
                             src={`/api/v1/gallery/${image}`}
                             alt=""
-                            className={`${
-                              (imageSwitch.imageActive === index &&
-                                styles.image_active) ||
+                            loading="lazy"
+                            width="500"
+                            height="500"
+                            className={`${(imageSwitch.imageActive === index &&
+                              styles.image_active) ||
                               (imageSwitch.imageTop === index &&
                                 styles.image_top) ||
                               (imageSwitch.imageBottom === index &&
                                 styles.image_bottom)
-                            } ${styles.image}`}
+                              } ${styles.image}`}
                             onClick={(e) => handleClick(e, index1)}
                           />
 
                           <div
-                            className={`${styles.expand_container} ${
-                              expand.active &&
+                            className={`${styles.expand_container} ${expand.active &&
                               expand.id === index1 * 10 + index &&
                               styles.expand_container_active
-                            }`}
+                              }`}
                             onClick={handleClose}
                           >
                             <img
