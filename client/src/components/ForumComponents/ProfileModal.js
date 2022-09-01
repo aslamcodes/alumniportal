@@ -103,6 +103,7 @@ function ProfileModal({ isOpen, handleClose, userId }) {
   const handleUpdate = async (e) => {
     const updateData = new FormData();
     updateData.append("avatar", image);
+    updateData.append("name", editProfile.name);
 
     const updateConfig = {
       url: "/api/v1/users/",
@@ -278,7 +279,7 @@ function ProfileModal({ isOpen, handleClose, userId }) {
                 </>
               )}
 
-              {editProfile && (
+              {editProfile && user?.isAlumni && (
                 <div className={styles.editSocial_container}>
                   <div
                     className={`${styles.editSocial} ${
