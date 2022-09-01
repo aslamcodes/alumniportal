@@ -32,45 +32,48 @@ const Gallery = () => {
       </div>
       <div className={styles.gallery_items_container}>
         <div
-          className={`${styles.gallery_item} ${
-            (itemSwitch.itemLeft == -1 && styles.item_left) ||
+          className={`${styles.gallery_item} ${(itemSwitch.itemLeft == -1 && styles.item_left) ||
             (itemSwitch.itemRight == -1 && styles.item_right) ||
             (itemSwitch.itemActive === -1 && styles.item_active)
-          }`}
+            }`}
           onClick={() => handleClick(-1)}
         >
-          <img src="/images/alumni-cover.jpg" alt="gallery" />
-          <h2>
-            ALUMNI <span>MEET</span>
-          </h2>
+          <div className={styles.container}>
+            <img src="/images/alumni-cover.jpg" alt="gallery" />
+            <h2>
+              ALUMNI <span>MEET</span>
+            </h2>
+          </div>
         </div>
 
         <div
-          className={`${styles.gallery_item} ${
-            (itemSwitch.itemLeft == 0 && styles.item_left) ||
+          className={`${styles.gallery_item} ${(itemSwitch.itemLeft == 0 && styles.item_left) ||
             (itemSwitch.itemRight == 0 && styles.item_right) ||
             (itemSwitch.itemActive === 0 && styles.item_active)
-          }`}
+            }`}
           onClick={() => handleClick(0)}
         >
-          <img src="/images/all-photos.jpg" alt="gallery" />
-          <h2>
-            <span>ALL</span> PHOTOS
-          </h2>
+          <div className={styles.container}>
+            <img src="/images/all-photos.jpg" alt="gallery" />
+            <h2>
+              <span>ALL</span> PHOTOS
+            </h2>
+          </div>
         </div>
 
         <div
-          className={`${styles.gallery_item} ${
-            (itemSwitch.itemLeft == 1 && styles.item_left) ||
+          className={`${styles.gallery_item} ${(itemSwitch.itemLeft == 1 && styles.item_left) ||
             (itemSwitch.itemRight == 1 && styles.item_right) ||
             (itemSwitch.itemActive === 1 && styles.item_active)
-          }`}
+            }`}
           onClick={() => handleClick(1)}
         >
-          <img src="/images/seminar-cover.jpg" alt="gallery" />
-          <h2>
-            <span>SEMINAR</span> SESSIONS
-          </h2>
+          <div className={styles.container}>
+            <img src="/images/seminar-cover.jpg" alt="gallery" />
+            <h2>
+              <span>SEMINAR</span> SESSIONS
+            </h2>
+          </div>
         </div>
       </div>
     </div>
