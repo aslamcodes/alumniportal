@@ -7,6 +7,7 @@ import {
   loginUser,
   registerUser,
   resolveNotification,
+  updateUser,
 } from "../controllers/userControllers.js";
 import { registerAlumni } from "../controllers/alumniControllers.js";
 import { GridFsStorage } from "multer-gridfs-storage";
@@ -44,6 +45,8 @@ router.patch(
   protect,
   resolveNotification
 );
+
+router.patch("/", protect, upload.single("avatar"), updateUser);
 
 router.post("/register", upload.single("avatar"), registerUser);
 router.post("/login", loginUser);

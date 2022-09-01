@@ -160,3 +160,34 @@ export const getNotification = asyncHandler(async (req, res) => {
 
   return res.json(notifications);
 });
+
+export const updateUser = asyncHandler(async (req, res) => {
+  const { user: authUser } = req;
+
+  const user = await User.findById(authUser?._id);
+
+  if (!user) {
+    return res.status(404).json({
+      error: "Not a valid user account",
+    });
+  }
+
+  try {
+    const imageId = req.file?.id;
+
+    Object.keys(req.body).forEach((key) => {
+      if (key === "password" || key === "email") return;
+      user[key] = req.body[key];
+    });
+
+    user.avatar = imageId && imageId;
+
+    await user.save();
+
+    return res.json({
+      message: "Successfully updated user accounts",
+    });
+  } catch (error) {
+    throw new Error(error);
+  }
+});

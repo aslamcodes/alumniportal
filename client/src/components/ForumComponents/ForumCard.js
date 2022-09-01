@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import styles from "./ForumCard.module.css";
-import { AiOutlineHeart, AiFillHeart, AiOutlineShareAlt, AiOutlineClose } from "react-icons/ai";
+import {
+  AiOutlineHeart,
+  AiFillHeart,
+  AiOutlineShareAlt,
+  AiOutlineClose,
+} from "react-icons/ai";
 import { BsChat } from "react-icons/bs";
 import CommentModal from "./CommentModal";
 import PostModal from "./PostModal";
@@ -8,6 +13,7 @@ import { useAuthContext } from "context/auth/authContext";
 import useAxiosWithCallback from "hooks/useAxiosWithCallback";
 import ProfileModal from "./ProfileModal";
 import { GrClose } from "react-icons/gr";
+import { useAlertContext } from "context/alert/alertContext";
 
 const ForumCard = ({ data, profileActive, profileEdit }) => {
   const [isCommentsModalOpen, setIsCommentsModalOpen] = useState(false);
@@ -18,6 +24,7 @@ const ForumCard = ({ data, profileActive, profileEdit }) => {
   const [liked, setLiked] = useState(
     user ? data.likes.map((like) => like.user._id).includes(user?._id) : false
   );
+  const { success } = useAlertContext();
 
   const onLikePostHandler = async () => {
     const likeConfig = {
@@ -72,7 +79,11 @@ const ForumCard = ({ data, profileActive, profileEdit }) => {
         </div>
         <div className={styles.post_action_container}>
           <div disabled={isLoading} onClick={onLikePostHandler}>
-            {liked ? <AiFillHeart fontSize={22} /> : <AiOutlineHeart fontSize={22} />}
+            {liked ? (
+              <AiFillHeart fontSize={22} />
+            ) : (
+              <AiOutlineHeart fontSize={22} />
+            )}
           </div>
           <div
             onClick={() => {
@@ -82,11 +93,14 @@ const ForumCard = ({ data, profileActive, profileEdit }) => {
             <BsChat fontSize={20} />
           </div>
           <div>
-            <AiOutlineShareAlt fontSize={21} />
+            <AiOutlineShareAlt
+              fontSize={21}
+              onClick={() => {
+                success("Post link copied to clip board");
+              }}
+            />
           </div>
-          {profileActive && profileEdit &&
-            <GrClose fontSize={20} />
-          }
+          {profileActive && profileEdit && <GrClose fontSize={20} />}
         </div>
       </div>
       <div className={styles.post_image_container}>
