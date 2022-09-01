@@ -235,6 +235,14 @@
   margin-block: 0.5rem;
   padding: 0.3rem 0.5rem;
 }
+
+.editSocial input {
+  flex: 1;
+  background-color: transparent;
+  outline: none;
+  border: none;
+}
+
 .editSocial img {
   width: 1.5rem;
 }
