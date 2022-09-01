@@ -80,6 +80,7 @@ const AddPhotos = ({ isCardActive, type, onAddNewImage }) => {
               name="post_images"
               id="img-input"
               type="file"
+              accept=".png,.jpg,.jpeg"
               onChange={onSelectFile}
             />
           </div>
