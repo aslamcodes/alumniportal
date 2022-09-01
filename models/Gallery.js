@@ -15,7 +15,6 @@ const gallerySchema = new Schema({
   },
   title: {
     type: String,
-    required: true,
   },
   desc: {
     type: String,

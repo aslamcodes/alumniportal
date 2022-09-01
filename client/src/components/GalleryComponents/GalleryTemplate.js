@@ -1,24 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import styles from "./GalleryTemplate.module.css";
 import ReactPortal from "components/Modal/ReactPortal";
 import AddPhotos from "./AddPhotos";
 import Loader from "components/UI/Loader";
 import { AiOutlinePlus } from "react-icons/ai";
 import { useAuthContext } from "context/auth/authContext";
-
-function getWindowDimensions() {
-  const { innerWidth: width, innerHeight: height } = window;
-  return {
-    width,
-    height,
-  };
-}
+import { GalleryImageTypes } from "lib/enum";
 
 function GalleryTemplate({ fname, sname, data = [], isLoading }) {
   const [windowDimensions, setWindowDimensions] = useState(
     getWindowDimensions()
   );
-
 
   const [numberOfImages, setNumberOfImages] = useState(1);
   const [imageSwitch, setImageSwitch] = useState({
@@ -34,6 +26,7 @@ function GalleryTemplate({ fname, sname, data = [], isLoading }) {
   const { user } = useAuthContext();
 
   let images = [];
+
   const getImages = (n) => {
     if (n === 1) {
       images.push(data);
@@ -56,6 +49,9 @@ function GalleryTemplate({ fname, sname, data = [], isLoading }) {
     }
   };
 
+  const handleAddNewImage = () => {
+    setIsCardActive(false);
+  };
   useEffect(() => {
     function handleResize() {
       setWindowDimensions(getWindowDimensions());
@@ -71,9 +67,10 @@ function GalleryTemplate({ fname, sname, data = [], isLoading }) {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const handleClose = () => {
-    setExpand({ ...expand, active: false });
-  };
+  const handleClose = useCallback(() => {
+    setExpand((prev) => ({ ...prev, active: false }));
+  }, []);
+
   useEffect(() => {
     const closeOnEscapeKey = (e) => (e.key === "Escape" ? handleClose() : null);
     document.body.addEventListener("keydown", closeOnEscapeKey);
@@ -105,22 +102,29 @@ function GalleryTemplate({ fname, sname, data = [], isLoading }) {
             {fname} <span>{sname}</span>
           </h1>
         </div>
-        {/* {user?.token && ( */}
-        <div
-          className={styles.add_image_button}
-          onClick={() => setIsCardActive(!isCardActive)}
-        >
-          <p>Add </p>
+        {user?.isAdmin && (
           <div
-            className={`${styles.add_image_icon} ${isCardActive && styles.active}`}
+            className={styles.add_image_button}
+            onClick={() => setIsCardActive(!isCardActive)}
           >
-            <AiOutlinePlus fontSize={30} />
+            <p>Add </p>
+            <div
+              className={`${styles.add_image_icon} ${
+                isCardActive && styles.active
+              }`}
+            >
+              <AiOutlinePlus fontSize={30} />
+            </div>
+            {user?.isAdmin && (
+              <AddPhotos
+                onAddNewImage={handleAddNewImage}
+                type={getGalleryType(fname)}
+                isCardActive={isCardActive}
+              />
+            )}
           </div>
-          <AddPhotos isCardActive={isCardActive} />
-        </div>
-
+        )}
         {/* )} */}
-
       </div>
       {isLoading ? (
         <Loader />
@@ -135,28 +139,31 @@ function GalleryTemplate({ fname, sname, data = [], isLoading }) {
                   <div key={index1} className={styles.gallery_img}>
                     {images.map(({ image }, index) => {
                       return (
-                        <div key={index} className={`${user?.token && styles.active} `}>
+                        <div
+                          key={index}
+                          className={`${user?.token && styles.active} `}
+                        >
                           <img
                             id={index}
                             src={`/api/v1/gallery/${image}`}
                             alt=""
-                            className={`${(imageSwitch.imageActive === index &&
-                              styles.image_active) ||
+                            className={`${
+                              (imageSwitch.imageActive === index &&
+                                styles.image_active) ||
                               (imageSwitch.imageTop === index &&
                                 styles.image_top) ||
                               (imageSwitch.imageBottom === index &&
                                 styles.image_bottom)
-                              } ${styles.image}`}
+                            } ${styles.image}`}
                             onClick={(e) => handleClick(e, index1)}
                           />
 
-
-
                           <div
-                            className={`${styles.expand_container} ${expand.active &&
+                            className={`${styles.expand_container} ${
+                              expand.active &&
                               expand.id === index1 * 10 + index &&
                               styles.expand_container_active
-                              }`}
+                            }`}
                             onClick={handleClose}
                           >
                             <img
@@ -186,6 +193,28 @@ function GalleryTemplate({ fname, sname, data = [], isLoading }) {
       )}
     </div>
   );
+}
+
+function getGalleryType(fname) {
+  if (fname === "ALL") {
+    return GalleryImageTypes.ALL_PHOTOS;
+  }
+
+  if (fname === "SEMINAR") {
+    return GalleryImageTypes.SEMINAR_SESSIONS;
+  }
+
+  if (fname === "ALUMNI") {
+    return GalleryImageTypes.ALUMNI_MEET;
+  }
+}
+
+function getWindowDimensions() {
+  const { innerWidth: width, innerHeight: height } = window;
+  return {
+    width,
+    height,
+  };
 }
 
 export default GalleryTemplate;

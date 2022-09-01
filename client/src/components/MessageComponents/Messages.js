@@ -32,7 +32,7 @@ const ChatSelectPage = ({
   return (
     <>
       <div className={styles.messages_header}>
-        Messages
+        Messages (alpha)
         <div className={styles.messages_actions}>
           <AiOutlinePlus className={styles.add_btn} fontSize={20} />
           <GrFormClose
