@@ -5,13 +5,17 @@ import AdminTableHeader from "./AdminTableHeader";
 import useGetAlumni from "hooks/useFetchAlumni";
 import { a, useSpring } from "react-spring";
 import OfficeBearerTableRow from "./OfficeBearerTableRow";
+import useAxiosWithCallback from "hooks/useAxiosWithCallback";
+import { useAuthContext } from "context/auth/authContext";
 
 const OfficeBearerTable = () => {
+  const { user } = useAuthContext();
   const { alumni: alumniData, error, isLoading, trigger } = useGetAlumni();
+  const { fetchData: setOfficeBearer } = useAxiosWithCallback();
+  const { fetchData: removeOfficeBearer } = useAxiosWithCallback();
   const [alumni, setAlumni] = useState(alumniData);
   const [tableHeadOnTop, setTableHeadOnTop] = useState(false);
   const tableHeadRef = useRef(null);
-    // const { user } = useAuthContext();
   const props = useSpring({
     from: {
       backgroundColor: "#e2e2e2",
@@ -20,12 +24,42 @@ const OfficeBearerTable = () => {
       backgroundColor: tableHeadOnTop ? "#bddcf3" : "#e2e2e2",
     },
   });
+
+
   useEffect(() => {
     setAlumni(alumniData);
   }, [alumniData]);
 
-   
+  const adminConfig = {
+    headers: {
+      Authorization: `Bearer ${user?.token}`,
+    },
+  };
+  const onSetOfficeBearer = async (alumniID) => {
+    await setOfficeBearer(
+      {
+        ...adminConfig,
+        method: "patch",
+        url: `/api/v1/alumni/set-office-bearer/${alumniID}`,
 
+      },
+      (res) => {
+        trigger();
+      }
+    );
+  };
+  const onRemoveOfficeBearer = async (alumniID) => {
+    await removeOfficeBearer(
+      {
+        ...adminConfig,
+        method: "patch",
+        url: `/api/v1/alumni/remove-office-bearer/${alumniID}`,
+      },
+      (res) => {
+        trigger();
+      }
+    );
+  };
   return (
     <div className={styles.office_bearer_container}>
       <AdminTableHeader
@@ -46,14 +80,15 @@ const OfficeBearerTable = () => {
           </tr>
         </a.thead>
         <tbody>
-          {alumniData?.map((alumni)=>(
+          {alumniData?.map((data) => (
             <OfficeBearerTableRow
-            alumni={alumni}
-            // console={console.log(alumni)}
-            type="office bearers"
+              alumni={data}
+              type="office bearers"
+              approveOfficeBearerHandler={onSetOfficeBearer}
+              removeOfficeBearer={onRemoveOfficeBearer}
             />
           ))}
-          
+
         </tbody>
       </table>
     </div>
