@@ -68,7 +68,6 @@ function NewPostModal({ setNewPostActive }) {
     e.preventDefault();
     if (postData.image === undefined) {
       setShowError(true);
-      console.log(showError);
     }
     const postFormData = new FormData();
 
@@ -94,7 +93,6 @@ function NewPostModal({ setNewPostActive }) {
           : "Post details sent to admin for verification"
       );
     });
-
   };
 
   return (
@@ -148,7 +146,7 @@ function NewPostModal({ setNewPostActive }) {
                         name="title"
                         id="title"
                         required
-                        placeholder="title"
+                        placeholder="Title"
                         value={postData.title}
                         onChange={handleChange}
                       />
@@ -158,7 +156,7 @@ function NewPostModal({ setNewPostActive }) {
                         type="text"
                         name="description"
                         id="description"
-                        placeholder="description"
+                        placeholder="Post Description"
                         value={postData.description}
                         onChange={handleChange}
                       />
@@ -193,7 +191,7 @@ function NewPostModal({ setNewPostActive }) {
                       />
                     ) : (
                       <div className={styles.img_input}>
-                        <label for="img-input" >
+                        <label for="img-input">
                           <BiImageAdd size="50px" />
                           <p>Add Image</p>
                         </label>
