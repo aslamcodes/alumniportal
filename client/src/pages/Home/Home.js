@@ -31,6 +31,7 @@ const Home = () => {
             loop
             autoPlay
             muted
+            playsinline
           />
           <div className={styles.video_overlay} />
           <div className={`${styles.Container}`}>

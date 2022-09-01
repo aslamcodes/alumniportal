@@ -170,6 +170,7 @@ function ProfileModal({ isOpen, handleClose, userId }) {
                 name="image"
                 id="img-switch"
                 type="file"
+                accept=".png,.jpg,.jpeg"
                 onChange={handleChangeProfileImage}
               />
             </div>
