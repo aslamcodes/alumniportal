@@ -13,3 +13,9 @@ export const ModalTypes = {
 export const AnimationTypes = {
   FROM_TOP: "FROM_TOP",
 };
+
+export const GalleryImageTypes = {
+  ALL_PHOTOS: "general",
+  ALUMNI_MEET: "alumni",
+  SEMINAR_SESSIONS: "seminar",
+};

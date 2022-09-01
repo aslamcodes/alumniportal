@@ -10,19 +10,18 @@ import {
 import Loader from "components/UI/Loader";
 import { useFetchAlumniStoredData } from "hooks/useFetchAlumniStoredData";
 import { useAlertContext } from "context/alert/alertContext";
+import { Country, State, City } from "country-state-city";
 
 const currentYear = new Date().getFullYear();
 const range = (start, stop, step) =>
   Array.from({ length: (stop - start) / step + 1 }, (_, i) => start + i * step);
 
 const YearOfPassing = range(1985, currentYear + 4, 1);
-const Department = ["IT", "CSE", "ECE", "EEE", "MECH", "CIVIL", "MBA"];
+const Department = ["B.TECH IT", "B.E CSE", "B.E ECE", "B.E EEE", "B.E MECH", "B.E CIVIL", "MBA"];
 const graduationLevelOptions = ["Under graduate", "Post graduate"];
 
 function RegistrationPageStudent() {
   const today = new Date().toJSON().slice(0, 10);
-
-
   const navigate = useNavigate();
   const dispatch = useAuthDispatchContext();
   const { user, isLoading, error } = useAuthContext();
@@ -39,13 +38,14 @@ function RegistrationPageStudent() {
     department: "",
     phoneNumber: "",
     yearOfPassing: "",
-    country: "",
-    state: "",
+    country: "IN",
+    state: "TN",
     city: "",
     graduationLevel: "",
     dateOfBirth: "",
     skill: "",
   });
+
   const { success } = useAlertContext();
 
   const emailRef = useRef("");
@@ -59,19 +59,19 @@ function RegistrationPageStudent() {
   });
 
   const handleChange = (e) => {
-    setData({
-      ...data,
-      [e.target.name]: e.target.value,
-    });
     if (e.target.name === "confirmPassword") {
       setIsCPasswordDirty(true);
     }
     if (e.target.name === "phoneNumber") {
-      setData({
+      return setData({
         ...data,
-        [e.target.name]: e.target.value.slice(0, 10)
+        [e.target.name]: e.target.value.slice(0, 10),
       });
     }
+    setData({
+      ...data,
+      [e.target.name]: e.target.value,
+    });
   };
 
   const handleInputBlur = (e) => {
@@ -79,17 +79,33 @@ function RegistrationPageStudent() {
     registerNumberRef.current = data.registerNumber;
     departmentRef.current = data.department;
   };
+
   const handleSubmitPage1 = async (e) => {
     e.preventDefault();
     setFormStep(2);
-
-  }
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
-    Object.keys(data).forEach((key) => formData.append(key, data[key]));
+    Object.keys(data).forEach((key) => {
+      if (key === "country") {
+        return formData.append(
+          key,
+          Country.getCountryByCode(data.country).name
+        );
+      }
+      if (key === "state") {
+        return formData.append(
+          key,
+          State.getStateByCodeAndCountry(data.state, data.country).name
+        );
+      }
+      formData.append(key, data[key]);
+    });
+
     await register(dispatch, formData);
   };
+
   useEffect(() => {
     if (isCPasswordDirty) {
       if (data.password === data.confirmPassword) {
@@ -98,11 +114,11 @@ function RegistrationPageStudent() {
         setIsPasswordMatch(false);
       }
     }
-  }, [data.confirmPassword])
+  }, [data.confirmPassword, isCPasswordDirty, data.password]);
 
   useEffect(() => {
     if (error) success(error);
-  }, [error]);
+  }, [error, success]);
 
   if (user) {
     navigate(location?.from ?? "/");
@@ -119,11 +135,7 @@ function RegistrationPageStudent() {
         <div className={styles.form_container}>
           <div className={styles.form}>
             <div className={styles.form_header}>
-              <h1>
-                {formStep === 1
-                  ? "Register"
-                  : "Personal Information"}
-              </h1>
+              <h1>{formStep === 1 ? "Register" : "Personal Information"}</h1>
             </div>
 
             <div className={styles.form_body}>
@@ -138,14 +150,10 @@ function RegistrationPageStudent() {
                         type="text"
                         id="yop"
                         required
-
                         value={data.yearOfPassing}
                         onChange={handleChange}
                       >
-                        <option
-                          value="" disabled selected hidden
-                        >
-
+                        <option value="" disabled selected hidden>
                           Year of passing
                         </option>
                         {YearOfPassing.map((year) => (
@@ -167,7 +175,9 @@ function RegistrationPageStudent() {
                         onChange={handleChange}
                         onBlur={handleInputBlur}
                       >
-                        <option value="" disabled selected hidden> Department</option>
+                        <option value="" disabled selected hidden>
+                          Department
+                        </option>
                         {Department.map((dept) => (
                           <option key={dept} value={dept}>
                             {dept}
@@ -184,7 +194,7 @@ function RegistrationPageStudent() {
                         value={data.graduationLevel}
                         onChange={handleChange}
                       >
-                        <option value="" disabled selected hidden>Graduation level</option>
+                        <option value="">Graduation level</option>
                         {graduationLevelOptions.map((level) => (
                           <option key={level} value={level}>
                             {level}
@@ -232,7 +242,7 @@ function RegistrationPageStudent() {
                         type="email"
                         id="email"
                         title="please enter a valid email address"
-                        pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$"
+                        pattern="[a-zA-Z0-9.-_+]+@[a-zA-Z0-9]+\.[a-z]{2,}"
                         required
                         placeholder="Email"
                         value={data.email}
@@ -265,7 +275,11 @@ function RegistrationPageStudent() {
                         onChange={handleChange}
                       />
                     </div>
-                    {!isPasswordMatch && isCPasswordDirty && <p className={styles.validation_error}>password does not match</p>}
+                    {!isPasswordMatch && isCPasswordDirty && (
+                      <p className={styles.validation_error}>
+                        password does not match
+                      </p>
+                    )}
                     <div
                       className={`${styles.form_button_container} ${styles.split_container}`}
                     >
@@ -279,30 +293,8 @@ function RegistrationPageStudent() {
               ) : (
                 <form onSubmit={handleSubmit}>
                   <section>
-                    <div className={`${styles.form_input_container} `}>
-                      <input
-                        name="city"
-                        type="text"
-                        id="city"
-                        required
-                        placeholder="Select your city"
-                        value={data.city}
-                        onChange={handleChange}
-                      />
-                    </div>
-                    <div className={`${styles.form_input_container} `}>
-                      <input
-                        name="state"
-                        type="text"
-                        id="state"
-                        required
-                        placeholder="Select your state"
-                        value={data.state}
-                        onChange={handleChange}
-                      />
-                    </div>
                     <div className={styles.form_input_container}>
-                      <input
+                      <select
                         name="country"
                         type="text"
                         id="country"
@@ -310,21 +302,62 @@ function RegistrationPageStudent() {
                         placeholder="Select your country"
                         value={data.country}
                         onChange={handleChange}
-                      />
+                      >
+                        {Country.getAllCountries(data.country).map(
+                          (country) => (
+                            <option value={country.isoCode}>
+                              {country.flag} {country.name}
+                            </option>
+                          )
+                        )}
+                      </select>
                     </div>
+
+                    <div className={`${styles.form_input_container} `}>
+                      <select
+                        name="state"
+                        id="state"
+                        required
+                        placeholder="Select your state"
+                        value={data.state}
+                        onChange={handleChange}
+                      >
+                        {State.getStatesOfCountry(data.country).map((state) => (
+                          <option value={state.isoCode}>{state.name}</option>
+                        ))}
+                      </select>
+                    </div>
+
+                    <div className={styles.form_input_container}>
+                      <select
+                        name="city"
+                        id="city"
+                        required
+                        placeholder="Enter your contact no"
+                        value={data.city}
+                        onChange={handleChange}
+                      >
+                        {City.getCitiesOfState(data.country, data.state).map(
+                          (city) => (
+                            <option value={city.name}>{city.name}</option>
+                          )
+                        )}
+                      </select>
+                    </div>
+
                     <div className={styles.form_input_container}>
                       <input
                         name="phoneNumber"
                         type="number"
                         id="phoneNumber"
                         pattern="[0-9]{10}"
-
                         required
                         placeholder="Enter your contact no"
                         value={data.phoneNumber}
                         onChange={handleChange}
                       />
                     </div>
+
                     <div className={styles.form_input_container}>
                       <input
                         name="skill"
@@ -344,7 +377,6 @@ function RegistrationPageStudent() {
                   </section>
                 </form>
               )}
-
             </div>
           </div>
         </div>

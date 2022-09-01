@@ -39,7 +39,7 @@ const AdminTableHeader = ({
         filters={filters}
       />
 
-      <p className={Styles.table_header}>{type}</p>
+      <p className={Styles.table_header}>{type} (beta)</p>
       <Divider mb={".6em"} mt={0} bgColor={"#ADADAD"} />
       <div className={Styles.table_controls}>
         <div className={Styles.search}>

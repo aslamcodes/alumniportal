@@ -23,7 +23,7 @@ const Home = () => {
     <div className={`${styles.Body} `}>
       <div className={styles["Content-Container"]}>
         <div id={styles["Welcome"]}>
-          {/* <video
+          <video
             className={styles.video}
             src={video}
             width="100"
@@ -31,15 +31,14 @@ const Home = () => {
             loop
             autoPlay
             muted
-          /> */}
+          />
           <div className={styles.video_overlay} />
           <div className={`${styles.Container}`}>
             <h1>
               Welcome <span>Back</span>
             </h1>
             <p>
-              I think the success of any school can be measured by the
-              contribution the alumni make to our national life
+              There is nothing like returning to a place that remains unchanged to find the ways in which you yourself have altered
             </p>
           </div>
         </div>
