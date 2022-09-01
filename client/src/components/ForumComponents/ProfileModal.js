@@ -41,7 +41,7 @@ function ProfileModal({ isOpen, handleClose, userId }) {
     post: user?.description === undefined ? true : false,
   });
   const [editProfile, setEditProfile] = useState(false);
-  const [image, setImage] = useState(undefined);
+  const [image, setImage] = useState("");
   const dispatch = useAuthDispatchContext();
   const isUser = user ? user._id === loggedInUser?._id : false;
   const [editedData, setEditedData] = useState(user);
@@ -55,8 +55,7 @@ function ProfileModal({ isOpen, handleClose, userId }) {
 
   const handleChangeProfileImage = (e) => {
     if (!e.target.files || e.target.files.length === 0) {
-      setImage(image || undefined);
-      return;
+      return setImage(image || undefined);
     }
     setImage(e.target.files[0]);
   };
@@ -102,13 +101,14 @@ function ProfileModal({ isOpen, handleClose, userId }) {
 
   const handleUpdate = async (e) => {
     const updateData = new FormData();
-    updateData.append("avatar", image);
-    updateData.append("name", editProfile.name);
+    if (image !== "") updateData.append("avatar", image);
+    updateData.append("name", editedData.name);
 
     const updateConfig = {
       url: "/api/v1/users/",
       method: "patch",
       headers: {
+        "content-type": "multipart/form-data",
         Authorization: "Bearer " + loggedInUser?.token,
       },
       data: updateData,
@@ -374,7 +374,7 @@ function ProfileModal({ isOpen, handleClose, userId }) {
                       <p>Save</p>
                     </div>
                   )}
-                  {!editProfile && !user?.isAdmin && !alumni && user && (
+                  {!editProfile && !user?.alumni && !alumni && user && (
                     <div className={styles.profile_controls}>
                       <BsPeople />
 
