@@ -25,6 +25,8 @@ const AddPhotos = ({ isCardActive, type, onAddNewImage }) => {
 
     const galleryImageData = new FormData();
 
+    if (!image) return success("No Image inserted");
+
     galleryImageData.append("image", image);
     galleryImageData.append("type", type);
 
