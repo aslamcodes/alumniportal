@@ -38,7 +38,6 @@ function ProfileModal({ isOpen, handleClose, userId }) {
     desc: user?.description === undefined ? false : true,
     post: user?.description === undefined ? true : false,
   });
-
   const [editProfile, setEditProfile] = useState(false);
   const [image, setImage] = useState(undefined);
   const dispatch = useAuthDispatchContext();
@@ -77,16 +76,11 @@ function ProfileModal({ isOpen, handleClose, userId }) {
   }, []);
   const handleChangeProfileImage = (e) => {
     if (!e.target.files || e.target.files.length === 0) {
-      setImage(
-        image || undefined,
-      );
+      setImage(image || undefined);
       return;
     }
-    setImage(
-      e.target.files[0],
-    );
-
-  }
+    setImage(e.target.files[0]);
+  };
   const handleChange = (e, name) => {
     setProfileData({
       ...profileData,
@@ -152,11 +146,17 @@ function ProfileModal({ isOpen, handleClose, userId }) {
                   />
                 </label>
               )}
-              <input name="image" id="img-switch" type="file" onChange={handleChangeProfileImage} />
+              <input
+                name="image"
+                id="img-switch"
+                type="file"
+                onChange={handleChangeProfileImage}
+              />
             </div>
             <div
-              className={`${styles.profile_info} ${editProfile && styles.profile_info_edit
-                }`}
+              className={`${styles.profile_info} ${
+                editProfile && styles.profile_info_edit
+              }`}
             >
               <h2
                 className={`${editProfile && styles.editActive}`}
@@ -166,21 +166,26 @@ function ProfileModal({ isOpen, handleClose, userId }) {
               >
                 {user?.name}
               </h2>
-              <h3
-                className={`${editProfile && styles.editActive}`}
-                contentEditable={editProfile}
-                suppressContentEditableWarning={true}
-                onBlur={(e) => handleChange(e, "designation")}
-              >
-                {printDesignation(user?.isAlumni, user?.isAdmin) ||
-                  user?.alumni?.designation}{" "}
-                {`${user?.alumni?.organization &&
-                  "at " + user?.alumni?.organization
+              {user?.isAlumni && (
+                <h3
+                  className={`${editProfile && styles.editActive}`}
+                  contentEditable={editProfile}
+                  suppressContentEditableWarning={true}
+                  onBlur={(e) => handleChange(e, "designation")}
+                >
+                  {printDesignation(user?.isAlumni, user?.isAdmin) ||
+                    user?.alumni?.designation}{" "}
+                  {`${
+                    user?.alumni?.organization &&
+                    "at " + user?.alumni?.organization
                   }`}
-              </h3>
+                </h3>
+              )}
+
               <div
-                className={`${styles.location} ${editProfile && styles.editActive
-                  }`}
+                className={`${styles.location} ${
+                  editProfile && styles.editActive
+                }`}
               >
                 <img
                   src={require("assets/icons/location.png")}
@@ -191,7 +196,7 @@ function ProfileModal({ isOpen, handleClose, userId }) {
                   contentEditable={editProfile}
                   onBlur={(e) => handleChange(e, "location")}
                 >
-                  {user?.city},{user?.country}
+                  {user?.city}, {user?.country}
                 </p>
               </div>
               {user?.isAlumni && user?.alumni?.social && (
@@ -254,8 +259,9 @@ function ProfileModal({ isOpen, handleClose, userId }) {
                         return (
                           <div
                             key={index}
-                            className={`${styles.editSocial} ${editProfile && styles.editActive
-                              }`}
+                            className={`${styles.editSocial} ${
+                              editProfile && styles.editActive
+                            }`}
                           >
                             <p
                               suppressContentEditableWarning={true}
@@ -324,7 +330,7 @@ function ProfileModal({ isOpen, handleClose, userId }) {
                       </p>
                     </div>
                   )}
-                  {!editProfile &&
+                  {!editProfile && (
                     <div
                       className={styles.profile_controls}
                       onClick={handleLogout}
@@ -332,7 +338,7 @@ function ProfileModal({ isOpen, handleClose, userId }) {
                       <IoLogOutOutline />
                       <p>Logout</p>
                     </div>
-                  }
+                  )}
                 </div>
               )}
             </div>
@@ -369,7 +375,12 @@ function ProfileModal({ isOpen, handleClose, userId }) {
               {show.post && (
                 <div className={styles.posts}>
                   {posts.map((post) => (
-                    <ForumCard key={post.id} data={post} profileActive={true} profileEdit={editProfile} />
+                    <ForumCard
+                      key={post.id}
+                      data={post}
+                      profileActive={true}
+                      profileEdit={editProfile}
+                    />
                   ))}
                 </div>
               )}
