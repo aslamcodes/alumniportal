@@ -200,6 +200,7 @@ function NewPostModal({ setNewPostActive }) {
                           id="img-input"
                           required
                           type="file"
+                          accept=".png,.jpg,.jpg"
                           onChange={onSelectFile}
                         />
                       </div>
