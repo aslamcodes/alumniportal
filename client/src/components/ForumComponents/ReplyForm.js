@@ -1,15 +1,23 @@
+import { useAlertContext } from "context/alert/alertContext";
 import { useAuthContext } from "context/auth/authContext";
 import useAxiosWithCallback from "hooks/useAxiosWithCallback";
 import React, { useState } from "react";
 import { RiSendPlaneFill } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
 import Styles from "./ReplyForm.module.css";
 const ReplyForm = ({ comment, onAddNewReply }) => {
   const { user } = useAuthContext();
   const [reply, setReply] = useState("");
   const { fetchData, isLoading, error } = useAxiosWithCallback();
-
+  const { success } = useAlertContext();
+  const navigate = useNavigate();
   const submitHandler = async (e) => {
     e.preventDefault();
+    if (!user?.token) {
+      success("Sign in to create replies");
+      navigate("/login");
+      return;
+    }
     const replyConfig = {
       url: `/api/v1/forum/reply/${comment._id}`,
       method: "post",
