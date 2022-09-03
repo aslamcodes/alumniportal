@@ -102,7 +102,7 @@ const ForumCard = ({ data, profileActive, profileEdit }) => {
             <AiOutlineShareAlt
               fontSize={21}
               onClick={() => {
-                success("Post link copied to clip board");
+                success("Feature will be enabled soon");
               }}
             />
           </div>

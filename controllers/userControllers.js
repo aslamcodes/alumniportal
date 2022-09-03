@@ -150,7 +150,7 @@ export const getNotification = asyncHandler(async (req, res) => {
   const notifications = await Notification.find({
     user: user._id,
     resolved: false,
-  });
+  }).sort({ createdAt: -1 });
 
   if (!notifications)
     return res.json({
