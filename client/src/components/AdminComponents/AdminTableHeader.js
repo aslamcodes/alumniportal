@@ -1,6 +1,7 @@
 import Divider from "components/UI/Divider";
 import React, { useState } from "react";
 import { FaFilter, FaPlus } from "react-icons/fa";
+import {MdDownload} from "react-icons/md"
 import { FiSearch } from "react-icons/fi";
 import Styles from "./AdminTableHeader.module.css";
 import Select from "react-select";
@@ -59,8 +60,8 @@ const AdminTableHeader = ({
             Filter <FaFilter />
           </button>
           <button>
-            Insert
-            <FaPlus />
+            Csv
+            <MdDownload />
           </button>
         </div>
       </div>
