@@ -1,9 +1,12 @@
+import { navigate } from "@storybook/addon-links";
 import Loader from "components/UI/Loader";
+import { useAlertContext } from "context/alert/alertContext";
 import { useAuthContext } from "context/auth/authContext";
 import useAxiosWithCallback from "hooks/useAxiosWithCallback";
 import { useRef, useState } from "react";
 import { GrFormEdit } from "react-icons/gr";
 import { RiSendPlaneFill } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
 import { a, config, useSpring } from "react-spring";
 import Styles from "./ReplyButton.module.css";
 
@@ -12,6 +15,8 @@ const ReplyButton = ({ onAddNewReply, commentId }) => {
   const [reply, setReply] = useState("");
   const { user } = useAuthContext();
   const inputRef = useRef(null);
+  const navigate = useNavigate();
+  const { success } = useAlertContext();
 
   const { fetchData, isLoading, error } = useAxiosWithCallback();
 
@@ -28,6 +33,11 @@ const ReplyButton = ({ onAddNewReply, commentId }) => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    if (!user?.token) {
+      success("Sign in to create replies");
+      navigate("/login");
+      return;
+    }
     const replyConfig = {
       url: `/api/v1/forum/reply/${commentId}`,
       method: "post",
@@ -53,8 +63,9 @@ const ReplyButton = ({ onAddNewReply, commentId }) => {
         inputRef.current.focus();
       }}
       style={props}
-      className={`${Styles.reply_form} ${isFormOpen && Styles.reply_form_expanded
-        }`}
+      className={`${Styles.reply_form} ${
+        isFormOpen && Styles.reply_form_expanded
+      }`}
     >
       <input
         ref={inputRef}
@@ -68,7 +79,11 @@ const ReplyButton = ({ onAddNewReply, commentId }) => {
         }}
       />
       <button type="submit">
-        {isFormOpen ? <RiSendPlaneFill fontSize={25} /> : <GrFormEdit fontSize={30} />}
+        {isFormOpen ? (
+          <RiSendPlaneFill fontSize={25} />
+        ) : (
+          <GrFormEdit fontSize={30} />
+        )}
       </button>
     </a.form>
   );

@@ -7,13 +7,14 @@ import useAxiosWithCallback from "hooks/useAxiosWithCallback";
 import { useAuthContext } from "context/auth/authContext";
 import Loader from "components/UI/Loader";
 import { useAlertContext } from "context/alert/alertContext";
+import { useNavigate } from "react-router-dom";
 
 const AddCommentButton = ({ postId, onAddComment }) => {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [comment, setComment] = useState("");
   const inputRef = useRef(null);
   const props = useSpring({});
-
+  const navigate = useNavigate();
   const { fetchData: createComment, isLoading, error } = useAxiosWithCallback();
   const { user } = useAuthContext();
   const { success } = useAlertContext();
@@ -24,6 +25,12 @@ const AddCommentButton = ({ postId, onAddComment }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!user?.token) {
+      success("Sign in to create comments on posts");
+      navigate("/login");
+      return;
+    }
 
     const commentConfig = {
       url: `/api/v1/forum/comment/${postId}`,
@@ -51,8 +58,9 @@ const AddCommentButton = ({ postId, onAddComment }) => {
         setIsFormOpen(true);
         inputRef.current.focus();
       }}
-      className={`${Styles.comment_form} ${isFormOpen && Styles.comment_form_expanded
-        }`}
+      className={`${Styles.comment_form} ${
+        isFormOpen && Styles.comment_form_expanded
+      }`}
     >
       <input
         ref={inputRef}
