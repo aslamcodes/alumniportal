@@ -15,7 +15,7 @@ function AlumniForum() {
   const [profileActive, setProfileActive] = useState(false);
   const { user } = useAuthContext();
 
-  const { isLoading, error, posts } = useGetForumPosts(0);
+  const { isLoading, error, posts } = useGetForumPosts();
   const { success } = useAlertContext();
 
   useEffect(() => {
@@ -26,15 +26,12 @@ function AlumniForum() {
 
   return (
     <div className={Styles.container}>
-      {isLoading ? (
-        <Loader />
-      ) : (
-        <div className={Styles.forum_container}>
-          {posts.map((post) => (
-            <ForumCard key={post.id} data={post} />
-          ))}
-        </div>
-      )}
+      <div className={Styles.forum_container}>
+        {posts?.map((post, idx) => (
+          <ForumCard key={post._id + idx + post.tittle} data={post} />
+        ))}
+        {isLoading && <Loader />}
+      </div>
 
       {user?.token && (
         <div

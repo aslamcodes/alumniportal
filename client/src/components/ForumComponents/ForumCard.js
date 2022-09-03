@@ -22,7 +22,7 @@ const ForumCard = ({ data, profileActive, profileEdit }) => {
   const { user } = useAuthContext();
   const { fetchData, isLoading } = useAxiosWithCallback();
   const [liked, setLiked] = useState(
-    user ? data.likes.map((like) => like.user._id).includes(user?._id) : false
+    user ? data?.likes?.map((like) => like.user._id).includes(user?._id) : false
   );
   const { success } = useAlertContext();
 
