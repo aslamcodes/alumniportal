@@ -32,7 +32,7 @@ function ProfileModal({ isOpen, handleClose, userId }) {
     isLoading: isPostLoading,
     error: postError,
     posts,
-  } = useGetForumPosts(0, userId);
+  } = useGetForumPosts(userId);
 
   const { user: loggedInUser } = useAuthContext();
   const { alumni } = useAlumniContext();
