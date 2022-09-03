@@ -61,7 +61,7 @@ const AdminTableHeader = ({
           </button>
           <button>
             Csv
-            <MdDownload />
+            <MdDownload fontSize={18}/>
           </button>
         </div>
       </div>
