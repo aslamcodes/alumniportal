@@ -6,9 +6,15 @@ import Notification from "../models/Notification.js";
 import fs from "fs";
 import { __dirname } from "../index.js";
 import Conversation from "../models/Conversation.js";
+import ResetToken from "../models/ResetToken.js";
+import bcrypt from "bcryptjs";
+import crypto from "crypto";
+import sendEmail from "../utils/email.js";
+import path from "path";
 
 let userAvatarImagesBucket;
 const conn = mongoose.connection;
+
 conn.on("open", () => {
   userAvatarImagesBucket = new mongoose.mongo.GridFSBucket(conn.db, {
     bucketName: "user_avatar_images",
@@ -89,6 +95,53 @@ export const loginUser = asyncHandler(async (req, res) => {
   }
 });
 
+export const requestPasswordReset = asyncHandler(async (req, res) => {
+  const { email } = req.body;
+
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    res.status(400);
+    throw new Error("Email not registered in Alumni Portal");
+  }
+
+  const token = await ResetToken.findOne({ user: user._id });
+
+  if (token) {
+    await token.deleteOne();
+  }
+
+  const resetToken = crypto.randomBytes(32).toString("hex");
+
+  const hash = await bcrypt.hash(resetToken, 10);
+
+  await ResetToken.create({
+    user: user._id,
+    token: hash,
+    createdAt: Date.now(),
+  });
+
+  const link = `${process.env.CLIENT_URL}/passwordReset?token=${resetToken}&id=${user._id}`;
+
+  await sendEmail(
+    user?.email,
+    "SKCT Alumni Portal - Password Reset Request",
+    {
+      receiver: user?.name,
+      content: link,
+    },
+    path.join(__dirname, "templates", "forgot-password.ejs")
+  );
+
+  res.json(
+    "Hello There " +
+      user.name +
+      " Seems like baby had a hard time remembering the password 😂"
+  );
+});
+
+export const resetPassword = asyncHandler(async (req, res) => {});
+
 export const getUserDetailsById = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id)
     .populate("alumni")
@@ -130,10 +183,6 @@ export const getUserAvatarImage = asyncHandler(async (req, res) => {
       error: "User not found",
     });
   }
-});
-
-export const forgotPassword = asyncHandler(async (req, res) => {
-  res.json("On Construction 🚧");
 });
 
 export const resolveNotification = asyncHandler(async (req, res) => {
