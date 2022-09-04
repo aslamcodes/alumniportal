@@ -14,6 +14,7 @@ import useAxiosWithCallback from "hooks/useAxiosWithCallback";
 import ProfileModal from "./ProfileModal";
 import { GrClose } from "react-icons/gr";
 import { useAlertContext } from "context/alert/alertContext";
+import { useNavigate } from "react-router-dom";
 
 const ForumCard = ({ data, profileActive, profileEdit }) => {
   const [isCommentsModalOpen, setIsCommentsModalOpen] = useState(false);
@@ -22,11 +23,16 @@ const ForumCard = ({ data, profileActive, profileEdit }) => {
   const { user } = useAuthContext();
   const { fetchData, isLoading } = useAxiosWithCallback();
   const [liked, setLiked] = useState(
-    user ? data.likes.map((like) => like.user._id).includes(user?._id) : false
+    user ? data?.likes?.map((like) => like.user._id).includes(user?._id) : false
   );
   const { success } = useAlertContext();
-
+  const navigate = useNavigate();
   const onLikePostHandler = async () => {
+    if (!user?.token) {
+      success("Sign in to like a post");
+      navigate("/login");
+      return;
+    }
     const likeConfig = {
       url: `/api/v1/forum/like/${data._id}`,
       method: "patch",
@@ -96,7 +102,7 @@ const ForumCard = ({ data, profileActive, profileEdit }) => {
             <AiOutlineShareAlt
               fontSize={21}
               onClick={() => {
-                success("Post link copied to clip board");
+                success("Feature will be enabled soon");
               }}
             />
           </div>

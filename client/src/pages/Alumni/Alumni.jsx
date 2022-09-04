@@ -1,8 +1,9 @@
 import AlumnusCard from "components/AlumniComponents/AlumnusCard";
+import Messages from "components/MessageComponents/Messages";
 import Loader from "components/UI/Loader";
 import { useAuthContext } from "context/auth/authContext";
 import useGetAlumni from "hooks/useFetchAlumni";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import styles from "./Alumni.module.css";
 
@@ -11,6 +12,13 @@ const Alumni = () => {
   const { user } = useAuthContext();
   const location = useLocation();
   const navigate = useNavigate();
+  const [isMessagesOpen, setIsMessagesOpen] = useState(false);
+  const [conversationToOpen, setConversationToOpen] = useState(null);
+
+  const onNewConversationHandler = (conversation) => {
+    setIsMessagesOpen(true);
+    setConversationToOpen(conversation);
+  };
 
   useEffect(() => {
     if (!user?.token)
@@ -25,8 +33,19 @@ const Alumni = () => {
 
   return (
     <main className={styles.main}>
+      {isMessagesOpen && (
+        <Messages
+          onChatPage={conversationToOpen}
+          onClose={() => {
+            setIsMessagesOpen(false);
+          }}
+        />
+      )}
       {alumni?.map((alumnus) => (
-        <AlumnusCard alumnus={alumnus} />
+        <AlumnusCard
+          onNewConversation={onNewConversationHandler}
+          alumnus={alumnus}
+        />
       ))}
     </main>
   );

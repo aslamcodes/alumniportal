@@ -6,9 +6,12 @@ import { IoIosArrowForward } from "react-icons/io";
 import styles from "./ChatCard.module.css";
 
 const ChatCard = ({ conversation, onSelect }) => {
+  const { user } = useAuthContext();
+
   const recipients = conversation.participants.filter(
-    (person) => person._id !== conversation.createdBy._id
+    (person) => person._id !== user._id
   );
+
   const { messages, isLoading, error } = useGetMessagesForConversation(
     conversation?._id
   );
@@ -17,13 +20,12 @@ const ChatCard = ({ conversation, onSelect }) => {
     onSelect(conversationId);
   };
 
+  if (!recipients[0]) return;
+
   return (
     <div className={styles.chatCard_container}>
       <div className={styles.chatCard_profile}>
-        <img
-          src={`/api/v1/users/user-avatar/${conversation?.createdBy?._id}`}
-          alt=""
-        />
+        <img src={`/api/v1/users/user-avatar/${recipients[0]?._id}`} alt="" />
       </div>
       <div className={styles.chatCard_body}>
         <div
@@ -31,7 +33,7 @@ const ChatCard = ({ conversation, onSelect }) => {
           onClick={() => onClickHandler(conversation?._id)}
         >
           <div>
-            <h3>{recipients[0].name}</h3>
+            <h3>{recipients[0]?.name}</h3>
             {isLoading ? (
               <Loader />
             ) : (

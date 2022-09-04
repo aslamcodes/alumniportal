@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import Notification from "../models/Notification.js";
 import fs from "fs";
 import { __dirname } from "../index.js";
+import Conversation from "../models/Conversation.js";
 
 let userAvatarImagesBucket;
 const conn = mongoose.connection;
@@ -28,6 +29,15 @@ export const registerUser = asyncHandler(async (req, res) => {
     const user = await User.create({
       ...req.body,
       avatar: id && id,
+    });
+
+    const feedbackUser = await User.findOne({
+      email: "feedback@alumniportal.skct",
+    });
+
+    await Conversation.create({
+      participants: [user._id, feedbackUser._id],
+      createdBy: feedbackUser._id,
     });
 
     return res.status(200).json({
@@ -150,7 +160,7 @@ export const getNotification = asyncHandler(async (req, res) => {
   const notifications = await Notification.find({
     user: user._id,
     resolved: false,
-  });
+  }).sort({ createdAt: -1 });
 
   if (!notifications)
     return res.json({
