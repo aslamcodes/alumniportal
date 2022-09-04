@@ -99,7 +99,7 @@ const LoginForm = () => {
           <p>
               <a
               onClick={() => {
-                success("Feature will be enabled soon,but your brain went slow so that's why you click Forgot Password :)");
+                success("Feature will be enabled soon 😁");
               }} >Forgot Password 
               
                        
