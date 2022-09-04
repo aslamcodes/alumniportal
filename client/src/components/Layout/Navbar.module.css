@@ -129,7 +129,15 @@
 }
 @media (min-width: 1280px) {
   .navbar {
-    font-size: 1.7rem;
+    font-size: 1.25rem;
+  }
+  .navbar.scrolled {
+    font-size: 1.05rem;
+  }
+}
+@media (min-width: 1680px) {
+  .navbar {
+    font-size: 1.6rem;
   }
   .navbar.scrolled {
     font-size: 1.4rem;
