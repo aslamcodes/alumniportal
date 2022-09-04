@@ -77,13 +77,14 @@ const ChatPage = ({
 }) => {
   const [message, setMessage] = useState("");
   const messagesEndRef = useRef(null);
-
   const { conversation, isLoading, error } =
     useGetConversationByID(conversationId);
   const { user } = useAuthContext();
+
   const { fetchData: sendMessage } = useAxiosWithCallback();
+
   const recipient = conversation?.participants?.filter(
-    (person) => person._id !== conversation?.createdBy._id
+    (person) => person._id !== user?._id
   )[0];
 
   const scrollToBottom = () => {
