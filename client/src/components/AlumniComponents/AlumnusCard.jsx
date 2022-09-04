@@ -1,20 +1,45 @@
 import ProfileModal from "components/ForumComponents/ProfileModal";
 import Divider from "components/UI/Divider";
+import { useAuthContext } from "context/auth/authContext";
+import useAxiosWithCallback from "hooks/useAxiosWithCallback";
 import React, { useState } from "react";
 import Styles from "./AlumnusCard.module.css";
 
-const AlumnusCard = ({ alumnus }) => {
+const AlumnusCard = ({ alumnus, onNewConversation }) => {
   const [isProfileModalOpen, setIsProfileModalOpen] = useState();
+  const {
+    isLoading,
+    error,
+    fetchData: createConversation,
+  } = useAxiosWithCallback();
+
+  const { user } = useAuthContext();
 
   const handleClose = () => {
     setIsProfileModalOpen(false);
   };
+
+  const handleOnMessageClick = () => {
+    const conversationConfig = {
+      url: "/api/v1/conversation/",
+      method: "post",
+      headers: {
+        Authorization: "Bearer " + user?.token,
+      },
+      data: {
+        receiver: alumnus.user._id,
+      },
+    };
+    createConversation(conversationConfig, (conversation) => {
+      onNewConversation(conversation._id);
+    });
+  };
+
   return (
     <div className={Styles.profile_card}>
       {isProfileModalOpen && (
         <ProfileModal userId={alumnus.user._id} handleClose={handleClose} />
       )}
-
       <img
         onClick={() => {
           setIsProfileModalOpen(true);
@@ -37,7 +62,9 @@ const AlumnusCard = ({ alumnus }) => {
         </p>
         <p>{alumnus.user.city}</p>
       </div>
-      <button className={Styles.message_button}>Message</button>
+      <button onClick={handleOnMessageClick} className={Styles.message_button}>
+        Message
+      </button>
     </div>
   );
 };

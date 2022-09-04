@@ -1,5 +1,6 @@
 import asyncHandler from "express-async-handler";
 import Conversation from "../models/Conversation.js";
+
 export const getConversationForUser = asyncHandler(async (req, res) => {
   const { user } = req;
 
@@ -33,6 +34,15 @@ export const getConversationById = asyncHandler(async (req, res) => {
 export const createConversation = asyncHandler(async (req, res) => {
   const { user: sender } = req;
   const { receiver } = req.body;
+
+  const existingConversation = await Conversation.findOne({
+    participants: [sender._id, receiver],
+  });
+
+  if (existingConversation) {
+    return res.json(existingConversation);
+  }
+
   const conversation = await Conversation.create({
     participants: [sender._id, receiver],
     createdBy: sender._id,

@@ -122,10 +122,7 @@ const ChatPage = ({
               onClick={onGoBack}
             />
           </div>
-          <img
-            src={`/api/v1/users/user-avatar/${conversation?.createdBy?._id}`}
-            alt=""
-          />
+          <img src={`/api/v1/users/user-avatar/${recipient?._id}`} alt="" />
           <div>{recipient?.name}</div>
         </div>
         <div className={styles.messages_actions}>
@@ -179,10 +176,15 @@ const ChatPage = ({
   );
 };
 
-const Messages = ({ onClose }) => {
-  const [isChatSelected, setIsChatSelected] = useState(false);
+const Messages = ({ onClose, onChatPage }) => {
+  const [isChatSelected, setIsChatSelected] = useState(onChatPage ?? false);
   const [isMessagesActive, setIsMessagesActive] = useState(true);
-  const [selectedConversation, setSelectedConversation] = useState();
+  const [selectedConversation, setSelectedConversation] = useState(onChatPage);
+
+  useEffect(() => {
+    setSelectedConversation(onChatPage);
+    setIsChatSelected(true);
+  }, [onChatPage]);
 
   const {
     messages,
@@ -213,6 +215,7 @@ const Messages = ({ onClose }) => {
   const onGoBackHandler = () => {
     setIsChatSelected(false);
   };
+
   const newMessageHandler = () => {
     trigger();
   };
