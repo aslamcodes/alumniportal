@@ -6,27 +6,31 @@ import { useAuthContext } from 'context/auth/authContext';
 function Menu({ setMenuActive, setShowProfile }) {
   const location = useLocation();
   const { user } = useAuthContext();
+  const handleClick = () => {
+    setMenuActive(false);
+  }
   return (
     <div className={`${styles.dropdownContainer} ${styles.background_blur}`} >
       <CloseIcon className={styles["dropdown-close"]} onClick={() => { setMenuActive(false) }} />
       <div className={`${styles.navLink}`} >
-        <Link onClick={() => setMenuActive(false)} to="/">Home</Link>
-        <Link onClick={() => setMenuActive(false)} to="/gallery">Gallery</Link>
-        <Link onClick={() => setMenuActive(false)} to="/events">Events</Link>
-        {!user && <Link to="login">Login</Link>}
-        {user?.isAdmin && <Link to="/admin">Admin</Link>}
+        <Link onClick={handleClick} to="/">Home</Link>
+        <Link onClick={handleClick} to="/gallery">Gallery</Link>
+        <Link onClick={handleClick} to="/events">Events</Link>
+        {!user && <Link onClick={handleClick} to="login">Login</Link>}
+        {user?.isAdmin && <Link onClick={handleClick} to="/admin">Admin</Link>}
         {user?.token && (
           <Link
             to={location.pathname}
             onClick={() => {
               setShowProfile((prev) => !prev);
+              handleClick();
             }}
           >
             Profile
           </Link>
         )}
-        <Link onClick={() => setMenuActive(false)} to="/alumni-forum">Alumini Forum</Link>
-        <Link onClick={() => setMenuActive(false)} to="/office-bearers">Office Bearers</Link>
+        <Link onClick={handleClick} to="/alumni-forum">Alumini Forum</Link>
+        <Link onClick={handleClick} to="/office-bearers">Office Bearers</Link>
       </div>
     </div>
   )
