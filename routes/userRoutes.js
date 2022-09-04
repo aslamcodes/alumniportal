@@ -1,11 +1,11 @@
 import express from "express";
 import {
-  forgotPassword,
   getNotification,
   getUserAvatarImage,
   getUserDetailsById,
   loginUser,
   registerUser,
+  requestPasswordReset,
   resolveNotification,
   updateUser,
 } from "../controllers/userControllers.js";
@@ -36,10 +36,10 @@ const userAvatarStorage = new GridFsStorage({
 const upload = multer({ storage: userAvatarStorage });
 
 router.get("/notifications", protect, getNotification);
+router.get("/request-password-reset/", requestPasswordReset);
 router.get("/:id", getUserDetailsById);
 router.get("/user-avatar/:id", getUserAvatarImage);
 
-router.patch("/forgot-password/:email", forgotPassword);
 router.patch(
   "/notifications/resolve/:notificationId",
   protect,

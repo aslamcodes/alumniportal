@@ -10,10 +10,12 @@ const userSchema = new Schema(
       type: String,
       required: true,
       unique: true,
+      trim: true,
     },
     password: {
       type: String,
       required: true,
+      trim: true,
     },
     avatar: {
       type: String,
@@ -21,6 +23,7 @@ const userSchema = new Schema(
     name: {
       type: String,
       required: true,
+      trim: true,
     },
     isAdmin: {
       type: Boolean,
@@ -36,6 +39,7 @@ const userSchema = new Schema(
     },
     registerNumber: {
       type: String,
+      trim: true,
     },
     department: {
       type: String,
@@ -47,6 +51,7 @@ const userSchema = new Schema(
     phoneNumber: {
       type: String,
       required: true,
+      trim: true,
     },
     country: {
       type: String,
@@ -73,7 +78,7 @@ const userSchema = new Schema(
     skill: {
       type: String,
     },
-    description: { type: String },
+    description: { type: String, trim: true },
   },
   {
     timestamps: true,
