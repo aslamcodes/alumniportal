@@ -1,9 +1,12 @@
 import ProfileModal from "components/ForumComponents/ProfileModal";
 import Divider from "components/UI/Divider";
-import React, { useState } from "react";
+import React, { useState , useEffect} from "react";
 import Styles from "./AlumnusCard.module.css";
 
 const AlumnusCard = ({ alumnus }) => {
+  useEffect(() => {
+    document.title="Alumni Portal | Alumni"
+  });
   const [isProfileModalOpen, setIsProfileModalOpen] = useState();
 
   const handleClose = () => {

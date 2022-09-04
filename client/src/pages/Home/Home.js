@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from 'react';
 import Carousel from "components/UI/Carousel";
 import styles from "./Home.module.css";
 import NewTestimonialCard from "components/HomeComponents/NewTestimonialCard";
@@ -8,6 +8,9 @@ import { useAlertContext } from "context/alert/alertContext";
 import video from "assets/test/skctvideo60fps.mp4";
 
 const Home = () => {
+  useEffect(() => {
+    document.title="Alumni Portal | Home"
+  });
   const [newTestimonialActive, setNewTestimonialActive] = useState(false);
   const { user } = useAuthContext();
   const { testimonials, error, isLoading, trigger } = useGetTestimonial();

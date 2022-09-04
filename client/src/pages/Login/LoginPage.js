@@ -132,6 +132,9 @@ const LoginForm = () => {
 };
 
 const LoginPage = () => {
+  useEffect(() => {
+    document.title="Alumni Portal | Login"
+  });
   const [windowDimensions, setWindowDimensions] = useState(
     getWindowDimensions()
   );

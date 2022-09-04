@@ -1,6 +1,6 @@
 import Loader from "components/UI/Loader";
 import useGetAlumniWithCities from "hooks/useGetAlumniWithCities";
-import React, { useState } from "react";
+import React, { useState ,useEffect } from "react";
 import styles from "./OfficeBearers.module.css";
 const imgSrc = "https://source.unsplash.com/random/";
 const dimension = [
@@ -21,6 +21,9 @@ for (let j = 0; j < 10; j++) {
   images.push(Src);
 }
 function OfficeBearers() {
+  useEffect(() => {
+    document.title="Alumni Portal | Office Bearers"
+  });
   const [activeIndex, setActiveIndex] = useState(null);
   const [selectedCity, setSelectedCity] = useState(null);
 

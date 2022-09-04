@@ -26,6 +26,9 @@ const PROFILE_IMAGES = [
 ];
 
 function ProfileModal({ isOpen, handleClose, userId }) {
+  useEffect(() => {
+    document.title="Alumni Portal | Profile"
+  });
   const navigate = useNavigate();
   const { user, isLoading, error } = useUserProfileData(userId);
   const {
