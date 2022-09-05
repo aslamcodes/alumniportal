@@ -11,6 +11,9 @@ import Loader from "components/UI/Loader";
 import { useAlertContext } from "context/alert/alertContext";
 
 function AlumniForum() {
+  useEffect(() => {
+    document.title="Alumni Portal | Alumni Forum"
+  },[]);
   const [newPostActive, setNewPostActive] = useState(false);
   const [profileActive, setProfileActive] = useState(false);
   const { user } = useAuthContext();

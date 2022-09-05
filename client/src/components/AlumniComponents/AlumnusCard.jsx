@@ -2,10 +2,13 @@ import ProfileModal from "components/ForumComponents/ProfileModal";
 import Divider from "components/UI/Divider";
 import { useAuthContext } from "context/auth/authContext";
 import useAxiosWithCallback from "hooks/useAxiosWithCallback";
-import React, { useState } from "react";
+import React, { useState , useEffect} from "react";
 import Styles from "./AlumnusCard.module.css";
 
 const AlumnusCard = ({ alumnus, onNewConversation }) => {
+  useEffect(() => {
+    document.title="Alumni Portal | Alumni"
+  },[]);
   const [isProfileModalOpen, setIsProfileModalOpen] = useState();
   const {
     isLoading,
