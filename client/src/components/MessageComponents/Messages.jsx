@@ -77,13 +77,14 @@ const ChatPage = ({
 }) => {
   const [message, setMessage] = useState("");
   const messagesEndRef = useRef(null);
-
   const { conversation, isLoading, error } =
     useGetConversationByID(conversationId);
   const { user } = useAuthContext();
+
   const { fetchData: sendMessage } = useAxiosWithCallback();
+
   const recipient = conversation?.participants?.filter(
-    (person) => person._id !== conversation?.createdBy._id
+    (person) => person._id !== user?._id
   )[0];
 
   const scrollToBottom = () => {
@@ -121,10 +122,7 @@ const ChatPage = ({
               onClick={onGoBack}
             />
           </div>
-          <img
-            src={`/api/v1/users/user-avatar/${conversation?.createdBy?._id}`}
-            alt=""
-          />
+          <img src={`/api/v1/users/user-avatar/${recipient?._id}`} alt="" />
           <div>{recipient?.name}</div>
         </div>
         <div className={styles.messages_actions}>
@@ -178,10 +176,15 @@ const ChatPage = ({
   );
 };
 
-const Messages = ({ onClose }) => {
-  const [isChatSelected, setIsChatSelected] = useState(false);
+const Messages = ({ onClose, onChatPage }) => {
+  const [isChatSelected, setIsChatSelected] = useState(onChatPage ?? false);
   const [isMessagesActive, setIsMessagesActive] = useState(true);
-  const [selectedConversation, setSelectedConversation] = useState();
+  const [selectedConversation, setSelectedConversation] = useState(onChatPage);
+
+  useEffect(() => {
+    setSelectedConversation(onChatPage);
+    setIsChatSelected(true);
+  }, [onChatPage]);
 
   const {
     messages,
@@ -212,6 +215,7 @@ const Messages = ({ onClose }) => {
   const onGoBackHandler = () => {
     setIsChatSelected(false);
   };
+
   const newMessageHandler = () => {
     trigger();
   };
