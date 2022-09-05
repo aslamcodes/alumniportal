@@ -1,13 +1,13 @@
 .dropdownContainer {
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   max-width: 11rem;
   min-height: 30rem;
-  z-index: 20;
+  z-index: 40;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
   padding: 5rem 2rem;
   background-color: rgba(235, 240, 238, 0.7);
