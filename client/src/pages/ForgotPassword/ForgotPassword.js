@@ -75,63 +75,6 @@ const ForgotPassword = () => {
                 </div>
               </form>
             )}
-
-            {form === 2 && (
-              // form 2
-              <form style={{ "align-items": "center" }}>
-                <div className={styles.form_input_container}>
-                  <input
-                    name="otp"
-                    id="otp"
-                    type="number"
-                    placeholder="Enter the OTP"
-                    value={data.otp}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className={styles.form_vactions_container}>
-                  <p>
-                    Didn't recieve code? {/* <Link to="/register"> */}
-                    <span>Request Again</span>
-                    {/* </Link> */}
-                  </p>
-                  <p onClick={() => setForm(1)}>Change Phone Number/Email ID</p>
-                </div>
-                <div className={styles.form_actions_container}>
-                  <button onClick={() => setForm(3)}> Change password</button>
-                </div>
-              </form>
-            )}
-
-            {form === 3 && (
-              // form 3
-              <form style={{ "align-items": "center" }}>
-                <div className={styles.form_input_container}>
-                  <input
-                    name="password"
-                    id="password"
-                    type="password"
-                    placeholder="New Password"
-                    value={data.password}
-                    onChange={handleChange}
-                  />
-                </div>
-                <br />
-                <div className={styles.form_input_container}>
-                  <input
-                    name="confirmPassword"
-                    id="confirmPassword"
-                    type="password"
-                    placeholder="Confirm Password"
-                    value={data.confirmPassword}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className={styles.form_actions_container}>
-                  <button>Change password</button>
-                </div>
-              </form>
-            )}
           </div>
           <hr />
           <div className={styles.form_footer}>

@@ -27,6 +27,7 @@ import Alumni from "pages/Alumni/Alumni";
 import Alert from "components/UI/Alert";
 import { useEffect } from "react";
 import { useAlertContext } from "context/alert/alertContext";
+import ResetPassword from "pages/ForgotPassword/ResetPassword";
 
 function App() {
   const { success } = useAlertContext();
@@ -69,6 +70,7 @@ function App() {
               path="/register-faculty"
               element={<RegistrationPageFaculty />}
             />
+            <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/events" element={<Events />} />
             <Route path="/alumni" element={<Alumni />} />
