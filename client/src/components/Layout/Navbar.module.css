@@ -58,7 +58,7 @@
   align-self: center;
   text-align: center;
   font-size: 1.2em;
-  margin: 0 1rem;
+  margin: 0 0.3rem;
 }
 .navbar-brand hr {
   width: 1.5px;
@@ -72,6 +72,7 @@
   display: grid;
   place-items: center;
   font-size: 1.25em;
+  margin: 0 0.3rem;
 }
 .navbar-brand .titleText * {
   font-weight: bold;
@@ -87,7 +88,7 @@
 }
 
 .navbar-logo {
-  margin: 0 1em;
+  margin: 0;
 }
 .navbar-logo img {
   max-width: 3.5em;
