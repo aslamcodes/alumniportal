@@ -26,8 +26,8 @@
 
 .profile_container {
   position: fixed;
-  height: 90%;
-  width: 80%;
+  height: 100%;
+  width: 100%;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
   overflow-y: auto;
@@ -54,6 +54,14 @@
   padding: 2rem;
   background: #fff;
   text-align: center;
+}
+.profile_body .close_btn {
+  display: flex;
+  align-items: center;
+  text-align: right;
+  font-weight: 500;
+  justify-content: flex-end;
+  text-decoration: underline;
 }
 
 .profile_img {
@@ -261,6 +269,7 @@
 @media (min-width: 768px) {
   .profile_container {
     width: 65%;
+    height: 90%;
   }
   .profile_header {
     height: 50%;
