@@ -89,7 +89,9 @@ const LoginForm = () => {
 
           {errors.password && <span>Password is required</span>}
           <div className={styles["terms-conditions"]}>
-            <p>
+            <p onClick={() => {
+                success("Feature will be enabled soon 😁");
+              }}>
               By login you agree to our <a>Terms & conditions</a>
             </p>
           </div>
