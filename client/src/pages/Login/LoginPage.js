@@ -89,7 +89,9 @@ const LoginForm = () => {
 
           {errors.password && <span>Password is required</span>}
           <div className={styles["terms-conditions"]}>
-            <p>
+            <p onClick={() => {
+                success("Feature will be enabled soon 😁");
+              }}>
               By login you agree to our <a>Terms & conditions</a>
             </p>
           </div>
@@ -97,9 +99,14 @@ const LoginForm = () => {
         <div className={` ${styles.loginButtonContainer}`}>
           <button>Login Now</button>
           <p>
-            <Link to="/forgot-password">
-              <a>Forgot Password</a>
-            </Link>
+              <a
+              onClick={() => {
+                success("Feature will be enabled soon 😁");
+              }} >Forgot Password 
+              
+                       
+              </a>
+              
           </p>
         </div>
       </form>
