@@ -67,7 +67,7 @@
   margin: 0 0.5em;
 }
 .navbar-brand .titleText {
-  max-width: 30rem;
+  /* max-width: 30rem; */
   min-height: 3rem;
   display: grid;
   place-items: center;
