@@ -10,7 +10,7 @@ import video from "assets/test/skctvideo60fps.mp4";
 const Home = () => {
   useEffect(() => {
     document.title="Alumni Portal | Home"
-  });
+  },[]);
   const [newTestimonialActive, setNewTestimonialActive] = useState(false);
   const { user } = useAuthContext();
   const { testimonials, error, isLoading, trigger } = useGetTestimonial();

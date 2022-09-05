@@ -23,7 +23,7 @@ for (let j = 0; j < 10; j++) {
 function OfficeBearers() {
   useEffect(() => {
     document.title="Alumni Portal | Office Bearers"
-  });
+  },[]);
   const [activeIndex, setActiveIndex] = useState(null);
   const [selectedCity, setSelectedCity] = useState(null);
 

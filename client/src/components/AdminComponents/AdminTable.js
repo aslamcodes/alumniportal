@@ -12,7 +12,7 @@ import { useAuthContext } from "context/auth/authContext";
 const AlumniTable = () => {
   useEffect(() => {
     document.title="Alumni Portal | Alumni Table"
-  });
+  },[]);
   const { alumni: alumniData, error, isLoading, trigger } = useGetAlumni();
   const [alumni, setAlumni] = useState(alumniData);
   const [entriesPerPage, setEntriesPerPage] = useState(10);

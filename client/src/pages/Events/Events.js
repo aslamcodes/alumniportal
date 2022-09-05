@@ -10,7 +10,7 @@ import { useAuthContext } from "context/auth/authContext";
 const Events = () => {
   useEffect(() => {
     document.title="Alumni Portal | Events"
-  });
+  },[]);
   const [isCardActive, setIsCardActive] = useState(false);
   const { isLoading, events, error, setTrigger } = useGetEvents();
   const { user } = useAuthContext();

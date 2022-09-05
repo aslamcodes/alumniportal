@@ -4,7 +4,7 @@ import styles from "./Gallery.module.css";
 const Gallery = () => {
   useEffect(() => {
     document.title="Alumni Portal | Gallery"
-  });
+  },[]);
   const navigate = useNavigate();
 
   const [itemSwitch, setItemSwitch] = useState({

@@ -6,7 +6,7 @@ import Styles from "./AlumnusCard.module.css";
 const AlumnusCard = ({ alumnus }) => {
   useEffect(() => {
     document.title="Alumni Portal | Alumni"
-  });
+  },[]);
   const [isProfileModalOpen, setIsProfileModalOpen] = useState();
 
   const handleClose = () => {

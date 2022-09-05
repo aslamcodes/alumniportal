@@ -6,7 +6,7 @@ import Styles from "./Admin.module.css";
 const AdminOfficeBearers = () => {
   useEffect(() => {
     document.title="Alumni Portal | OB"
-  });
+  },[]);
   return (
     <div className={Styles.admin_container}>
       <AdminSidebar />

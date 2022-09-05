@@ -6,7 +6,7 @@ import Styles from "./Admin.module.css";
 const EventRequest = () => {
   useEffect(() => {
     document.title="Alumni Portal | Event Request"
-  });
+  },[]);
   return (
     <div className={Styles.admin_container}>
       <AdminSidebar />
