@@ -5,6 +5,7 @@ import React from "react";
 import AdminTableHeader from "./AdminTableHeader";
 import styles from "./EventRequestPanel.module.css";
 import EventRequestRow from "./EventRequestRow";
+import NoDataMessage from "./NoDataMessage";
 
 const EventRequestPanel = () => {
   const { user } = useAuthContext();
@@ -42,39 +43,23 @@ const EventRequestPanel = () => {
             <th>Actions</th>
           </tr>
         </thead>
-        <tbody>
-          {requests?.map((request, index) => {
-            return (
-              <EventRequestRow
-                data={request} key={index} onApproveHandler={approveHandler}
-              />
-            )
-          }
-          )}
-        </tbody>
+        {requests && requests.length > 0 ?
+          <tbody>
+            {requests?.map((request, index) => {
+              return (
+                <EventRequestRow
+                  data={request} key={index} onApproveHandler={approveHandler}
+                />
+              )
+            }
+            )}
+          </tbody>
+          :
+          <NoDataMessage />
+        }
       </table>
     </div>
-    // <div>
-    //   {requests?.map((request) => (
-    //     <div>
-    //       <p>{request.eventName}</p>
-    //       <p>{request.startDate}</p>
-    //       <p>
-    //         Approval Status{" "}
-    //         {request.isApproved ? "✅ Approved" : "🚫 Not Approved"}
-    //       </p>
-    //       {!request.isApproved && (
-    //         <button
-    //           onClick={() => {
-    //             approveHandler(request._id);
-    //           }}
-    //         >
-    //           Approve
-    //         </button>
-    //       )}
-    //     </div>
-    //   ))}
-    // </div>
+
   );
 };
 

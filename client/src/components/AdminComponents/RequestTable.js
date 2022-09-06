@@ -9,8 +9,11 @@ import useAxiosWithCallback from "hooks/useAxiosWithCallback";
 import { useAuthContext } from "context/auth/authContext";
 import Loader from "components/UI/Loader";
 import { useAlertContext } from "context/alert/alertContext";
+import NoDataMessage from "./NoDataMessage";
 
 const RequestTable = () => {
+
+
   const [entriesPerPage, setEntriesPerPage] = useState(10);
   const [tableHeadOnTop] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -33,6 +36,8 @@ const RequestTable = () => {
 
   const totalPages = Math.ceil(applications?.length / entriesPerPage);
   const { success } = useAlertContext();
+
+
 
   useEffect(() => {
     if (error) success(error.response.data.message);
@@ -117,22 +122,29 @@ const RequestTable = () => {
               </tr>
             </a.thead>
 
-            <tbody>
-              {applications
-                ?.slice(
-                  currentPage * entriesPerPage - entriesPerPage,
-                  currentPage * entriesPerPage
-                )
-                .filter((application) => !application.rejected)
-                .map((alumni) => (
-                  <AdminTableRow
-                    alumni={alumni}
-                    type="request-details"
-                    approveAlumniHandler={onApproveAlumni}
-                    rejectAlumni={onRejectAlumni}
-                  />
-                ))}
-            </tbody>
+            {
+
+              applications && applications.length > 0 ?
+                <tbody>
+                  {applications
+                    ?.slice(
+                      currentPage * entriesPerPage - entriesPerPage,
+                      currentPage * entriesPerPage
+                    )
+                    .filter((application) => !application.rejected)
+                    .map((alumni) => (
+                      <AdminTableRow
+                        alumni={alumni}
+                        type="request-details"
+                        approveAlumniHandler={onApproveAlumni}
+                        rejectAlumni={onRejectAlumni}
+                      />
+                    ))}
+                </tbody>
+                :
+                <NoDataMessage />
+
+            }
           </table>
 
           <AdminTablePagination
