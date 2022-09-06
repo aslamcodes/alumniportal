@@ -6,6 +6,7 @@ import React, { useState } from "react";
 import AdminTableHeader from "./AdminTableHeader";
 import PostRequestTableRow from "./PostRequestTableRow";
 import styles from './PostRequestTable.module.css'
+import NoDataMessage from "./NoDataMessage";
 
 const PostRequestTable = () => {
   const { isLoading, error, postRequests } = useGetPostRequests();
@@ -48,16 +49,19 @@ const PostRequestTable = () => {
             <th>Actions</th>
           </tr>
         </thead>
-        <tbody>
-          {postRequests.map((request, index) => {
-            return (
-              <PostRequestTableRow
-                data={request} key={index} onApproveHandler={onApproveHandler}
-              />
-            )
-          }
-          )}
-        </tbody>
+        {postRequests && postRequests.length > 0 ?
+          <tbody>
+            {postRequests.map((request, index) => {
+              return (
+                <PostRequestTableRow
+                  data={request} key={index} onApproveHandler={onApproveHandler}
+                />
+              )
+            }
+            )}
+          </tbody> :
+          <NoDataMessage />
+        }
       </table>
     </div>
   );

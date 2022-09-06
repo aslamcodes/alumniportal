@@ -45,6 +45,7 @@ const AdminTableRow = ({ alumni, type, ...rest }) => {
     setIsLoading(false);
   };
 
+
   return (
     <a.tr
       style={props}

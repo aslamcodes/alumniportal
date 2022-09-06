@@ -7,6 +7,7 @@ import { a, useSpring } from "react-spring";
 import OfficeBearerTableRow from "./OfficeBearerTableRow";
 import useAxiosWithCallback from "hooks/useAxiosWithCallback";
 import { useAuthContext } from "context/auth/authContext";
+import NoDataMessage from "./NoDataMessage";
 
 const OfficeBearerTable = () => {
   const { user } = useAuthContext();
@@ -79,7 +80,7 @@ const OfficeBearerTable = () => {
             <th>Options</th>
           </tr>
         </a.thead>
-        <tbody>
+        {alumniData && alumniData.length > 0 ? <tbody>
           {alumniData?.map((data) => (
             <OfficeBearerTableRow
               alumni={data}
@@ -90,6 +91,9 @@ const OfficeBearerTable = () => {
           ))}
 
         </tbody>
+          :
+          <NoDataMessage />
+        }
       </table>
     </div>
   )

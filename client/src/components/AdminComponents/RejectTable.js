@@ -7,6 +7,7 @@ import { a, useSpring } from "react-spring";
 import useGetRejectedApplications from "hooks/useGetRejectedAlumniApplications";
 import useAxiosWithCallback from "hooks/useAxiosWithCallback";
 import { useAuthContext } from "context/auth/authContext";
+import NoDataMessage from "./NoDataMessage";
 
 const RejectTable = () => {
   const data = [...Array.from(Array(1000).keys())];
@@ -89,20 +90,26 @@ const RejectTable = () => {
             </div>
           </tr>
         </a.thead>
-        <tbody>
-          {rejectedApplications
-            .slice(
-              currentPage * entriesPerPage - entriesPerPage,
-              currentPage * entriesPerPage
-            )
-            .map((application) => (
-              <AdminTableRow
-                alumni={application}
-                type="reject-details"
-                reapproveAlumni={onReapproveAlumni}
-              />
-            ))}
-        </tbody>
+        {
+          rejectedApplications && rejectedApplications.length > 0 ?
+            <tbody>
+
+              {rejectedApplications
+                .slice(
+                  currentPage * entriesPerPage - entriesPerPage,
+                  currentPage * entriesPerPage
+                )
+                .map((application) => (
+                  <AdminTableRow
+                    alumni={application}
+                    type="reject-details"
+                    reapproveAlumni={onReapproveAlumni}
+                  />
+                ))}
+            </tbody>
+            :
+            <NoDataMessage />
+        }
       </table>
 
       <AdminTablePagination
