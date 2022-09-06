@@ -3,7 +3,7 @@ import hypocrisy from "assets/forgotPassword.png";
 import verification from "assets/verification.png";
 import changePassword from "assets/changePassword.png";
 import styles from "./ForgotPassword.module.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAxiosWithCallback from "hooks/useAxiosWithCallback";
 import { useAlertContext } from "context/alert/alertContext";
 
@@ -39,7 +39,6 @@ const ForgotPassword = () => {
     };
     requestPasswordReset(config, () => {
       success("An Email is sent to the given email address");
-      navigate("/");
     });
   };
   return (
