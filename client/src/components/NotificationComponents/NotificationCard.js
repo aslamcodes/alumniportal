@@ -34,14 +34,15 @@ const NotificationCard = ({ notification, onResolve, type }) => {
     } else {
       setShowChevron(false);
     }
+
   }, [messageElement])
   if (isLoading) return <Loader />;
 
   return (
     <div
-      className={`${styles.notification_card} ${isExpanded && styles.expanded}`}
+      className={`${styles.notification_card} ${isExpanded && styles.expanded} ${type === 1 && styles.header}`}
     >
-      <div className={styles.message} >
+      <div className={`${styles.message} `} >
         <p ref={messageElement} >{notification.message}</p>
         {type === "approval" && (
           !isContact ?
@@ -55,7 +56,7 @@ const NotificationCard = ({ notification, onResolve, type }) => {
         }
 
       </div>
-      {type !== 0 &&
+      {type !== 0 && type !== 1 &&
         <>
           {showChevron &&
             <RiArrowDropDownLine

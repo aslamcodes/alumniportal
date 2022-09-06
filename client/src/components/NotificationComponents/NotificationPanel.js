@@ -22,6 +22,10 @@ const NotificationPanel = () => {
 
   return (
     <div className={styles.notification_container}>
+      <NotificationCard notification={{ message: "Notifications" }}
+        type={1}
+      // type 0 is for no notification
+      />
       {isLoading ? (
         <Loader />
       ) : notificationsOnState?.length === 0 ? (

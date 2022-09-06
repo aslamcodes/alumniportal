@@ -18,6 +18,10 @@
   white-space: nowrap;
   cursor: default;
 }
+
+.header {
+  display: none;
+}
 .notification_card > .message {
   display: block;
   overflow: hidden;
