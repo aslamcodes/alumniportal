@@ -121,7 +121,7 @@ export const requestPasswordReset = asyncHandler(async (req, res) => {
     createdAt: Date.now(),
   });
 
-  const link = `${process.env.CLIENT_URL}/reset-password?token=${resetToken}&id=${user._id}`;
+  const link = `${process.env.CLIENT_URL}/reset-password?token=${resetToken}&user=${user._id}`;
 
   await sendEmail(
     user?.email,

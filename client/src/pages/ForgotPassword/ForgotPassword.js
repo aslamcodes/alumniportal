@@ -3,7 +3,9 @@ import hypocrisy from "assets/forgotPassword.png";
 import verification from "assets/verification.png";
 import changePassword from "assets/changePassword.png";
 import styles from "./ForgotPassword.module.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useAxiosWithCallback from "hooks/useAxiosWithCallback";
+import { useAlertContext } from "context/alert/alertContext";
 
 const ForgotPassword = () => {
   const [form, setForm] = useState(1);
@@ -14,6 +16,9 @@ const ForgotPassword = () => {
     password: "",
     confirmPassword: "",
   });
+  const { fetchData: requestPasswordReset, isLoading } = useAxiosWithCallback();
+  const navigate = useNavigate();
+  const { success } = useAlertContext();
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -23,6 +28,20 @@ const ForgotPassword = () => {
     });
   };
 
+  const submitHandler = (e) => {
+    e.preventDefault();
+    const config = {
+      url: "/api/v1/users/request-password-reset",
+      method: "post",
+      data: {
+        email: data.email,
+      },
+    };
+    requestPasswordReset(config, () => {
+      success("An Email is sent to the given email address");
+      navigate("/");
+    });
+  };
   return (
     <div className={styles.container}>
       <div className={styles.image_container}>
@@ -61,6 +80,7 @@ const ForgotPassword = () => {
                 <p>Or</p>
                 <div className={styles.form_input_container}>
                   <input
+                    disabled={true}
                     name="phoneNo"
                     id="phoneNo"
                     type="text"
@@ -70,8 +90,8 @@ const ForgotPassword = () => {
                   />
                 </div>
                 <div className={styles.form_actions_container}>
+                  <button onClick={submitHandler}>Send mail</button>
                   <Link to="/login">Back to Login</Link>
-                  <button onClick={() => setForm(2)}>Next</button>
                 </div>
               </form>
             )}
