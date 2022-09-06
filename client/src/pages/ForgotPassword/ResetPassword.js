@@ -24,32 +24,34 @@ const ResetPassword = () => {
           <div className={styles.form_header}>
             <h1>Reset Password</h1>
           </div>
-          <form style={{ "align-items": "center" }}>
-            <div className={styles.form_input_container}>
-              <input
-                name="password"
-                id="password"
-                type="password"
-                placeholder="New Password"
-                value={newPassword}
-                onChange={handleNewPasswordChange}
-              />
-            </div>
-            <br />
-            <div className={styles.form_input_container}>
-              <input
-                name="confirmPassword"
-                id="confirmPassword"
-                type="password"
-                placeholder="Confirm Password"
-                value={confirmPassword}
-                onChange={handleConfirmPasswordChange}
-              />
-            </div>
-            <div className={styles.form_actions_container}>
-              <button>Change password</button>
-            </div>
-          </form>
+          <div className={styles.form_body}>
+            <form style={{ "align-items": "center" }}>
+              <div className={styles.form_input_container}>
+                <input
+                  name="password"
+                  id="password"
+                  type="password"
+                  placeholder="New Password"
+                  value={newPassword}
+                  onChange={handleNewPasswordChange}
+                />
+              </div>
+              <br />
+              <div className={styles.form_input_container}>
+                <input
+                  name="confirmPassword"
+                  id="confirmPassword"
+                  type="password"
+                  placeholder="Confirm Password"
+                  value={confirmPassword}
+                  onChange={handleConfirmPasswordChange}
+                />
+              </div>
+              <div className={styles.form_actions_container}>
+                <button>Change password</button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>
