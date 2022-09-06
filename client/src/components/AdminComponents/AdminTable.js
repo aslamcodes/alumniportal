@@ -8,13 +8,18 @@ import useGetAlumni from "hooks/useFetchAlumni";
 import Loader from "components/UI/Loader";
 import useAxiosWithCallback from "hooks/useAxiosWithCallback";
 import { useAuthContext } from "context/auth/authContext";
+import NoDataMessage from "./NoDataMessage";
 
 const AlumniTable = () => {
+
+
+
   useEffect(() => {
-    document.title="Alumni Portal | Alumni Table"
-  },[]);
+    document.title = "Alumni Portal | Alumni Table"
+  }, []);
   const { alumni: alumniData, error, isLoading, trigger } = useGetAlumni();
   const [alumni, setAlumni] = useState(alumniData);
+
   const [entriesPerPage, setEntriesPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [tableHeadOnTop, setTableHeadOnTop] = useState(false);
@@ -133,20 +138,26 @@ const AlumniTable = () => {
             </div>
           </tr>
         </a.thead>
-        <tbody>
-          {alumni
-            ?.slice(
-              currentPage * entriesPerPage - entriesPerPage,
-              currentPage * entriesPerPage
-            )
-            .map((alumni) => (
-              <AdminTableRow
-                alumni={alumni}
-                type="alumni-details"
-                onDeleteAlumni={onDeleteAlumniHandler}
-              />
-            ))}
-        </tbody>
+        {
+          alumni ?
+            <tbody>
+
+              {alumni
+                ?.slice(
+                  currentPage * entriesPerPage - entriesPerPage,
+                  currentPage * entriesPerPage
+                )
+                .map((alumni) => (
+                  <AdminTableRow
+                    alumni={alumni}
+                    type="alumni-details"
+                    onDeleteAlumni={onDeleteAlumniHandler}
+                  />
+                ))}
+            </tbody>
+            :
+            <NoDataMessage />
+        }
       </table>
 
       <AdminTablePagination

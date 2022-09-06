@@ -36,9 +36,9 @@ const FilterModal = ({
     setSelectedFilters((prev) => {
       return filters
         ? Object.keys(filters).reduce((acc, option) => {
-            console.log(prev[option]);
-            return { ...acc, [option]: prev?.option || [] };
-          }, {})
+
+          return { ...acc, [option]: prev?.option || [] };
+        }, {})
         : {};
     });
   }, [filters]);
@@ -91,10 +91,9 @@ const FilterModal = ({
                     <div className={Styles.filter_options}>
                       {filters[filter].map((option) => (
                         <p
-                          className={`${
-                            selectedFilters[filter]?.includes(option) &&
+                          className={`${selectedFilters[filter]?.includes(option) &&
                             Styles.selected
-                          }`}
+                            }`}
                           onClick={() => {
                             handleOptionSelect(filter, option);
                           }}
