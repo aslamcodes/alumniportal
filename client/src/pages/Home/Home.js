@@ -8,9 +8,14 @@ import { useAlertContext } from "context/alert/alertContext";
 import video from "assets/test/skctvideo60fps.mp4";
 
 const Home = () => {
+  // Safari 3.0+ "[object HTMLElementConstructor]"
+  // https://www.querythreads.com/browser-detection-in-react-js/
+  // const isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && safari.pushNotification));
+
+  const isSafari = false;
   useEffect(() => {
-    document.title="Alumni Portal | Home"
-  },[]);
+    document.title = "Alumni Portal | Home"
+  }, []);
   const [newTestimonialActive, setNewTestimonialActive] = useState(false);
   const { user } = useAuthContext();
   const { testimonials, error, isLoading, trigger } = useGetTestimonial();
@@ -26,16 +31,29 @@ const Home = () => {
     <div className={`${styles.Body} `}>
       <div className={styles["Content-Container"]}>
         <div id={styles["Welcome"]}>
-          <video
-            className={styles.video}
-            src={video}
-            width="100"
-            height="100"
-            loop
-            autoPlay
-            muted
-            playsinline
-          />
+          {isSafari ?
+            <img
+              className={styles.video}
+              src={video}
+              width="100"
+              height="100"
+              loop
+              autoPlay
+              muted
+              playsinline
+            />
+            :
+            <video
+              className={styles.video}
+              src={video}
+              width="100"
+              height="100"
+              loop
+              autoPlay
+              muted
+              playsinline
+            />
+          }
           <div className={styles.video_overlay} />
           <div className={`${styles.Container}`}>
             <h1>
