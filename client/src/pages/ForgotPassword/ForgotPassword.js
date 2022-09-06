@@ -3,7 +3,9 @@ import hypocrisy from "assets/forgotPassword.png";
 import verification from "assets/verification.png";
 import changePassword from "assets/changePassword.png";
 import styles from "./ForgotPassword.module.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import useAxiosWithCallback from "hooks/useAxiosWithCallback";
+import { useAlertContext } from "context/alert/alertContext";
 
 const ForgotPassword = () => {
   const [form, setForm] = useState(1);
@@ -14,6 +16,9 @@ const ForgotPassword = () => {
     password: "",
     confirmPassword: "",
   });
+  const { fetchData: requestPasswordReset, isLoading } = useAxiosWithCallback();
+  const navigate = useNavigate();
+  const { success } = useAlertContext();
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -23,6 +28,19 @@ const ForgotPassword = () => {
     });
   };
 
+  const submitHandler = (e) => {
+    e.preventDefault();
+    const config = {
+      url: "/api/v1/users/request-password-reset",
+      method: "post",
+      data: {
+        email: data.email,
+      },
+    };
+    requestPasswordReset(config, () => {
+      success("An Email is sent to the given email address");
+    });
+  };
   return (
     <div className={styles.container}>
       <div className={styles.image_container}>
@@ -61,6 +79,7 @@ const ForgotPassword = () => {
                 <p>Or</p>
                 <div className={styles.form_input_container}>
                   <input
+                    disabled={true}
                     name="phoneNo"
                     id="phoneNo"
                     type="text"
@@ -70,65 +89,8 @@ const ForgotPassword = () => {
                   />
                 </div>
                 <div className={styles.form_actions_container}>
+                  <button onClick={submitHandler}>Send mail</button>
                   <Link to="/login">Back to Login</Link>
-                  <button onClick={() => setForm(2)}>Next</button>
-                </div>
-              </form>
-            )}
-
-            {form === 2 && (
-              // form 2
-              <form style={{ "align-items": "center" }}>
-                <div className={styles.form_input_container}>
-                  <input
-                    name="otp"
-                    id="otp"
-                    type="number"
-                    placeholder="Enter the OTP"
-                    value={data.otp}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className={styles.form_vactions_container}>
-                  <p>
-                    Didn't recieve code? {/* <Link to="/register"> */}
-                    <span>Request Again</span>
-                    {/* </Link> */}
-                  </p>
-                  <p onClick={() => setForm(1)}>Change Phone Number/Email ID</p>
-                </div>
-                <div className={styles.form_actions_container}>
-                  <button onClick={() => setForm(3)}> Change password</button>
-                </div>
-              </form>
-            )}
-
-            {form === 3 && (
-              // form 3
-              <form style={{ "align-items": "center" }}>
-                <div className={styles.form_input_container}>
-                  <input
-                    name="password"
-                    id="password"
-                    type="password"
-                    placeholder="New Password"
-                    value={data.password}
-                    onChange={handleChange}
-                  />
-                </div>
-                <br />
-                <div className={styles.form_input_container}>
-                  <input
-                    name="confirmPassword"
-                    id="confirmPassword"
-                    type="password"
-                    placeholder="Confirm Password"
-                    value={data.confirmPassword}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className={styles.form_actions_container}>
-                  <button>Change password</button>
                 </div>
               </form>
             )}

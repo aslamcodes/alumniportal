@@ -6,6 +6,7 @@ import {
   loginUser,
   registerUser,
   requestPasswordReset,
+  resetPassword,
   resolveNotification,
   updateUser,
 } from "../controllers/userControllers.js";
@@ -36,7 +37,6 @@ const userAvatarStorage = new GridFsStorage({
 const upload = multer({ storage: userAvatarStorage });
 
 router.get("/notifications", protect, getNotification);
-router.get("/request-password-reset/", requestPasswordReset);
 router.get("/:id", getUserDetailsById);
 router.get("/user-avatar/:id", getUserAvatarImage);
 
@@ -45,9 +45,10 @@ router.patch(
   protect,
   resolveNotification
 );
-
 router.patch("/", protect, upload.single("avatar"), updateUser);
+router.patch("/reset-password", resetPassword);
 
+router.post("/request-password-reset/", requestPasswordReset);
 router.post("/register", upload.single("avatar"), registerUser);
 router.post("/login", loginUser);
 router.post("/alumni-register", registerAlumni);

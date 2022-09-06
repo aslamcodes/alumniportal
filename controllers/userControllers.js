@@ -121,7 +121,7 @@ export const requestPasswordReset = asyncHandler(async (req, res) => {
     createdAt: Date.now(),
   });
 
-  const link = `${process.env.CLIENT_URL}/passwordReset?token=${resetToken}&id=${user._id}`;
+  const link = `${process.env.CLIENT_URL}/reset-password?token=${resetToken}&user=${user._id}`;
 
   await sendEmail(
     user?.email,
@@ -140,7 +140,34 @@ export const requestPasswordReset = asyncHandler(async (req, res) => {
   );
 });
 
-export const resetPassword = asyncHandler(async (req, res) => {});
+export const resetPassword = asyncHandler(async (req, res) => {
+  const { token, user: userId, password: newPassword } = req.body;
+
+  const existingToken = await ResetToken.findOne({
+    user: userId,
+  });
+
+  if (!existingToken) {
+    res.status(400);
+    throw new Error("Link Expired or Invalid");
+  }
+
+  const isValid = await bcrypt.compare(token, existingToken.token);
+
+  if (!isValid) {
+    throw new Error("Token Invalid, please try again");
+  }
+
+  const user = await User.findById(userId);
+
+  user.password = newPassword;
+
+  await user.save();
+
+  res.json({
+    message: "Password updated successfully",
+  });
+});
 
 export const getUserDetailsById = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id)

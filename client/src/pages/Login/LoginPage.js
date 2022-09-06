@@ -89,9 +89,11 @@ const LoginForm = () => {
 
           {errors.password && <span>Password is required</span>}
           <div className={styles["terms-conditions"]}>
-            <p onClick={() => {
+            <p
+              onClick={() => {
                 success("Feature will be enabled soon 😁");
-              }}>
+              }}
+            >
               By login you agree to our <a>Terms & conditions</a>
             </p>
           </div>
@@ -99,14 +101,7 @@ const LoginForm = () => {
         <div className={` ${styles.loginButtonContainer}`}>
           <button>Login Now</button>
           <p>
-              <a
-              onClick={() => {
-                success("Feature will be enabled soon 😁");
-              }} >Forgot Password 
-              
-                       
-              </a>
-              
+            <Link to="/forgot-password">Forgot Password</Link>
           </p>
         </div>
       </form>
@@ -140,8 +135,8 @@ const LoginForm = () => {
 
 const LoginPage = () => {
   useEffect(() => {
-    document.title="Alumni Portal | Login"
-  },[]);
+    document.title = "Alumni Portal | Login";
+  }, []);
   const [windowDimensions, setWindowDimensions] = useState(
     getWindowDimensions()
   );
