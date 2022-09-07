@@ -74,7 +74,7 @@ const OfficeBearerTable = () => {
             <th>Name</th>
             <th>Department</th>
             <th>Designation</th>
-            <th>Organization</th>
+            <th>Company</th>
             <th>Contact</th>
             <th>Email</th>
             <th>Options</th>

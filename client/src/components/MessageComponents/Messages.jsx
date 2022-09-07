@@ -176,15 +176,16 @@ const ChatPage = ({
   );
 };
 
-const Messages = ({ onClose, onChatPage }) => {
-  const [isChatSelected, setIsChatSelected] = useState(onChatPage ?? false);
+const Messages = ({ onClose, onChatPage = false, conversation }) => {
+  const [isChatSelected, setIsChatSelected] = useState(false);
   const [isMessagesActive, setIsMessagesActive] = useState(true);
-  const [selectedConversation, setSelectedConversation] = useState(onChatPage);
+  const [selectedConversation, setSelectedConversation] =
+    useState(conversation);
 
   useEffect(() => {
-    setSelectedConversation(onChatPage);
-    setIsChatSelected(true);
-  }, [onChatPage]);
+    setSelectedConversation(conversation);
+    setIsChatSelected(conversation ? true : false);
+  }, [conversation]);
 
   const {
     messages,

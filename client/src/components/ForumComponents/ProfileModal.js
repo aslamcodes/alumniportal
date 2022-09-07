@@ -34,7 +34,7 @@ function ProfileModal({ isOpen, handleClose, userId }) {
     document.title = "Alumni Portal | Profile"
   });
   const navigate = useNavigate();
-  const { user, isLoading, error } = useUserProfileData(userId);
+  const { user, isLoading, error ,trigger} = useUserProfileData(userId);
   const {
     isLoading: isPostLoading,
     error: postError,
