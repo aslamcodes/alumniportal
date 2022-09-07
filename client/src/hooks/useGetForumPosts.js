@@ -6,6 +6,8 @@ const useGetForumPosts = (user) => {
   const { isLoading, error, fetchData } = useAxiosWithCallback();
   const [posts, setPosts] = useState([]);
   const [hasMore, setHasMore] = useState(true);
+  const [refresh, setRefresh] = useState(0);
+
 
   const getConfig = useCallback(
     (offset = 0) => ({
@@ -14,11 +16,14 @@ const useGetForumPosts = (user) => {
         : `/api/v1/forum/feed_v2_alpha?offset=${offset}`,
     }),
     [user]
-  );
+  );  
+  const trigger =()=>{
+    setRefresh(Math.random());
+  };
 
   useEffect(() => {
     fetchData(getConfig(0), setPosts);
-  }, [fetchData, getConfig]);
+  }, [fetchData, getConfig,refresh]);
 
   useScrollPositionThrottled(
     ({ atBottom }) => {
@@ -33,7 +38,7 @@ const useGetForumPosts = (user) => {
     []
   );
 
-  return { isLoading, error, posts };
+  return { isLoading, error, posts,trigger };
 };
 
 export default useGetForumPosts;
