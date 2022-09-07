@@ -27,9 +27,9 @@
 
 .header img {
   border-radius: 50%;
-  height: 4em;
+  height: 3em;
   object-fit: cover;
-  width: 4em;
+  width: 3em;
   padding: 0.5em;
   cursor: pointer;
 }
