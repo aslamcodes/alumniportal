@@ -10,13 +10,16 @@ import ProfileModal from "./ProfileModal";
 import { GrClose } from "react-icons/gr";
 import { useAlertContext } from "context/alert/alertContext";
 import { useNavigate } from "react-router-dom";
+import useGetForumPosts from "hooks/useGetForumPosts";
 import config from "config/config";
 
 const ForumCard = ({ data, profileActive, profileEdit }) => {
+  const { posts: isloading, trigger, post } = useGetForumPosts();
   const [isCommentsModalOpen, setIsCommentsModalOpen] = useState(false);
   const [isPostModalOpen, setIsPostModalOpen] = useState(false);
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const { user } = useAuthContext();
+  const { fetchData: deletePost } = useAxiosWithCallback();
   const { fetchData, isLoading } = useAxiosWithCallback();
   const [liked, setLiked] = useState(
     user ? data?.likes?.map((like) => like.user._id).includes(user?._id) : false
@@ -50,6 +53,25 @@ const ForumCard = ({ data, profileActive, profileEdit }) => {
     await fetchData(likeConfig, (res) => {
       setLiked((prev) => !prev);
     });
+  };
+
+  const handleDeletePost = async (e) => {
+    e.preventDefault();
+
+    const deleteConfig = {
+      headers: {
+        Authorization: `Bearer ${user?.token}`,
+      },
+      url: `/api/v1/forum/${data._id}`,
+      method: "delete",
+    };
+    console.log(data._id);
+
+    await fetchData(deleteConfig, (res) => {
+      success(`Deleted Post ${res.post}`);
+    });
+
+    trigger();
   };
 
   return (
@@ -113,7 +135,14 @@ const ForumCard = ({ data, profileActive, profileEdit }) => {
               }}
             />
           </div>
-          {profileActive && profileEdit && <GrClose fontSize={20} />}
+
+          {profileActive && profileEdit && (
+            <GrClose
+              className={styles.close_btn}
+              fontSize={20}
+              onClick={handleDeletePost}
+            />
+          )}
         </div>
       </div>
       <div className={styles.post_image_container}>

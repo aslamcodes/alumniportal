@@ -64,7 +64,7 @@ router.post("/", protect, upload.array("images", 6), createPost);
 router.post("/comment/:id", protect, createComment);
 router.post("/reply/:id", protect, createReply);
 
-router.delete("/:id", protect, alumni, deletePost);
+router.delete("/:id", protect, deletePost);
 router.delete("/comment/:id", protect, deleteComment);
 router.delete("/reply/:id", protect, deleteReply);
 export default router;
