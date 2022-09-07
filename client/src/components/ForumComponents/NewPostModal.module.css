@@ -30,7 +30,7 @@
   z-index: 2;
 }
 .header .userinfo_container {
-  display: flex;
+  display: c;
   align-items: center;
   gap: 1rem;
 }
@@ -38,6 +38,9 @@
 .header .userinfo_container img {
   width: max(2rem, 4em);
   height: max(2rem, 4em);
+  -moz-border-radius: 50px;
+  -webkit-border-radius: 50px;
+  border-radius: 50px;
 }
 
 .header .close_icon {
