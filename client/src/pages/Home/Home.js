@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import Carousel from "components/UI/Carousel";
 import styles from "./Home.module.css";
 import NewTestimonialCard from "components/HomeComponents/NewTestimonialCard";
@@ -10,11 +10,17 @@ import video from "assets/test/skctvideo60fps.mp4";
 const Home = () => {
   // Safari 3.0+ "[object HTMLElementConstructor]"
   // https://www.querythreads.com/browser-detection-in-react-js/
-  // const isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && safari.pushNotification));
+  const isSafari =
+    /constructor/i.test(window.HTMLElement) ||
+    (function (p) {
+      return p.toString() === "[object SafariRemoteNotification]";
+    })(
+      !window["safari"] ||
+        (typeof safari !== "undefined" && window["safari"].pushNotification)
+    );
 
-  const isSafari = false;
   useEffect(() => {
-    document.title = "Alumni Portal | Home"
+    document.title = "Alumni Portal | Home";
   }, []);
   const [newTestimonialActive, setNewTestimonialActive] = useState(false);
   const { user } = useAuthContext();
@@ -31,7 +37,7 @@ const Home = () => {
     <div className={`${styles.Body} `}>
       <div className={styles["Content-Container"]}>
         <div id={styles["Welcome"]}>
-          {isSafari ?
+          {isSafari ? (
             <img
               className={styles.video}
               src={video}
@@ -40,9 +46,9 @@ const Home = () => {
               loop
               autoPlay
               muted
-              playsinline
+              alt={"video"}
             />
-            :
+          ) : (
             <video
               className={styles.video}
               src={video}
@@ -51,16 +57,16 @@ const Home = () => {
               loop
               autoPlay
               muted
-              playsinline
             />
-          }
+          )}
           <div className={styles.video_overlay} />
           <div className={`${styles.Container}`}>
             <h1>
               Welcome <span>Back</span>
             </h1>
             <p>
-              There is nothing like returning to a place that remains unchanged to find the ways in which you yourself have altered
+              There is nothing like returning to a place that remains unchanged
+              to find the ways in which you yourself have altered
             </p>
           </div>
         </div>

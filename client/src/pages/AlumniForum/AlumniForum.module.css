@@ -7,8 +7,8 @@
 }
 
 .forum_container {
-  width: 60%;
-  margin: 18vh auto 30vh auto;
+  margin: 12vh auto;
+  width: clamp(15rem, 95vw, 30rem);
 }
 
 .new_post_button {
@@ -38,4 +38,11 @@
   color: #fff;
   clip-path: circle();
   font-size: 1.2em;
+}
+
+@media (min-width: 768px) {
+  .forum_container {
+    width: 55%;
+    margin: 18vh auto;
+  }
 }

@@ -276,6 +276,138 @@ export const getPostImageById = asyncHandler(async (req, res) => {
   }
 });
 
+export const getPostById = asyncHandler(async (req, res) => {
+  const { postId } = req.params;
+
+  const unwantedFields = [...unwantedUserFields];
+  const post = await ForumPost.aggregate([
+    {
+      $match: {
+        _id: mongoose.Types.ObjectId(postId),
+      },
+    },
+    {
+      $sort: { createdAt: -1 },
+    },
+
+    {
+      $lookup: {
+        from: "users",
+        localField: "user",
+        foreignField: "_id",
+        as: "user",
+      },
+    },
+
+    {
+      $lookup: {
+        from: "forumpostlikes",
+        localField: "_id",
+        foreignField: "post",
+        pipeline: [
+          {
+            $unwind: "$likes",
+          },
+          {
+            $replaceRoot: {
+              newRoot: "$likes",
+            },
+          },
+          {
+            $lookup: {
+              from: "users",
+              localField: "user",
+              foreignField: "_id",
+              as: "user",
+            },
+          },
+          { $unwind: "$user" },
+
+          {
+            $unset: unwantedFields,
+          },
+        ],
+        as: "likes",
+      },
+    },
+
+    {
+      $lookup: {
+        from: "forumcomments",
+        let: { postId: "$_id" },
+        localField: "_id",
+        foreignField: "post",
+        pipeline: [
+          {
+            $sort: {
+              createdAt: -1,
+            },
+          },
+          {
+            $lookup: {
+              from: "users",
+              localField: "user",
+              foreignField: "_id",
+              as: "user",
+            },
+          },
+          {
+            $unwind: "$user",
+          },
+          {
+            $unset: unwantedFields,
+          },
+          {
+            $lookup: {
+              from: "forumcommentreplies",
+              let: { commentId: "$_id" },
+              localField: "_id",
+              foreignField: "comment",
+              pipeline: [
+                {
+                  $sort: {
+                    createdAt: -1,
+                  },
+                },
+                {
+                  $lookup: {
+                    from: "users",
+                    localField: "user",
+                    foreignField: "_id",
+                    as: "user",
+                  },
+                },
+                {
+                  $unset: unwantedFields,
+                },
+                {
+                  $unwind: "$user",
+                },
+              ],
+              as: "replies",
+            },
+          },
+        ],
+        as: "comments",
+      },
+    },
+    {
+      $unset: unwantedFields,
+    },
+    {
+      $unwind: "$user",
+    },
+  ]);
+
+  if (!post) {
+    return res.status(400).json({
+      error: "No posts found",
+    });
+  }
+
+  res.json(post[0]);
+});
+
 export const getPostRequests = asyncHandler(async (req, res) => {
   const unwantedFields = ["post.__v", ...unwantedUserFields];
 

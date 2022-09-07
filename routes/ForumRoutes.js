@@ -10,6 +10,7 @@ import {
   getAllPosts,
   getAllPosts_V2,
   getCommentsOnPost,
+  getPostById,
   getPostImageById,
   getPostRequests,
   getRepliesOnComment,
@@ -49,6 +50,7 @@ const router = express.Router();
 
 router.get("/image/:id", getPostImageById);
 router.get("/feed", getAllPosts);
+router.get("/post/:postId", getPostById);
 router.get("/feed_v2_alpha/", getAllPosts_V2);
 router.get("/post-requests", getPostRequests);
 router.get("/comments/:postId", getCommentsOnPost);
@@ -62,7 +64,7 @@ router.post("/", protect, upload.array("images", 6), createPost);
 router.post("/comment/:id", protect, createComment);
 router.post("/reply/:id", protect, createReply);
 
-router.delete("/:id", protect, alumni, deletePost);
+router.delete("/:id", protect, deletePost);
 router.delete("/comment/:id", protect, deleteComment);
 router.delete("/reply/:id", protect, deleteReply);
 export default router;
