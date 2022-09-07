@@ -35,7 +35,7 @@ const Alumni = () => {
     <main className={styles.main}>
       {isMessagesOpen && (
         <Messages
-          onChatPage={conversationToOpen}
+          conversation={conversationToOpen}
           onClose={() => {
             setIsMessagesOpen(false);
           }}

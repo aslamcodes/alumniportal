@@ -87,16 +87,13 @@ const Navbar = () => {
         />
       )}
       {isMessagesActive && (
-        <Messages
-          isMessagesActive={isMessagesActive}
-          setIsMessagesPanelActive={setIsMessagesActive}
-          onClose={() => setIsMessagesActive(false)}
-        />
+        <Messages onClose={() => setIsMessagesActive(false)} />
       )}
       <div className={styles.container}>
         <div
-          className={`${styles.navbar} ${styles.background_blur} ${isScrolled && styles.scrolled
-            }`}
+          className={`${styles.navbar} ${styles.background_blur} ${
+            isScrolled && styles.scrolled
+          }`}
         >
           {windowDimensions.width > 790 && (
             <div className={`${styles.navLink}`}>
@@ -162,8 +159,9 @@ const Navbar = () => {
           )}
           {user && (
             <div
-              className={`${styles.notification_icon} ${showNotificationBadge && styles.active
-                }`}
+              className={`${styles.notification_icon} ${
+                showNotificationBadge && styles.active
+              }`}
             >
               <IoMdNotificationsOutline
                 fontSize={25}
@@ -184,7 +182,7 @@ const Navbar = () => {
             </div>
           )}
         </div>
-        {isNotificationActive && <NotificationPanel onResolve={() => { }} />}
+        {isNotificationActive && <NotificationPanel onResolve={() => {}} />}
       </div>
       {menuActive && windowDimensions.width < 790 && (
         <Menu setMenuActive={setMenuActive} setShowProfile={setShowProfile} />
