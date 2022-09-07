@@ -49,10 +49,10 @@ img {
 body {
   background-position: center center;
   background-repeat: no-repeat;
-  background-attachment: cover;
+  background-attachment: fixed;
   background-size: cover;
   background-image: url(./assets/HomeBackgroundImg1.png);
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
