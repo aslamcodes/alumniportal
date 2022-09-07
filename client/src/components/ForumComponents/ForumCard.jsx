@@ -1,11 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./ForumCard.module.css";
-import {
-  AiOutlineHeart,
-  AiFillHeart,
-  AiOutlineShareAlt,
-  AiOutlineClose,
-} from "react-icons/ai";
+import { AiOutlineHeart, AiFillHeart, AiOutlineShareAlt } from "react-icons/ai";
 import { BsChat } from "react-icons/bs";
 import CommentModal from "./CommentModal";
 import PostModal from "./PostModal";
@@ -16,9 +11,10 @@ import { GrClose } from "react-icons/gr";
 import { useAlertContext } from "context/alert/alertContext";
 import { useNavigate } from "react-router-dom";
 import useGetForumPosts from "hooks/useGetForumPosts";
+import config from "config/config";
 
 const ForumCard = ({ data, profileActive, profileEdit }) => {
-  const {posts: isloading, trigger, post }=useGetForumPosts();
+  const { posts: isloading, trigger, post } = useGetForumPosts();
   const [isCommentsModalOpen, setIsCommentsModalOpen] = useState(false);
   const [isPostModalOpen, setIsPostModalOpen] = useState(false);
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
@@ -30,6 +26,17 @@ const ForumCard = ({ data, profileActive, profileEdit }) => {
   );
   const { success } = useAlertContext();
   const navigate = useNavigate();
+
+  useEffect(() => {}, []);
+
+  const shareButtonHandler = (postId) => {
+    navigator.clipboard
+      .writeText(`${config.CLIENT_URL}/alumni-forum/${postId}`)
+      .then(() => {
+        success("Post link copied to clipboard");
+      });
+  };
+
   const onLikePostHandler = async () => {
     if (!user?.token) {
       success("Sign in to like a post");
@@ -65,14 +72,13 @@ const ForumCard = ({ data, profileActive, profileEdit }) => {
     });
 
     trigger();
-  };  
-
+  };
 
   return (
     <div className={`${styles.post_container} `}>
       <CommentModal
-        postId={data._id}
-        comments={data.comments}
+        postId={data?._id}
+        comments={data?.comments}
         handleClose={() => {
           setIsCommentsModalOpen(false);
         }}
@@ -101,10 +107,10 @@ const ForumCard = ({ data, profileActive, profileEdit }) => {
           }}
         >
           <img
-            src={`http://localhost:8000/api/v1/users/user-avatar/${data.user._id}`}
+            src={`http://localhost:8000/api/v1/users/user-avatar/${data?.user?._id}`}
             alt={data?.post?.title}
           />
-          <p className={styles.user_name}>{data.user.name}</p>
+          <p className={styles.user_name}>{data?.user?.name}</p>
         </div>
         <div className={styles.post_action_container}>
           <div disabled={isLoading} onClick={onLikePostHandler}>
@@ -125,26 +131,31 @@ const ForumCard = ({ data, profileActive, profileEdit }) => {
             <AiOutlineShareAlt
               fontSize={21}
               onClick={() => {
-                success("Feature will be enabled soon");
+                shareButtonHandler(data?._id);
               }}
             />
           </div>
-          
-        {profileActive && profileEdit && <GrClose className={styles.close_btn} fontSize={20} onClick={handleDeletePost}/> }
-      
+
+          {profileActive && profileEdit && (
+            <GrClose
+              className={styles.close_btn}
+              fontSize={20}
+              onClick={handleDeletePost}
+            />
+          )}
         </div>
       </div>
       <div className={styles.post_image_container}>
         <img
-          src={`http://localhost:8000/api/v1/forum/image/${data.post.images[0]}`}
+          src={`http://localhost:8000/api/v1/forum/image/${data?.post?.images[0]}`}
           className={`${profileActive && styles.shadow}`}
           alt="post"
         />
         <div className={styles.post_overlay}></div>
         <div className={styles.post_caption_container}>
-          <p>{data.post.title}</p>
+          <p>{data?.post?.title}</p>
           <p>
-            {data.post.desc.slice(0, 500)}
+            {data?.post?.desc?.slice(0, 500)}
             {"..."}
             <span
               onClick={() => {

@@ -10,6 +10,7 @@ import {
   getAllPosts,
   getAllPosts_V2,
   getCommentsOnPost,
+  getPostById,
   getPostImageById,
   getPostRequests,
   getRepliesOnComment,
@@ -49,6 +50,7 @@ const router = express.Router();
 
 router.get("/image/:id", getPostImageById);
 router.get("/feed", getAllPosts);
+router.get("/post/:postId", getPostById);
 router.get("/feed_v2_alpha/", getAllPosts_V2);
 router.get("/post-requests", getPostRequests);
 router.get("/comments/:postId", getCommentsOnPost);
