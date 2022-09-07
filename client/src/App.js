@@ -28,9 +28,13 @@ import Alert from "components/UI/Alert";
 import { useEffect } from "react";
 import { useAlertContext } from "context/alert/alertContext";
 import ResetPassword from "pages/ForgotPassword/ResetPassword";
+import ForumPost from "pages/AlumniForum/ForumPost";
+import useAxiosWithCallback from "hooks/useAxiosWithCallback";
+import Loader from "components/UI/Loader";
 
 function App() {
   const { success } = useAlertContext();
+
   useEffect(() => {
     success(
       "Alumni-Portal is still on alpha testing, and not stable, expect bugs"
@@ -54,6 +58,7 @@ function App() {
 
           <Route element={<Navbar />}>
             <Route path="/alumni-forum" element={<AlumniForum />} />
+            <Route path="/alumni-forum/:postId" element={<ForumPost />} />
           </Route>
           <Route element={<WithNavFooter />}>
             <Route index path="/" element={<Home />} />

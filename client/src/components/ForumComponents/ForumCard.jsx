@@ -55,8 +55,8 @@ const ForumCard = ({ data, profileActive, profileEdit }) => {
   return (
     <div className={`${styles.post_container} `}>
       <CommentModal
-        postId={data._id}
-        comments={data.comments}
+        postId={data?._id}
+        comments={data?.comments}
         handleClose={() => {
           setIsCommentsModalOpen(false);
         }}
@@ -85,10 +85,10 @@ const ForumCard = ({ data, profileActive, profileEdit }) => {
           }}
         >
           <img
-            src={`http://localhost:8000/api/v1/users/user-avatar/${data.user._id}`}
+            src={`http://localhost:8000/api/v1/users/user-avatar/${data?.user?._id}`}
             alt={data?.post?.title}
           />
-          <p className={styles.user_name}>{data.user.name}</p>
+          <p className={styles.user_name}>{data?.user?.name}</p>
         </div>
         <div className={styles.post_action_container}>
           <div disabled={isLoading} onClick={onLikePostHandler}>
@@ -118,15 +118,15 @@ const ForumCard = ({ data, profileActive, profileEdit }) => {
       </div>
       <div className={styles.post_image_container}>
         <img
-          src={`http://localhost:8000/api/v1/forum/image/${data.post.images[0]}`}
+          src={`http://localhost:8000/api/v1/forum/image/${data?.post?.images[0]}`}
           className={`${profileActive && styles.shadow}`}
           alt="post"
         />
         <div className={styles.post_overlay}></div>
         <div className={styles.post_caption_container}>
-          <p>{data.post.title}</p>
+          <p>{data?.post?.title}</p>
           <p>
-            {data.post.desc.slice(0, 500)}
+            {data?.post?.desc?.slice(0, 500)}
             {"..."}
             <span
               onClick={() => {
