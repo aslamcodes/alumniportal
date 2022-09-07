@@ -103,3 +103,7 @@
   place-items: center;
   cursor: pointer;
 }
+
+.close_btn {
+  cursor: pointer;
+}
