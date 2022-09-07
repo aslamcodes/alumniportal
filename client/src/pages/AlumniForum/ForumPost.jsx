@@ -30,7 +30,7 @@ const ForumPost = () => {
   }
 
   return (
-    <div>
+    <div className={styles.container}>
       <ForumCard data={post} />
     </div>
   );
