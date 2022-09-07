@@ -16,7 +16,9 @@
 
 # production
 /client/build
+# /client/src/config/config.js
 /data/users.js
+
 
 # misc
 .DS_Store

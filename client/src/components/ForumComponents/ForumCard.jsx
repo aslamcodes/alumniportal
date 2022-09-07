@@ -1,11 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./ForumCard.module.css";
-import {
-  AiOutlineHeart,
-  AiFillHeart,
-  AiOutlineShareAlt,
-  AiOutlineClose,
-} from "react-icons/ai";
+import { AiOutlineHeart, AiFillHeart, AiOutlineShareAlt } from "react-icons/ai";
 import { BsChat } from "react-icons/bs";
 import CommentModal from "./CommentModal";
 import PostModal from "./PostModal";
@@ -15,6 +10,7 @@ import ProfileModal from "./ProfileModal";
 import { GrClose } from "react-icons/gr";
 import { useAlertContext } from "context/alert/alertContext";
 import { useNavigate } from "react-router-dom";
+import config from "config/config";
 
 const ForumCard = ({ data, profileActive, profileEdit }) => {
   const [isCommentsModalOpen, setIsCommentsModalOpen] = useState(false);
@@ -27,6 +23,17 @@ const ForumCard = ({ data, profileActive, profileEdit }) => {
   );
   const { success } = useAlertContext();
   const navigate = useNavigate();
+
+  useEffect(() => {}, []);
+
+  const shareButtonHandler = (postId) => {
+    navigator.clipboard
+      .writeText(`${config.CLIENT_URL}/alumni-forum/${postId}`)
+      .then(() => {
+        success("Post link copied to clipboard");
+      });
+  };
+
   const onLikePostHandler = async () => {
     if (!user?.token) {
       success("Sign in to like a post");
@@ -102,7 +109,7 @@ const ForumCard = ({ data, profileActive, profileEdit }) => {
             <AiOutlineShareAlt
               fontSize={21}
               onClick={() => {
-                success("Feature will be enabled soon");
+                shareButtonHandler(data?._id);
               }}
             />
           </div>
