@@ -12,6 +12,10 @@ const sendEmail = async (email, subject, payload, template) => {
         user: process.env.EMAIL_USERNAME,
         pass: process.env.EMAIL_PASSWORD,
       },
+      tls: {
+        // do not fail on invalid certs
+        rejectUnauthorized: false,
+      },
     });
 
     ejs.renderFile(template, payload, {}, (err, data) => {
