@@ -7,8 +7,8 @@ import { useAuthContext } from "context/auth/authContext";
 
 const Admin = () => {
   useEffect(() => {
-    document.title="Alumni Portal | Admin"
-  });
+    document.title = "Alumni Portal | Admin";
+  }, []);
   const { user } = useAuthContext();
 
   const navigate = useNavigate();
