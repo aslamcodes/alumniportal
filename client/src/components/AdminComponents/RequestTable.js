@@ -106,6 +106,23 @@ const RequestTable = () => {
       }
     );
   };
+  console.log(applications);
+  const dataHeaders = [
+    { label: "Register Number", key: "user.registerNumber" },
+    { label: "Name", key: "user.name" },
+    { label: "Department", key: "user.department" },
+    { label: "Designation", key: "alumni_data.designation" },
+    { label: "Company", key: "alumni_data.organization" },
+    { label: "Phone Number", key: "user.phoneNumber" },
+    { label: "Email", key: "user.email" },
+    { label: "City", key: "user.city" },
+    { label: "State", key: "user.state" },
+    { label: "Country", key: "user.country" },
+    { label: "Graduation Level", key: "user.graduationLevel" },
+    { label: "PG College Name", key: "secondaryCollegeName" },
+    { label: "Course Name", key: "courseName" },
+    { label: "Skills", key: "user.skill" },
+  ];
 
   return (
     <div>
@@ -113,6 +130,9 @@ const RequestTable = () => {
         filters={filters}
         onApplyFilter={onApplyFilter}
         onSearch={onSearch}
+        data={applications}
+        headers={dataHeaders}
+        filename="Alumni requests"
         onSelect={onEntriesPerPageSelectHandler}
         type="New Applications"
       />
