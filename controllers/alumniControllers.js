@@ -390,6 +390,7 @@ export const getAlumniRequests = asyncHandler(async (req, res) => {
     "alumni_data.__v",
     "alumni_data.user",
   ];
+
   const requests = await AlumniRequest.aggregate([
     {
       $lookup: {
@@ -407,8 +408,16 @@ export const getAlumniRequests = asyncHandler(async (req, res) => {
         as: "alumni_data",
       },
     },
-    { $unwind: "$user" },
     { $unwind: "$alumni_data" },
+    { $unwind: "$user" },
+    {
+      $replaceRoot: { newRoot: { $mergeObjects: ["$alumni_data", "$$ROOT"] } },
+    },
+    {
+      $project: {
+        alumni_data: 0,
+      },
+    },
     { $unset: unwantedFields },
   ]);
 
