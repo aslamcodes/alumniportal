@@ -36,9 +36,8 @@ const FilterModal = ({
     setSelectedFilters((prev) => {
       return filters
         ? Object.keys(filters).reduce((acc, option) => {
-
-          return { ...acc, [option]: prev?.option || [] };
-        }, {})
+            return { ...acc, [option]: prev?.option || [] };
+          }, {})
         : {};
     });
   }, [filters]);
@@ -84,16 +83,17 @@ const FilterModal = ({
                 <FaTimes onClick={handleClose} />
                 <p onClick={handleApplyFilter}>Apply</p>
               </div>
-              {filters &&
+              {filters ? (
                 Object.keys(filters).map((filter) => (
                   <div className={Styles.filter_group}>
                     <h2 className={Styles.filter_title}>{filter}</h2>
                     <div className={Styles.filter_options}>
                       {filters[filter].map((option) => (
                         <p
-                          className={`${selectedFilters[filter]?.includes(option) &&
+                          className={`${
+                            selectedFilters[filter]?.includes(option) &&
                             Styles.selected
-                            }`}
+                          }`}
                           onClick={() => {
                             handleOptionSelect(filter, option);
                           }}
@@ -103,7 +103,20 @@ const FilterModal = ({
                       ))}
                     </div>
                   </div>
-                ))}
+                ))
+              ) : (
+                <div
+                  style={{
+                    height: "100%",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <h1>Filters will be enabled soon for this page</h1>
+                </div>
+              )}
             </main>
           </a.div>
         </ReactPortal>

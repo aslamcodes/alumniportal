@@ -7,7 +7,7 @@ import styles from "./EventRequestRow.module.css";
 const RejectReasonOverlay = ({ setIsShowReject }) => {
   const [reason, setReason] = useState("");
   const handleSent = () => {
-    console.log(reason);
+
     setReason("");
     setIsShowReject(false);
   };

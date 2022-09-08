@@ -10,7 +10,7 @@ import Modal from "./Modal";
 
 const Alert = ({ ...props }) => {
   const { alert, alertText, clear } = useAlertContext();
-  console.log(alert);
+
   return (
     <Modal
       {...props}

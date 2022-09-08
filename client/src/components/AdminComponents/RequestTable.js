@@ -106,7 +106,7 @@ const RequestTable = () => {
       }
     );
   };
-  console.log(applications);
+
   const dataHeaders = [
     { label: "Register Number", key: "user.registerNumber" },
     { label: "Name", key: "user.name" },
