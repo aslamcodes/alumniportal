@@ -51,7 +51,7 @@ function RegistrationPageStudent() {
     skill: "",
   });
 
-  const { success } = useAlertContext();
+  const { successAlert, errorAlert } = useAlertContext();
 
   const emailRef = useRef("");
   const registerNumberRef = useRef("");
@@ -122,8 +122,8 @@ function RegistrationPageStudent() {
   }, [data.confirmPassword, isCPasswordDirty, data.password]);
 
   useEffect(() => {
-    if (error) success(error);
-  }, [error, success]);
+    if (error) errorAlert(error);
+  }, [error, errorAlert]);
 
   if (user) {
     navigate(location?.from ?? "/");

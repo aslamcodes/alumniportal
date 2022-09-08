@@ -10,12 +10,12 @@ const AddEventCard = ({ onNewItemAdd }) => {
   const { user } = useAuthContext();
   const { fetchData: addEvent, error: errorOnAddEvent } =
     useAxiosWithCallback();
-  const { success } = useAlertContext();
+  const { successAlert, errorAlert } = useAlertContext();
 
   useEffect(() => {
     if (errorOnAddEvent)
-      success(errorOnAddEvent.response.data.message ?? errorOnAddEvent);
-  }, [errorOnAddEvent, success]);
+      errorAlert(errorOnAddEvent.response.data.message ?? errorOnAddEvent);
+  }, [errorOnAddEvent, errorAlert]);
 
   const [eventData, setEventData] = useState({
     title: "",
@@ -71,7 +71,7 @@ const AddEventCard = ({ onNewItemAdd }) => {
 
     onNewItemAdd((prev) => !prev);
 
-    success(
+    successAlert(
       user?.isAlumni || user?.isAdmin
         ? "Event Created Successfully"
         : "Event details has sent to admin for verification, You will be notified shortly"

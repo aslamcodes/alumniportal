@@ -33,10 +33,10 @@ import useAxiosWithCallback from "hooks/useAxiosWithCallback";
 import Loader from "components/UI/Loader";
 
 function App() {
-  const { error } = useAlertContext();
+  const { errorAlert } = useAlertContext();
 
   useEffect(() => {
-    error(
+    errorAlert(
       "Alumni-Portal is still on alpha testing, and not stable, expect bugs", 8000
     );
   }, []);

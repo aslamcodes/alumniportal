@@ -5,11 +5,11 @@ import { useAlertContext } from "context/alert/alertContext";
 
 function AllPhotos() {
   const { isLoading, error, images } = useGetGalleryImages(0);
-  const { success } = useAlertContext();
+  const { successAlert, errorAlert } = useAlertContext();
 
   useEffect(() => {
-    if (error) success(error);
-  }, [error, success]);
+    if (error) errorAlert(error);
+  }, [error, errorAlert]);
 
   return (
     <GalleryTemplate

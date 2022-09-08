@@ -9,19 +9,21 @@ import Loader from "components/UI/Loader";
 import useAxiosWithCallback from "hooks/useAxiosWithCallback";
 import { useAuthContext } from "context/auth/authContext";
 import NoDataMessage from "./NoDataMessage";
+import { useAlertContext } from "context/alert/alertContext";
 
 const AlumniTable = () => {
-  useEffect(() => {
-    document.title = "Alumni Portal | Alumni Table"
-  }, []);
+
   const { alumni: alumniData, error, isLoading, trigger } = useGetAlumni();
   const [alumni, setAlumni] = useState(alumniData);
 
   const [entriesPerPage, setEntriesPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [tableHeadOnTop, setTableHeadOnTop] = useState(false);
+
   const { fetchData: deleteAlumni } = useAxiosWithCallback();
   const { user } = useAuthContext();
+  const { errorAlert } = useAlertContext();
+
   const totalPages = alumni ? Math.ceil(alumni.length / entriesPerPage) : 0;
   const tableHeadRef = useRef(null);
   const filters = useMemo(() => getAlumniFilters(alumniData), [alumniData]);
@@ -33,6 +35,8 @@ const AlumniTable = () => {
       backgroundColor: tableHeadOnTop ? "#bddcf3" : "#e2e2e2",
     },
   });
+
+
 
   const dataHeaders = [
     { label: 'Register Number', key: 'user.registerNumber' },
@@ -51,6 +55,12 @@ const AlumniTable = () => {
     { label: 'Skills', key: 'user.skill' }
   ];
 
+  useEffect(() => {
+    document.title = "Alumni Portal | Alumni Table";
+    if (error) {
+      return errorAlert("404 Error, Can't fetch data");
+    }
+  }, []);
 
   useEffect(() => {
     setAlumni(alumniData);

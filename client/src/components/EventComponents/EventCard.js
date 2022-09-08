@@ -25,11 +25,11 @@ const EventCard = ({ isActive, isCardActive, event, isAdmin, trigger }) => {
     "Nov",
     "Dec",
   ];
-  const { success } = useAlertContext();
+  const { successAlert, errorAlert } = useAlertContext();
 
   useEffect(() => {
-    if (error) success(error);
-  }, [error, success]);
+    if (error) errorAlert(error);
+  }, [error, errorAlert]);
 
   const handleDeleteEvent = async (e) => {
     e.preventDefault();
@@ -43,7 +43,7 @@ const EventCard = ({ isActive, isCardActive, event, isAdmin, trigger }) => {
     };
 
     await fetchData(deleteConfig, (res) => {
-      success(`Deleted event ${res.eventName}`);
+      successAlert(`Deleted event ${res.eventName}`);
     });
 
     trigger((prev) => !prev);

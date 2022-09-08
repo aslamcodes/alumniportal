@@ -22,7 +22,7 @@ function RegistrationPageFaculty() {
   const [isCPasswordDirty, setIsCPasswordDirty] = useState(false);
   const [isPasswordMatch, setIsPasswordMatch] = useState(false);
   const { user, error, isLoading } = useAuthContext();
-  const { success } = useAlertContext();
+  const { successAlert, errorAlert } = useAlertContext();
   const graduationLevelOptions = ["Under graduate", "Post graduate", "Others"];
 
   const [data, setData] = useState({
@@ -38,8 +38,8 @@ function RegistrationPageFaculty() {
   });
 
   useEffect(() => {
-    if (error) success(error);
-  }, [error, success]);
+    if (error) errorAlert(error);
+  }, [error, errorAlert]);
 
   const handleChange = (e) => {
     setData({

@@ -16,7 +16,7 @@ const ReplyButton = ({ onAddNewReply, commentId }) => {
   const { user } = useAuthContext();
   const inputRef = useRef(null);
   const navigate = useNavigate();
-  const { success } = useAlertContext();
+  const { successAlert, errorAlert } = useAlertContext();
 
   const { fetchData, isLoading, error } = useAxiosWithCallback();
 
@@ -34,7 +34,7 @@ const ReplyButton = ({ onAddNewReply, commentId }) => {
   const submitHandler = async (e) => {
     e.preventDefault();
     if (!user?.token) {
-      success("Sign in to create replies");
+      errorAlert("Sign in to create replies");
       navigate("/login");
       return;
     }
@@ -63,9 +63,8 @@ const ReplyButton = ({ onAddNewReply, commentId }) => {
         inputRef.current.focus();
       }}
       style={props}
-      className={`${Styles.reply_form} ${
-        isFormOpen && Styles.reply_form_expanded
-      }`}
+      className={`${Styles.reply_form} ${isFormOpen && Styles.reply_form_expanded
+        }`}
     >
       <input
         ref={inputRef}

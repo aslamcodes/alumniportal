@@ -22,7 +22,7 @@ const AdminTableHeader = ({
   const [selectedCount, setSelectedCount] = useState(10);
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const { success } = useAlertContext();
+  const { successAlert } = useAlertContext();
 
 
 

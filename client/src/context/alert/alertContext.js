@@ -16,17 +16,17 @@ AlertContext.displayName = "AlertContext";
 const AlertContextProvider = ({ children }) => {
   const [alert, setAlert] = useState(AlertStatus.NONE);
   const [alertText, setAlertText] = useState("");
-  const success = useCallback((text, timeout = 5000) => {
+  const successAlert = useCallback((text, timeout = 5000) => {
     setAlertText(text);
     setAlert(AlertStatus.SUCCESS);
     setTimeout(() => setAlert(AlertStatus.NONE), timeout);
   }, []);
-  const failed = useCallback((text, timeout = 5000) => {
+  const failedAlert = useCallback((text, timeout = 5000) => {
     setAlertText(text);
     setAlert(AlertStatus.FAILED);
     setTimeout(() => setAlert(AlertStatus.NONE), timeout);
   }, []);
-  const error = useCallback((text, timeout = 5000) => {
+  const errorAlert = useCallback((text, timeout = 5000) => {
     setAlertText(text);
     setAlert(AlertStatus.ERROR);
     setTimeout(() => setAlert(AlertStatus.NONE), timeout);
@@ -37,9 +37,9 @@ const AlertContextProvider = ({ children }) => {
       value={{
         alert,
         alertText,
-        success,
-        failed,
-        error,
+        successAlert,
+        failedAlert,
+        errorAlert,
         clear: () => setAlert(AlertStatus.NONE),
       }}
     >

@@ -24,7 +24,7 @@ const ForumCard = ({ data, profileActive, profileEdit }) => {
   const [liked, setLiked] = useState(
     user ? data?.likes?.map((like) => like.user._id).includes(user?._id) : false
   );
-  const { success } = useAlertContext();
+  const { successAlert, errorAlert } = useAlertContext();
   const navigate = useNavigate();
 
   useEffect(() => {}, []);
@@ -33,13 +33,13 @@ const ForumCard = ({ data, profileActive, profileEdit }) => {
     navigator.clipboard
       .writeText(`${config.CLIENT_URL}/alumni-forum/${postId}`)
       .then(() => {
-        success("Post link copied to clipboard");
+        successAlert("Post link copied to clipboard");
       });
   };
 
   const onLikePostHandler = async () => {
     if (!user?.token) {
-      success("Sign in to like a post");
+      errorAlert("Sign in to like a post");
       navigate("/login");
       return;
     }
@@ -68,7 +68,7 @@ const ForumCard = ({ data, profileActive, profileEdit }) => {
     console.log(data._id);
 
     await fetchData(deleteConfig, (res) => {
-      success(`Deleted Post ${res.post}`);
+      successAlert(`Deleted Post ${res.post}`);
     });
 
     trigger();

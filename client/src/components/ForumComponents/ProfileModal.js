@@ -34,7 +34,7 @@ function ProfileModal({ isOpen, handleClose, userId }) {
     document.title = "Alumni Portal | Profile"
   });
   const navigate = useNavigate();
-  const { user, isLoading, error ,trigger} = useUserProfileData(userId);
+  const { user, isLoading, error, trigger } = useUserProfileData(userId);
   const {
     isLoading: isPostLoading,
     error: postError,
@@ -53,7 +53,7 @@ function ProfileModal({ isOpen, handleClose, userId }) {
   const isUser = user ? user._id === loggedInUser?._id : false;
   const [editedData, setEditedData] = useState(user);
   const { fetchData: updateProfile } = useAxiosWithCallback();
-  const { success } = useAlertContext();
+  const { successAlert, errorAlert } = useAlertContext();
 
   const pick_image = useCallback(() => {
     const random_number = Math.floor(Math.random() * PROFILE_IMAGES.length);
@@ -123,7 +123,7 @@ function ProfileModal({ isOpen, handleClose, userId }) {
     };
 
     await updateProfile(updateConfig, () => {
-      success("Profile updated successfully ");
+      successAlert("Profile updated successfully ");
     });
     setEditProfile(false);
   };

@@ -31,7 +31,7 @@ const LoginForm = () => {
     formState: { errors },
     handleSubmit,
   } = useForm();
-  const { success } = useAlertContext();
+  const { successAlert, errorAlert } = useAlertContext();
 
   const { user, error, isLoading } = useAuthContext();
 
@@ -45,9 +45,9 @@ const LoginForm = () => {
 
   useEffect(() => {
     if (error) {
-      success(error);
+      errorAlert(error);
     }
-  }, [error, success]);
+  }, [error, errorAlert]);
 
   if (isLoading) return <Loader />;
 

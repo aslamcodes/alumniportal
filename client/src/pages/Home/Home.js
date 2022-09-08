@@ -16,7 +16,7 @@ const Home = () => {
       return p.toString() === "[object SafariRemoteNotification]";
     })(
       !window["safari"] ||
-        (typeof safari !== "undefined" && window["safari"].pushNotification)
+      (typeof safari !== "undefined" && window["safari"].pushNotification)
     );
 
   useEffect(() => {
@@ -25,11 +25,11 @@ const Home = () => {
   const [newTestimonialActive, setNewTestimonialActive] = useState(false);
   const { user } = useAuthContext();
   const { testimonials, error, isLoading, trigger } = useGetTestimonial();
-  const { success } = useAlertContext();
+  const { successAlert, errorAlert } = useAlertContext();
 
   const onChangeTestimonial = (message) => {
     trigger();
-    success(message);
+    successAlert(message);
     setNewTestimonialActive(false);
   };
 
