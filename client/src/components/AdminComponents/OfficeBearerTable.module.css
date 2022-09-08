@@ -9,7 +9,7 @@
   white-space: nowrap;
   overflow-x: auto;
   border: 1px solid #e2e2e2;
-  max-height: 20vh;
+  max-height: 80vh;
 }
 #office_bearer_table::-webkit-scrollbar {
   width: 4px;
