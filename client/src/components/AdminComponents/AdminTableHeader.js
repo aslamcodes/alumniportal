@@ -38,7 +38,7 @@ const AdminTableHeader = ({
   const handleOnSearch = () => {
     onSearch(searchQuery);
   };
-  console.log(data);
+
 
   return (
     <>

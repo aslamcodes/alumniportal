@@ -65,7 +65,6 @@ const ForumCard = ({ data, profileActive, profileEdit }) => {
       url: `/api/v1/forum/${data._id}`,
       method: "delete",
     };
-    console.log(data._id);
 
     await fetchData(deleteConfig, (res) => {
       successAlert(`Deleted Post ${res.post}`);

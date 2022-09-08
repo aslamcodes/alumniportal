@@ -104,12 +104,12 @@ const AdminSidebar = ({ onClose }) => {
         <div
           className={Styles.sidebar_item}
           onClick={() => {
-            navigate("/admin");
+            navigate("/alumni-data");
           }}
         >
           <BsPeople />
           {sidebarItemTransistion((style, item) => {
-            return item && <a.p style={style}>Alumni</a.p>;
+            return item && <a.p style={style}>Alumni Data</a.p>;
           })}
         </div>
         <div
