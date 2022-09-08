@@ -15,7 +15,8 @@
   gap: 1rem;
 }
 
-.table_actions button {
+.table_actions button,
+.table_actions a {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -24,6 +25,8 @@
   padding: 0.6em 1em;
   background-color: #fff;
   outline: none;
+  color: #000;
+  text-decoration: none;
   border: 1px solid #ccc;
   border-radius: 1rem;
 }
