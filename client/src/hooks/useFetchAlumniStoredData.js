@@ -1,3 +1,4 @@
+import { useAlertContext } from "context/alert/alertContext";
 import { useEffect, useState } from "react";
 import useAxiosWithCallback from "./useAxiosWithCallback";
 
@@ -10,18 +11,25 @@ export function useFetchAlumniStoredData({ email }) {
 
   const [alumni, setAlumni] = useState();
 
+  const { successAlert } = useAlertContext();
+
   useEffect(() => {
     if (email) {
       const config = {
         url: "/api/v1/alumni-data/alumni",
-        data: {
+        params: {
           email,
         },
       };
 
-      fetchStoredAlumni(config, (storedAlumni) => setAlumni(storedAlumni));
+      fetchStoredAlumni(config, (storedAlumni) => {
+        successAlert(
+          "We've gathered data about you from SKCT Alumni database, please verify it"
+        );
+        return setAlumni(storedAlumni);
+      });
     }
-  }, [email, fetchStoredAlumni]);
+  }, [email, fetchStoredAlumni, successAlert]);
 
   return { isLoading, error, alumni };
 }
