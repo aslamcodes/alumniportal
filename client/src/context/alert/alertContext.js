@@ -5,9 +5,9 @@ import { useCallback } from "react";
 const initialState = {
   alert: AlertStatus.NONE,
   alertText: "",
-  success: (text, timeout) => {},
-  clear: () => {},
-  error: () => {},
+  success: (text, timeout) => { },
+  clear: () => { },
+  error: () => { },
 };
 
 const AlertContext = createContext(initialState);
@@ -16,13 +16,20 @@ AlertContext.displayName = "AlertContext";
 const AlertContextProvider = ({ children }) => {
   const [alert, setAlert] = useState(AlertStatus.NONE);
   const [alertText, setAlertText] = useState("");
-  const success = useCallback((text, timeout) => {
+  const success = useCallback((text, timeout = 5000) => {
     setAlertText(text);
     setAlert(AlertStatus.SUCCESS);
+    setTimeout(() => setAlert(AlertStatus.NONE), timeout);
   }, []);
-  const error = useCallback((text, timeout) => {
+  const failed = useCallback((text, timeout = 5000) => {
+    setAlertText(text);
+    setAlert(AlertStatus.FAILED);
+    setTimeout(() => setAlert(AlertStatus.NONE), timeout);
+  }, []);
+  const error = useCallback((text, timeout = 5000) => {
     setAlertText(text);
     setAlert(AlertStatus.ERROR);
+    setTimeout(() => setAlert(AlertStatus.NONE), timeout);
   }, []);
 
   return (
@@ -31,6 +38,7 @@ const AlertContextProvider = ({ children }) => {
         alert,
         alertText,
         success,
+        failed,
         error,
         clear: () => setAlert(AlertStatus.NONE),
       }}
