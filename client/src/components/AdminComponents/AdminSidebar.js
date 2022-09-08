@@ -104,6 +104,17 @@ const AdminSidebar = ({ onClose }) => {
         <div
           className={Styles.sidebar_item}
           onClick={() => {
+            navigate("/admin");
+          }}
+        >
+          <BsPeople />
+          {sidebarItemTransistion((style, item) => {
+            return item && <a.p style={style}>Alumni</a.p>;
+          })}
+        </div>
+        <div
+          className={Styles.sidebar_item}
+          onClick={() => {
             navigate("/admin/request-details");
           }}
         >
