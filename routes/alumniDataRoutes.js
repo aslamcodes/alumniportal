@@ -7,6 +7,6 @@ import {
 const router = express.Router();
 
 router.get("/", getAllAlumniData);
-router.get("/alumni", getAlumniData);
+router.get("/alumni/", getAlumniData);
 
 export default router;

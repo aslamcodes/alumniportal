@@ -17,13 +17,20 @@ const range = (start, stop, step) =>
   Array.from({ length: (stop - start) / step + 1 }, (_, i) => start + i * step);
 
 const YearOfPassing = range(1985, currentYear + 4, 1);
-const Department = ["B.TECH IT", "B.E CSE", "B.E ECE", "B.E EEE", "B.E MECH", "B.E CIVIL", "MBA"];
+const Department = [
+  "B.TECH IT",
+  "B.E CSE",
+  "B.E ECE",
+  "B.E EEE",
+  "B.E MECH",
+  "B.E CIVIL",
+  "MBA",
+];
 const graduationLevelOptions = ["Under graduate", "Post graduate"];
 
 function RegistrationPageStudent() {
-
   useEffect(() => {
-    document.title = "Alumni Portal | Register"
+    document.title = "Alumni Portal | Register";
   }, []);
 
   const today = new Date().toJSON().slice(0, 10);
@@ -58,9 +65,7 @@ function RegistrationPageStudent() {
   const departmentRef = useRef("");
 
   const temp = useFetchAlumniStoredData({
-    email: emailRef.current,
-    registerNumber: registerNumberRef.current,
-    department: departmentRef.current,
+    email: data.email,
   });
 
   const handleChange = (e) => {

@@ -3,9 +3,9 @@ import AlumniData from "../models/Alumni-data.js";
 
 export const getAlumniData = asyncHandler(async (req, res) => {
   const { email } = req.body;
-
+  console.log(req.body);
   const alumniData = await AlumniData.findOne({
-    email: email.trim(),
+    email: email,
   });
 
   if (!alumniData) {

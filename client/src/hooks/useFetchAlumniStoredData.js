@@ -1,19 +1,27 @@
 import { useEffect, useState } from "react";
 import useAxiosWithCallback from "./useAxiosWithCallback";
 
-export function useFetchAlumniStoredData({
-  registerNumber,
-  email,
-  department,
-}) {
-  const { isLoading, error, fetchData } = useAxiosWithCallback();
+export function useFetchAlumniStoredData({ email }) {
+  const {
+    isLoading,
+    error,
+    fetchData: fetchStoredAlumni,
+  } = useAxiosWithCallback();
+
   const [alumni, setAlumni] = useState();
 
   useEffect(() => {
-    if (email && department) {
-      //route
+    if (email) {
+      const config = {
+        url: "/api/v1/alumni-data/alumni",
+        data: {
+          email,
+        },
+      };
+
+      fetchStoredAlumni(config, (storedAlumni) => setAlumni(storedAlumni));
     }
-  }, [registerNumber, email, department]);
+  }, [email, fetchStoredAlumni]);
 
   return { isLoading, error, alumni };
 }
