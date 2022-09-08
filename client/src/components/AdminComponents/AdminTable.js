@@ -39,7 +39,7 @@ const AlumniTable = () => {
     { label: 'Name', key: 'user.name' },
     { label: 'Department', key: 'user.department' },
     { label: 'Designation', key: 'designation' },
-    { label: 'Organization', key: 'organization' },
+    { label: 'Company', key: 'organization' },
     { label: 'Phone Number', key: 'user.phoneNumber' },
     { label: 'Email', key: 'user.email' },
     { label: 'City', key: 'user.city' },
@@ -126,6 +126,7 @@ const AlumniTable = () => {
       <AdminTableHeader
         data={alumni}
         headers={dataHeaders}
+        filename="Alumni Details"
         onSelect={onEntriesPerPageSelectHandler}
         onSearch={onSearch}
         type="Alumni"

@@ -12,6 +12,7 @@ import { CSVLink } from "react-csv";
 const AdminTableHeader = ({
   data,
   headers,
+  filename,
   onSelect,
   type,
   filters,
@@ -64,7 +65,7 @@ const AdminTableHeader = ({
           >
             Filter <FaFilter />
           </button>
-          <CSVLink data={data ? data : [{}]} headers={headers} >
+          <CSVLink data={data ? data : [{}]} headers={headers} filename={filename || "data"} >
             Csv
             <MdDownload fontSize={18}
             />
