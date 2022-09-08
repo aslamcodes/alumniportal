@@ -12,20 +12,20 @@ import { useAlertContext } from "context/alert/alertContext";
 
 function AlumniForum() {
   useEffect(() => {
-    document.title = "Alumni Portal | Alumni Forum";
+    document.title = "Alumni Portal | Alumni Forum"
   }, []);
   const [newPostActive, setNewPostActive] = useState(false);
   const [profileActive, setProfileActive] = useState(false);
   const { user } = useAuthContext();
 
   const { isLoading, error, posts } = useGetForumPosts();
-  const { success } = useAlertContext();
+  const { successAlert, errorAlert } = useAlertContext();
 
   useEffect(() => {
     if (error) {
-      success(error);
+      errorAlert(error);
     }
-  }, [error, success]);
+  }, [error, errorAlert]);
 
   return (
     <div className={Styles.container}>

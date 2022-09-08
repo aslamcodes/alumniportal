@@ -22,7 +22,10 @@ const AdminTableHeader = ({
   const [selectedCount, setSelectedCount] = useState(10);
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const { success } = useAlertContext();
+  const { successAlert } = useAlertContext();
+
+
+
   const onChangeHandler = ({ value }) => {
     setSelectedCount(value);
     onSelect(value);
@@ -65,7 +68,7 @@ const AdminTableHeader = ({
           >
             Filter <FaFilter />
           </button>
-          <CSVLink data={data ? data : [{}]} headers={headers} filename={filename || "data"} >
+          <CSVLink data={data ? data : [{}]} headers={headers} filename={filename || "data"}  >
             Csv
             <MdDownload fontSize={18}
             />

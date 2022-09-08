@@ -49,7 +49,7 @@ const EventRequestRow = ({ data, onApproveHandler }) => {
   const [isShowReject, setIsShowReject] = useState(false);
   const startDate = new Date(data.startDate);
   const endDate = new Date(data.endDate);
-  const { success } = useAlertContext();
+  const { successAlert, } = useAlertContext();
   return (
     <>
       <tr className={styles.event_request_row}>
@@ -74,7 +74,7 @@ const EventRequestRow = ({ data, onApproveHandler }) => {
               <p
                 onClick={() => {
                   onApproveHandler(data._id);
-                  success("Approved");
+                  successAlert("Approved");
                 }}
                 className={styles.accept}
               >

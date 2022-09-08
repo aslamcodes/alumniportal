@@ -33,16 +33,16 @@ function RegistrationPageAlumni() {
     designation: "",
     organization: "",
   });
-  const { success } = useAlertContext();
+  const { successAlert, errorAlert } = useAlertContext();
 
   useEffect(() => {
     !user && navigate("/login");
   }, [user, navigate]);
 
   useEffect(() => {
-    error && success(error);
+    error && errorAlert(error);
     alumni && navigate("/");
-  }, [error, alumni, navigate, success]);
+  }, [error, alumni, navigate, errorAlert]);
 
   const handleChange = (e) => {
     setData({

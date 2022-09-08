@@ -10,7 +10,7 @@ const AddPhotos = ({ isCardActive, type, onAddNewImage }) => {
   const [imageSwitch, setImageSwitch] = useState(false);
   const { user } = useAuthContext();
   const { fetchData } = useAxiosWithCallback();
-  const { success } = useAlertContext();
+  const { successAlert, errorAlert } = useAlertContext();
 
   const onSelectFile = (e) => {
     if (!e.target.files || e.target.files.length === 0) {
@@ -25,7 +25,7 @@ const AddPhotos = ({ isCardActive, type, onAddNewImage }) => {
 
     const galleryImageData = new FormData();
 
-    if (!image) return success("No Image inserted");
+    if (!image) return errorAlert("No Image inserted");
 
     galleryImageData.append("image", image);
     galleryImageData.append("type", type);
@@ -43,7 +43,7 @@ const AddPhotos = ({ isCardActive, type, onAddNewImage }) => {
 
     setImage(null);
     onAddNewImage();
-    success("Image has been added to gallery of type " + type.toUpperCase());
+    successAlert("Image has been added to gallery of type " + type.toUpperCase());
   };
   return (
     <>

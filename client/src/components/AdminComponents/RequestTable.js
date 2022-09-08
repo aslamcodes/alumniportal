@@ -33,7 +33,7 @@ const RequestTable = () => {
   const { fetchData: approveAlumni } = useAxiosWithCallback();
   const { fetchData: rejectAlumni } = useAxiosWithCallback();
   const totalPages = Math.ceil(applications?.length / entriesPerPage);
-  const { success } = useAlertContext();
+  const { successAlert, errorAlert } = useAlertContext();
 
   const [applicationsFiltered, setApplicationsFiltered] = useState([]);
 
@@ -58,8 +58,8 @@ const RequestTable = () => {
   }, [applications]);
 
   useEffect(() => {
-    if (error) success(error.response.data.message);
-  }, [error, success]);
+    if (error) errorAlert(error.response.data.message);
+  }, [error, errorAlert]);
 
   const OnIncreaseHandler = () => {
     if (currentPage > totalPages - 1) return null;

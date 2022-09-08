@@ -5,11 +5,11 @@ import { useAlertContext } from "context/alert/alertContext";
 
 function SeminarSessions() {
   const { isLoading, error, images } = useGetGalleryImages(1);
-  const { success } = useAlertContext();
+  const { successAlert, errorAlert } = useAlertContext();
 
   useEffect(() => {
-    if (error) success(error);
-  }, [error, success]);
+    if (error) errorAlert(error);
+  }, [error, errorAlert]);
 
   return (
     <GalleryTemplate
