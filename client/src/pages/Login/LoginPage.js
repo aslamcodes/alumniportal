@@ -91,7 +91,7 @@ const LoginForm = () => {
           <div className={styles["terms-conditions"]}>
             <p
               onClick={() => {
-                success("Feature will be enabled soon 😁");
+                errorAlert("Feature will be enabled soon 😁");
               }}
             >
               By login you agree to our <a>Terms & conditions</a>
