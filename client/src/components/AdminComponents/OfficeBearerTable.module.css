@@ -4,6 +4,26 @@
   width: 100%;
   border-collapse: collapse;
   background-color: #e5e5e5;
+  position: relative;
+  display: block;
+  white-space: nowrap;
+  overflow-x: auto;
+  border: 1px solid #e2e2e2;
+  max-height: 20vh;
+}
+#office_bearer_table::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+#office_bearer_table::-webkit-scrollbar-track {
+  background: transparent;
+}
+#office_bearer_table::-webkit-scrollbar-thumb {
+  background: #838383;
+  border-radius: 40px;
+}
+#office_bearer_table::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 #office_bearer_table thead {
   text-align: left;

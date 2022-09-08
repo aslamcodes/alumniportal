@@ -11,6 +11,10 @@ import Loader from "components/UI/Loader";
 import { useAlertContext } from "context/alert/alertContext";
 
 function RegistrationPageFaculty() {
+  useEffect(() => {
+    document.title = "Alumni Portal | Register Faculty"
+  }, []);
+
   const today = new Date().toJSON().slice(0, 10);
   const navigate = useNavigate();
   const location = useLocation();

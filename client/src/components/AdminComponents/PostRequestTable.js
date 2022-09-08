@@ -7,6 +7,7 @@ import AdminTableHeader from "./AdminTableHeader";
 import PostRequestTableRow from "./PostRequestTableRow";
 import styles from './PostRequestTable.module.css'
 import NoDataMessage from "./NoDataMessage";
+import AdminTablePagination from "./AdminTablePagination";
 
 const PostRequestTable = () => {
   const { isLoading, error, postRequests } = useGetPostRequests();
@@ -16,6 +17,9 @@ const PostRequestTable = () => {
     error: approvalError,
   } = useAxiosWithCallback();
   const { user } = useAuthContext();
+  const [entriesPerPage, setEntriesPerPage] = useState(10);
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = postRequests ? Math.ceil(postRequests.length / entriesPerPage) : 0;
 
   const onApproveHandler = async (requestId) => {
     const approvalConfig = {
@@ -27,13 +31,26 @@ const PostRequestTable = () => {
     };
     await approveRequest(approvalConfig);
   };
+  const OnIncreaseHandler = () => {
+    if (currentPage > totalPages - 1) return null;
+    setCurrentPage(currentPage + 1);
+  };
 
+  const onDecreaseHandler = () => {
+    if (currentPage < 2) return null;
+    setCurrentPage(currentPage - 1);
+  };
+
+  const onEntriesPerPageSelectHandler = (value) => {
+    setEntriesPerPage(value);
+  };
 
   if (isLoading) return <Loader />;
 
   return (
     <div className={styles.post_request_container}>
       <AdminTableHeader
+        onSelect={onEntriesPerPageSelectHandler}
         type="Post Requests"
 
       />
@@ -51,7 +68,10 @@ const PostRequestTable = () => {
         </thead>
         {postRequests && postRequests.length > 0 ?
           <tbody>
-            {postRequests.map((request, index) => {
+            {postRequests?.slice(
+              currentPage * entriesPerPage - entriesPerPage,
+              currentPage * entriesPerPage
+            ).map((request, index) => {
               return (
                 <PostRequestTableRow
                   data={request} key={index} onApproveHandler={onApproveHandler}
@@ -63,6 +83,12 @@ const PostRequestTable = () => {
           <NoDataMessage />
         }
       </table>
+      <AdminTablePagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onIncrease={OnIncreaseHandler}
+        onDecrease={onDecreaseHandler}
+      />
     </div>
   );
 };
