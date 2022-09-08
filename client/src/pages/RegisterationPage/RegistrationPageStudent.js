@@ -17,13 +17,22 @@ const range = (start, stop, step) =>
   Array.from({ length: (stop - start) / step + 1 }, (_, i) => start + i * step);
 
 const YearOfPassing = range(1985, currentYear + 4, 1);
-const Department = ["B.TECH IT", "B.E CSE", "B.E ECE", "B.E EEE", "B.E MECH", "B.E CIVIL", "MBA"];
+
+const Department = [
+  "B.TECH IT",
+  "B.E CSE",
+  "B.E ECE",
+  "B.E EEE",
+  "B.E MECH",
+  "B.E CIVIL",
+  "MBA",
+];
+
 const graduationLevelOptions = ["Under graduate", "Post graduate"];
 
 function RegistrationPageStudent() {
-
   useEffect(() => {
-    document.title = "Alumni Portal | Register"
+    document.title = "Alumni Portal | Register";
   }, []);
 
   const today = new Date().toJSON().slice(0, 10);
@@ -51,17 +60,51 @@ function RegistrationPageStudent() {
     skill: "",
   });
 
-  const { successAlert, errorAlert } = useAlertContext();
+  const { errorAlert } = useAlertContext();
 
   const emailRef = useRef("");
   const registerNumberRef = useRef("");
   const departmentRef = useRef("");
 
-  const temp = useFetchAlumniStoredData({
+  const { alumni } = useFetchAlumniStoredData({
     email: emailRef.current,
-    registerNumber: registerNumberRef.current,
-    department: departmentRef.current,
   });
+
+  useEffect(() => {
+    if (isCPasswordDirty) {
+      if (data.password === data.confirmPassword) {
+        setIsPasswordMatch(true);
+      } else {
+        setIsPasswordMatch(false);
+      }
+    }
+  }, [data.confirmPassword, isCPasswordDirty, data.password]);
+
+  useEffect(() => {
+    if (error) errorAlert(error);
+  }, [error, errorAlert]);
+
+  useEffect(() => {
+    setData((prev) => {
+      const dateOfBirth = new Date(alumni?.dateOfBirth);
+
+      let month = "" + (dateOfBirth.getMonth() + 1);
+      let day = "" + dateOfBirth.getDate();
+      let year = dateOfBirth.getFullYear();
+
+      if (month.length < 2) month = "0" + month;
+      if (day.length < 2) day = "0" + day;
+
+      return {
+        ...prev,
+        name: alumni?.name,
+        yearOfPassing: +alumni?.batch + 4,
+        dateOfBirth: [year, month, day].join("-"),
+        registerNumber: alumni?.registerNumber,
+        phoneNumber: alumni?.contact,
+      };
+    });
+  }, [alumni]);
 
   const handleChange = (e) => {
     if (e.target.name === "confirmPassword") {
@@ -89,6 +132,7 @@ function RegistrationPageStudent() {
     e.preventDefault();
     setFormStep(2);
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -110,20 +154,6 @@ function RegistrationPageStudent() {
 
     await register(dispatch, formData);
   };
-
-  useEffect(() => {
-    if (isCPasswordDirty) {
-      if (data.password === data.confirmPassword) {
-        setIsPasswordMatch(true);
-      } else {
-        setIsPasswordMatch(false);
-      }
-    }
-  }, [data.confirmPassword, isCPasswordDirty, data.password]);
-
-  useEffect(() => {
-    if (error) errorAlert(error);
-  }, [error, errorAlert]);
 
   if (user) {
     navigate(location?.from ?? "/");
@@ -218,18 +248,6 @@ function RegistrationPageStudent() {
                         onChange={handleChange}
                       />
                     </div>
-                    <div className={styles.form_input_container}>
-                      <input
-                        name="registerNumber"
-                        type="text"
-                        id="register_no"
-                        required
-                        placeholder="Register Number"
-                        value={data.registerNumber}
-                        onChange={handleChange}
-                        onBlur={handleInputBlur}
-                      />
-                    </div>
                     <div
                       className={`${styles.form_input_container} ${styles.split_container}`}
                     >
@@ -251,6 +269,18 @@ function RegistrationPageStudent() {
                         required
                         placeholder="Email"
                         value={data.email}
+                        onChange={handleChange}
+                        onBlur={handleInputBlur}
+                      />
+                    </div>
+                    <div className={styles.form_input_container}>
+                      <input
+                        name="registerNumber"
+                        type="text"
+                        id="register_no"
+                        required
+                        placeholder="Register Number"
+                        value={data.registerNumber}
                         onChange={handleChange}
                         onBlur={handleInputBlur}
                       />

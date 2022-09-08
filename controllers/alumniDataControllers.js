@@ -2,10 +2,10 @@ import asyncHandler from "express-async-handler";
 import AlumniData from "../models/Alumni-data.js";
 
 export const getAlumniData = asyncHandler(async (req, res) => {
-  const { email } = req.body;
+  const { email } = req.query;
 
   const alumniData = await AlumniData.findOne({
-    email: email.trim(),
+    email: email.toLowerCase(),
   });
 
   if (!alumniData) {

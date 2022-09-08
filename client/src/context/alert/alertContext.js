@@ -5,9 +5,11 @@ import { useCallback } from "react";
 const initialState = {
   alert: AlertStatus.NONE,
   alertText: "",
-  success: (text, timeout) => { },
-  clear: () => { },
-  error: () => { },
+  successAlert: (text, timeout) => {},
+  failedAlert: (text, timeout) => {},
+  errorAlert: (text, timeout) => {},
+  clear: () => {},
+  error: () => {},
 };
 
 const AlertContext = createContext(initialState);
