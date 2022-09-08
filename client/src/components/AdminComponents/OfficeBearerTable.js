@@ -80,9 +80,29 @@ const OfficeBearerTable = () => {
     setEntriesPerPage(value);
   };
 
+  const dataHeaders = [
+    { label: 'Register Number', key: 'user.registerNumber' },
+    { label: 'Name', key: 'user.name' },
+    { label: 'Department', key: 'user.department' },
+    { label: 'Designation', key: 'designation' },
+    { label: 'Company', key: 'organization' },
+    { label: 'Phone Number', key: 'user.phoneNumber' },
+    { label: 'Email', key: 'user.email' },
+    { label: 'City', key: 'user.city' },
+    { label: 'State', key: 'user.state' },
+    { label: 'Country', key: 'user.country' },
+    { label: 'Graduation Level', key: 'user.graduationLevel' },
+    { label: 'PG College Name', key: 'secondaryCollegeName' },
+    { label: 'Course Name', key: 'courseName' },
+    { label: 'Skills', key: 'user.skill' }
+  ];
+
   return (
     <div className={styles.office_bearer_container}>
       <AdminTableHeader
+        data={alumniData}
+        headers={dataHeaders}
+        filename="Office Bearers"
         onSelect={onEntriesPerPageSelectHandler}
         type="Office Bearers"
       />
