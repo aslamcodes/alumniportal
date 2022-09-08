@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import AdminTableHeader from "./AdminTableHeader";
 import AdminTablePagination from "./AdminTablePagination";
 import Styles from "./AdminTable.module.css";
@@ -10,10 +10,9 @@ import { useAuthContext } from "context/auth/authContext";
 import Loader from "components/UI/Loader";
 import { useAlertContext } from "context/alert/alertContext";
 import NoDataMessage from "./NoDataMessage";
+import { filterAlumniData, getAlumniFilters } from "utils/utils";
 
 const RequestTable = () => {
-
-
   const [entriesPerPage, setEntriesPerPage] = useState(10);
   const [tableHeadOnTop] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -33,11 +32,30 @@ const RequestTable = () => {
   const { applications, isLoading, error, trigger } = useGetNewApplications();
   const { fetchData: approveAlumni } = useAxiosWithCallback();
   const { fetchData: rejectAlumni } = useAxiosWithCallback();
-
   const totalPages = Math.ceil(applications?.length / entriesPerPage);
   const { successAlert, errorAlert } = useAlertContext();
 
+  const [applicationsFiltered, setApplicationsFiltered] = useState([]);
 
+  const filters = useMemo(() => getAlumniFilters(applications), [applications]);
+
+  const onApplyFilter = (filters) => {
+    setApplicationsFiltered(filterAlumniData(applications, filters));
+  };
+
+  const onSearch = (query) => {
+    setApplicationsFiltered(
+      applicationsFiltered.filter((alumnus) =>
+        (alumnus.user.registerNumber + " " + alumnus.user.name)
+          .toLowerCase()
+          .includes(query)
+      )
+    );
+  };
+
+  useEffect(() => {
+    setApplicationsFiltered(applications);
+  }, [applications]);
 
   useEffect(() => {
     if (error) errorAlert(error.response.data.message);
@@ -90,26 +108,28 @@ const RequestTable = () => {
   };
   console.log(applications);
   const dataHeaders = [
-    { label: 'Register Number', key: 'user.registerNumber' },
-    { label: 'Name', key: 'user.name' },
-    { label: 'Department', key: 'user.department' },
-    { label: 'Designation', key: 'alumni_data.designation' },
-    { label: 'Company', key: 'alumni_data.organization' },
-    { label: 'Phone Number', key: 'user.phoneNumber' },
-    { label: 'Email', key: 'user.email' },
-    { label: 'City', key: 'user.city' },
-    { label: 'State', key: 'user.state' },
-    { label: 'Country', key: 'user.country' },
-    { label: 'Graduation Level', key: 'user.graduationLevel' },
-    { label: 'PG College Name', key: 'secondaryCollegeName' },
-    { label: 'Course Name', key: 'courseName' },
-    { label: 'Skills', key: 'user.skill' }
+    { label: "Register Number", key: "user.registerNumber" },
+    { label: "Name", key: "user.name" },
+    { label: "Department", key: "user.department" },
+    { label: "Designation", key: "alumni_data.designation" },
+    { label: "Company", key: "alumni_data.organization" },
+    { label: "Phone Number", key: "user.phoneNumber" },
+    { label: "Email", key: "user.email" },
+    { label: "City", key: "user.city" },
+    { label: "State", key: "user.state" },
+    { label: "Country", key: "user.country" },
+    { label: "Graduation Level", key: "user.graduationLevel" },
+    { label: "PG College Name", key: "secondaryCollegeName" },
+    { label: "Course Name", key: "courseName" },
+    { label: "Skills", key: "user.skill" },
   ];
-
 
   return (
     <div>
       <AdminTableHeader
+        filters={filters}
+        onApplyFilter={onApplyFilter}
+        onSearch={onSearch}
         data={applications}
         headers={dataHeaders}
         filename="Alumni requests"
@@ -143,29 +163,26 @@ const RequestTable = () => {
               </tr>
             </a.thead>
 
-            {
-
-              applications && applications.length > 0 ?
-                <tbody>
-                  {applications
-                    ?.slice(
-                      currentPage * entriesPerPage - entriesPerPage,
-                      currentPage * entriesPerPage
-                    )
-                    .filter((application) => !application.rejected)
-                    .map((alumni) => (
-                      <AdminTableRow
-                        alumni={alumni}
-                        type="request-details"
-                        approveAlumniHandler={onApproveAlumni}
-                        rejectAlumni={onRejectAlumni}
-                      />
-                    ))}
-                </tbody>
-                :
-                <NoDataMessage />
-
-            }
+            {applicationsFiltered && applicationsFiltered.length > 0 ? (
+              <tbody>
+                {applicationsFiltered
+                  ?.slice(
+                    currentPage * entriesPerPage - entriesPerPage,
+                    currentPage * entriesPerPage
+                  )
+                  .filter((application) => !application.rejected)
+                  .map((alumni) => (
+                    <AdminTableRow
+                      alumni={alumni}
+                      type="request-details"
+                      approveAlumniHandler={onApproveAlumni}
+                      rejectAlumni={onRejectAlumni}
+                    />
+                  ))}
+              </tbody>
+            ) : (
+              <NoDataMessage />
+            )}
           </table>
 
           <AdminTablePagination
