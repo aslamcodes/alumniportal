@@ -488,6 +488,14 @@ export const getRejectedApplications = asyncHandler(async (req, res) => {
     },
     { $unwind: "$user" },
     { $unwind: "$alumni_data" },
+    {
+      $replaceRoot: { newRoot: { $mergeObjects: ["$alumni_data", "$$ROOT"] } },
+    },
+    {
+      $project: {
+        alumni_data: 0,
+      },
+    },
     { $unset: unwantedFields },
   ]);
   if (!rejectedApplications)
