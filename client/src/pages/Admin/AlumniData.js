@@ -6,12 +6,12 @@ import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "context/auth/authContext";
 
 const AlumniData = () => {
+  const { user } = useAuthContext();
+  const navigate = useNavigate();
+
   useEffect(() => {
     document.title = "Alumni Portal | Admin";
   }, []);
-  const { user } = useAuthContext();
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (!user?.isAdmin || !user) navigate("/");

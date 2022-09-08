@@ -17,24 +17,30 @@ import {
 
 import useGetAlumniStoredData from "hooks/useGetAlumniStoredData";
 import AdminDataTableRow from "./AlumniDataTableRow";
+import useCountAlumniData from "hooks/useCountAlumniData";
+import useGetAlumniData from "hooks/useGetAlumniData";
+import Loader from "components/UI/Loader";
 
 const AlumniDataTable = () => {
-  useEffect(() => {
-    document.title = "Alumni Portal | Alumni Table";
-  }, []);
-
   const [entriesPerPage, setEntriesPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [tableHeadOnTop, setTableHeadOnTop] = useState(false);
 
-  const { alumni: alumniData, error, isLoading, trigger } = useGetAlumniStoredData();
+  const { count } = useCountAlumniData();
+  const uptoIndex = currentPage * entriesPerPage;
+  const { alumniData, error, isLoading } = useGetAlumniData(
+    uptoIndex,
+    entriesPerPage
+  );
+
   const [alumni, setAlumni] = useState(alumniData);
+
   const { fetchData: deleteAlumni } = useAxiosWithCallback();
 
   const { user } = useAuthContext();
   const { errorAlert } = useAlertContext();
 
-  const totalPages = alumni ? Math.ceil(alumni.length / entriesPerPage) : 0;
+  const totalPages = alumni ? Math.ceil(count / entriesPerPage) : 0;
   const tableHeadRef = useRef(null);
   // const filters = useMemo(() => getAlumniFilters(alumniData), [alumniData]);
   const props = useSpring({
@@ -46,50 +52,44 @@ const AlumniDataTable = () => {
     },
   });
 
-
-
-  const dataHeaders = [
-    { label: 'Register Number', key: 'user.registerNumber' },
-    { label: 'Name', key: 'user.name' },
-    { label: 'Department', key: 'user.department' },
-    { label: 'Designation', key: 'designation' },
-    { label: 'Company', key: 'organization' },
-    { label: 'Phone Number', key: 'user.phoneNumber' },
-    { label: 'Email', key: 'user.email' },
-    { label: 'City', key: 'user.city' },
-    { label: 'State', key: 'user.state' },
-    { label: 'Country', key: 'user.country' },
-    { label: 'Graduation Level', key: 'user.graduationLevel' },
-    { label: 'PG College Name', key: 'secondaryCollegeName' },
-    { label: 'Course Name', key: 'courseName' },
-    { label: 'Skills', key: 'user.skill' }
-  ];
-
   useEffect(() => {
     document.title = "Alumni Portal | Alumni Table";
     if (error) {
       return errorAlert("404 Error, Can't fetch data");
     }
-  }, []);
+  }, [errorAlert]);
 
   useEffect(() => {
     setAlumni(alumniData);
-    console.log(alumni);
   }, [alumniData]);
 
-  // const onApplyFilter = (filters) => {
-  //   setAlumni(filterAlumniData(alumniData, filters));
-  // };
+  const dataHeaders = [
+    { label: "Register Number", key: "user.registerNumber" },
+    { label: "Name", key: "user.name" },
+    { label: "Department", key: "user.department" },
+    { label: "Designation", key: "designation" },
+    { label: "Company", key: "organization" },
+    { label: "Phone Number", key: "user.phoneNumber" },
+    { label: "Email", key: "user.email" },
+    { label: "City", key: "user.city" },
+    { label: "State", key: "user.state" },
+    { label: "Country", key: "user.country" },
+    { label: "Graduation Level", key: "user.graduationLevel" },
+    { label: "PG College Name", key: "secondaryCollegeName" },
+    { label: "Course Name", key: "courseName" },
+    { label: "Skills", key: "user.skill" },
+  ];
 
-  // const onSearch = (query) => {
-  //   setAlumni(
-  //     alumniData.filter((alumnus) =>
-  //       (alumnus.user.registerNumber + " " + alumnus.user.name)
-  //         .toLowerCase()
-  //         .includes(query)
-  //     )
-  //   );
-  // };
+  const onSearch = (query) => {
+    setAlumni(
+      alumniData.filter((alumnus) => {
+        return Object.keys(alumnus)
+          .reduce((accStr, field) => accStr + " " + alumnus[field])
+          .toLowerCase()
+          .includes(query);
+      })
+    );
+  };
 
   // const onDeleteAlumniHandler = async (userId) => {
   //   const deleteConfig = {
@@ -117,18 +117,23 @@ const AlumniDataTable = () => {
 
   const onEntriesPerPageSelectHandler = (value) => {
     setEntriesPerPage(value);
+    setCurrentPage(1);
   };
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <div>
       <AdminTableHeader
+        onSearch={onSearch}
         data={alumni}
         headers={dataHeaders}
         filename="Alumni Details"
-        onSelect={onEntriesPerPageSelectHandler}
-
+        entriesPerPage={entriesPerPage}
+        onEntriesSelect={onEntriesPerPageSelectHandler}
         type="Alumni Data"
-
       />
 
       <table className={Styles.table}>
@@ -153,20 +158,15 @@ const AlumniDataTable = () => {
         </a.thead>
         {alumni ? (
           <tbody>
-            {alumni
-              ?.slice(
-                currentPage * entriesPerPage - entriesPerPage,
-                currentPage * entriesPerPage
-              )
-              .map((alumni, index) => (
-                <AdminDataTableRow
-                  alumni={alumni}
-                  key={index}
-                  id={index}
+            {alumni.map((alumni, index) => (
+              <AdminDataTableRow
+                alumni={alumni}
+                key={index}
+                id={index}
                 // type="alumni-details"
                 // onDeleteAlumni={onDeleteAlumniHandler}
-                />
-              ))}
+              />
+            ))}
           </tbody>
         ) : (
           <NoDataMessage />

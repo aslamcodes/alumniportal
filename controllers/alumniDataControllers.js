@@ -34,3 +34,16 @@ export const getAllAlumniData = asyncHandler(async (req, res) => {
 
   res.json(alumniData);
 });
+
+export const getStoredAlumniCount = asyncHandler(async (req, res) => {
+  const count = await AlumniData.count();
+
+  if (!count) {
+    res.status(400);
+    res.json({
+      message: "Problem on Counting the alumni data",
+    });
+  }
+
+  res.json(count);
+});
