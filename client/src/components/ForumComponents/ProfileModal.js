@@ -31,10 +31,10 @@ function ProfileModal({ isOpen, handleClose, userId }) {
     getWindowDimensions()
   );
   useEffect(() => {
-    document.title = "Alumni Portal | Profile"
-  });
+    document.title = "Alumni Portal | Profile";
+  }, []);
   const navigate = useNavigate();
-  const { user, isLoading, error ,trigger} = useUserProfileData(userId);
+  const { user, isLoading, error, trigger } = useUserProfileData(userId);
   const {
     isLoading: isPostLoading,
     error: postError,
@@ -105,7 +105,6 @@ function ProfileModal({ isOpen, handleClose, userId }) {
     await logout(dispatch);
     handleClose();
   };
-
 
   const handleUpdate = async (e) => {
     const updateData = new FormData();
@@ -191,15 +190,16 @@ function ProfileModal({ isOpen, handleClose, userId }) {
                 onChange={handleChangeProfileImage}
               />
             </div>
-            {windowDimensions.width < 780 &&
+            {windowDimensions.width < 780 && (
               <div className={styles.close_btn}>
                 <p onClick={handleClose}> close </p>
               </div>
-            }
+            )}
 
             <div
-              className={`${styles.profile_info} ${editProfile && styles.profile_info_edit
-                }`}
+              className={`${styles.profile_info} ${
+                editProfile && styles.profile_info_edit
+              }`}
             >
               <h2
                 className={`${editProfile && styles.editActive}`}
@@ -218,9 +218,10 @@ function ProfileModal({ isOpen, handleClose, userId }) {
                 >
                   {printDesignation(user?.isAlumni, user?.isAdmin) ||
                     user?.alumni?.designation}{" "}
-                  {`${user?.alumni?.organization &&
+                  {`${
+                    user?.alumni?.organization &&
                     "at " + user?.alumni?.organization
-                    }`}
+                  }`}
                 </h3>
               )}
               {/* <div
@@ -303,8 +304,9 @@ function ProfileModal({ isOpen, handleClose, userId }) {
               {editProfile && user?.isAlumni && (
                 <div className={styles.editSocial_container}>
                   <div
-                    className={`${styles.editSocial} ${editProfile && styles.editActive
-                      }`}
+                    className={`${styles.editSocial} ${
+                      editProfile && styles.editActive
+                    }`}
                   >
                     <input
                       placeholder={"Add your Twitter handle link"}
@@ -319,8 +321,9 @@ function ProfileModal({ isOpen, handleClose, userId }) {
                   </div>
 
                   <div
-                    className={`${styles.editSocial} ${editProfile && styles.editActive
-                      }`}
+                    className={`${styles.editSocial} ${
+                      editProfile && styles.editActive
+                    }`}
                   >
                     <input
                       onChange={(e) => handleSocialChange(e, `linkedIn}`)}
@@ -335,8 +338,9 @@ function ProfileModal({ isOpen, handleClose, userId }) {
                   </div>
 
                   <div
-                    className={`${styles.editSocial} ${editProfile && styles.editActive
-                      }`}
+                    className={`${styles.editSocial} ${
+                      editProfile && styles.editActive
+                    }`}
                   >
                     <input
                       placeholder="Add your Github profile link"
@@ -352,8 +356,9 @@ function ProfileModal({ isOpen, handleClose, userId }) {
                   </div>
 
                   <div
-                    className={`${styles.editSocial} ${editProfile && styles.editActive
-                      }`}
+                    className={`${styles.editSocial} ${
+                      editProfile && styles.editActive
+                    }`}
                   >
                     <input
                       value={editedData?.alumni?.social?.facebook}
@@ -477,6 +482,5 @@ function getWindowDimensions() {
     height,
   };
 }
-
 
 export default ProfileModal;
