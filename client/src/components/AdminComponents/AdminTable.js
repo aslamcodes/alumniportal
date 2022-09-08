@@ -11,9 +11,6 @@ import { useAuthContext } from "context/auth/authContext";
 import NoDataMessage from "./NoDataMessage";
 
 const AlumniTable = () => {
-
-
-
   useEffect(() => {
     document.title = "Alumni Portal | Alumni Table"
   }, []);

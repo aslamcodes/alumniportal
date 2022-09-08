@@ -21,6 +21,11 @@ const Department = ["B.TECH IT", "B.E CSE", "B.E ECE", "B.E EEE", "B.E MECH", "B
 const graduationLevelOptions = ["Under graduate", "Post graduate"];
 
 function RegistrationPageStudent() {
+
+  useEffect(() => {
+    document.title = "Alumni Portal | Register"
+  }, []);
+
   const today = new Date().toJSON().slice(0, 10);
   const navigate = useNavigate();
   const dispatch = useAuthDispatchContext();

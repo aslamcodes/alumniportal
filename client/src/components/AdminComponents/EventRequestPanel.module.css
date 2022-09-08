@@ -3,9 +3,28 @@
   table-layout: fixed;
   width: 100%;
   border-collapse: collapse;
-  background-color: #e5e5e5;
+  position: relative;
+  display: block;
+  white-space: nowrap;
+  overflow-x: auto;
+  max-height: 80vh;
+}
+#event_table::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+#event_table::-webkit-scrollbar-track {
+  background: transparent;
+}
+#event_table::-webkit-scrollbar-thumb {
+  background: #838383;
+  border-radius: 40px;
+}
+#event_table::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 #event_table thead {
+  background-color: #e5e5e5;
   text-align: left;
 }
 #event_table th {

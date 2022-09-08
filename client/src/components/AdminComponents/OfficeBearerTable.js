@@ -8,6 +8,7 @@ import OfficeBearerTableRow from "./OfficeBearerTableRow";
 import useAxiosWithCallback from "hooks/useAxiosWithCallback";
 import { useAuthContext } from "context/auth/authContext";
 import NoDataMessage from "./NoDataMessage";
+import AdminTablePagination from "./AdminTablePagination";
 
 const OfficeBearerTable = () => {
   const { user } = useAuthContext();
@@ -16,6 +17,9 @@ const OfficeBearerTable = () => {
   const { fetchData: removeOfficeBearer } = useAxiosWithCallback();
   const [alumni, setAlumni] = useState(alumniData);
   const [tableHeadOnTop, setTableHeadOnTop] = useState(false);
+  const [entriesPerPage, setEntriesPerPage] = useState(10);
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = alumni ? Math.ceil(alumni.length / entriesPerPage) : 0;
   const tableHeadRef = useRef(null);
   const props = useSpring({
     from: {
@@ -61,9 +65,25 @@ const OfficeBearerTable = () => {
       }
     );
   };
+
+  const OnIncreaseHandler = () => {
+    if (currentPage > totalPages - 1) return null;
+    setCurrentPage(currentPage + 1);
+  };
+
+  const onDecreaseHandler = () => {
+    if (currentPage < 2) return null;
+    setCurrentPage(currentPage - 1);
+  };
+
+  const onEntriesPerPageSelectHandler = (value) => {
+    setEntriesPerPage(value);
+  };
+
   return (
     <div className={styles.office_bearer_container}>
       <AdminTableHeader
+        onSelect={onEntriesPerPageSelectHandler}
         type="Office Bearers"
       />
 
@@ -81,7 +101,10 @@ const OfficeBearerTable = () => {
           </tr>
         </a.thead>
         {alumniData && alumniData.length > 0 ? <tbody>
-          {alumniData?.map((data) => (
+          {alumniData?.slice(
+            currentPage * entriesPerPage - entriesPerPage,
+            currentPage * entriesPerPage
+          ).map((data) => (
             <OfficeBearerTableRow
               alumni={data}
               type="office bearers"
@@ -95,6 +118,12 @@ const OfficeBearerTable = () => {
           <NoDataMessage />
         }
       </table>
+      <AdminTablePagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onIncrease={OnIncreaseHandler}
+        onDecrease={onDecreaseHandler}
+      />
     </div>
   )
 };
