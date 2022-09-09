@@ -20,31 +20,32 @@ import {
   RegistrationPageFaculty,
   ForgotPassword,
 } from "pages";
-import AlumniData from "pages/Admin/AlumniData"
+import AlumniData from "pages/Admin/AlumniData";
 import AdminOfficeBearers from "pages/Admin/AdminOfficeBearers";
 import PostRequest from "pages/Admin/PostRequest";
 import EventRequest from "pages/Admin/EventRequest";
 import Alumni from "pages/Alumni/Alumni";
-import Alert from "components/UI/Alert";
+import AlertContextComponent from "components/UI/Alert";
 import { useEffect } from "react";
 import { useAlertContext } from "context/alert/alertContext";
 import ResetPassword from "pages/ForgotPassword/ResetPassword";
 import ForumPost from "pages/AlumniForum/ForumPost";
-import useAxiosWithCallback from "hooks/useAxiosWithCallback";
-import Loader from "components/UI/Loader";
+import Messages from "components/MessageComponents/Messages";
 
 function App() {
   const { errorAlert } = useAlertContext();
 
   useEffect(() => {
     errorAlert(
-      "Alumni-Portal is still on alpha testing, and not stable, expect bugs", 8000
+      "Alumni-Portal is still on alpha testing, and not stable, expect bugs",
+      8000
     );
-  }, []);
+  }, [errorAlert]);
 
   return (
     <div className="App">
-      <Alert />
+      <AlertContextComponent />
+      <Messages />
       <Router>
         <Routes>
           <Route path="/admin" element={<Admin />} />

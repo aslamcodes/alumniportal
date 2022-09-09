@@ -3,6 +3,7 @@ import Messages from "components/MessageComponents/Messages";
 import Loader from "components/UI/Loader";
 import { useAlertContext } from "context/alert/alertContext";
 import { useAuthContext } from "context/auth/authContext";
+import { useMessageContext } from "context/messageContext/messageContext";
 import useGetAlumni from "hooks/useFetchAlumni";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -15,12 +16,12 @@ const Alumni = () => {
   const navigate = useNavigate();
   const [isMessagesOpen, setIsMessagesOpen] = useState(false);
   const [conversationToOpen, setConversationToOpen] = useState(null);
+  const { openMessageModal } = useMessageContext();
 
   const { errorAlert } = useAlertContext();
 
   const onNewConversationHandler = (conversation) => {
-    setIsMessagesOpen(true);
-    setConversationToOpen(conversation);
+    openMessageModal(conversation);
   };
 
   useEffect(() => {
@@ -41,14 +42,6 @@ const Alumni = () => {
 
   return (
     <main className={styles.main}>
-      {isMessagesOpen && (
-        <Messages
-          conversation={conversationToOpen}
-          onClose={() => {
-            setIsMessagesOpen(false);
-          }}
-        />
-      )}
       {alumni?.map((alumnus) => (
         <AlumnusCard
           onNewConversation={onNewConversationHandler}

@@ -17,6 +17,7 @@ import ProfileModal from "components/ForumComponents/ProfileModal";
 import useFetchNotification from "hooks/useFetchNotification";
 import Messages from "components/MessageComponents/Messages";
 import { AiOutlineMenu } from "react-icons/ai";
+import { useMessageContext } from "context/messageContext/messageContext";
 
 function getWindowDimensions() {
   const { innerWidth: width, innerHeight: height } = window;
@@ -36,6 +37,7 @@ const Navbar = () => {
   const [showNotificationBadge, setShowNotificationBadge] = useState(true);
   const [isNotificationActive, setIsNotificationActive] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const { openMessageModal } = useMessageContext();
   const { user } = useAuthContext();
   const {
     isLoading: isNotificationsLoading,
@@ -86,9 +88,7 @@ const Navbar = () => {
           }}
         />
       )}
-      {isMessagesActive && (
-        <Messages onClose={() => setIsMessagesActive(false)} />
-      )}
+
       <div className={styles.container}>
         <div
           className={`${styles.navbar} ${styles.background_blur} ${
@@ -151,10 +151,7 @@ const Navbar = () => {
           )}
           {user && (
             <div className={`${styles.message_icon} ${styles.active}`}>
-              <TiMessages
-                fontSize={25}
-                onClick={() => setIsMessagesActive(!isMessagesActive)}
-              />
+              <TiMessages fontSize={25} onClick={() => openMessageModal()} />
             </div>
           )}
           {user && (
