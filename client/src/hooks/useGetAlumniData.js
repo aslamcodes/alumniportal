@@ -1,6 +1,5 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import useAxiosWithCallback from "./useAxiosWithCallback";
-import useScrollPositionThrottled from "./useScrollPositionThrottled";
 
 const useGetAlumniData = (offset, entries) => {
   const { isLoading, error, fetchData } = useAxiosWithCallback();

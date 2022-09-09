@@ -5,7 +5,7 @@ import { useAlertContext } from "context/alert/alertContext";
 
 function SeminarSessions() {
   const { isLoading, error, images } = useGetGalleryImages(1);
-  const { successAlert, errorAlert } = useAlertContext();
+  const { errorAlert } = useAlertContext();
 
   useEffect(() => {
     if (error) errorAlert(error);

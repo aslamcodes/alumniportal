@@ -35,7 +35,6 @@ function RegistrationPageStudent() {
     document.title = "Alumni Portal | Register";
   }, []);
 
-  const today = new Date().toJSON().slice(0, 10);
   const navigate = useNavigate();
   const dispatch = useAuthDispatchContext();
   const { user, isLoading, error } = useAuthContext();

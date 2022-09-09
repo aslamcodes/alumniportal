@@ -1,34 +1,25 @@
 import Loader from "components/UI/Loader";
+import { useAlertContext } from "context/alert/alertContext";
 import useGetAlumniWithCities from "hooks/useGetAlumniWithCities";
-import React, { useState ,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./OfficeBearers.module.css";
-const imgSrc = "https://source.unsplash.com/random/";
-const dimension = [
-  "300x300",
-  "400x400",
-  "500x500",
-  "600x600",
-  "700x700",
-  "800x800",
-  "900x900",
-  "1000x1000",
-];
-let images = [];
-for (let j = 0; j < 10; j++) {
-  let d = Math.floor(Math.random() * 8);
-  let dm = dimension[d];
-  let Src = imgSrc.concat(dm);
-  images.push(Src);
-}
+
 function OfficeBearers() {
   useEffect(() => {
-    document.title="Alumni Portal | Office Bearers"
-  },[]);
+    document.title = "Alumni Portal | Office Bearers"
+  }, []);
   const [activeIndex, setActiveIndex] = useState(null);
   const [selectedCity, setSelectedCity] = useState(null);
 
   const { alumni, cities, isLoading, error } = useGetAlumniWithCities(null);
 
+  const { errorAlert } = useAlertContext();
+
+  useEffect(() => {
+    if (error) {
+      errorAlert("404! error");
+    }
+  }, [error, errorAlert])
   const handleClick = (e) => {
     const id = e.target.id;
     if (id === activeIndex) {
@@ -70,9 +61,8 @@ function OfficeBearers() {
               .map((alumni, index) => {
                 return (
                   <div
-                    className={`${styles.OfficeBearer} ${
-                      activeIndex === index && styles.OfficeBearer_active
-                    }`}
+                    className={`${styles.OfficeBearer} ${activeIndex === index && styles.OfficeBearer_active
+                      }`}
                     key={index}
                   >
                     <img
@@ -82,9 +72,8 @@ function OfficeBearers() {
                       onClick={handleClick}
                     />
                     <p
-                      className={`${styles.show_details} ${
-                        activeIndex === index && styles.show_details_active
-                      }`}
+                      className={`${styles.show_details} ${activeIndex === index && styles.show_details_active
+                        }`}
                     >
                       Show Details{">"}{" "}
                     </p>

@@ -50,9 +50,9 @@ const AdminTableHeader = ({
       <p className={Styles.table_header}>{type} (beta)</p>
       <Divider mb={".6em"} mt={0} bgColor={"#ADADAD"} />
       <div className={Styles.table_controls}>
-        <div className={Styles.search}>
+        <div className={Styles.search} >
           <FiSearch onClick={handleOnSearch} />
-          <input
+          <input onKeyUp={handleOnSearch}
             placeholder="Search"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value.toLowerCase())}
@@ -115,6 +115,6 @@ const getOptionsForPages = () => {
   }));
 };
 
-const getStylesForPages = () => {};
+const getStylesForPages = () => { };
 
 export default AdminTableHeader;
