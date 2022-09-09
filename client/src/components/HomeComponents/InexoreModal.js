@@ -12,6 +12,7 @@ const MEMBERS = [
       <img
         className={Styles.profile_img}
         src="https://avatars.githubusercontent.com/u/85720815?v=4"
+        alt="Aswin profile image"
       />
     ),
     name: "Aswin",
@@ -25,6 +26,7 @@ const MEMBERS = [
       <img
         className={Styles.profile_img}
         src="https://avatars.githubusercontent.com/u/88486346?v=4"
+        alt="Heemanush profile image"
       />
     ),
     name: "Heemanush",
@@ -37,7 +39,7 @@ const MEMBERS = [
       <img
         className={Styles.profile_img}
         src="https://avatars.githubusercontent.com/u/75113307?v=4"
-
+        alt="Jayvan profile image"
       />
     ),
     name: "Jayvan Andel",
@@ -50,6 +52,7 @@ const MEMBERS = [
       <img
         className={Styles.profile_img}
         src="https://avatars.githubusercontent.com/u/64465138?v=4"
+        alt="Aslam profile image"
       />
     ),
     name: "Mohammed Aslam",
@@ -108,9 +111,9 @@ const InexoreModal = ({ closemodal, isOpen, post }) => {
                   <h2> Meet Our Inexore team </h2>
                 </div>
                 <div className={Styles.profiles}>
-                  {MEMBERS.map((member) => {
+                  {MEMBERS.map((member, index) => {
                     return (
-                      <div className={Styles.profile}>
+                      <div key={index} className={Styles.profile}>
                         <a target="_blank" href={member.github} >{member.img}</a>
                         <h3 className={Styles.profile_name}>{member.name}</h3>
                         <h5 className={Styles.profile_job}>

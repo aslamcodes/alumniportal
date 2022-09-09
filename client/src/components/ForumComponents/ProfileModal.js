@@ -16,7 +16,7 @@ import Loader from "components/UI/Loader";
 import useGetForumPosts from "hooks/useGetForumPosts";
 import useAxiosWithCallback from "hooks/useAxiosWithCallback";
 import { useAlertContext } from "context/alert/alertContext";
-import { AiOutlineClose } from "react-icons/ai";
+
 
 const PROFILE_IMAGES = [
   <img src={require("assets/Profile_images/2.png")} alt="cover_img" />,
@@ -33,7 +33,6 @@ function ProfileModal({ isOpen, handleClose, userId }) {
   useEffect(() => {
     document.title = "Alumni Portal | Profile";
   }, []);
-  const navigate = useNavigate();
   const { user, isLoading, error, trigger } = useUserProfileData(userId);
   const {
     isLoading: isPostLoading,
@@ -54,6 +53,12 @@ function ProfileModal({ isOpen, handleClose, userId }) {
   const [editedData, setEditedData] = useState(user);
   const { fetchData: updateProfile } = useAxiosWithCallback();
   const { successAlert, errorAlert } = useAlertContext();
+
+  useEffect(() => {
+    if (error || postError) {
+      errorAlert(error || postError);
+    }
+  }, [error, postError, errorAlert]);
 
   const pick_image = useCallback(() => {
     const random_number = Math.floor(Math.random() * PROFILE_IMAGES.length);
@@ -105,6 +110,8 @@ function ProfileModal({ isOpen, handleClose, userId }) {
     await logout(dispatch);
     handleClose();
   };
+
+
 
   const handleUpdate = async (e) => {
     const updateData = new FormData();
@@ -197,9 +204,8 @@ function ProfileModal({ isOpen, handleClose, userId }) {
             )}
 
             <div
-              className={`${styles.profile_info} ${
-                editProfile && styles.profile_info_edit
-              }`}
+              className={`${styles.profile_info} ${editProfile && styles.profile_info_edit
+                }`}
             >
               <h2
                 className={`${editProfile && styles.editActive}`}
@@ -218,10 +224,9 @@ function ProfileModal({ isOpen, handleClose, userId }) {
                 >
                   {printDesignation(user?.isAlumni, user?.isAdmin) ||
                     user?.alumni?.designation}{" "}
-                  {`${
-                    user?.alumni?.organization &&
+                  {`${user?.alumni?.organization &&
                     "at " + user?.alumni?.organization
-                  }`}
+                    }`}
                 </h3>
               )}
               {/* <div
@@ -304,9 +309,8 @@ function ProfileModal({ isOpen, handleClose, userId }) {
               {editProfile && user?.isAlumni && (
                 <div className={styles.editSocial_container}>
                   <div
-                    className={`${styles.editSocial} ${
-                      editProfile && styles.editActive
-                    }`}
+                    className={`${styles.editSocial} ${editProfile && styles.editActive
+                      }`}
                   >
                     <input
                       placeholder={"Add your Twitter handle link"}
@@ -321,9 +325,8 @@ function ProfileModal({ isOpen, handleClose, userId }) {
                   </div>
 
                   <div
-                    className={`${styles.editSocial} ${
-                      editProfile && styles.editActive
-                    }`}
+                    className={`${styles.editSocial} ${editProfile && styles.editActive
+                      }`}
                   >
                     <input
                       onChange={(e) => handleSocialChange(e, `linkedIn}`)}
@@ -338,9 +341,8 @@ function ProfileModal({ isOpen, handleClose, userId }) {
                   </div>
 
                   <div
-                    className={`${styles.editSocial} ${
-                      editProfile && styles.editActive
-                    }`}
+                    className={`${styles.editSocial} ${editProfile && styles.editActive
+                      }`}
                   >
                     <input
                       placeholder="Add your Github profile link"
@@ -356,9 +358,8 @@ function ProfileModal({ isOpen, handleClose, userId }) {
                   </div>
 
                   <div
-                    className={`${styles.editSocial} ${
-                      editProfile && styles.editActive
-                    }`}
+                    className={`${styles.editSocial} ${editProfile && styles.editActive
+                      }`}
                   >
                     <input
                       value={editedData?.alumni?.social?.facebook}

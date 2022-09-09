@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Carousel.module.css";
-import { useSwipeable } from "react-swipeable";
+// import { useSwipeable } from "react-swipeable";
 import Testimonial from "components/HomeComponents/Testimonial";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 

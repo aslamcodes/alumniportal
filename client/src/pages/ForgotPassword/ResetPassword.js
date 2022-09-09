@@ -13,7 +13,7 @@ const ResetPassword = () => {
   const [token, setToken] = useState("");
   const [user, setUser] = useState("");
   const { fetchData: updatePassword } = useAxiosWithCallback();
-  const { successAlert, errorAlert } = useAlertContext();
+  const { successAlert } = useAlertContext();
   const navigate = useNavigate();
 
   useEffect(() => {

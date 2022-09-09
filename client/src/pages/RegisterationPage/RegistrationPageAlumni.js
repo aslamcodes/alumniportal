@@ -33,7 +33,7 @@ function RegistrationPageAlumni() {
     designation: "",
     organization: "",
   });
-  const { successAlert, errorAlert } = useAlertContext();
+  const { errorAlert } = useAlertContext();
 
   useEffect(() => {
     !user && navigate("/login");

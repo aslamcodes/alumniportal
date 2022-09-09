@@ -5,7 +5,7 @@ import { useAlertContext } from "context/alert/alertContext";
 
 function AllPhotos() {
   const { isLoading, error, images } = useGetGalleryImages(0);
-  const { successAlert, errorAlert } = useAlertContext();
+  const { errorAlert } = useAlertContext();
 
   useEffect(() => {
     if (error) errorAlert(error);

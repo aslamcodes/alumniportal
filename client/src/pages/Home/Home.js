@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from "react";
-import Carousel from "components/UI/Carousel";
+import React, { useEffect } from "react";
 import styles from "./Home.module.css";
-import NewTestimonialCard from "components/HomeComponents/NewTestimonialCard";
-import { useAuthContext } from "context/auth/authContext";
-import useGetTestimonial from "hooks/useGetTestimonial";
-import { useAlertContext } from "context/alert/alertContext";
 import video from "assets/test/skctvideo60fps.mp4";
+
+// v2
+// import Carousel from "components/UI/Carousel";
+// import NewTestimonialCard from "components/HomeComponents/NewTestimonialCard";
+// import { useAuthContext } from "context/auth/authContext";
+// import useGetTestimonial from "hooks/useGetTestimonial";
+// import { useAlertContext } from "context/alert/alertContext";
 
 const Home = () => {
   // Safari 3.0+ "[object HTMLElementConstructor]"
@@ -22,16 +24,18 @@ const Home = () => {
   useEffect(() => {
     document.title = "Alumni Portal | Home";
   }, []);
-  const [newTestimonialActive, setNewTestimonialActive] = useState(false);
-  const { user } = useAuthContext();
-  const { testimonials, error, isLoading, trigger } = useGetTestimonial();
-  const { successAlert, errorAlert } = useAlertContext();
 
-  const onChangeTestimonial = (message) => {
-    trigger();
-    successAlert(message);
-    setNewTestimonialActive(false);
-  };
+  // v2
+  // const [newTestimonialActive, setNewTestimonialActive] = useState(false);
+  // const { user } = useAuthContext();
+  // const { testimonials, error, isLoading, trigger } = useGetTestimonial();
+  // const { successAlert } = useAlertContext();
+
+  // const onChangeTestimonial = (message) => {
+  //   trigger();
+  //   successAlert(message);
+  //   setNewTestimonialActive(false);
+  // };
 
   return (
     <div className={`${styles.Body} `}>
@@ -70,7 +74,7 @@ const Home = () => {
             </p>
           </div>
         </div>
-
+        {/* v2 */}
         {/* <div id={styles["Testimonials"]}>
           <div className={`${styles.Container}`}>
             <Carousel

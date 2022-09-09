@@ -1,6 +1,7 @@
 import AlumnusCard from "components/AlumniComponents/AlumnusCard";
 import Messages from "components/MessageComponents/Messages";
 import Loader from "components/UI/Loader";
+import { useAlertContext } from "context/alert/alertContext";
 import { useAuthContext } from "context/auth/authContext";
 import useGetAlumni from "hooks/useFetchAlumni";
 import React, { useEffect, useState } from "react";
@@ -15,6 +16,8 @@ const Alumni = () => {
   const [isMessagesOpen, setIsMessagesOpen] = useState(false);
   const [conversationToOpen, setConversationToOpen] = useState(null);
 
+  const { errorAlert } = useAlertContext();
+
   const onNewConversationHandler = (conversation) => {
     setIsMessagesOpen(true);
     setConversationToOpen(conversation);
@@ -28,6 +31,11 @@ const Alumni = () => {
         },
       });
   }, [navigate, location, user]);
+  useEffect(() => {
+    if (error) {
+      errorAlert(error);
+    }
+  }, [errorAlert, error]);
 
   if (isLoading) return <Loader />;
 

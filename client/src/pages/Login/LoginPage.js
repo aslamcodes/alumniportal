@@ -31,7 +31,7 @@ const LoginForm = () => {
     formState: { errors },
     handleSubmit,
   } = useForm();
-  const { successAlert, errorAlert } = useAlertContext();
+  const { errorAlert } = useAlertContext();
 
   const { user, error, isLoading } = useAuthContext();
 
@@ -94,7 +94,7 @@ const LoginForm = () => {
                 errorAlert("Feature will be enabled soon 😁");
               }}
             >
-              By login you agree to our <a>Terms & conditions</a>
+              By login you agree to our <a href="#">Terms & conditions</a>
             </p>
           </div>
         </div>
@@ -114,7 +114,7 @@ const LoginForm = () => {
       >
         <p>
           Don't have an account yet ?{" "}
-          <a
+          <a href="register-student"
             onMouseEnter={() => {
               setRegisterOptions(true);
             }}

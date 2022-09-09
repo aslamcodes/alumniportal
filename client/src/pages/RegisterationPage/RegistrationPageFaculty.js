@@ -22,7 +22,7 @@ function RegistrationPageFaculty() {
   const [isCPasswordDirty, setIsCPasswordDirty] = useState(false);
   const [isPasswordMatch, setIsPasswordMatch] = useState(false);
   const { user, error, isLoading } = useAuthContext();
-  const { successAlert, errorAlert } = useAlertContext();
+  const { errorAlert } = useAlertContext();
   const graduationLevelOptions = ["Under graduate", "Post graduate", "Others"];
 
   const [data, setData] = useState({
@@ -71,7 +71,7 @@ function RegistrationPageFaculty() {
         setIsPasswordMatch(false);
       }
     }
-  }, [data.confirmPassword])
+  }, [data.password, data.confirmPassword, isCPasswordDirty])
 
   if (user) {
     navigate(location?.state?.from ?? "/");

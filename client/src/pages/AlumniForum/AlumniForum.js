@@ -19,7 +19,7 @@ function AlumniForum() {
   const { user } = useAuthContext();
 
   const { isLoading, error, posts } = useGetForumPosts();
-  const { successAlert, errorAlert } = useAlertContext();
+  const { errorAlert } = useAlertContext();
 
   useEffect(() => {
     if (error) {

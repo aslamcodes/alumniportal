@@ -3,7 +3,7 @@ import { AlertStatus, AnimationTypes } from "lib/enum";
 import React from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { BsCheckCircle } from "react-icons/bs";
-import { GrFormClose } from "react-icons/gr";
+
 import { IoCloseOutline, IoWarningOutline } from "react-icons/io5";
 import styles from "./Alert.module.css";
 import Modal from "./Modal";

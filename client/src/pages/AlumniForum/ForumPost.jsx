@@ -19,7 +19,7 @@ const ForumPost = () => {
       url: `/api/v1/forum/post/${postId}`,
     };
     fetchData(config, setPost);
-  }, [fetchData, postId]);
+  }, [fetchData, postId, navigate]);
 
   if (isLoading) {
     return <Loader />;
