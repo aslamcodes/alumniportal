@@ -6,50 +6,57 @@ import { a, config, useTransition } from "react-spring";
 import { GrClose } from "react-icons/gr";
 
 const MEMBERS = [
+
   {
     img: (
       <img
         className={Styles.profile_img}
-        src={require(`assets/Profile_images/man.png`)}
-      />
-    ),
-    name: "Mohammed Aslam",
-    designation: "Developer",
-    quote: "Always remember, beginning is the hardest part",
-  },
-  {
-    img: (
-      <img
-        className={Styles.profile_img}
-        src={require(`assets/Profile_images/man.png`)}
+        src="https://avatars.githubusercontent.com/u/85720815?v=4"
       />
     ),
     name: "Aswin",
     designation: "Developer",
     quote: "Always remember, beginning is the hardest part",
+    github: "https://github.com/ASWIN-G-SKCT"
+
   },
   {
     img: (
       <img
         className={Styles.profile_img}
-        src={require(`assets/Profile_images/man.png`)}
+        src="https://avatars.githubusercontent.com/u/88486346?v=4"
       />
     ),
     name: "Heemanush",
     designation: "Developer",
     quote: "Always remember, beginning is the hardest part",
+    github: "https://github.com/heemanushcp"
   },
   {
     img: (
       <img
         className={Styles.profile_img}
-        src={require(`assets/Profile_images/man.png`)}
+        src="https://avatars.githubusercontent.com/u/75113307?v=4"
+
       />
     ),
     name: "Jayvan Andel",
     designation: "Developer",
     quote: "Always remember, beginning is the hardest part",
+    github: "https://github.com/jayvanandel07"
   },
+  {
+    img: (
+      <img
+        className={Styles.profile_img}
+        src="https://avatars.githubusercontent.com/u/64465138?v=4"
+      />
+    ),
+    name: "Mohammed Aslam",
+    designation: "Developer",
+    quote: "Always remember, beginning is the hardest part",
+    github: "https://github.com/aslamcodes"
+  }
 ];
 
 const InexoreModal = ({ closemodal, isOpen, post }) => {
@@ -104,7 +111,8 @@ const InexoreModal = ({ closemodal, isOpen, post }) => {
                   {MEMBERS.map((member) => {
                     return (
                       <div className={Styles.profile}>
-                        <div>{member.img}</div>
+                        <a target="_blank" href={member.github} >{member.img}</a>
+                        <p></p>
                         <h3 className={Styles.profile_name}>{member.name}</h3>
                         <h5 className={Styles.profile_job}>
                           {member.designation}
