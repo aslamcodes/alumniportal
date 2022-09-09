@@ -5,6 +5,12 @@ export const AlertStatus = {
   ERROR: "error",
 };
 
+export const MessageStatus = {
+  NONE: "none",
+  OPEN: "open",
+  CLOSE: "close",
+};
+
 export const ModalTypes = {
   ALERT: "ALERT",
   CONFIRM: "CONFIRM",
