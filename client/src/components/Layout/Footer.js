@@ -17,6 +17,8 @@ const Footer = () => {
   const [windowDimensions, setWindowDimensions] = useState(
     getWindowDimensions()
   );
+
+  const [showInexore, setShowInexore] = useState(false);
   const location = useLocation();
   const isInLoginPage = /login/.test(location.pathname);
   const isInRegisterStudent = /register-student/.test(location.pathname);

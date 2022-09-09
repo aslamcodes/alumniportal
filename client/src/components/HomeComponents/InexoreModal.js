@@ -3,6 +3,54 @@ import Styles from "./InexoreModal.module.css";
 import ReactPortal from "components/Modal/ReactPortal";
 import { IconContext } from "react-icons";
 import { a, config, useTransition } from "react-spring";
+import { GrClose } from "react-icons/gr";
+
+const MEMBERS = [
+  {
+    img: (
+      <img
+        className={Styles.profile_img}
+        src={require(`assets/Profile_images/man.png`)}
+      />
+    ),
+    name: "Mohammed Aslam",
+    designation: "Developer",
+    quote: "Always remember, beginning is the hardest part",
+  },
+  {
+    img: (
+      <img
+        className={Styles.profile_img}
+        src={require(`assets/Profile_images/man.png`)}
+      />
+    ),
+    name: "Aswin",
+    designation: "Developer",
+    quote: "Always remember, beginning is the hardest part",
+  },
+  {
+    img: (
+      <img
+        className={Styles.profile_img}
+        src={require(`assets/Profile_images/man.png`)}
+      />
+    ),
+    name: "Heemanush",
+    designation: "Developer",
+    quote: "Always remember, beginning is the hardest part",
+  },
+  {
+    img: (
+      <img
+        className={Styles.profile_img}
+        src={require(`assets/Profile_images/man.png`)}
+      />
+    ),
+    name: "Jayvan Andel",
+    designation: "Developer",
+    quote: "Always remember, beginning is the hardest part",
+  },
+];
 
 const InexoreModal = ({ closemodal, isOpen, post }) => {
   const InexoreModalTransitions = useTransition(isOpen, {
@@ -39,70 +87,38 @@ const InexoreModal = ({ closemodal, isOpen, post }) => {
               className: "react-icons",
             }}
           >
-            <a.div style={style} className={Styles.inexore_modal_overlay}>
-              <div className={Styles.inexore_modal_main}>
+            <a.div
+              style={style}
+              className={Styles.inexore_modal_overlay}
+              onClick={closemodal}
+            >
+              <div
+                className={Styles.inexore_modal_main}
+                onClick={(e) => e.stopPropagation()}
+              >
                 <div className={Styles.center}>
                   <h1> Alumni Portal version 1.1</h1>
                   <h2> Meet Our Inexore team </h2>
                 </div>
                 <div className={Styles.profiles}>
-                  <div className={Styles.profile}>
-                    <div>
-                      <img
-                        className={Styles.profile_img}
-                        src={require("assets/Profile_images/man.png")}
-                      />
-                    </div>
-                    <h3 className={Styles.profile_name}> Mohammed Aslam </h3>
-                    <h5 className={Styles.profile_job}>Developer</h5>
-                    <p> "Always remember, beginning is the hardest part"</p>
-                  </div>
-                  <div className={Styles.profile}>
-                    <div>
-                      <img
-                        className={Styles.profile_img}
-                        src={require("assets/Profile_images/2.png")}
-                      />
-                    </div>
-                    <h3 className={Styles.profile_name}> Aswin G</h3>
-                    <h5 className={Styles.profile_job}>Designer</h5>
-                    <p>
-                      "It does not matter how slowly you go as long as you do
-                      not stop."
-                    </p>
-                  </div>
-                  <div className={Styles.profile}>
-                    <div>
-                      <img
-                        className={Styles.profile_img}
-                        src={require("assets/Profile_images/3.png")}
-                      />
-                    </div>
-                    <h3 className={Styles.profile_name}> Heemanush CP </h3>
-                    <h5 className={Styles.profile_job}>Designer</h5>
-                    <p>
-                      "Engineering is the closest thing to magic that exists in
-                      the world"
-                    </p>
-                  </div>
-                  <div className={Styles.profile}>
-                    <div>
-                      <img
-                        className={Styles.profile_img}
-                        src={require("assets/Profile_images/4.png")}
-                      />
-                    </div>
-                    <h3 className={Styles.profile_name}> Jayvan Andel</h3>
-                    <h5 className={Styles.profile_job}>Developer</h5>
-                    <p>
-                      "Let your unique awesomeness and positive energy inspire
-                      confidence in others."
-                    </p>
-                  </div>
+                  {MEMBERS.map((member) => {
+                    return (
+                      <div className={Styles.profile}>
+                        <div>{member.img}</div>
+                        <h3 className={Styles.profile_name}>{member.name}</h3>
+                        <h5 className={Styles.profile_job}>
+                          {member.designation}
+                        </h5>
+                        <p> {member.quote}</p>
+                      </div>
+                    );
+                  })}
                 </div>
-
-                {/* <img src={backgroundImage} alt="background"></img> */}
-                {/* <button onClick={closemodal}>X</button> */}
+                <GrClose
+                  className={Styles.close_btn}
+                  fontSize={20}
+                  onClick={closemodal}
+                />
               </div>
             </a.div>
           </IconContext.Provider>
