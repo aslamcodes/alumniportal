@@ -1,9 +1,22 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./Footer.module.css";
 import { AiOutlineCopyrightCircle } from "react-icons/ai";
 import { useLocation } from "react-router-dom";
+import { useWindowScrollPositions } from "hooks/useWindowScrollPositions";
+import InexoreModal from "components/HomeComponents/InexoreModal";
+
+function getWindowDimensions() {
+  const { innerWidth: width, innerHeight: height } = window;
+  return {
+    width,
+    height,
+  };
+}
 
 const Footer = () => {
+  const [windowDimensions, setWindowDimensions] = useState(
+    getWindowDimensions()
+  );
   const location = useLocation();
   const isInLoginPage = /login/.test(location.pathname);
   const isInRegisterStudent = /register-student/.test(location.pathname);
@@ -13,11 +26,26 @@ const Footer = () => {
   const isInAlumniPage = /alumni-forum/.test(location.pathname);
   const isInAdminPage = /admin/.test(location.pathname);
   const isFooterVisible = !isInAlumniPage && !isInAdminPage;
-  const isFooterTranslucent = isInLoginPage || isInRegisterStudent || isInRegisterFaculty || isInRegisterAlumni || isInHome;
+  const isFooterTranslucent =
+    isInLoginPage ||
+    isInRegisterStudent ||
+    isInRegisterFaculty ||
+    isInRegisterAlumni ||
+    isInHome;
+  const [showInexore, setShowInexore] = useState(false);
 
   return (
     isFooterVisible && (
-      <div className={`${styles["footer"]} ${isFooterTranslucent && styles.bg_translucent}`}>
+      <div
+        className={`${styles["footer"]} ${
+          isFooterTranslucent && styles.bg_translucent
+        }`}
+      >
+        <InexoreModal
+          isOpen={showInexore}
+          closemodal={() => setShowInexore(false)}
+        />
+
         <div className={styles["footer-container"]}>
           <div className={styles["footer-brand"]}>
             <img src={require("assets/Logo2.png")} alt="College-logo" />
@@ -28,7 +56,14 @@ const Footer = () => {
             <AiOutlineCopyrightCircle />
             <p>
               2022 SKCT - All Rights Reserved | Developed by{" "}
-              <span className={styles.inExore}>InExore</span>
+              <button
+                className={styles.inExore}
+                onClick={() => {
+                  setShowInexore(true);
+                }}
+              >
+                InExore
+              </button>
             </p>
           </div>
           <div className={styles["social"]}>
