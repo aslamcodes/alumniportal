@@ -171,6 +171,10 @@ function RegistrationPageStudent() {
           <div className={styles.form}>
             <div className={styles.form_header}>
               <h1>{formStep === 1 ? "Register" : "Personal Information"}</h1>
+              <h5>
+                *if you are already an exsisting alumni please fill the Email
+                first
+              </h5>
             </div>
 
             <div className={styles.form_body}>
