@@ -41,6 +41,11 @@ button,
 a {
   cursor: pointer;
 }
+a {
+  text-decoration: none;
+  font-weight: normal;
+  color: #000;
+}
 *,
 input,
 textarea,
