@@ -17,6 +17,7 @@ import {
   MdOutlinePostAdd,
   MdOutlineEvent,
 } from "react-icons/md";
+import { RiFolderUserLine } from "react-icons/ri";
 import { BsCalendar4Event, BsPeople } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 
@@ -99,6 +100,17 @@ const AdminSidebar = ({ onClose }) => {
           <BsPeople />
           {sidebarItemTransistion((style, item) => {
             return item && <a.p style={style}>Alumni</a.p>;
+          })}
+        </div>
+        <div
+          className={Styles.sidebar_item}
+          onClick={() => {
+            navigate("/alumni-data");
+          }}
+        >
+          <RiFolderUserLine />
+          {sidebarItemTransistion((style, item) => {
+            return item && <a.p style={style}>Alumni Database</a.p>;
           })}
         </div>
         <div

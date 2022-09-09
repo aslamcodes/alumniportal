@@ -1,6 +1,10 @@
 import { useAlertContext } from "context/alert/alertContext";
 import { AlertStatus, AnimationTypes } from "lib/enum";
 import React from "react";
+import { AiOutlineCloseCircle } from "react-icons/ai";
+import { BsCheckCircle } from "react-icons/bs";
+import { GrFormClose } from "react-icons/gr";
+import { IoCloseOutline, IoWarningOutline } from "react-icons/io5";
 import styles from "./Alert.module.css";
 import Modal from "./Modal";
 
@@ -16,13 +20,12 @@ const Alert = ({ ...props }) => {
       animation={AnimationTypes.FROM_TOP}
     >
       <div className={styles.modal_main}>
+        {alert === AlertStatus.ERROR && <IoWarningOutline fontSize={60} />}
+        {alert === AlertStatus.SUCCESS && <BsCheckCircle fontSize={60} />}
+        {alert === AlertStatus.FAILED && <AiOutlineCloseCircle fontSize={60} />}
+
         <p className={styles.modal_message}>{alertText}</p>
-        <div className={styles.modal_actions}>
-          {/* <button onClick={clear}>Cancel</button> */}
-          <button className={styles.primary} onClick={clear}>
-            Ok
-          </button>
-        </div>
+        <IoCloseOutline className={styles.close_btn} onClick={clear} />
       </div>
     </Modal>
   );

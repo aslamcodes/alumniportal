@@ -21,7 +21,7 @@ function NewPostModal({ setNewPostActive }) {
   });
   const { user } = useAuthContext();
   const { fetchData: createPost, error, isLoading } = useAxiosWithCallback();
-  const { success } = useAlertContext();
+  const { successAlert, errorAlert } = useAlertContext();
   const onSelectFile = (e) => {
     if (!e.target.files || e.target.files.length === 0) {
       setPostData({
@@ -46,8 +46,8 @@ function NewPostModal({ setNewPostActive }) {
   }, [setNewPostActive]);
 
   useEffect(() => {
-    if (error) success(error?.response?.data?.message);
-  }, [error, success]);
+    if (error) errorAlert(error?.response?.data?.message);
+  }, [error, errorAlert]);
 
   const handleMouseEnter = () => {
     setImageSwitch(true);
@@ -87,7 +87,7 @@ function NewPostModal({ setNewPostActive }) {
     };
 
     await createPost(postConfig, (res) => {
-      success(
+      successAlert(
         user?.isAlumni || user?.isAdmin
           ? "Your Post Made Successfully"
           : "Post details sent to admin for verification"

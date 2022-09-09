@@ -48,7 +48,16 @@
 .form_header {
   font-size: 1em;
   text-align: center;
+
 }
+.form, h5 {
+  font-size: 1em;
+  text-align: center;
+  color: rgba(99, 99, 99, 0.723);
+
+}
+
+
 .form_body {
   display: flex;
   flex-direction: column;

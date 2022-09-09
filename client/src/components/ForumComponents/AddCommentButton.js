@@ -17,17 +17,17 @@ const AddCommentButton = ({ postId, onAddComment }) => {
   const navigate = useNavigate();
   const { fetchData: createComment, isLoading, error } = useAxiosWithCallback();
   const { user } = useAuthContext();
-  const { success } = useAlertContext();
+  const { successAlert, errorAlert } = useAlertContext();
 
   useEffect(() => {
-    if (error) success(error);
-  }, [error, success]);
+    if (error) errorAlert(error);
+  }, [error, errorAlert]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!user?.token) {
-      success("Sign in to create comments on posts");
+      errorAlert("Sign in to create comments on posts");
       navigate("/login");
       return;
     }
@@ -58,9 +58,8 @@ const AddCommentButton = ({ postId, onAddComment }) => {
         setIsFormOpen(true);
         inputRef.current.focus();
       }}
-      className={`${Styles.comment_form} ${
-        isFormOpen && Styles.comment_form_expanded
-      }`}
+      className={`${Styles.comment_form} ${isFormOpen && Styles.comment_form_expanded
+        }`}
     >
       <input
         ref={inputRef}

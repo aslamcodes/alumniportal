@@ -31,7 +31,7 @@ const LoginForm = () => {
     formState: { errors },
     handleSubmit,
   } = useForm();
-  const { success } = useAlertContext();
+  const { successAlert, errorAlert } = useAlertContext();
 
   const { user, error, isLoading } = useAuthContext();
 
@@ -45,9 +45,9 @@ const LoginForm = () => {
 
   useEffect(() => {
     if (error) {
-      success(error);
+      errorAlert(error);
     }
-  }, [error, success]);
+  }, [error, errorAlert]);
 
   if (isLoading) return <Loader />;
 
@@ -91,7 +91,7 @@ const LoginForm = () => {
           <div className={styles["terms-conditions"]}>
             <p
               onClick={() => {
-                success("Feature will be enabled soon 😁");
+                errorAlert("Feature will be enabled soon 😁");
               }}
             >
               By login you agree to our <a>Terms & conditions</a>

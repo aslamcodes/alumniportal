@@ -20,6 +20,7 @@ import {
   RegistrationPageFaculty,
   ForgotPassword,
 } from "pages";
+import AlumniData from "pages/Admin/AlumniData"
 import AdminOfficeBearers from "pages/Admin/AdminOfficeBearers";
 import PostRequest from "pages/Admin/PostRequest";
 import EventRequest from "pages/Admin/EventRequest";
@@ -33,13 +34,13 @@ import useAxiosWithCallback from "hooks/useAxiosWithCallback";
 import Loader from "components/UI/Loader";
 
 function App() {
-  const { success } = useAlertContext();
+  const { errorAlert } = useAlertContext();
 
   useEffect(() => {
-    success(
-      "Alumni-Portal is still on alpha testing, and not stable, expect bugs"
+    errorAlert(
+      "Alumni-Portal is still on alpha testing, and not stable, expect bugs", 8000
     );
-  }, [success]);
+  }, []);
 
   return (
     <div className="App">
@@ -47,6 +48,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/admin" element={<Admin />} />
+          <Route path="/alumni-data" element={<AlumniData />} />
           <Route path="/admin/request-details" element={<RequestDetails />} />
           <Route path="/admin/reject-details" element={<RejectDetails />} />
           <Route path="/admin/post-requests" element={<PostRequest />} />

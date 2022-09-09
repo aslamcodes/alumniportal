@@ -9,22 +9,27 @@ import Loader from "components/UI/Loader";
 import useAxiosWithCallback from "hooks/useAxiosWithCallback";
 import { useAuthContext } from "context/auth/authContext";
 import NoDataMessage from "./NoDataMessage";
+import { useAlertContext } from "context/alert/alertContext";
+import {
+  filterAlumniData,
+  filterForField,
+  getAlumniFilters,
+} from "utils/utils";
 
 const AlumniTable = () => {
-
-
-
   useEffect(() => {
-    document.title = "Alumni Portal | Alumni Table"
+    document.title = "Alumni Portal | Alumni Table";
   }, []);
   const { alumni: alumniData, error, isLoading, trigger } = useGetAlumni();
   const [alumni, setAlumni] = useState(alumniData);
-
   const [entriesPerPage, setEntriesPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [tableHeadOnTop, setTableHeadOnTop] = useState(false);
+
   const { fetchData: deleteAlumni } = useAxiosWithCallback();
   const { user } = useAuthContext();
+  const { errorAlert } = useAlertContext();
+
   const totalPages = alumni ? Math.ceil(alumni.length / entriesPerPage) : 0;
   const tableHeadRef = useRef(null);
   const filters = useMemo(() => getAlumniFilters(alumniData), [alumniData]);
@@ -37,35 +42,38 @@ const AlumniTable = () => {
     },
   });
 
+
+
+  const dataHeaders = [
+    { label: 'Register Number', key: 'user.registerNumber' },
+    { label: 'Name', key: 'user.name' },
+    { label: 'Department', key: 'user.department' },
+    { label: 'Designation', key: 'designation' },
+    { label: 'Company', key: 'organization' },
+    { label: 'Phone Number', key: 'user.phoneNumber' },
+    { label: 'Email', key: 'user.email' },
+    { label: 'City', key: 'user.city' },
+    { label: 'State', key: 'user.state' },
+    { label: 'Country', key: 'user.country' },
+    { label: 'Graduation Level', key: 'user.graduationLevel' },
+    { label: 'PG College Name', key: 'secondaryCollegeName' },
+    { label: 'Course Name', key: 'courseName' },
+    { label: 'Skills', key: 'user.skill' }
+  ];
+
+  useEffect(() => {
+    document.title = "Alumni Portal | Alumni Table";
+    if (error) {
+      return errorAlert("404 Error, Can't fetch data");
+    }
+  }, []);
+
   useEffect(() => {
     setAlumni(alumniData);
   }, [alumniData]);
 
   const onApplyFilter = (filters) => {
-    setAlumni(() =>
-      alumniData.filter((alumnus) => {
-        return (
-          filterForField(filters, "Designation", alumnus.designation) &&
-          filterForField(filters, "City", alumnus.user.city) &&
-          filterForField(
-            filters,
-            "Entrepreneur",
-            alumnus.isEntrepreneur ? "Yes" : "No"
-          ) &&
-          filterForField(
-            filters,
-            "GraduationLevel",
-            alumnus.user.graduationLevel
-          ) &&
-          filterForField(filters, "Organization", alumnus.organization) &&
-          filterForField(
-            filters,
-            "Year of Passing",
-            new Date(alumnus.user.yearOfPassing).getFullYear()
-          )
-        );
-      })
-    );
+    setAlumni(filterAlumniData(alumniData, filters));
   };
 
   const onSearch = (query) => {
@@ -109,6 +117,9 @@ const AlumniTable = () => {
   return (
     <div>
       <AdminTableHeader
+        data={alumni}
+        headers={dataHeaders}
+        filename="Alumni Details"
         onSelect={onEntriesPerPageSelectHandler}
         onSearch={onSearch}
         type="Alumni"
@@ -138,26 +149,24 @@ const AlumniTable = () => {
             </div>
           </tr>
         </a.thead>
-        {
-          alumni ?
-            <tbody>
-
-              {alumni
-                ?.slice(
-                  currentPage * entriesPerPage - entriesPerPage,
-                  currentPage * entriesPerPage
-                )
-                .map((alumni) => (
-                  <AdminTableRow
-                    alumni={alumni}
-                    type="alumni-details"
-                    onDeleteAlumni={onDeleteAlumniHandler}
-                  />
-                ))}
-            </tbody>
-            :
-            <NoDataMessage />
-        }
+        {alumni ? (
+          <tbody>
+            {alumni
+              ?.slice(
+                currentPage * entriesPerPage - entriesPerPage,
+                currentPage * entriesPerPage
+              )
+              .map((alumni) => (
+                <AdminTableRow
+                  alumni={alumni}
+                  type="alumni-details"
+                  onDeleteAlumni={onDeleteAlumniHandler}
+                />
+              ))}
+          </tbody>
+        ) : (
+          <NoDataMessage />
+        )}
       </table>
 
       <AdminTablePagination
@@ -168,52 +177,6 @@ const AlumniTable = () => {
       />
     </div>
   );
-};
-
-const getAlumniFilters = (alumni) =>
-  alumni?.reduce(
-    (filters, alumnus) => {
-      return {
-        ...filters,
-        Designation: [
-          ...new Set([...filters.Designation, alumnus.designation]),
-        ],
-        GraduationLevel: [
-          ...new Set([
-            ...filters.GraduationLevel,
-            alumnus.user.graduationLevel,
-          ]),
-        ],
-        Entrepreneur: [
-          ...new Set([
-            ...filters.Entrepreneur,
-            alumnus.isEntrepreneur ? "Yes" : "No",
-          ]),
-        ],
-        City: [...new Set([...filters.City, alumnus.user.city])],
-        "Year of Passing": [
-          ...new Set([
-            ...filters["Year of Passing"],
-            new Date(alumnus.user.yearOfPassing).getFullYear(),
-          ]),
-        ],
-        Organization: [
-          ...new Set([...filters.Organization, alumnus.organization]),
-        ],
-      };
-    },
-    {
-      Designation: [],
-      GraduationLevel: [],
-      Entrepreneur: [],
-      City: [],
-      Organization: [],
-      "Year of Passing": [],
-    }
-  );
-
-const filterForField = (filters, field, data) => {
-  return filters[field]?.length !== 0 ? filters[field]?.includes(data) : true;
 };
 
 export default AlumniTable;

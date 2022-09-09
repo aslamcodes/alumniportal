@@ -9,11 +9,11 @@ export default function useAxiosWithCallback() {
     async (config, callback = () => {}) => {
       const axiosConfig = {
         method: "get",
+        ...config,
         headers: {
           "Content-Type": "application/json",
           ...config.headers,
         },
-        ...config,
       };
 
       try {

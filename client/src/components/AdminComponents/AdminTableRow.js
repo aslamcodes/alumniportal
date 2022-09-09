@@ -16,7 +16,6 @@ const AdminTableRow = ({ alumni, type, ...rest }) => {
     },
   });
 
-
   const handleOnApproveAlumni = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -45,7 +44,6 @@ const AdminTableRow = ({ alumni, type, ...rest }) => {
     setIsLoading(false);
   };
 
-
   return (
     <a.tr
       style={props}
@@ -53,7 +51,6 @@ const AdminTableRow = ({ alumni, type, ...rest }) => {
       onMouseOut={() => {
         setIsHover(false);
       }}
-
     >
       <td>{alumni?.user?.registerNumber}</td>
       <td>{alumni?.user?.name}</td>
@@ -62,27 +59,18 @@ const AdminTableRow = ({ alumni, type, ...rest }) => {
         <>
           <td>{alumni?.designation}</td>
           <td>{alumni?.organization}</td>
-
-
-
         </>
       )}
       {type === "reject-details" && (
         <>
-
-
-          <td>{alumni?.alumni_data?.designation}</td>
-          <td>{alumni?.alumni_data?.companyName}</td>
-
+          <td>{alumni?.designation}</td>
+          <td>{alumni?.companyName}</td>
         </>
       )}
       {type === "request-details" && (
         <>
-
-
-          <td>{alumni?.alumni_data?.designation}</td>
-          <td>{alumni?.alumni_data?.organization}</td>
-
+          <td>{alumni?.designation}</td>
+          <td>{alumni?.organization}</td>
         </>
       )}
 
@@ -92,14 +80,20 @@ const AdminTableRow = ({ alumni, type, ...rest }) => {
       <td>{alumni?.user?.state}</td>
       <td>{alumni?.user?.country}</td>
       <td>{alumni?.user?.graduationLevel}</td>
-      <td>{alumni?.secondaryCollegeName != undefined ? alumni?.secondaryCollegeName : "NA"}</td>
-      <td>{alumni?.courseName != undefined ? alumni?.courseName : "NA"}</td>
+      <td>
+        {alumni?.secondaryCollegeName !== undefined
+          ? alumni?.secondaryCollegeName
+          : "NA"}
+      </td>
+      <td>{alumni?.courseName !== undefined ? alumni?.courseName : "NA"}</td>
       <td>{alumni?.user?.skill}</td>
-
 
       {type === "alumni-details" && (
         <a.td className={Styles.fixed_col} style={props}>
-          <button onClick={handleOnDeleteAlumni} className={`${Styles.decline}`}>
+          <button
+            onClick={handleOnDeleteAlumni}
+            className={`${Styles.decline}`}
+          >
             Delete
           </button>
         </a.td>

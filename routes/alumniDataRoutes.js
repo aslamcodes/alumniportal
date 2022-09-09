@@ -1,8 +1,14 @@
 import express from "express";
-import { getAlumniData } from "../controllers/alumniDataControllers.js";
+import {
+  getAllAlumniData,
+  getAlumniData,
+  getStoredAlumniCount,
+} from "../controllers/alumniDataControllers.js";
 
 const router = express.Router();
 
-router.get("/", getAlumniData);
+router.get("/", getAllAlumniData);
+router.get("/alumni/", getAlumniData);
+router.get("/count/", getStoredAlumniCount);
 
 export default router;

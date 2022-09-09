@@ -2,10 +2,10 @@ import asyncHandler from "express-async-handler";
 import AlumniData from "../models/Alumni-data.js";
 
 export const getAlumniData = asyncHandler(async (req, res) => {
-  const { registerNumber, email, phoneNumber } = req.body;
+  const { email } = req.query;
 
-  const alumniData = await AlumniData.find({
-    contact: phoneNumber,
+  const alumniData = await AlumniData.findOne({
+    email: email.toLowerCase(),
   });
 
   if (!alumniData) {
@@ -15,4 +15,35 @@ export const getAlumniData = asyncHandler(async (req, res) => {
   }
 
   return res.json(alumniData);
+});
+
+export const getAllAlumniData = asyncHandler(async (req, res) => {
+  const { offset = 0, entries = 10 } = req.query;
+
+  const alumniData = await AlumniData.aggregate([
+    { $skip: +offset },
+    {
+      $limit: +entries,
+    },
+  ]);
+
+  if (!alumniData) {
+    res.status(400);
+    throw new Error("No Alumni Data Available");
+  }
+
+  res.json(alumniData);
+});
+
+export const getStoredAlumniCount = asyncHandler(async (req, res) => {
+  const count = await AlumniData.count();
+
+  if (!count) {
+    res.status(400);
+    res.json({
+      message: "Problem on Counting the alumni data",
+    });
+  }
+
+  res.json(count);
 });

@@ -11,6 +11,10 @@ import Loader from "components/UI/Loader";
 import { useAlertContext } from "context/alert/alertContext";
 
 function RegistrationPageFaculty() {
+  useEffect(() => {
+    document.title = "Alumni Portal | Register Faculty"
+  }, []);
+
   const today = new Date().toJSON().slice(0, 10);
   const navigate = useNavigate();
   const location = useLocation();
@@ -18,7 +22,7 @@ function RegistrationPageFaculty() {
   const [isCPasswordDirty, setIsCPasswordDirty] = useState(false);
   const [isPasswordMatch, setIsPasswordMatch] = useState(false);
   const { user, error, isLoading } = useAuthContext();
-  const { success } = useAlertContext();
+  const { successAlert, errorAlert } = useAlertContext();
   const graduationLevelOptions = ["Under graduate", "Post graduate", "Others"];
 
   const [data, setData] = useState({
@@ -34,8 +38,8 @@ function RegistrationPageFaculty() {
   });
 
   useEffect(() => {
-    if (error) success(error);
-  }, [error, success]);
+    if (error) errorAlert(error);
+  }, [error, errorAlert]);
 
   const handleChange = (e) => {
     setData({

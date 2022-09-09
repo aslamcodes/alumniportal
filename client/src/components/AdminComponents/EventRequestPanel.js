@@ -1,8 +1,9 @@
 import { useAuthContext } from "context/auth/authContext";
 import useAxiosWithCallback from "hooks/useAxiosWithCallback";
 import { useGetEventRequests } from "hooks/useGetEventRequests";
-import React from "react";
+import React, { useState } from "react";
 import AdminTableHeader from "./AdminTableHeader";
+import AdminTablePagination from "./AdminTablePagination";
 import styles from "./EventRequestPanel.module.css";
 import EventRequestRow from "./EventRequestRow";
 import NoDataMessage from "./NoDataMessage";
@@ -11,7 +12,9 @@ const EventRequestPanel = () => {
   const { user } = useAuthContext();
   const { requests, isLoading, error } = useGetEventRequests();
   const { fetchData: approveAlumni } = useAxiosWithCallback();
-
+  const [entriesPerPage, setEntriesPerPage] = useState(10);
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = requests ? Math.ceil(requests.length / entriesPerPage) : 0;
   const approveHandler = async (requestId) => {
     const config = {
       url: `/api/v1/events/approve/${requestId}`,
@@ -22,10 +25,24 @@ const EventRequestPanel = () => {
     };
     await approveAlumni(config);
   };
+  const OnIncreaseHandler = () => {
+    if (currentPage > totalPages - 1) return null;
+    setCurrentPage(currentPage + 1);
+  };
+
+  const onDecreaseHandler = () => {
+    if (currentPage < 2) return null;
+    setCurrentPage(currentPage - 1);
+  };
+
+  const onEntriesPerPageSelectHandler = (value) => {
+    setEntriesPerPage(value);
+  };
 
   return (
     <div className={styles.event_request_container}>
       <AdminTableHeader
+        onSelect={onEntriesPerPageSelectHandler}
         type="Event Requests"
 
       />
@@ -45,7 +62,10 @@ const EventRequestPanel = () => {
         </thead>
         {requests && requests.length > 0 ?
           <tbody>
-            {requests?.map((request, index) => {
+            {requests?.slice(
+              currentPage * entriesPerPage - entriesPerPage,
+              currentPage * entriesPerPage
+            ).map((request, index) => {
               return (
                 <EventRequestRow
                   data={request} key={index} onApproveHandler={approveHandler}
@@ -58,6 +78,12 @@ const EventRequestPanel = () => {
           <NoDataMessage />
         }
       </table>
+      <AdminTablePagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onIncrease={OnIncreaseHandler}
+        onDecrease={onDecreaseHandler}
+      />
     </div>
 
   );

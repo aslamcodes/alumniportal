@@ -9,12 +9,12 @@ const ReplyForm = ({ comment, onAddNewReply }) => {
   const { user } = useAuthContext();
   const [reply, setReply] = useState("");
   const { fetchData, isLoading, error } = useAxiosWithCallback();
-  const { success } = useAlertContext();
+  const { successAlert, errorAlert } = useAlertContext();
   const navigate = useNavigate();
   const submitHandler = async (e) => {
     e.preventDefault();
     if (!user?.token) {
-      success("Sign in to create replies");
+      errorAlert("Sign in to create replies");
       navigate("/login");
       return;
     }

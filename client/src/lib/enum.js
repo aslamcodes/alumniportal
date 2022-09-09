@@ -1,6 +1,7 @@
 export const AlertStatus = {
   NONE: "None",
   SUCCESS: "success",
+  FAILED: "failed",
   ERROR: "error",
 };
 

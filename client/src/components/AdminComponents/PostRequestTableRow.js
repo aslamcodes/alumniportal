@@ -42,7 +42,7 @@ const DescOverlay = ({ data, setIsShowDesc }) => {
 const RejectReasonOverlay = ({ setIsShowReject }) => {
   const [reason, setReason] = useState("");
   const handleSent = () => {
-    console.log(reason);
+
     setReason("");
     setIsShowReject(false);
   };
@@ -87,7 +87,7 @@ function PostRequestTableRow({ data, onApproveHandler }) {
   const handleEyeClick = () => {
     setIsShowImage(!isShowImage);
   };
-  const { success } = useAlertContext();
+  const { successAlert } = useAlertContext();
 
   return (
     <tr className={styles.post_request_row}>
@@ -116,7 +116,7 @@ function PostRequestTableRow({ data, onApproveHandler }) {
             <p
               onClick={() => {
                 onApproveHandler(data._id);
-                success("Approved");
+                successAlert("Approved");
               }}
               className={styles.accept}
             >

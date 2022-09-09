@@ -1,27 +1,33 @@
 import Divider from "components/UI/Divider";
 import React, { useState } from "react";
 import { FaFilter, FaPlus } from "react-icons/fa";
-import {MdDownload} from "react-icons/md"
+import { MdDownload } from "react-icons/md";
 import { FiSearch } from "react-icons/fi";
 import Styles from "./AdminTableHeader.module.css";
 import Select from "react-select";
 import FilterModal from "./FilterModal";
 import { useAlertContext } from "context/alert/alertContext";
+import { CSVLink } from "react-csv";
 
 const AdminTableHeader = ({
-  onSelect,
+  data,
+  headers,
+  filename,
+  onEntriesSelect,
+  entriesPerPage,
   type,
   filters,
   onApplyFilter,
   onSearch,
 }) => {
-  const [selectedCount, setSelectedCount] = useState(10);
+  const [selectedCount, setSelectedCount] = useState(entriesPerPage ?? 10);
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const { success } = useAlertContext();
+  const { successAlert } = useAlertContext();
+
   const onChangeHandler = ({ value }) => {
     setSelectedCount(value);
-    onSelect(value);
+    onEntriesSelect(value);
   };
 
   const handleClose = () => {
@@ -60,13 +66,14 @@ const AdminTableHeader = ({
           >
             Filter <FaFilter />
           </button>
-          <button>
+          <CSVLink
+            data={data ? data : [{}]}
+            headers={headers}
+            filename={filename || "data"}
+          >
             Csv
-            <MdDownload fontSize={18}
-            onClick={() => {
-              success("Feature will be enabled soon");
-            }}/>
-          </button>
+            <MdDownload fontSize={18} />
+          </CSVLink>
         </div>
       </div>
       <Divider mt={".6em"} mb={".6em"} bgColor={"#ADADAD"} />
