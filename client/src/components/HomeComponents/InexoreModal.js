@@ -112,7 +112,6 @@ const InexoreModal = ({ closemodal, isOpen, post }) => {
                     return (
                       <div className={Styles.profile}>
                         <a target="_blank" href={member.github} >{member.img}</a>
-                        <p></p>
                         <h3 className={Styles.profile_name}>{member.name}</h3>
                         <h5 className={Styles.profile_job}>
                           {member.designation}
