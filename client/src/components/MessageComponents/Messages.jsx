@@ -98,10 +98,10 @@ const ChatPage = ({
   const onSubmitHandler = () => {
     const messageConfig = {
       url: "/api/v1/conversation/message/" + conversationId,
+      method: "post",
       headers: {
         Authorization: "Bearer " + user?.token,
       },
-      method: "post",
       data: {
         content: message,
       },

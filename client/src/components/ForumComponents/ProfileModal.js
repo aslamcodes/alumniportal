@@ -112,8 +112,8 @@ function ProfileModal({ isOpen, handleClose, userId }) {
     updateData.append("name", editedData.name);
 
     const updateConfig = {
-      url: "/api/v1/users/",
       method: "patch",
+      url: "/api/v1/users/",
       headers: {
         "content-type": "multipart/form-data",
         Authorization: "Bearer " + loggedInUser?.token,

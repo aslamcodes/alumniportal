@@ -8,8 +8,8 @@ export default function useAxiosWithCallback() {
   const fetchData = useCallback(
     async (config, callback = () => {}) => {
       const axiosConfig = {
-        ...config,
         method: "get",
+        ...config,
         headers: {
           "Content-Type": "application/json",
           ...config.headers,
