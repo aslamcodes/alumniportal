@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import MenuIcon from "@mui/icons-material/Menu";
 import Menu from "./Menu";
 import styles from "./Navbar.module.css";
 import { Link, useLocation } from "react-router-dom";
@@ -17,6 +16,7 @@ import NotificationPanel from "components/NotificationComponents/NotificationPan
 import ProfileModal from "components/ForumComponents/ProfileModal";
 import useFetchNotification from "hooks/useFetchNotification";
 import Messages from "components/MessageComponents/Messages";
+import { AiOutlineMenu } from "react-icons/ai";
 
 function getWindowDimensions() {
   const { innerWidth: width, innerHeight: height } = window;
@@ -172,8 +172,9 @@ const Navbar = () => {
           {windowDimensions.width < 790 && (
             <div className={`${styles.dropdown} `}>
               {!menuActive && (
-                <MenuIcon
+                <AiOutlineMenu
                   className={styles["dropdown-btn"]}
+                  fontSize={20}
                   onClick={() => {
                     setMenuActive(true);
                   }}
