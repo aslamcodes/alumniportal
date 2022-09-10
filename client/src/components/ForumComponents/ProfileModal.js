@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import ReactPortal from "components/Modal/ReactPortal";
 import ForumCard from "components/ForumComponents/ForumCard";
 import styles from "./ProfileModal.module.css";
@@ -18,7 +18,6 @@ import useAxiosWithCallback from "hooks/useAxiosWithCallback";
 import { useAlertContext } from "context/alert/alertContext";
 import ErrorDialogue from "components/UI/ErrorDialogue";
 
-
 const PROFILE_IMAGES = [
   <img src={require("assets/Profile_images/2.png")} alt="cover_img" />,
   <img src={require("assets/Profile_images/3.png")} alt="cover_img" />,
@@ -35,11 +34,12 @@ function ProfileModal({ isOpen, handleClose, userId }) {
     document.title = "Alumni Portal | Profile";
   }, []);
   const { user, isLoading, error, trigger } = useUserProfileData(userId);
+  const profileContainerRef = useRef();
   const {
     isLoading: isPostLoading,
     error: postError,
     posts,
-  } = useGetForumPosts(userId);
+  } = useGetForumPosts(userId, profileContainerRef.current);
 
   const { user: loggedInUser } = useAuthContext();
   const { alumni } = useAlumniContext();
@@ -121,8 +121,6 @@ function ProfileModal({ isOpen, handleClose, userId }) {
     handleClose();
   };
 
-
-
   const handleUpdate = async (e) => {
     const updateData = new FormData();
     if (image !== "") updateData.append("avatar", image);
@@ -177,6 +175,7 @@ function ProfileModal({ isOpen, handleClose, userId }) {
     <ReactPortal wrapperId="profile_content_wrapper">
       <div className={styles.profile_overlay} onClick={handleClose}>
         <div
+          ref={profileContainerRef}
           className={styles.profile_container}
           onClick={(e) => e.stopPropagation()}
         >
@@ -214,8 +213,9 @@ function ProfileModal({ isOpen, handleClose, userId }) {
             )}
 
             <div
-              className={`${styles.profile_info} ${editProfile && styles.profile_info_edit
-                }`}
+              className={`${styles.profile_info} ${
+                editProfile && styles.profile_info_edit
+              }`}
             >
               <h2
                 className={`${editProfile && styles.editActive}`}
@@ -234,9 +234,10 @@ function ProfileModal({ isOpen, handleClose, userId }) {
                 >
                   {printDesignation(user?.isAlumni, user?.isAdmin) ||
                     user?.alumni?.designation}{" "}
-                  {`${user?.alumni?.organization &&
+                  {`${
+                    user?.alumni?.organization &&
                     "at " + user?.alumni?.organization
-                    }`}
+                  }`}
                 </h3>
               )}
               {/* <div
@@ -319,8 +320,9 @@ function ProfileModal({ isOpen, handleClose, userId }) {
               {editProfile && user?.isAlumni && (
                 <div className={styles.editSocial_container}>
                   <div
-                    className={`${styles.editSocial} ${editProfile && styles.editActive
-                      }`}
+                    className={`${styles.editSocial} ${
+                      editProfile && styles.editActive
+                    }`}
                   >
                     <input
                       placeholder={"Add your Twitter handle link"}
@@ -335,8 +337,9 @@ function ProfileModal({ isOpen, handleClose, userId }) {
                   </div>
 
                   <div
-                    className={`${styles.editSocial} ${editProfile && styles.editActive
-                      }`}
+                    className={`${styles.editSocial} ${
+                      editProfile && styles.editActive
+                    }`}
                   >
                     <input
                       onChange={(e) => handleSocialChange(e, `linkedIn}`)}
@@ -351,8 +354,9 @@ function ProfileModal({ isOpen, handleClose, userId }) {
                   </div>
 
                   <div
-                    className={`${styles.editSocial} ${editProfile && styles.editActive
-                      }`}
+                    className={`${styles.editSocial} ${
+                      editProfile && styles.editActive
+                    }`}
                   >
                     <input
                       placeholder="Add your Github profile link"
@@ -368,8 +372,9 @@ function ProfileModal({ isOpen, handleClose, userId }) {
                   </div>
 
                   <div
-                    className={`${styles.editSocial} ${editProfile && styles.editActive
-                      }`}
+                    className={`${styles.editSocial} ${
+                      editProfile && styles.editActive
+                    }`}
                   >
                     <input
                       value={editedData?.alumni?.social?.facebook}
