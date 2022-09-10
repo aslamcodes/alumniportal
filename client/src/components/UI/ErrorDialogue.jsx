@@ -5,7 +5,7 @@ import styles from "./ErrorDialogue.module.css";
 const ErrorDialogue = ({ errorMessage }) => {
   return (
     <div className={styles.error_container}>
-      <IoWarningOutline fontSize={40} />
+      <IoWarningOutline fontSize={30} />
       {errorMessage}
     </div>
   );
