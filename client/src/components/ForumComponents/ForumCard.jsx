@@ -67,7 +67,7 @@ const ForumCard = ({ data, profileActive, profileEdit }) => {
     };
 
     await fetchData(deleteConfig, (res) => {
-      successAlert(`Deleted Post ${res.post}`);
+      successAlert(`Post deleted successfully`);
     });
 
     trigger();
