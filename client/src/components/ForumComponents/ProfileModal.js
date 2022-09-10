@@ -16,6 +16,7 @@ import Loader from "components/UI/Loader";
 import useGetForumPosts from "hooks/useGetForumPosts";
 import useAxiosWithCallback from "hooks/useAxiosWithCallback";
 import { useAlertContext } from "context/alert/alertContext";
+import ErrorDialogue from "components/UI/ErrorDialogue";
 
 
 const PROFILE_IMAGES = [
@@ -54,11 +55,20 @@ function ProfileModal({ isOpen, handleClose, userId }) {
   const { fetchData: updateProfile } = useAxiosWithCallback();
   const { successAlert, errorAlert } = useAlertContext();
 
-  useEffect(() => {
-    if (error || postError) {
-      errorAlert(error || postError);
-    }
-  }, [error, postError, errorAlert]);
+
+  if (error) {
+    return (
+      <div className={styles.profile_overlay} onClick={handleClose}>
+        <div
+          className={styles.profile_container}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <ErrorDialogue errorMessage={error.message} />;
+        </div>
+      </div>
+    )
+  }
+
 
   const pick_image = useCallback(() => {
     const random_number = Math.floor(Math.random() * PROFILE_IMAGES.length);
@@ -452,14 +462,16 @@ function ProfileModal({ isOpen, handleClose, userId }) {
 
               {show.post && (
                 <div className={styles.posts}>
-                  {posts.map((post) => (
-                    <ForumCard
-                      key={post.id}
-                      data={post}
-                      profileActive={true}
-                      profileEdit={editProfile}
-                    />
-                  ))}
+                  {postError ? <ErrorDialogue errorMessage={postError.message} /> :
+                    posts.map((post) => (
+                      <ForumCard
+                        key={post.id}
+                        data={post}
+                        profileActive={true}
+                        profileEdit={editProfile}
+                      />
+                    ))
+                  }
                 </div>
               )}
             </div>
