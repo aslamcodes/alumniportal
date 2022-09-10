@@ -1,0 +1,17 @@
+.error_container {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  max-width: clamp(25rem, 40%, 35rem);
+  border-radius: 0.3rem;
+  max-height: max-content;
+  min-height: 10%;
+  margin: auto;
+  background-color: #eaeef1;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  color: #000;
+  padding: 0.5em 1em;
+  border-radius: 0.5rem;
+  font-weight: 500;
+}
