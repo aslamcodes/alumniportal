@@ -40,8 +40,9 @@ const Footer = () => {
   return (
     isFooterVisible && (
       <div
-        className={`${styles["footer"]} ${isFooterTranslucent && styles.bg_translucent
-          }`}
+        className={`${styles["footer"]} ${
+          isFooterTranslucent && styles.bg_translucent
+        }`}
       >
         <InexoreModal
           isOpen={showInexore}
@@ -49,7 +50,12 @@ const Footer = () => {
         />
 
         <div className={styles["footer-container"]}>
-          <a href="https://skct.edu.in/" target="_blank" rel="noopener noreferrer" className={styles["footer-brand"]}>
+          <a
+            href="https://skct.edu.in/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles["footer-brand"]}
+          >
             <img src={require("assets/Logo2.png")} alt="College-logo" />
             <h1>SKCT</h1>
           </a>
@@ -69,22 +75,42 @@ const Footer = () => {
             </p>
           </div>
           <div className={styles["social"]}>
-            <a href="https://www.google.com/maps/place/SKCT/@10.9292577,76.9201712,18z/data=!4m9!1m2!2m1!1sskct!3m5!1s0x3ba85b89b0ebc80d:0xe3a7cda7a28a1422!8m2!3d10.9292577!4d76.9222311!15sCgRza2N0kgEHY29sbGVnZeABAA" target="_blank" >
+            <a
+              href="https://www.google.com/maps/place/SKCT/@10.9292577,76.9201712,18z/data=!4m9!1m2!2m1!1sskct!3m5!1s0x3ba85b89b0ebc80d:0xe3a7cda7a28a1422!8m2!3d10.9292577!4d76.9222311!15sCgRza2N0kgEHY29sbGVnZeABAA"
+              target="_blank"
+            >
               <img src={require("assets/icons/map.png")} alt="map icon" />
             </a>
-            <img src={require("assets/icons/YouTube.png")} alt="Youtube icon" />
-            <img
-              src={require("assets/icons/Facebook.png")}
-              alt="Facebook icon"
-            />
-            <img
-              src={require("assets/icons/Instagram.png")}
-              alt="Instagram icon"
-            />
-            <img src={require("assets/icons/Twitter.png")} alt="Twitter icon" />
+            <a
+              href="https://www.youtube.com/channel/UCLtRq0iFEf2BQ2-VECJBUbA"
+              target="_blank"
+            >
+              <img
+                src={require("assets/icons/YouTube.png")}
+                alt="Youtube icon"
+              />
+            </a>
+            <a href="https://www.facebook.com/skctofficial/" target="_blank">
+              <img
+                src={require("assets/icons/Facebook.png")}
+                alt="Facebook icon"
+              />
+            </a>
+            <a href="https://www.instagram.com/skct__official/" target="_blank">
+              <img
+                src={require("assets/icons/Instagram.png")}
+                alt="Instagram icon"
+              />
+            </a>
+            <a href="https://twitter.com/SkctIt" target="_blank">
+              <img
+                src={require("assets/icons/Twitter.png")}
+                alt="Twitter icon"
+              />
+            </a>
           </div>
         </div>
-      </div >
+      </div>
     )
   );
 };
