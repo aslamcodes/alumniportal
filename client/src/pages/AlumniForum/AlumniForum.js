@@ -12,14 +12,13 @@ import ErrorDialogue from "components/UI/ErrorDialogue";
 
 function AlumniForum() {
   useEffect(() => {
-    document.title = "Alumni Portal | Alumni Forum"
+    document.title = "Alumni Portal | Alumni Forum";
   }, []);
   const [newPostActive, setNewPostActive] = useState(false);
   const [profileActive, setProfileActive] = useState(false);
   const { user } = useAuthContext();
 
-  const { isLoading, error, posts } = useGetForumPosts();
-
+  const { isLoading, error, posts, trigger } = useGetForumPosts();
 
   if (error) {
     return (
@@ -28,16 +27,18 @@ function AlumniForum() {
           <ErrorDialogue errorMessage={error.message} />
         </div>
       </div>
-    )
+    );
   }
 
-
   return (
-
     <div className={Styles.container}>
       <div className={Styles.forum_container}>
         {posts?.map((post, idx) => (
-          <ForumCard key={post._id + idx + post.tittle} data={post} />
+          <ForumCard
+            key={post._id + idx + post.tittle}
+            data={post}
+            trigger={trigger}
+          />
         ))}
         {isLoading && <Loader />}
       </div>

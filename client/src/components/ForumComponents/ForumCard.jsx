@@ -13,14 +13,13 @@ import { useNavigate } from "react-router-dom";
 import useGetForumPosts from "hooks/useGetForumPosts";
 import config from "config/config";
 
-const ForumCard = ({ data, profileActive, profileEdit }) => {
-  const { posts: isloading, trigger, post } = useGetForumPosts();
+const ForumCard = ({ data, profileActive, profileEdit, trigger }) => {
   const [isCommentsModalOpen, setIsCommentsModalOpen] = useState(false);
   const [isPostModalOpen, setIsPostModalOpen] = useState(false);
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const { user } = useAuthContext();
-  const { fetchData: deletePost } = useAxiosWithCallback();
-  const { fetchData, isLoading } = useAxiosWithCallback();
+
+  const { fetchData: deletePost, isLoading } = useAxiosWithCallback();
   const [liked, setLiked] = useState(
     user ? data?.likes?.map((like) => like.user._id).includes(user?._id) : false
   );
@@ -50,7 +49,7 @@ const ForumCard = ({ data, profileActive, profileEdit }) => {
         Authorization: `Bearer ${user?.token}`,
       },
     };
-    await fetchData(likeConfig, (res) => {
+    await deletePost(likeConfig, (res) => {
       setLiked((prev) => !prev);
     });
   };
@@ -66,7 +65,7 @@ const ForumCard = ({ data, profileActive, profileEdit }) => {
       method: "delete",
     };
 
-    await fetchData(deleteConfig, (res) => {
+    await deletePost(deleteConfig, (res) => {
       successAlert(`Post deleted successfully`);
     });
 

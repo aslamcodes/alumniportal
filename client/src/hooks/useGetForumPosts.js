@@ -2,12 +2,11 @@ import { useCallback, useEffect, useState } from "react";
 import useAxiosWithCallback from "./useAxiosWithCallback";
 import useScrollPositionThrottled from "./useScrollPositionThrottled";
 
-const useGetForumPosts = (user) => {
+const useGetForumPosts = (user, element) => {
   const { isLoading, error, fetchData } = useAxiosWithCallback();
   const [posts, setPosts] = useState([]);
   const [hasMore, setHasMore] = useState(true);
-  const [refresh, setRefresh] = useState(0);
-
+  const [refresh, setRefresh] = useState(false);
 
   const getConfig = useCallback(
     (offset = 0) => ({
@@ -16,14 +15,15 @@ const useGetForumPosts = (user) => {
         : `/api/v1/forum/feed_v2_alpha?offset=${offset}`,
     }),
     [user]
-  );  
-  const trigger =()=>{
-    setRefresh(Math.random());
+  );
+
+  const trigger = () => {
+    setRefresh((prev) => !prev);
   };
 
   useEffect(() => {
     fetchData(getConfig(0), setPosts);
-  }, [fetchData, getConfig,refresh]);
+  }, [fetchData, getConfig, refresh]);
 
   useScrollPositionThrottled(
     ({ atBottom }) => {
@@ -34,11 +34,11 @@ const useGetForumPosts = (user) => {
         });
       }
     },
-    null,
+    element,
     []
   );
 
-  return { isLoading, error, posts,trigger };
+  return { isLoading, error, posts, trigger };
 };
 
 export default useGetForumPosts;

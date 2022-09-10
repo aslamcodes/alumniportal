@@ -75,7 +75,7 @@ const InexoreModal = ({ closemodal, isOpen, post }) => {
   });
   useEffect(() => {
     document.title = "Alumni Portal | Inexore";
-  });
+  }, []);
 
   useEffect(() => {
     const closeOnEscapeKey = (e) => (e.key === "Escape" ? closemodal() : null);
