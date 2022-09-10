@@ -6,7 +6,6 @@ import { a, config, useTransition } from "react-spring";
 import { GrClose } from "react-icons/gr";
 
 const MEMBERS = [
-
   {
     img: (
       <img
@@ -18,8 +17,7 @@ const MEMBERS = [
     name: "Aswin",
     designation: "Developer",
     quote: "Always remember, beginning is the hardest part",
-    github: "https://github.com/ASWIN-G-SKCT"
-
+    github: "https://github.com/ASWIN-G-SKCT",
   },
   {
     img: (
@@ -31,8 +29,8 @@ const MEMBERS = [
     ),
     name: "Heemanush",
     designation: "Developer",
-    quote: "Always remember, beginning is the hardest part",
-    github: "https://github.com/heemanushcp"
+    quote: "Engineering is the closest thing to magic that exists in the world",
+    github: "https://github.com/heemanushcp",
   },
   {
     img: (
@@ -45,7 +43,7 @@ const MEMBERS = [
     name: "Jayvan Andel",
     designation: "Developer",
     quote: "Always remember, beginning is the hardest part",
-    github: "https://github.com/jayvanandel07"
+    github: "https://github.com/jayvanandel07",
   },
   {
     img: (
@@ -58,8 +56,8 @@ const MEMBERS = [
     name: "Mohammed Aslam",
     designation: "Developer",
     quote: "Always remember, beginning is the hardest part",
-    github: "https://github.com/aslamcodes"
-  }
+    github: "https://github.com/aslamcodes",
+  },
 ];
 
 const InexoreModal = ({ closemodal, isOpen, post }) => {
@@ -114,7 +112,9 @@ const InexoreModal = ({ closemodal, isOpen, post }) => {
                   {MEMBERS.map((member, index) => {
                     return (
                       <div key={index} className={Styles.profile}>
-                        <a target="_blank" href={member.github} >{member.img}</a>
+                        <a target="_blank" href={member.github}>
+                          {member.img}
+                        </a>
                         <h3 className={Styles.profile_name}>{member.name}</h3>
                         <h5 className={Styles.profile_job}>
                           {member.designation}
