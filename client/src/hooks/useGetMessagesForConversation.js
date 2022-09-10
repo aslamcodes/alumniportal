@@ -14,7 +14,7 @@ export default function useGetMessagesForConversation(conversationId) {
         Authorization: `Bearer ${user?.token}`,
       },
     };
-    user && fetchData(config, setMessages);
+    user && conversationId && fetchData(config, setMessages);
   }, [fetchData, user, conversationId, count]);
 
   const trigger = () => {
