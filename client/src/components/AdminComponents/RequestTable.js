@@ -95,11 +95,16 @@ const RequestTable = () => {
   };
 
   const onRejectAlumni = async (alumni) => {
+    const reason = prompt("Reason of Rejection");
+
     await rejectAlumni(
       {
         ...adminConfig,
         method: "patch",
         url: `/api/v1/alumni/reject/${alumni}`,
+        data: {
+          reason,
+        },
       },
       (res) => {
         trigger();

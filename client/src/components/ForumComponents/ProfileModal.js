@@ -55,7 +55,6 @@ function ProfileModal({ isOpen, handleClose, userId }) {
   const { fetchData: updateProfile } = useAxiosWithCallback();
   const { successAlert, errorAlert } = useAlertContext();
 
-
   if (error) {
     return (
       <div className={styles.profile_overlay} onClick={handleClose}>
@@ -66,9 +65,8 @@ function ProfileModal({ isOpen, handleClose, userId }) {
           <ErrorDialogue errorMessage={error.message} />;
         </div>
       </div>
-    )
+    );
   }
-
 
   const pick_image = useCallback(() => {
     const random_number = Math.floor(Math.random() * PROFILE_IMAGES.length);
@@ -412,17 +410,21 @@ function ProfileModal({ isOpen, handleClose, userId }) {
                       <p>Save</p>
                     </div>
                   )}
-                  {!editProfile && !user?.alumni && !alumni && user && (
-                    <div className={styles.profile_controls}>
-                      <BsPeople />
+                  {!editProfile &&
+                    !user?.alumni &&
+                    !user.isAdmin &&
+                    !alumni &&
+                    user && (
+                      <div className={styles.profile_controls}>
+                        <BsPeople />
 
-                      <p>
-                        <Link onClick={handleClose} to="/register-alumni">
-                          Apply as Alumni
-                        </Link>
-                      </p>
-                    </div>
-                  )}
+                        <p>
+                          <Link onClick={handleClose} to="/register-alumni">
+                            Apply as Alumni
+                          </Link>
+                        </p>
+                      </div>
+                    )}
                   {!editProfile && (
                     <div
                       className={styles.profile_controls}
@@ -467,7 +469,9 @@ function ProfileModal({ isOpen, handleClose, userId }) {
 
               {show.post && (
                 <div className={styles.posts}>
-                  {postError ? <ErrorDialogue errorMessage={postError.message} /> :
+                  {postError ? (
+                    <ErrorDialogue errorMessage={postError.message} />
+                  ) : (
                     posts.map((post) => (
                       <ForumCard
                         key={post.id}
@@ -476,7 +480,7 @@ function ProfileModal({ isOpen, handleClose, userId }) {
                         profileEdit={editProfile}
                       />
                     ))
-                  }
+                  )}
                 </div>
               )}
             </div>
