@@ -25,7 +25,7 @@ const NotificationPanel = () => {
       <NotificationCard
         notification={{ message: "Notifications" }}
         type={1}
-        // type 0 is for no notification
+      // type 0 is for no notification
       />
       {isLoading ? (
         <Loader />
@@ -33,7 +33,7 @@ const NotificationPanel = () => {
         <NotificationCard
           notification={{ message: "No new notification " }}
           type={0}
-          // type 0 is for no notification
+        // type 0 is for no notification
         />
       ) : (
         notificationsOnState.map((notification) => (
@@ -43,6 +43,7 @@ const NotificationPanel = () => {
           />
         ))
       )}
+
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import Loader from "components/UI/Loader";
 import { useAuthContext } from "context/auth/authContext";
+import { useMessageContext } from "context/messageContext/messageContext";
 import useAxiosWithCallback from "hooks/useAxiosWithCallback";
 import React, { useLayoutEffect, useRef, useState } from "react";
 import { IoClose } from "react-icons/io5";
@@ -7,12 +8,17 @@ import { RiArrowDropDownLine } from "react-icons/ri";
 import styles from "./NotificationCard.module.css";
 
 const NotificationCard = ({ notification, onResolve, type }) => {
+  console.log(notification);
   const [isExpanded, setIsExpanded] = useState(false);
   const [showChevron, setShowChevron] = useState(false);
 
-  const { isLoading, error, fetchData } = useAxiosWithCallback();
+  const { isLoading, error, fetchData, fetchData: createConversation, } = useAxiosWithCallback();
+
   const { user } = useAuthContext();
+
   const messageElement = useRef(null);
+
+  const { openMessageModal } = useMessageContext();
 
   const handleResolve = async () => {
     const config = {
@@ -38,11 +44,27 @@ const NotificationCard = ({ notification, onResolve, type }) => {
   }, [messageElement]);
   if (isLoading) return <Loader />;
 
+  const handleContact = () => {
+    const conversationConfig = {
+      url: "/api/v1/conversation/",
+      method: "post",
+      headers: {
+        Authorization: "Bearer " + user?.token,
+      },
+      data: {
+        // TODO: Change the reciever id
+        receiver: "62e7b5dcacc6af6dd485c391",
+      },
+    };
+    createConversation(conversationConfig, (conversation) => {
+      openMessageModal(conversation._id);
+    });
+  }
+
   return (
     <div
-      className={`${styles.notification_card} ${
-        isExpanded && styles.expanded
-      } ${type === 1 && styles.header}`}
+      className={`${styles.notification_card} ${isExpanded && styles.expanded
+        } ${type === 1 && styles.header}`}
     >
       <div className={`${styles.message} `}>
         <p ref={messageElement}>{notification.message}</p>
@@ -58,8 +80,7 @@ const NotificationCard = ({ notification, onResolve, type }) => {
             >
               Accept
             </button>
-            {/* TODO: Create a conversation with ADMIN, Instead of mailing */}
-            <button className={styles.contact}>Contact</button>
+            <button className={styles.contact} onClick={handleContact}>Contact</button>
           </div>
         )}
       </div>
