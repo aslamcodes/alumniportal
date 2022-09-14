@@ -436,21 +436,43 @@ export const getAlumniRequests = asyncHandler(async (req, res) => {
 
 export const rejectAlumniRequest = asyncHandler(async (req, res) => {
   const { requestId } = req.params;
+  const { reason } = req.body;
+
   const request = await AlumniRequest.findOneAndUpdate(
     { _id: requestId },
     {
       $set: {
         rejected: true,
-        reasonOfRejection: req.body.reason,
+        reasonOfRejection: reason,
       },
     }
   );
+
   if (request) {
+    const existingNotification = await Notification.findOne({
+      user: request.user,
+      type: notificationConstants.ALUMNI_REJECT,
+      resolved: false,
+    });
+
+    if (!existingNotification) {
+      await Notification.create({
+        user: request.user,
+        message: `Your request has been rejected. Reason: ${reason}`,
+        type: notificationConstants.ALUMNI_REJECT,
+      });
+    }
+
+    await RejectedApplication.create({
+      user: request.user,
+    });
+
     return res.status(200).json({
       success: true,
       message: "Alumni Request rejected successfully",
     });
   }
+
   return res.status(400).json({
     success: false,
     error: "Cannot reject Alumni Request at this time, please try again later",

@@ -22,21 +22,22 @@ const NotificationPanel = () => {
 
   return (
     <div className={styles.notification_container}>
-      <NotificationCard notification={{ message: "Notifications" }}
+      <NotificationCard
+        notification={{ message: "Notifications" }}
         type={1}
-      // type 0 is for no notification
+        // type 0 is for no notification
       />
       {isLoading ? (
         <Loader />
       ) : notificationsOnState?.length === 0 ? (
-        <NotificationCard notification={{ message: "No new notification " }}
+        <NotificationCard
+          notification={{ message: "No new notification " }}
           type={0}
-        // type 0 is for no notification
+          // type 0 is for no notification
         />
       ) : (
         notificationsOnState.map((notification) => (
           <NotificationCard
-            // type="approval" is for alumni reject notification
             onResolve={onResolveHandler}
             notification={notification}
           />

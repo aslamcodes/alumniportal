@@ -37,7 +37,9 @@
 
 .message .actions {
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5em;
   margin-top: 0.5rem;
 }
 
