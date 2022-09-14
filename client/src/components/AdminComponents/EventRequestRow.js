@@ -6,8 +6,8 @@ import styles from "./EventRequestRow.module.css";
 
 const RejectReasonOverlay = ({ setIsShowReject }) => {
   const [reason, setReason] = useState("");
-  const handleSent = () => {
 
+  const handleSent = () => {
     setReason("");
     setIsShowReject(false);
   };
@@ -45,19 +45,21 @@ const RejectReasonOverlay = ({ setIsShowReject }) => {
   );
 };
 
-const EventRequestRow = ({ data, onApproveHandler }) => {
+const EventRequestRow = ({ data, onApproveHandler, onRejectHandler }) => {
   const [isShowReject, setIsShowReject] = useState(false);
   const startDate = new Date(data.startDate);
   const endDate = new Date(data.endDate);
-  const { successAlert, } = useAlertContext();
+  const { successAlert } = useAlertContext();
+
   return (
     <>
       <tr className={styles.event_request_row}>
         <td>{data.createdBy.registerNumber}</td>
         <td>{data.createdBy.name}</td>
         <td>{data.eventName}</td>
-        <td>{`${startDate.getDate()}/${startDate.getMonth() + 1
-          }/${startDate.getFullYear()}`}</td>
+        <td>{`${startDate.getDate()}/${
+          startDate.getMonth() + 1
+        }/${startDate.getFullYear()}`}</td>
         {/* <td>{`${endDate.getDay()}/${endDate.getMonth() + 1}/${endDate.getFullYear()}`}</td> */}
         <td>
           {startDate.getUTCHours()}:
@@ -82,7 +84,13 @@ const EventRequestRow = ({ data, onApproveHandler }) => {
               </p>
               <p
                 className={styles.decline}
-                onClick={() => setIsShowReject(true)}
+                onClick={() => {
+                  setIsShowReject(true);
+                  onRejectHandler(
+                    data._id,
+                    "Sorry, We couldn't accept your Event"
+                  );
+                }}
               >
                 Decline
               </p>
