@@ -1,5 +1,7 @@
 import Event from "../models/Event.js";
+import Notification from "../models/Notification.js";
 import asyncHandler from "express-async-handler";
+import notificationConstants from "../constants/notification-constants.js";
 
 export const createEvent = asyncHandler(async (req, res) => {
   const { eventName, startDate, endDate, venue, isApproved } = req.body;
@@ -132,8 +134,37 @@ export const approveEvent = asyncHandler(async (req, res) => {
   if (!event) return res.status(400).json({ message: "Event not found" });
   event.isApproved = true;
   event.approvedBy = user;
+  await Notification.create({
+    message: "Your event approved by Admin",
+    type: notificationConstants.EVENT_CREATED,
+    user: event.createdBy,
+  });
   await event.save();
-  return res.json({ message: "Event Approved Successfully" });
+  return res.json({
+    type: notificationConstants.EVENT_APPROVED,
+    message: "Event Approved Successfully",
+  });
+});
+
+export const rejectEvent = asyncHandler(async (req, res) => {
+  const { id: eventId } = req.params;
+  const { reason } = req.body;
+  const event = await Event.findById(eventId);
+
+  if (!event) {
+    res.status(400);
+    throw new Error("Event not found");
+  }
+
+  await event.delete();
+
+  await Notification.create({
+    message: "Your event was rejected, Reason: " + reason,
+    user: event.createdBy,
+    type: notificationConstants.EVENT_REJECTED,
+  });
+
+  return res.json({ message: "Event rejected Successfully" });
 });
 
 export const deleteEvent = asyncHandler(async (req, res) => {

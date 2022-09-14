@@ -481,9 +481,9 @@ export const approvePost = asyncHandler(async (req, res) => {
   const post = await ForumPost.findById(request.post);
 
   if (!post || !request) {
-    return res.status(400).json("Invalid Request Id");
+    res.status(400);
+    throw new Error("Bad request ID");
   }
-
   post.isApproved = true;
   request.approvedBy = user?._id;
   await post.save();
@@ -497,6 +497,32 @@ export const approvePost = asyncHandler(async (req, res) => {
 
   return res.json({
     message: "Post Approved Successfully",
+  });
+});
+
+export const rejectPost = asyncHandler(async (req, res) => {
+  const { id: requestId } = req.params;
+  const { reason } = req.body;
+
+  const request = await ForumPostRequest.findById(requestId);
+  const post = await ForumPost.findById(request.post);
+
+  if (!post || !request) {
+    res.status(400);
+    throw new Error("Bad request ID");
+  }
+
+  await post.delete();
+  await request.delete();
+
+  await Notification.create({
+    user: request.createdBy,
+    type: notificationConstants.POST_APPROVED,
+    message: "Your post rejected by admin. Reason " + reason,
+  });
+
+  return res.json({
+    message: "Post rejected successfully",
   });
 });
 

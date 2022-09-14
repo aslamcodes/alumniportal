@@ -7,6 +7,7 @@ import {
   updateEvent,
   getNewEventsRequests,
   approveEvent,
+  rejectEvent,
 } from "../controllers/eventControllers.js";
 import { admin, protect } from "../middleware/authMiddlewares.js";
 
@@ -20,6 +21,7 @@ router.post("/", protect, createEvent);
 
 router.patch("/:id", protect, admin, updateEvent);
 router.patch("/approve/:id", protect, admin, approveEvent);
+router.patch("/reject/:id", protect, admin, rejectEvent);
 
 router.delete("/:id", protect, admin, deleteEvent);
 
