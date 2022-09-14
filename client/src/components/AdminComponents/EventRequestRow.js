@@ -85,7 +85,7 @@ const EventRequestRow = ({ data, onApproveHandler, onRejectHandler }) => {
               <p
                 className={styles.decline}
                 onClick={() => {
-                  setIsShowReject(true);
+                  setIsShowReject(true); // TODO: Link Event reason overlay here, get the reason string
                   onRejectHandler(
                     data._id,
                     "Sorry, We couldn't accept your Event"

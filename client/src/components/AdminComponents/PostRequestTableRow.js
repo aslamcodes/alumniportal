@@ -128,7 +128,7 @@ function PostRequestTableRow({ data, onApproveHandler, onRejectHandler }) {
             <p
               className={styles.decline}
               onClick={() => {
-                // Bring the reason here @jayvan
+                // TODO: Link Post reason overlay here, get the reason string
                 onRejectHandler(data._id, "Your post has been rejected");
                 setIsShowReject(true);
               }}
