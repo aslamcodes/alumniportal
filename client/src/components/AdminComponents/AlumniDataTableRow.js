@@ -32,7 +32,7 @@ const AdminDataTableRow = ({ alumni, type, ...rest }) => {
       <td>{alumni?.company}</td>
       <td>{alumni?.companyAddress}</td>
       <td>{alumni?.contact}</td>
-      <td>{alumni?.dataOfBirth}</td>
+      <td>{alumni?.dateOfBirth}</td>
       <td>{alumni?.designation}</td>
       <td>{alumni?.email}</td>
       <td>{alumni?.natureOfWork}</td>
