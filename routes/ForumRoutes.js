@@ -15,6 +15,7 @@ import {
   getPostRequests,
   getRepliesOnComment,
   likePost,
+  rejectPost,
   unlikePost,
 } from "../controllers/ForumController.js";
 import dotenv from "dotenv";
@@ -59,6 +60,7 @@ router.get("/replies/:commentId", getRepliesOnComment);
 router.patch("/like/:id", protect, likePost);
 router.patch("/unlike/:id", protect, unlikePost);
 router.patch("/approve-post/:id", protect, admin, approvePost);
+router.patch("/reject-post/:id", protect, admin, rejectPost);
 
 router.post("/", protect, upload.array("images", 6), createPost);
 router.post("/comment/:id", protect, createComment);

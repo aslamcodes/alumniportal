@@ -10,7 +10,7 @@ const ImageOverlay = ({ data, setIsShowImage }) => {
     <div className={styles.overlay} onClick={() => setIsShowImage(false)}>
       <img
         src={`http://localhost:8000/api/v1/forum/image/${data.postData.post.images[0]}`}
-        alt="post-image"
+        alt="post"
         onClick={(e) => e.stopPropagation()}
       />
       <GrClose
@@ -41,11 +41,12 @@ const DescOverlay = ({ data, setIsShowDesc }) => {
 
 const RejectReasonOverlay = ({ setIsShowReject }) => {
   const [reason, setReason] = useState("");
-  const handleSent = () => {
 
+  const handleSent = () => {
     setReason("");
     setIsShowReject(false);
   };
+
   return (
     <div className={styles.overlay} onClick={() => setIsShowReject(false)}>
       <div
@@ -80,14 +81,16 @@ const RejectReasonOverlay = ({ setIsShowReject }) => {
   );
 };
 
-function PostRequestTableRow({ data, onApproveHandler }) {
+function PostRequestTableRow({ data, onApproveHandler, onRejectHandler }) {
   const [isShowImage, setIsShowImage] = useState(false);
   const [isShowDesc, setIsShowDesc] = useState(false);
   const [isShowReject, setIsShowReject] = useState(false);
+
+  const { successAlert } = useAlertContext();
+
   const handleEyeClick = () => {
     setIsShowImage(!isShowImage);
   };
-  const { successAlert } = useAlertContext();
 
   return (
     <tr className={styles.post_request_row}>
@@ -122,7 +125,14 @@ function PostRequestTableRow({ data, onApproveHandler }) {
             >
               Approve
             </p>
-            <p className={styles.decline} onClick={() => setIsShowReject(true)}>
+            <p
+              className={styles.decline}
+              onClick={() => {
+                // Bring the reason here @jayvan
+                onRejectHandler(data._id, "Your post has been rejected");
+                setIsShowReject(true);
+              }}
+            >
               Decline
             </p>
           </>
