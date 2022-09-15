@@ -1,3 +1,4 @@
+import ReasonOverlay from "components/UI/ReasonOverlay";
 import { useAuthContext } from "context/auth/authContext";
 import useAxiosWithCallback from "hooks/useAxiosWithCallback";
 import { useGetEventRequests } from "hooks/useGetEventRequests";
@@ -14,6 +15,8 @@ const EventRequestPanel = () => {
   const { fetchData: eventAction } = useAxiosWithCallback();
   const [entriesPerPage, setEntriesPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
+  const [reasonActive, setReasonActive] = useState(false);
+  const [reason, setReason] = useState("");
   const totalPages = requests ? Math.ceil(requests.length / entriesPerPage) : 0;
 
   const approveHandler = async (requestId) => {
@@ -27,18 +30,22 @@ const EventRequestPanel = () => {
     await eventAction(config);
   };
 
-  const rejectHandler = async (requestId, reason) => {
-    const rejectionConfig = {
-      url: `/api/v1/events/reject/${requestId}`,
-      method: "patch",
-      headers: {
-        Authorization: `Bearer ${user?.token}`,
-      },
-      data: {
-        reason,
-      },
-    };
-    await eventAction(rejectionConfig);
+  const rejectHandler = async (requestId) => {
+    setReasonActive(true);
+    if (reason !== "") {
+      const rejectionConfig = {
+        url: `/api/v1/events/reject/${requestId}`,
+        method: "patch",
+        headers: {
+          Authorization: `Bearer ${user?.token}`,
+        },
+        data: {
+          reason,
+        },
+      };
+      await eventAction(rejectionConfig);
+    }
+    setReason("");
   };
 
   const OnIncreaseHandler = () => {
@@ -57,6 +64,9 @@ const EventRequestPanel = () => {
 
   return (
     <div className={styles.event_request_container}>
+      {reasonActive &&
+        <ReasonOverlay reason={reason} setReason={setReason} setIsShowReject={setReasonActive} />
+      }
       <AdminTableHeader
         onSelect={onEntriesPerPageSelectHandler}
         type="Event Requests"

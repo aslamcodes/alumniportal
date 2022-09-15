@@ -98,10 +98,9 @@ const RequestTable = () => {
 
   const onRejectAlumni = async (alumni) => {
     setReasonActive(true);
-    setReason("");
 
     if (reason !== "") {
-      console.log(reason);
+
       await rejectAlumni(
         {
           ...adminConfig,
@@ -115,6 +114,7 @@ const RequestTable = () => {
           trigger();
         }
       );
+      setReason("");
     }
   };
 

@@ -6,7 +6,6 @@ import styles from "./EventRequestRow.module.css";
 
 
 const EventRequestRow = ({ data, onApproveHandler, onRejectHandler }) => {
-  const [isShowReject, setIsShowReject] = useState(false);
   const startDate = new Date(data.startDate);
   const endDate = new Date(data.endDate);
   const { successAlert } = useAlertContext();
@@ -46,8 +45,7 @@ const EventRequestRow = ({ data, onApproveHandler, onRejectHandler }) => {
                 onClick={() => {
                   // TODO: Link Event reason overlay here, get the reason string
                   onRejectHandler(
-                    data._id,
-                    "Sorry, We couldn't accept your Event"
+                    data._id
                   );
                 }}
               >
