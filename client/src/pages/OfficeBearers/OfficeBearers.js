@@ -6,7 +6,7 @@ import styles from "./OfficeBearers.module.css";
 
 function OfficeBearers() {
   useEffect(() => {
-    document.title = "Alumni Portal | Office Bearers"
+    document.title = "Alumni Portal | Office Bearers";
   }, []);
   const [activeIndex, setActiveIndex] = useState(null);
   const [selectedCity, setSelectedCity] = useState(null);
@@ -19,7 +19,7 @@ function OfficeBearers() {
     if (error) {
       errorAlert("404! error");
     }
-  }, [error, errorAlert])
+  }, [error, errorAlert]);
   const handleClick = (e) => {
     const id = e.target.id;
     if (id === activeIndex) {
@@ -44,6 +44,7 @@ function OfficeBearers() {
                     onClick={() => {
                       setSelectedCity(city);
                     }}
+                    className={city === selectedCity && styles.active}
                   >
                     {city}
                   </li>
@@ -61,8 +62,9 @@ function OfficeBearers() {
               .map((alumni, index) => {
                 return (
                   <div
-                    className={`${styles.OfficeBearer} ${activeIndex === index && styles.OfficeBearer_active
-                      }`}
+                    className={`${styles.OfficeBearer} ${
+                      activeIndex === index && styles.OfficeBearer_active
+                    }`}
                     key={index}
                   >
                     <img
@@ -72,8 +74,9 @@ function OfficeBearers() {
                       onClick={handleClick}
                     />
                     <p
-                      className={`${styles.show_details} ${activeIndex === index && styles.show_details_active
-                        }`}
+                      className={`${styles.show_details} ${
+                        activeIndex === index && styles.show_details_active
+                      }`}
                     >
                       Show Details{">"}{" "}
                     </p>
