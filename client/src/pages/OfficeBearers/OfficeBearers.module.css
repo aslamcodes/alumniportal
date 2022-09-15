@@ -33,7 +33,7 @@
   background-color: #fffcdc;
 }
 
-.city ul li .active {
+.city ul li.active {
   background-color: #fffcdc;
 }
 
