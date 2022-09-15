@@ -11,12 +11,14 @@ import Loader from "components/UI/Loader";
 import { useAlertContext } from "context/alert/alertContext";
 import NoDataMessage from "./NoDataMessage";
 import { filterAlumniData, getAlumniFilters } from "utils/utils";
+import ReasonOverlay from "components/UI/ReasonOverlay";
 
 const RequestTable = () => {
   const [entriesPerPage, setEntriesPerPage] = useState(10);
   const [tableHeadOnTop] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-
+  const [reasonActive, setReasonActive] = useState(false);
+  const [reason, setReason] = useState("");
   const tableHeadRef = useRef(null);
 
   const props = useSpring({
@@ -95,21 +97,25 @@ const RequestTable = () => {
   };
 
   const onRejectAlumni = async (alumni) => {
-    const reason = prompt("Reason of Rejection");
+    setReasonActive(true);
+    setReason("");
 
-    await rejectAlumni(
-      {
-        ...adminConfig,
-        method: "patch",
-        url: `/api/v1/alumni/reject/${alumni}`,
-        data: {
-          reason,
+    if (reason !== "") {
+      console.log(reason);
+      await rejectAlumni(
+        {
+          ...adminConfig,
+          method: "patch",
+          url: `/api/v1/alumni/reject/${alumni}`,
+          data: {
+            reason,
+          },
         },
-      },
-      (res) => {
-        trigger();
-      }
-    );
+        (res) => {
+          trigger();
+        }
+      );
+    }
   };
 
   const dataHeaders = [
@@ -131,6 +137,9 @@ const RequestTable = () => {
 
   return (
     <div>
+      {reasonActive &&
+        <ReasonOverlay reason={reason} setReason={setReason} setIsShowReject={setReasonActive} />
+      }
       <AdminTableHeader
         filters={filters}
         onApplyFilter={onApplyFilter}
