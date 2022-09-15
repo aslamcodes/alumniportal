@@ -37,7 +37,7 @@ const AdminTableHeader = ({
   const handleOnSearch = () => {
     onSearch(searchQuery);
   };
-
+  console.log(data);
   return (
     <>
       <FilterModal
@@ -67,7 +67,7 @@ const AdminTableHeader = ({
             Filter <FaFilter />
           </button>
           <CSVLink
-            data={data ? data : [{}]}
+            data={data || [{}]}
             headers={headers}
             filename={filename || "data"}
           >

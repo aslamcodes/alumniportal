@@ -109,17 +109,17 @@ const AlumniDataTable = () => {
   }
 
   const dataHeaders = [
-    { label: 'Register Number', key: 'alumni?.registerNumber' },
-    { label: 'Name', key: 'alumni.name' },
-    { label: 'Address', key: 'alumni.address' },
-    { label: 'Batch', key: 'alumni.batch' },
-    { label: 'Company', key: 'alumni.company' },
-    { label: 'Company Address', key: 'alumni.companyAddress' },
-    { label: 'Contact', key: 'alumni.contact' },
-    { label: 'DOB', key: 'alumni.dateOfBirth' },
-    { label: 'Designation', key: 'alumni.designation' },
-    { label: 'Email', key: 'alumni.email' },
-    { label: 'Nature of work', key: 'alumni.natureOfWork' },
+    { label: 'Register Number', key: 'registerNumber' },
+    { label: 'Name', key: 'name' },
+    { label: 'Address', key: 'address' },
+    { label: 'Batch', key: 'batch' },
+    { label: 'Company', key: 'company' },
+    { label: 'Company Address', key: 'companyAddress' },
+    { label: 'Contact', key: 'contact' },
+    { label: 'DOB', key: 'dateOfBirth' },
+    { label: 'Designation', key: 'designation' },
+    { label: 'Email', key: 'email' },
+    { label: 'Nature of work', key: 'natureOfWork' },
   ];
 
   return (

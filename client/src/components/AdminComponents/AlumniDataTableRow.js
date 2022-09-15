@@ -6,6 +6,11 @@ import Styles from "./AdminTableRow.module.css";
 const AdminDataTableRow = ({ alumni, type, ...rest }) => {
   const [isHovered, setIsHover] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const dob = new Date(alumni?.dateOfBirth);
+  const dobdate = dob.getDate();
+  const dobmonth = dob.getMonth() + 1;
+  const dobyear = dob.getFullYear();
+
   const props = useSpring({
     config: config.stiff,
     from: {
@@ -32,7 +37,7 @@ const AdminDataTableRow = ({ alumni, type, ...rest }) => {
       <td>{alumni?.company}</td>
       <td>{alumni?.companyAddress}</td>
       <td>{alumni?.contact}</td>
-      <td>{alumni?.dateOfBirth}</td>
+      <td>{dobdate + "/" + dobmonth + "/" + dobyear}</td>
       <td>{alumni?.designation}</td>
       <td>{alumni?.email}</td>
       <td>{alumni?.natureOfWork}</td>
