@@ -63,7 +63,6 @@ const AlumniDataTable = () => {
     setAlumni(alumniData);
   }, [alumniData]);
 
-  const dataHeaders = undefined;
 
   const onSearch = (query) => {
     setAlumni(
@@ -108,6 +107,20 @@ const AlumniDataTable = () => {
   if (isLoading) {
     return <Loader />;
   }
+
+  const dataHeaders = [
+    { label: 'Register Number', key: 'registerNumber' },
+    { label: 'Name', key: 'name' },
+    { label: 'Address', key: 'address' },
+    { label: 'Batch', key: 'batch' },
+    { label: 'Company', key: 'company' },
+    { label: 'Company Address', key: 'companyAddress' },
+    { label: 'Contact', key: 'contact' },
+    { label: 'DOB', key: 'dateOfBirth' },
+    { label: 'Designation', key: 'designation' },
+    { label: 'Email', key: 'email' },
+    { label: 'Nature of work', key: 'natureOfWork' },
+  ];
 
   return (
     <div>
