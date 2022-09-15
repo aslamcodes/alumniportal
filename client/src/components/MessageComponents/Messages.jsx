@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { TbLockOpen } from "react-icons/tb";
 import styles from "./Messages.module.css";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import ChatCard from "./ChatCard";
@@ -143,6 +144,11 @@ const ChatPage = ({
             isMessagesActive && styles.active
           }`}
         >
+          <div className={styles.e2e_info}>
+            <h3> Your messages are not e2e encrypted  </h3>
+            <TbLockOpen fontSize={17}/>
+          </div>
+
           {isMessagesLoading ? (
             <Loader />
           ) : (
