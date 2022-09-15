@@ -32,6 +32,7 @@ const EventRequestPanel = () => {
 
   const rejectHandler = async (requestId) => {
     setReasonActive(true);
+
     if (reason !== "") {
       const rejectionConfig = {
         url: `/api/v1/events/reject/${requestId}`,
@@ -40,12 +41,12 @@ const EventRequestPanel = () => {
           Authorization: `Bearer ${user?.token}`,
         },
         data: {
-          reason,
+          reason
         },
       };
       await eventAction(rejectionConfig);
     }
-    setReason("");
+
   };
 
   const OnIncreaseHandler = () => {

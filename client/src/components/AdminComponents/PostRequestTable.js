@@ -8,6 +8,7 @@ import PostRequestTableRow from "./PostRequestTableRow";
 import styles from "./PostRequestTable.module.css";
 import NoDataMessage from "./NoDataMessage";
 import AdminTablePagination from "./AdminTablePagination";
+import ReasonOverlay from "components/UI/ReasonOverlay";
 
 const PostRequestTable = () => {
   const { isLoading, error, postRequests } = useGetPostRequests();
@@ -17,6 +18,9 @@ const PostRequestTable = () => {
     error: approvalError,
   } = useAxiosWithCallback();
   const { user } = useAuthContext();
+  const [reasonActive, setReasonActive] = useState(false);
+  const [reason, setReason] = useState("");
+
   const [entriesPerPage, setEntriesPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = postRequests
@@ -34,18 +38,24 @@ const PostRequestTable = () => {
     await postAction(approvalConfig);
   };
 
-  const onRejectHandler = async (requestId, reason) => {
-    const rejectionConfig = {
-      url: `/api/v1/forum/reject-post/${requestId}`,
-      method: "patch",
-      headers: {
-        Authorization: `Bearer ${user?.token}`,
-      },
-      data: {
-        reason,
-      },
-    };
-    await postAction(rejectionConfig);
+  const onRejectHandler = async (requestId) => {
+    setReasonActive(true);
+    console.log(reason);
+    if (reason !== "") {
+      const rejectionConfig = {
+        url: `/api/v1/forum/reject-post/${requestId}`,
+        method: "patch",
+        headers: {
+          Authorization: `Bearer ${user?.token}`,
+        },
+        data: {
+          reason
+        },
+      };
+      await postAction(rejectionConfig);
+    }
+
+
   };
 
   const OnIncreaseHandler = () => {
@@ -66,6 +76,9 @@ const PostRequestTable = () => {
 
   return (
     <div className={styles.post_request_container}>
+      {reasonActive &&
+        <ReasonOverlay reason={reason} setReason={setReason} setIsShowReject={setReasonActive} />
+      }
       <AdminTableHeader
         onSelect={onEntriesPerPageSelectHandler}
         type="Post Requests"
