@@ -3,14 +3,17 @@ import AlertContextProvider from "./alert/alertContext";
 import AlumniContextProvider from "./alumni/alumniContext";
 import AuthContextProvider from "./auth/authContext";
 import MessageContextProvider from "./messageContext/messageContext";
+import SocketContextProvider from "./socket/socketContext";
 
 const ContextProvider = ({ children }) => {
   return (
     <AuthContextProvider>
       <AlumniContextProvider>
-        <AlertContextProvider>
-          <MessageContextProvider>{children}</MessageContextProvider>
-        </AlertContextProvider>
+        <SocketContextProvider>
+          <AlertContextProvider>
+            <MessageContextProvider>{children}</MessageContextProvider>
+          </AlertContextProvider>
+        </SocketContextProvider>
       </AlumniContextProvider>
     </AuthContextProvider>
   );

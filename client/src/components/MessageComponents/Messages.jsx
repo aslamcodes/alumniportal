@@ -15,6 +15,7 @@ import { GrFormClose } from "react-icons/gr";
 import ReactPortal from "components/Modal/ReactPortal";
 import { useMessageContext } from "context/messageContext/messageContext";
 import { MessageStatus } from "lib/enum";
+import { useSocketContext } from "context/socket/socketContext";
 
 const ChatSelectPage = ({
   isConversationsLoading,
@@ -182,6 +183,13 @@ const Messages = () => {
   const [isChatSelected, setIsChatSelected] = useState(false);
   const [isMessagesActive, setIsMessagesActive] = useState(true);
   const [selectedConversation, setSelectedConversation] = useState();
+
+  const { socket, connect } = useSocketContext();
+
+  useEffect(() => {
+    connect();
+    return () => {};
+  }, [connect]);
 
   const {
     messageStatus,
