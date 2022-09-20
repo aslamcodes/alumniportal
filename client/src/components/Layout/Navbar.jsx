@@ -15,7 +15,6 @@ import { useAlumniDispatchContext } from "context/alumni/alumniContext";
 import NotificationPanel from "components/NotificationComponents/NotificationPanel";
 import ProfileModal from "components/ForumComponents/ProfileModal";
 import useFetchNotification from "hooks/useFetchNotification";
-import Messages from "components/MessageComponents/Messages";
 import { AiOutlineMenu } from "react-icons/ai";
 import { useMessageContext } from "context/messageContext/messageContext";
 
@@ -37,7 +36,8 @@ const Navbar = () => {
   const [showNotificationBadge, setShowNotificationBadge] = useState(true);
   const [isNotificationActive, setIsNotificationActive] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const { openMessageModal } = useMessageContext();
+  const { messageStatus, closeMessageModal, openMessageModal } =
+    useMessageContext();
   const { user } = useAuthContext();
   const {
     isLoading: isNotificationsLoading,
@@ -151,7 +151,14 @@ const Navbar = () => {
           )}
           {user && (
             <div className={`${styles.message_icon} ${styles.active}`}>
-              <TiMessages fontSize={25} onClick={() => openMessageModal()} />
+              <TiMessages
+                fontSize={25}
+                onClick={() =>
+                  messageStatus === "open"
+                    ? closeMessageModal()
+                    : openMessageModal()
+                }
+              />
             </div>
           )}
           {user && (
