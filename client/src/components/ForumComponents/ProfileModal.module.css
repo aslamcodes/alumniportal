@@ -77,6 +77,7 @@
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   -khtml-border-radius: 50%;
+  clip-path: circle();
   outline: 7px solid #fff;
   object-fit: cover;
   top: 0;
