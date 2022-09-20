@@ -149,7 +149,7 @@ const AlumniTable = () => {
             </div>
           </tr>
         </a.thead>
-        {alumni ? (
+        {!alumni === ([] || undefined) ? (
           <tbody>
             {alumni
               ?.slice(
