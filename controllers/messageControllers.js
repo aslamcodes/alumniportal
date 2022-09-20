@@ -21,13 +21,16 @@ export const createMessage = asyncHandler(async (req, res) => {
   const { user: sender } = req;
   const { conversationId } = req.params;
   const { content } = req.body;
+
   const message = await Message.create({
     conversation: conversationId,
     sender: sender._id,
     content,
   });
+
   if (!message)
     return res.status(400).json("Couldn't create the message at the moment");
+
   return res.json(message);
 });
 

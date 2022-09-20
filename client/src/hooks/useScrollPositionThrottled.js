@@ -7,7 +7,6 @@ const getCurrentScrollPosition = (element) => {
 };
 
 const useScrollPositionThrottled = (callback, element, deps = []) => {
-  console.log(element);
   const currentElement = element ? element : document.documentElement;
   const scrollPosition = useRef(getCurrentScrollPosition(currentElement));
 
