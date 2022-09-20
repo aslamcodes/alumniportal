@@ -1,11 +1,7 @@
-import User from "../models/User";
+import User from "../models/User.js";
 
 export const messageHandler = (io, socket) => {
-  socket.on("message", async (body) => {
-    const { text, to, conversation } = body;
-    const user = await User.findById(socket.id);
-    const userTo = await User.findById(to);
-  });
+  socket.on("newMessage", () => {});
 
   socket.on("disconnect", () => {});
 };

@@ -1,4 +1,5 @@
 import { Server } from "socket.io";
+import { messageHandler } from "./message.js";
 
 const socket = (server) => {
   const io = new Server(server, {
@@ -9,7 +10,7 @@ const socket = (server) => {
   });
 
   const onConnect = (socket) => {
-    console.log("Socket connected");
+    messageHandler(io, socket);
     socket.on("disconnect", () => {
       console.log("disconnect");
     });
