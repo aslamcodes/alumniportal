@@ -6,7 +6,7 @@ import {
 } from "context/auth/authConstants";
 
 export const initialState = {
-  user: null,
+  user: JSON.parse(localStorage.getItem("userInfo")) || null,
   isLoading: false,
   error: null,
 };
