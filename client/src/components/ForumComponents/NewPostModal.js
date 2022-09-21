@@ -178,6 +178,7 @@ function NewPostModal({ setNewPostActive }) {
                       name="image"
                       id="img-switch"
                       type="file"
+                      accept=".png,.jpg,.jpeg"
                       onChange={onSelectFile}
                     />
 
@@ -200,7 +201,7 @@ function NewPostModal({ setNewPostActive }) {
                           id="img-input"
                           required
                           type="file"
-                          accept=".png,.jpg,.jpg"
+                          accept=".png,.jpg,.jpeg"
                           onChange={onSelectFile}
                         />
                       </div>
