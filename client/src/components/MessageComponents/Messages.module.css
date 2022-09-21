@@ -36,6 +36,15 @@
   overflow: auto;
   max-height: 20rem;
 }
+.e2e_info > *{
+  display: inline-block;
+  vertical-align: middle;
+}
+.e2e_info{
+  font-size: .8em;
+  color: #959595;
+  text-align: center;
+}
 
 .messages_header {
   display: flex;
