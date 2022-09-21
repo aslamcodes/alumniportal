@@ -39,52 +39,12 @@ const DescOverlay = ({ data, setIsShowDesc }) => {
   );
 };
 
-const RejectReasonOverlay = ({ setIsShowReject }) => {
-  const [reason, setReason] = useState("");
 
-  const handleSent = () => {
-    setReason("");
-    setIsShowReject(false);
-  };
-
-  return (
-    <div className={styles.overlay} onClick={() => setIsShowReject(false)}>
-      <div
-        className={`${styles.container} ${styles.reason}`}
-        onClick={(e) => e.stopPropagation()}
-      >
-        <div className={styles.header}>
-          <h3>Reason</h3>
-          <GrClose
-            className={styles.close_btn}
-            onClick={() => setIsShowReject(false)}
-          />
-        </div>
-        <div className={styles.input_container}>
-          <span
-            class={styles.textarea}
-            role="textbox"
-            contentEditable={true}
-            suppressContentEditableWarning={true}
-            onBlur={(e) => setReason(e.currentTarget.textContent)}
-          >
-            {reason}
-          </span>
-          <IoIosSend
-            font-size={30}
-            className={styles.send_btn}
-            onClick={handleSent}
-          />
-        </div>
-      </div>
-    </div>
-  );
-};
 
 function PostRequestTableRow({ data, onApproveHandler, onRejectHandler }) {
   const [isShowImage, setIsShowImage] = useState(false);
   const [isShowDesc, setIsShowDesc] = useState(false);
-  const [isShowReject, setIsShowReject] = useState(false);
+
 
   const { successAlert } = useAlertContext();
 
@@ -128,9 +88,7 @@ function PostRequestTableRow({ data, onApproveHandler, onRejectHandler }) {
             <p
               className={styles.decline}
               onClick={() => {
-                // TODO: Link Post reason overlay here, get the reason string
-                onRejectHandler(data._id, "Your post has been rejected");
-                setIsShowReject(true);
+                onRejectHandler(data._id);
               }}
             >
               Decline
@@ -145,9 +103,7 @@ function PostRequestTableRow({ data, onApproveHandler, onRejectHandler }) {
         {isShowDesc && (
           <DescOverlay data={data} setIsShowDesc={setIsShowDesc} />
         )}
-        {isShowReject && (
-          <RejectReasonOverlay setIsShowReject={setIsShowReject} />
-        )}
+
       </td>
     </tr>
   );
