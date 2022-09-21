@@ -39,7 +39,11 @@ const PostRequestTable = () => {
   };
 
   const onRejectHandler = async (requestId) => {
-    setReasonActive(true);
+    await new Promise((resolve) => {
+      setReasonActive(true);
+      resolve();
+    });
+
     console.log(reason);
     if (reason !== "") {
       const rejectionConfig = {
