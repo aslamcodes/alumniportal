@@ -68,7 +68,7 @@
   position: absolute;
   top: 0;
   left: 50%;
-  transform: translate(-50%, -50%);
+  translate: -50% -50%;
 }
 .profile_img img[alt="profile_img"] {
   width: 10rem;
@@ -92,7 +92,7 @@
   place-items: center;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  translate: -50% -50%;
   z-index: 1;
   cursor: pointer;
 }
@@ -231,7 +231,7 @@
   content: "✎";
 
   float: right;
-  transform: rotate(90deg);
+  rotate: 90deg;
   color: black;
   font-size: 1rem;
 }
@@ -280,7 +280,7 @@
   }
   .profile_img {
     left: 0;
-    transform: translate(30%, -50%);
+    translate: -30% -50%;
   }
   .profile_img img[alt="profile_img"] {
     width: 12rem;

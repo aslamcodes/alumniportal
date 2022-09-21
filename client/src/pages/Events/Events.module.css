@@ -58,11 +58,11 @@
   color: #fff;
   clip-path: circle();
   font-size: 1.2em;
-  transform: rotate(0);
-  transition: transform 0.2s linear;
+  rotate: 0;
+  transition: rotate 0.2s linear;
 }
 .add_event_icon.active {
-  transform: rotate(135deg);
+  rotate: 135deg;
 }
 
 .events {
