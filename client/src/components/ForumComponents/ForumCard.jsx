@@ -105,7 +105,7 @@ const ForumCard = ({ data, profileActive, profileEdit, trigger }) => {
           }}
         >
           <img
-            src={`http://localhost:8000/api/v1/users/user-avatar/${data?.user?._id}`}
+            src={`/api/v1/users/user-avatar/${data?.user?._id}`}
             alt={data?.post?.title}
           />
           <p className={styles.user_name}>{data?.user?.name}</p>
@@ -145,7 +145,7 @@ const ForumCard = ({ data, profileActive, profileEdit, trigger }) => {
       </div>
       <div className={styles.post_image_container}>
         <img
-          src={`http://localhost:8000/api/v1/forum/image/${data?.post?.images[0]}`}
+          src={`/api/v1/forum/image/${data?.post?.images[0]}`}
           className={`${profileActive && styles.shadow}`}
           alt="post"
         />

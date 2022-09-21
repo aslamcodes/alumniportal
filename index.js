@@ -1,6 +1,7 @@
 import dotenv from "dotenv";
 import express from "express";
 import config_db from "./config/dbconfig.js";
+import cors from "cors"
 import path from "path";
 import { fileURLToPath } from "url";
 
@@ -23,6 +24,7 @@ config_db(process.env.URI);
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/alumni", alumniRouter);
