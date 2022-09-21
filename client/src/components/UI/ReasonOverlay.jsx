@@ -2,9 +2,15 @@ import React from "react";
 import { GrClose } from "react-icons/gr";
 import { IoIosSend } from "react-icons/io";
 import styles from "./ReasonOverlay.module.css";
-function ReasonOverlay({ reason, setReason, setIsShowReject }) {
+function ReasonOverlay({
+  reason,
+  setReason,
+  setIsShowReject,
+  onRejectHandler,
+}) {
   const handleSent = () => {
     setIsShowReject(false);
+    onRejectHandler();
   };
   return (
     <div className={styles.overlay} onClick={() => setIsShowReject(false)}>

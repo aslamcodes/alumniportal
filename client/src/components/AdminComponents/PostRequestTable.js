@@ -20,6 +20,7 @@ const PostRequestTable = () => {
   const { user } = useAuthContext();
   const [reasonActive, setReasonActive] = useState(false);
   const [reason, setReason] = useState("");
+  const [reqId, setReqId] = useState();
 
   const [entriesPerPage, setEntriesPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
@@ -38,16 +39,16 @@ const PostRequestTable = () => {
     await postAction(approvalConfig);
   };
 
-  const onRejectHandler = async (requestId) => {
-    await new Promise((resolve) => {
-      setReasonActive(true);
-      resolve();
-    });
+  const onRejectReasonHandler = async (requestId) => {
+    setReasonActive(true);
+    setReqId(requestId);
 
-    console.log(reason);
+  };
+
+  const onRejectHandler = async () => {
     if (reason !== "") {
       const rejectionConfig = {
-        url: `/api/v1/forum/reject-post/${requestId}`,
+        url: `/api/v1/forum/reject-post/${reqId}`,
         method: "patch",
         headers: {
           Authorization: `Bearer ${user?.token}`,
@@ -58,9 +59,10 @@ const PostRequestTable = () => {
       };
       await postAction(rejectionConfig);
     }
-
-
-  };
+    setReason("");
+    setReasonActive(false);
+    setReqId(null);
+  }
 
   const OnIncreaseHandler = () => {
     if (currentPage > totalPages - 1) return null;
@@ -81,7 +83,7 @@ const PostRequestTable = () => {
   return (
     <div className={styles.post_request_container}>
       {reasonActive &&
-        <ReasonOverlay reason={reason} setReason={setReason} setIsShowReject={setReasonActive} />
+        <ReasonOverlay reason={reason} setReason={setReason} setIsShowReject={setReasonActive} onRejectHandler={onRejectHandler} />
       }
       <AdminTableHeader
         onSelect={onEntriesPerPageSelectHandler}
@@ -112,7 +114,7 @@ const PostRequestTable = () => {
                     data={request}
                     key={index}
                     onApproveHandler={onApproveHandler}
-                    onRejectHandler={onRejectHandler}
+                    onRejectHandler={onRejectReasonHandler}
                   />
                 );
               })}

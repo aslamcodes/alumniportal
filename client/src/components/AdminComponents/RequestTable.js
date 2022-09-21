@@ -38,6 +38,7 @@ const RequestTable = () => {
   const { successAlert, errorAlert } = useAlertContext();
 
   const [applicationsFiltered, setApplicationsFiltered] = useState([]);
+  const [alumni, setAlumni] = useState();
 
   const filters = useMemo(() => getAlumniFilters(applications), [applications]);
 
@@ -96,9 +97,14 @@ const RequestTable = () => {
     );
   };
 
+
   const onRejectAlumni = async (alumni) => {
     setReasonActive(true);
+    setAlumni(alumni);
 
+  };
+
+  const onRejectHandler = async () => {
     if (reason !== "") {
 
       await rejectAlumni(
@@ -116,7 +122,9 @@ const RequestTable = () => {
       );
       setReason("");
     }
-  };
+    setReasonActive(false);
+    setAlumni(null);
+  }
 
   const dataHeaders = [
     { label: "Register Number", key: "user.registerNumber" },
@@ -138,7 +146,7 @@ const RequestTable = () => {
   return (
     <div>
       {reasonActive &&
-        <ReasonOverlay reason={reason} setReason={setReason} setIsShowReject={setReasonActive} />
+        <ReasonOverlay reason={reason} setReason={setReason} setIsShowReject={setReasonActive} onRejectHandler={onRejectHandler} />
       }
       <AdminTableHeader
         filters={filters}

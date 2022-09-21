@@ -17,6 +17,7 @@ const EventRequestPanel = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [reasonActive, setReasonActive] = useState(false);
   const [reason, setReason] = useState("");
+  const [reqId, setReqId] = useState();
   const totalPages = requests ? Math.ceil(requests.length / entriesPerPage) : 0;
 
   const approveHandler = async (requestId) => {
@@ -30,12 +31,16 @@ const EventRequestPanel = () => {
     await eventAction(config);
   };
 
-  const rejectHandler = async (requestId) => {
+  const onRejectReasonHandler = async (requestId) => {
     setReasonActive(true);
+    setReqId(requestId);
 
+  };
+
+  const onRejectHandler = async () => {
     if (reason !== "") {
       const rejectionConfig = {
-        url: `/api/v1/events/reject/${requestId}`,
+        url: `/api/v1/events/reject/${reqId}`,
         method: "patch",
         headers: {
           Authorization: `Bearer ${user?.token}`,
@@ -46,8 +51,10 @@ const EventRequestPanel = () => {
       };
       await eventAction(rejectionConfig);
     }
-
-  };
+    setReason("");
+    setReasonActive(false);
+    setReqId(null);
+  }
 
   const OnIncreaseHandler = () => {
     if (currentPage > totalPages - 1) return null;
@@ -66,7 +73,7 @@ const EventRequestPanel = () => {
   return (
     <div className={styles.event_request_container}>
       {reasonActive &&
-        <ReasonOverlay reason={reason} setReason={setReason} setIsShowReject={setReasonActive} />
+        <ReasonOverlay reason={reason} setReason={setReason} setIsShowReject={setReasonActive} onRejectHandler={onRejectHandler} />
       }
       <AdminTableHeader
         onSelect={onEntriesPerPageSelectHandler}
@@ -99,7 +106,7 @@ const EventRequestPanel = () => {
                     data={request}
                     key={index}
                     onApproveHandler={approveHandler}
-                    onRejectHandler={rejectHandler}
+                    onRejectHandler={onRejectReasonHandler}
                   />
                 );
               })}
