@@ -76,7 +76,7 @@ hr {
 .OfficeBearer .show_details {
   position: absolute;
   bottom: 0;
-  transform: scale(0);
+  scale: 0;
   width: 100%;
   padding-inline: auto;
   border-bottom-left-radius: 15px;
@@ -89,7 +89,7 @@ hr {
 }
 .OfficeBearer .show_details_active {
   padding-block: 0.5rem;
-  transform: scale(1);
+  scale: 1;
   background-color: rgba(14, 14, 14, 0.568);
 }
 

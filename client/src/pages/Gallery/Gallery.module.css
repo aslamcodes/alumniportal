@@ -96,12 +96,12 @@
   bottom: 0;
   left: 0;
   transform-origin: right;
-  transform: scaleX(0);
-  transition: transform 0.3s ease-in-out;
+  scale: 0;
+  transition: scale 0.3s ease-in-out;
 }
 .gallery_item:hover h2::before {
   transform-origin: left;
-  transform: scaleX(1);
+  scale: 1;
 }
 
 @media (min-width: 768px) {
@@ -123,28 +123,34 @@
     left: 50%;
     width: 50%;
     height: 90%;
-    transform: translate(-50%, -50%) scale(0.5);
-    transform-origin: center;
-    -webkit-transition: transform, filter 0.8s, 0.2s linear;
-    -moz-transition: transform, filter 0.8s, 0.2s linear;
-    -ms-transition: transform, filter 0.8s, 0.2s linear;
-    -o-transition: transform, filter 0.8s, 0.2s linear;
-    transition: transform, filter 0.8s, 0.2s linear;
+    translate: -50% -50%;
+    scale: 0.5;
+    -webkit-transition: translate, scale, filter 0.8s, 0.8s, 0.2s linear;
+    -moz-transition: translate, scale, filter 0.8s, 0.8s, 0.2s linear;
+    -ms-transition: translate, scale, filter 0.8s, 0.8s, 0.2s linear;
+    -o-transition: translate, scale, filter 0.8s, 0.8s, 0.2s linear;
+    transition: translate, scale, filter 0.8s, 0.8s, 0.2s linear;
   }
   .gallery_item.item_active {
     filter: none;
     opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
+    translate: -50% -50%;
+    scale: 1;
+    /* transform: translate(-50%, -50%) scale(1); */
     z-index: 4;
   }
   .gallery_item.item_left {
     opacity: 0.5;
-    transform: translate(-80%, -50%) scale(0.8);
+    translate: -80% -50%;
+    scale: 0.8;
+
     z-index: 2;
   }
   .gallery_item.item_right {
     opacity: 0.5;
-    transform: translate(-20%, -50%) scale(0.8);
+    translate: -20% -50%;
+    scale: 0.8;
+
     z-index: 2;
   }
 }

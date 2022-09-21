@@ -36,12 +36,12 @@
   overflow: auto;
   max-height: 20rem;
 }
-.e2e_info > *{
+.e2e_info > * {
   display: inline-block;
   vertical-align: middle;
 }
-.e2e_info{
-  font-size: .8em;
+.e2e_info {
+  font-size: 0.8em;
   color: #959595;
   text-align: center;
 }
@@ -66,13 +66,12 @@
 }
 
 .arrow_btn {
-  transform: rotate(180deg);
-  transition: transform 0.7s ease-in-out;
-  transform-origin: center center;
+  rotate: 180deg;
+  transition: rotate 0.7s ease-in-out;
 }
 
 .messages_container.active .arrow_btn {
-  transform: rotate(0);
+  rotate: 0;
 }
 
 .no_conversation {

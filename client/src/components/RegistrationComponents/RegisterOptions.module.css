@@ -2,7 +2,7 @@
   position: absolute;
   top: 100%;
   left: 50%;
-  transform: translateX(-50%);
+  translate: -50%;
   width: fit-content;
   background: #e5feff;
   overflow: hidden;
