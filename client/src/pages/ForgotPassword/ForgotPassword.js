@@ -7,7 +7,6 @@ import useAxiosWithCallback from "hooks/useAxiosWithCallback";
 import { useAlertContext } from "context/alert/alertContext";
 
 const ForgotPassword = () => {
-
   const [data, setData] = useState({
     email: "",
     phoneNo: "",
@@ -43,20 +42,14 @@ const ForgotPassword = () => {
   return (
     <div className={styles.container}>
       <div className={styles.image_container}>
-        <img
-          src={hypocrisy}
-          alt="forgot password "
-        />
+        <img src={hypocrisy} alt="forgot password " />
       </div>
       <div className={styles.form_container}>
         <div className={styles.form}>
           <div className={styles.form_header}>
-            <h1>
-              Forgot Password
-            </h1>
+            <h1>Forgot Password</h1>
           </div>
           <div className={styles.form_body}>
-
             <form>
               <div className={styles.form_input_container}>
                 <input
@@ -85,13 +78,12 @@ const ForgotPassword = () => {
                 <Link to="/login">Back to Login</Link>
               </div>
             </form>
-
           </div>
           <hr />
           <div className={styles.form_footer}>
             <p>
               Don't have an account yet?{" "}
-              <Link to="/register">
+              <Link to="/register-student">
                 <span>Create Account</span>
               </Link>
             </p>
