@@ -279,8 +279,8 @@
     padding: 0.5rem 2rem;
   }
   .profile_img {
-    left: 0;
-    translate: -30% -50%;
+    left: 5%;
+    translate: -10% -50%;
   }
   .profile_img img[alt="profile_img"] {
     width: 12rem;
