@@ -11,9 +11,9 @@ const SocketContext = createContext({
 const SocketContextProvider = ({ children }) => {
   const [socket, setSocket] = useState(null);
 
-  const connect = useCallback(() => {
+  const connect = useCallback((options = {}) => {
     const isOnDev = process.env.NODE_ENV === "development";
-    const sk = isOnDev ? io("http://localhost:8000") : io();
+    const sk = isOnDev ? io("http://localhost:8000", options) : io(options);
 
     sk.connect();
     setSocket(sk);

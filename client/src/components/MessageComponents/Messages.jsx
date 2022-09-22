@@ -14,8 +14,9 @@ import useAxiosWithCallback from "hooks/useAxiosWithCallback";
 import { GrFormClose } from "react-icons/gr";
 import ReactPortal from "components/Modal/ReactPortal";
 import { useMessageContext } from "context/messageContext/messageContext";
-import { MessageStatus } from "lib/enum";
+import { ClientSocketEvents, MessageStatus } from "lib/enum";
 import { useSocketContext } from "context/socket/socketContext";
+import { uniqueId } from "lodash";
 
 const ChatSelectPage = ({
   isConversationsLoading,
@@ -78,27 +79,52 @@ const ChatPage = ({
   conversationId,
   onSendNewMessage,
 }) => {
+  const [receivedMessages, setReceivedMessages] = useState(messages || []);
   const [message, setMessage] = useState("");
   const messagesEndRef = useRef(null);
+
   const { conversation, isLoading, error } =
     useGetConversationByID(conversationId);
   const { user } = useAuthContext();
-
   const { fetchData: sendMessage } = useAxiosWithCallback();
+  const { socket } = useSocketContext();
 
   const recipient = conversation?.participants?.filter(
     (person) => person._id !== user?._id
   )[0];
 
+  useEffect(() => {
+    socket.on(ClientSocketEvents.RECEIVE_MESSAGE, (data) => {
+      setReceivedMessages((prev) => [
+        ...prev,
+        {
+          _id: uniqueId(data.message),
+          content: data.message,
+          conversation: conversationId,
+          sender: recipient,
+        },
+      ]);
+    });
+
+    return () => {
+      socket.off(ClientSocketEvents.RECEIVE_MESSAGE);
+    };
+  }, [socket, setReceivedMessages, recipient, conversationId]);
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [receivedMessages]);
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView();
   };
 
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
-
   const onSubmitHandler = () => {
+    socket.emit(ClientSocketEvents.SEND_MESSAGE, {
+      receiverId: recipient._id,
+      message,
+    });
+
     const messageConfig = {
       url: "/api/v1/conversation/message/" + conversationId,
       method: "post",
@@ -109,6 +135,7 @@ const ChatPage = ({
         content: message,
       },
     };
+
     sendMessage(messageConfig);
     onSendNewMessage();
     setMessage("");
@@ -147,7 +174,7 @@ const ChatPage = ({
           {isMessagesLoading ? (
             <Loader />
           ) : (
-            messages?.map(({ content, sender }) => {
+            receivedMessages?.map(({ content, sender }) => {
               return (
                 <ChatBubble
                   type={sender === user?._id ? 1 : 0}
@@ -183,13 +210,6 @@ const Messages = () => {
   const [isChatSelected, setIsChatSelected] = useState(false);
   const [isMessagesActive, setIsMessagesActive] = useState(true);
   const [selectedConversation, setSelectedConversation] = useState();
-
-  const { socket, connect } = useSocketContext();
-
-  useEffect(() => {
-    connect();
-    return () => {};
-  }, [connect]);
 
   const {
     messageStatus,

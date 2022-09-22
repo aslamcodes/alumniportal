@@ -26,3 +26,10 @@ export const GalleryImageTypes = {
   ALUMNI_MEET: "alumni",
   SEMINAR_SESSIONS: "seminar",
 };
+
+export const ClientSocketEvents = {
+  SEND_MESSAGE: "send_message",
+  CONNECT_USER: "connect_user",
+  DISCONNECT_USER: "disconnect_user",
+  RECEIVE_MESSAGE: "receive_message",
+};

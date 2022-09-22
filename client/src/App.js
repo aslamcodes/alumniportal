@@ -31,9 +31,12 @@ import { useAlertContext } from "context/alert/alertContext";
 import ResetPassword from "pages/ForgotPassword/ResetPassword";
 import ForumPost from "pages/AlumniForum/ForumPost";
 import Messages from "components/MessageComponents/Messages";
+import { useSocketContext } from "context/socket/socketContext";
+import { ClientSocketEvents } from "lib/enum";
 
 function App() {
   const { errorAlert } = useAlertContext();
+  const { socket } = useSocketContext();
 
   useEffect(() => {
     errorAlert(
@@ -41,6 +44,10 @@ function App() {
       8000
     );
   }, [errorAlert]);
+
+  useEffect(() => {
+    if (socket) socket.emit(ClientSocketEvents.CONNECT_USER);
+  }, [socket]);
 
   return (
     <div className="App">

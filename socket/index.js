@@ -1,5 +1,5 @@
 import { Server } from "socket.io";
-import { messageHandler } from "./message.js";
+import { messageHandler } from "./messageHandler.js";
 
 const socket = (server) => {
   const io = new Server(server, {
@@ -10,10 +10,12 @@ const socket = (server) => {
   });
 
   const onConnect = (socket) => {
-    messageHandler(io, socket);
-    socket.on("disconnect", () => {
-      console.log("disconnect");
+    io.use((socket, next) => {
+      socket.user = socket.handshake.query.user;
+      return next();
     });
+
+    messageHandler(io, socket);
   };
 
   io.on("connection", onConnect);
