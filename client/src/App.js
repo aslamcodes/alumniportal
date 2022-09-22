@@ -39,7 +39,7 @@ import { ClientSocketEvents } from "lib/enum";
 function App() {
   const { socket } = useSocketContext();
   const { errorAlert } = useAlertContext();
-  const [audio, controls] = useAudio({
+  const [audio, state, controls, ref] = useAudio({
     src: "/audio/s1.mp3",
     autoPlay: true,
   });

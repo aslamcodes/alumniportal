@@ -1,5 +1,7 @@
 import dotenv from "dotenv";
 import express from "express";
+
+import cors from "cors";
 import path from "path";
 
 import { Server as httpServer } from "http";
@@ -27,6 +29,7 @@ config_db(process.env.URI);
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/alumni", alumniRouter);
