@@ -39,7 +39,7 @@ const ChatSelectPage = ({
         <div className={styles.messages_actions}>
           <AiOutlinePlus className={styles.add_btn} fontSize={20} />
           <GrFormClose
-            className={styles.arrow_btn}
+            className={styles.close_btn}
             fontSize={20}
             onClick={onCloseHandler}
           />
