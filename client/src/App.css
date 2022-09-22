@@ -37,6 +37,11 @@ input::-webkit-inner-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
 }
+select {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
 button,
 a {
   cursor: pointer;
