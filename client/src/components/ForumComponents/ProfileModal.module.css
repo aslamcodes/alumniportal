@@ -68,7 +68,7 @@
   position: absolute;
   top: 0;
   left: 50%;
-  transform: translate(-50%, -50%);
+  translate: -50% -50%;
 }
 .profile_img img[alt="profile_img"] {
   width: 10rem;
@@ -77,6 +77,7 @@
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   -khtml-border-radius: 50%;
+  clip-path: circle();
   outline: 7px solid #fff;
   object-fit: cover;
   top: 0;
@@ -91,7 +92,7 @@
   place-items: center;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  translate: -50% -50%;
   z-index: 1;
   cursor: pointer;
 }
@@ -230,7 +231,7 @@
   content: "✎";
 
   float: right;
-  transform: rotate(90deg);
+  rotate: 90deg;
   color: black;
   font-size: 1rem;
 }
@@ -278,8 +279,8 @@
     padding: 0.5rem 2rem;
   }
   .profile_img {
-    left: 0;
-    transform: translate(30%, -50%);
+    left: 5%;
+    translate: -10% -50%;
   }
   .profile_img img[alt="profile_img"] {
     width: 12rem;

@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { TbLockOpen } from "react-icons/tb";
 import styles from "./Messages.module.css";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import ChatCard from "./ChatCard";
@@ -40,7 +41,7 @@ const ChatSelectPage = ({
         <div className={styles.messages_actions}>
           <AiOutlinePlus className={styles.add_btn} fontSize={20} />
           <GrFormClose
-            className={styles.arrow_btn}
+            className={styles.close_btn}
             fontSize={20}
             onClick={onCloseHandler}
           />
@@ -171,6 +172,11 @@ const ChatPage = ({
             isMessagesActive && styles.active
           }`}
         >
+          <div className={styles.e2e_info}>
+            <h3> Your messages are not e2e encrypted  </h3>
+            <TbLockOpen fontSize={17}/>
+          </div>
+
           {isMessagesLoading ? (
             <Loader />
           ) : (

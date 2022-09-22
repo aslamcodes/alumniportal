@@ -105,7 +105,7 @@ const InexoreModal = ({ closemodal, isOpen, post }) => {
                 onClick={(e) => e.stopPropagation()}
               >
                 <div className={Styles.center}>
-                  <h1> Alumni Portal version 1.1</h1>
+                  <h1> Alumni Portal version 0.1 Alpha</h1>
                   <h2> Meet Our Inexore team </h2>
                 </div>
                 <div className={Styles.profiles}>

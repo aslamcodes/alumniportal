@@ -8,6 +8,7 @@ import PostRequestTableRow from "./PostRequestTableRow";
 import styles from "./PostRequestTable.module.css";
 import NoDataMessage from "./NoDataMessage";
 import AdminTablePagination from "./AdminTablePagination";
+import ReasonOverlay from "components/UI/ReasonOverlay";
 
 const PostRequestTable = () => {
   const { isLoading, error, postRequests } = useGetPostRequests();
@@ -17,6 +18,10 @@ const PostRequestTable = () => {
     error: approvalError,
   } = useAxiosWithCallback();
   const { user } = useAuthContext();
+  const [reasonActive, setReasonActive] = useState(false);
+  const [reason, setReason] = useState("");
+  const [reqId, setReqId] = useState();
+
   const [entriesPerPage, setEntriesPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = postRequests
@@ -34,19 +39,30 @@ const PostRequestTable = () => {
     await postAction(approvalConfig);
   };
 
-  const onRejectHandler = async (requestId, reason) => {
-    const rejectionConfig = {
-      url: `/api/v1/forum/reject-post/${requestId}`,
-      method: "patch",
-      headers: {
-        Authorization: `Bearer ${user?.token}`,
-      },
-      data: {
-        reason,
-      },
-    };
-    await postAction(rejectionConfig);
+  const onRejectReasonHandler = async (requestId) => {
+    setReasonActive(true);
+    setReqId(requestId);
+
   };
+
+  const onRejectHandler = async () => {
+    if (reason !== "") {
+      const rejectionConfig = {
+        url: `/api/v1/forum/reject-post/${reqId}`,
+        method: "patch",
+        headers: {
+          Authorization: `Bearer ${user?.token}`,
+        },
+        data: {
+          reason
+        },
+      };
+      await postAction(rejectionConfig);
+    }
+    setReason("");
+    setReasonActive(false);
+    setReqId(null);
+  }
 
   const OnIncreaseHandler = () => {
     if (currentPage > totalPages - 1) return null;
@@ -66,6 +82,9 @@ const PostRequestTable = () => {
 
   return (
     <div className={styles.post_request_container}>
+      {reasonActive &&
+        <ReasonOverlay reason={reason} setReason={setReason} setIsShowReject={setReasonActive} onRejectHandler={onRejectHandler} />
+      }
       <AdminTableHeader
         onSelect={onEntriesPerPageSelectHandler}
         type="Post Requests"
@@ -95,7 +114,7 @@ const PostRequestTable = () => {
                     data={request}
                     key={index}
                     onApproveHandler={onApproveHandler}
-                    onRejectHandler={onRejectHandler}
+                    onRejectHandler={onRejectReasonHandler}
                   />
                 );
               })}

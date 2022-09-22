@@ -5,13 +5,14 @@
   width: 100%;
   height: 100%;
   backdrop-filter: blur(1px);
+  background: rgba(0, 0, 0, 0.564);
   z-index: 100;
 }
 .overlay .container {
   position: absolute;
   top: 50%;
   left: 50%;
-  translate: -50% -50%;
+  transform: translate(-50%, -50%);
   max-width: 80%;
   max-height: 80%;
   border-radius: 15px;
@@ -83,19 +84,4 @@
   color: #fff;
   border-radius: 50%;
   padding: 0.1rem;
-}
-
-.event_request_row tr {
-  max-width: 100%;
-}
-
-.accept,
-.decline {
-  cursor: pointer;
-}
-p.accept:hover {
-  color: green;
-}
-p.decline:hover {
-  color: red;
 }

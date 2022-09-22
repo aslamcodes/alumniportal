@@ -64,11 +64,10 @@
   right: 0.5rem;
 }
 .arrow_btn {
-  transform: rotate(0);
-  transition: transform 1s ease-in-out;
-  transform-origin: center center;
+  rotate: 0;
+  transition: rotate 1s ease-in-out;
 }
 
 .notification_card.expanded > .arrow_btn {
-  transform: rotate(180deg);
+  rotate: 180deg;
 }
