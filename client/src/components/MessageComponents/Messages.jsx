@@ -86,6 +86,7 @@ const ChatPage = ({
 
   const { conversation, isLoading, error } =
     useGetConversationByID(conversationId);
+
   const { user } = useAuthContext();
   const { fetchData: sendMessage } = useAxiosWithCallback();
   const { socket } = useSocketContext();
@@ -96,15 +97,17 @@ const ChatPage = ({
 
   useEffect(() => {
     socket.on(ClientSocketEvents.RECEIVE_MESSAGE, (data) => {
-      setReceivedMessages((prev) => [
-        ...prev,
-        {
-          _id: uniqueId(data.message),
-          content: data.message,
-          conversation: conversationId,
-          sender: recipient,
-        },
-      ]);
+      if (recipient?._id === data.senderId) {
+        setReceivedMessages((prev) => [
+          ...prev,
+          {
+            _id: uniqueId(data.message),
+            content: data.message,
+            conversation: conversationId,
+            sender: recipient,
+          },
+        ]);
+      }
     });
 
     return () => {
@@ -123,6 +126,7 @@ const ChatPage = ({
   const onSubmitHandler = () => {
     socket.emit(ClientSocketEvents.SEND_MESSAGE, {
       receiverId: recipient._id,
+      senderId: user?._id,
       message,
     });
 
@@ -151,6 +155,10 @@ const ChatPage = ({
     onSendNewMessage();
     setMessage("");
   };
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <>
@@ -202,7 +210,7 @@ const ChatPage = ({
           <div ref={messagesEndRef} />
           <div className={styles.input_container}>
             <span
-              class={styles.textarea}
+              className={styles.textarea}
               role="textbox"
               contentEditable={true}
               suppressContentEditableWarning={true}
