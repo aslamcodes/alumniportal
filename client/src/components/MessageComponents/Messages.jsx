@@ -15,7 +15,9 @@ import useAxiosWithCallback from "hooks/useAxiosWithCallback";
 import { GrFormClose } from "react-icons/gr";
 import ReactPortal from "components/Modal/ReactPortal";
 import { useMessageContext } from "context/messageContext/messageContext";
-import { MessageStatus } from "lib/enum";
+import { ClientSocketEvents, MessageStatus } from "lib/enum";
+import { useSocketContext } from "context/socket/socketContext";
+import { uniqueId } from "lodash";
 
 const ChatSelectPage = ({
   isConversationsLoading,
@@ -78,27 +80,52 @@ const ChatPage = ({
   conversationId,
   onSendNewMessage,
 }) => {
+  const [receivedMessages, setReceivedMessages] = useState(messages || []);
   const [message, setMessage] = useState("");
   const messagesEndRef = useRef(null);
+
   const { conversation, isLoading, error } =
     useGetConversationByID(conversationId);
   const { user } = useAuthContext();
-
   const { fetchData: sendMessage } = useAxiosWithCallback();
+  const { socket } = useSocketContext();
 
   const recipient = conversation?.participants?.filter(
     (person) => person._id !== user?._id
   )[0];
 
+  useEffect(() => {
+    socket.on(ClientSocketEvents.RECEIVE_MESSAGE, (data) => {
+      setReceivedMessages((prev) => [
+        ...prev,
+        {
+          _id: uniqueId(data.message),
+          content: data.message,
+          conversation: conversationId,
+          sender: recipient,
+        },
+      ]);
+    });
+
+    return () => {
+      socket.off(ClientSocketEvents.RECEIVE_MESSAGE);
+    };
+  }, [socket, setReceivedMessages, recipient, conversationId]);
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [receivedMessages]);
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView();
   };
 
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
-
   const onSubmitHandler = () => {
+    socket.emit(ClientSocketEvents.SEND_MESSAGE, {
+      receiverId: recipient._id,
+      message,
+    });
+
     const messageConfig = {
       url: "/api/v1/conversation/message/" + conversationId,
       method: "post",
@@ -109,6 +136,17 @@ const ChatPage = ({
         content: message,
       },
     };
+
+    setReceivedMessages((prev) => [
+      ...prev,
+      {
+        _id: uniqueId(message),
+        content: message,
+        conversation: conversationId,
+        sender: user?._id,
+      },
+    ]);
+
     sendMessage(messageConfig);
     onSendNewMessage();
     setMessage("");
@@ -145,14 +183,14 @@ const ChatPage = ({
           }`}
         >
           <div className={styles.e2e_info}>
-            <h3> Your messages are not e2e encrypted  </h3>
-            <TbLockOpen fontSize={17}/>
+            <h3> Your messages are not e2e encrypted </h3>
+            <TbLockOpen fontSize={17} />
           </div>
 
           {isMessagesLoading ? (
             <Loader />
           ) : (
-            messages?.map(({ content, sender }) => {
+            receivedMessages?.map(({ content, sender }) => {
               return (
                 <ChatBubble
                   type={sender === user?._id ? 1 : 0}
@@ -204,7 +242,6 @@ const Messages = () => {
     messages,
     isLoading: isMessagesLoading,
     error: errorOnMessages,
-    trigger,
   } = useGetMessagesForConversation(selectedConversation);
 
   const {
@@ -230,9 +267,8 @@ const Messages = () => {
     setIsChatSelected(false);
   };
 
-  const newMessageHandler = () => {
-    trigger();
-  };
+  const newMessageHandler = () => {};
+
   return (
     messageStatus !== MessageStatus.NONE && (
       <ReactPortal scrollable wrapperId="messages_content_wrapper">

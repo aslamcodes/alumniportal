@@ -1,5 +1,7 @@
+import { useAuthContext } from "context/auth/authContext";
+import { useSocketContext } from "context/socket/socketContext";
 import { MessageStatus } from "lib/enum";
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { useCallback } from "react";
 
 const initialState = {
@@ -15,6 +17,18 @@ MessageContext.displayName = "MessageContext";
 const MessageContextProvider = ({ children }) => {
   const [messageStatus, setMessageStatus] = useState(MessageStatus.NONE);
   const [selectedConversation, setSelectedConversation] = useState();
+
+  const { connect } = useSocketContext();
+  const { user } = useAuthContext();
+
+  useEffect(() => {
+    user &&
+      connect({
+        query: {
+          user: user._id,
+        },
+      });
+  }, [connect, user]);
 
   const openMessageModal = useCallback((conversation) => {
     setSelectedConversation(conversation);

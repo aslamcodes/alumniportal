@@ -33,8 +33,11 @@ import ForumPost from "pages/AlumniForum/ForumPost";
 import Messages from "components/MessageComponents/Messages";
 import { useAudio } from "react-use";
 import { useAuthContext } from "context/auth/authContext";
+import { useSocketContext } from "context/socket/socketContext";
+import { ClientSocketEvents } from "lib/enum";
 
 function App() {
+  const { socket } = useSocketContext();
   const { errorAlert } = useAlertContext();
   const [audio, state, controls, ref] = useAudio({
     src: "/audio/s1.mp3",
@@ -47,6 +50,10 @@ function App() {
       8000
     );
   }, [errorAlert]);
+
+  useEffect(() => {
+    if (socket) socket.emit(ClientSocketEvents.CONNECT_USER);
+  }, [socket]);
 
   useEffect(() => {
     controls.play();

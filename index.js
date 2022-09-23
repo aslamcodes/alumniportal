@@ -1,20 +1,24 @@
 import dotenv from "dotenv";
 import express from "express";
-import config_db from "./config/dbconfig.js";
-import cors from "cors"
+
+import cors from "cors";
 import path from "path";
+
+import { Server as httpServer } from "http";
 import { fileURLToPath } from "url";
 
-import userRouter from "./routes/userRoutes.js";
-import eventRouter from "./routes/eventRoutes.js";
+import alumniDataRouter from "./routes/alumniDataRoutes.js";
 import alumniRouter from "./routes/alumniRoutes.js";
+import conversationRouter from "./routes/conversationRoutes.js";
+import eventRouter from "./routes/eventRoutes.js";
 import forumRouter from "./routes/forumRoutes.js";
 import galleryRouter from "./routes/galleryRoutes.js";
 import testimonialRouter from "./routes/testimonialRoutes.js";
-import alumniDataRouter from "./routes/alumniDataRoutes.js";
-import conversationRouter from "./routes/conversationRoutes.js";
+import userRouter from "./routes/userRoutes.js";
 
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
+import config_db from "./config/dbconfig.js";
+import socket from "./socket/index.js";
 
 const __filename = fileURLToPath(import.meta.url);
 export const __dirname = path.dirname(__filename);
@@ -23,6 +27,7 @@ dotenv.config();
 config_db(process.env.URI);
 
 const app = express();
+
 app.use(express.json());
 app.use(cors());
 
@@ -52,7 +57,11 @@ if (process.env.NODE_ENV === "DEVELOPMENT") {
 app.use(notFound);
 app.use(errorHandler);
 
-app.listen(process.env.PORT, () => {
+const server = httpServer(app);
+
+socket(server);
+
+server.listen(process.env.PORT, () => {
   console.log(
     `Server is running on port ${process.env.PORT}`.black.bgGreen.bold
   );
