@@ -88,6 +88,7 @@ export const deleteAlumni = asyncHandler(async (req, res) => {
 
 export const approveAlumni = asyncHandler(async (req, res) => {
   const { id } = req.params;
+  const { user } = req;
 
   const alumni = await Alumni.findOneAndUpdate(
     { user: id, isApproved: false },
@@ -106,6 +107,7 @@ export const approveAlumni = asyncHandler(async (req, res) => {
     await Notification.create({
       user: alumni.user,
       type: notificationConstants.ALUMNI_APPROVED,
+      approvedBy: user._id,
       message:
         "Your request has been approved. You can now access alumni features.",
     });
@@ -437,6 +439,7 @@ export const getAlumniRequests = asyncHandler(async (req, res) => {
 export const rejectAlumniRequest = asyncHandler(async (req, res) => {
   const { requestId } = req.params;
   const { reason } = req.body;
+  const { user } = req;
 
   const request = await AlumniRequest.findOneAndUpdate(
     { _id: requestId },
@@ -459,6 +462,7 @@ export const rejectAlumniRequest = asyncHandler(async (req, res) => {
       await Notification.create({
         user: request.user,
         message: `Your request has been rejected. Reason: ${reason}`,
+        rejectedBy: user._id,
         type: notificationConstants.ALUMNI_REJECT,
       });
     }
