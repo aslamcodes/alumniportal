@@ -137,6 +137,16 @@ const ChatPage = ({
       },
     };
 
+    setReceivedMessages((prev) => [
+      ...prev,
+      {
+        _id: uniqueId(message),
+        content: message,
+        conversation: conversationId,
+        sender: user?._id,
+      },
+    ]);
+
     sendMessage(messageConfig);
     onSendNewMessage();
     setMessage("");
@@ -173,8 +183,8 @@ const ChatPage = ({
           }`}
         >
           <div className={styles.e2e_info}>
-            <h3> Your messages are not e2e encrypted  </h3>
-            <TbLockOpen fontSize={17}/>
+            <h3> Your messages are not e2e encrypted </h3>
+            <TbLockOpen fontSize={17} />
           </div>
 
           {isMessagesLoading ? (

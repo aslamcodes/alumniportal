@@ -57,7 +57,7 @@ function App() {
 
   useEffect(() => {
     controls.play();
-  }, [user, controls]);
+  }, [user]);
 
   return (
     <div className="App">
