@@ -1,0 +1,52 @@
+.Child {
+  padding: 1rem 2rem;
+  background-color: rgba(255, 255, 255, 0.842);
+  /* filter: opacity(70%); */
+}
+
+.Child #ProfileName {
+  text-align: left;
+  font-size: 25px;
+  font-weight: 700;
+}
+.Child #DetailsAbout {
+  font-size: 16px;
+  word-spacing: 0.5rem;
+  font-weight: 500;
+}
+.Child .Button {
+  width: fit-content;
+  margin: 0 auto;
+  box-sizing: border-box;
+  text-align: center;
+  padding: 3rem 3rem;
+}
+
+.Child .Button #Link {
+  background-color: #6c53ff;
+  border-color: #6c53ff;
+  color: #fff;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  font-size: 1.1em;
+  font-weight: 500;
+  border-radius: 4px;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.Child #Line {
+  border: none;
+  border-top: 1px solid black;
+  padding-bottom: 2em;
+}
+
+.child #Contacts {
+  padding-top: 2em;
+  font-size: 20px;
+  font-weight: 500;
+  padding: 0rem 1rem;
+}
+.Child #ContactEmail {
+  color: #405cf5;
+}
