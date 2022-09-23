@@ -25,7 +25,7 @@ const MessageContextProvider = ({ children }) => {
     user &&
       connect({
         query: {
-          user: user?._id,
+          user: user._id,
         },
       });
   }, [connect, user]);

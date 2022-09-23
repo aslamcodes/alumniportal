@@ -242,7 +242,6 @@ const Messages = () => {
     messages,
     isLoading: isMessagesLoading,
     error: errorOnMessages,
-    trigger,
   } = useGetMessagesForConversation(selectedConversation);
 
   const {
@@ -268,9 +267,8 @@ const Messages = () => {
     setIsChatSelected(false);
   };
 
-  const newMessageHandler = () => {
-    trigger();
-  };
+  const newMessageHandler = () => {};
+
   return (
     messageStatus !== MessageStatus.NONE && (
       <ReactPortal scrollable wrapperId="messages_content_wrapper">
