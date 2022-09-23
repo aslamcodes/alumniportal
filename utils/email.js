@@ -46,14 +46,4 @@ const sendEmail = async (email, subject, payload, template) => {
   }
 };
 
-/*
-Example:
-sendEmail(
-  "youremail@gmail.com,
-  "Email subject",
-  { name: "Eze" },
-  "./templates/layouts/main.handlebars"
-);
-*/
-
 export default sendEmail;

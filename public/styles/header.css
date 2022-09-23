@@ -1,0 +1,20 @@
+.Header {
+  /* margin: 5rem auto 0 auto; */
+  text-align: center;
+  background-color: rgb(129, 167, 255);
+}
+.InnerHeader > * {
+  height: 50px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.Header #SkctLogo {
+  width: 4.5em;
+  height: 4.5em;
+}
+
+.Header #KrishnaLogo {
+  width: 4.5em;
+  height: 4em;
+}

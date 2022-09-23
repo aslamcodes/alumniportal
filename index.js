@@ -1,6 +1,5 @@
 import dotenv from "dotenv";
 import express from "express";
-
 import cors from "cors";
 import path from "path";
 
@@ -30,6 +29,10 @@ const app = express();
 
 app.use(express.json());
 app.use(cors());
+// app.use(express.static(path.join(__dirname, "public")));
+
+// app.set("view engine", "ejs");
+// app.set("views", path.join(__dirname, "/templates"));
 
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/alumni", alumniRouter);
@@ -39,6 +42,13 @@ app.use("/api/v1/gallery", galleryRouter);
 app.use("/api/v1/testimonial", testimonialRouter);
 app.use("/api/v1/alumni-data", alumniDataRouter);
 app.use("/api/v1/conversation", conversationRouter);
+
+// app.get("/forgotPassword", (req, res) => {
+//   res.render("forgot-password", {
+//     content: "Forgot your password?",
+//     receiver: "Aswin",
+//   });
+// });
 
 if (process.env.NODE_ENV === "DEVELOPMENT") {
   console.log("Development mode".yellow);
