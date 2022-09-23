@@ -27,6 +27,14 @@ const notificationSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    approvedBy: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
+    rejectedBy: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
     post: {
       type: Schema.Types.ObjectId,
       ref: "ForumPost",
