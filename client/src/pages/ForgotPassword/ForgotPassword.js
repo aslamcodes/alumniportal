@@ -55,7 +55,7 @@ const ForgotPassword = () => {
                 <input
                   name="email"
                   id="email"
-                  type="text"
+                  type="email"
                   placeholder="Enter your email ID"
                   value={data.email}
                   onChange={handleChange}
