@@ -25,7 +25,7 @@ const LoginForm = () => {
   const authDispatch = useAuthDispatchContext();
   const location = useLocation();
 
-  const [registerOptions, setRegisterOptions] = useState(false);
+
   const {
     register,
     formState: { errors },
@@ -108,24 +108,13 @@ const LoginForm = () => {
       <hr />
       <div
         className={styles["sign-up-container"]}
-        onMouseLeave={() => {
-          setRegisterOptions(false);
-        }}
       >
         <p>
           Don't have an account yet ?{" "}
           <a href="register-student"
-            onMouseEnter={() => {
-              setRegisterOptions(true);
-            }}
+
           >
             Create Account
-            <RegisterOptions
-              onMouseEnter={() => {
-                setRegisterOptions(true);
-              }}
-              active={registerOptions}
-            />
           </a>
         </p>
       </div>
