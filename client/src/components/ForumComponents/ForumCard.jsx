@@ -26,8 +26,6 @@ const ForumCard = ({ data, profileActive, profileEdit, trigger }) => {
   const { successAlert, errorAlert } = useAlertContext();
   const navigate = useNavigate();
 
-  useEffect(() => {}, []);
-
   const shareButtonHandler = (postId) => {
     navigator.clipboard
       .writeText(`${config.CLIENT_URL}/alumni-forum/${postId}`)
