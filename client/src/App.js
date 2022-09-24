@@ -40,7 +40,7 @@ function App() {
   const { socket } = useSocketContext();
   const { errorAlert } = useAlertContext();
   const [audio, state, controls, ref] = useAudio({
-    src: "/audio/s1.mp3",
+    src: "/audio/s3.mp3",
     autoPlay: true,
   });
   const { user } = useAuthContext();
