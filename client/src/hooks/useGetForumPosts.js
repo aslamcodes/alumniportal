@@ -10,9 +10,11 @@ const useGetForumPosts = (user, element) => {
 
   const getConfig = useCallback(
     (offset = 0) => ({
-      url: user
-        ? `/api/v1/forum/feed_v2_alpha?author=${user}`
-        : `/api/v1/forum/feed_v2_alpha?offset=${offset}`,
+      url: `/api/v1/forum/feed_v2_alpha`,
+      params: {
+        author: user,
+        offset,
+      },
     }),
     [user]
   );
@@ -23,11 +25,13 @@ const useGetForumPosts = (user, element) => {
 
   useEffect(() => {
     fetchData(getConfig(0), setPosts);
-  }, [fetchData, getConfig, refresh]);
+    console.log("Getting offset 0");
+  }, [fetchData, getConfig]);
 
   useScrollPositionThrottled(
     ({ atBottom }) => {
       if (atBottom && hasMore) {
+        console.log("Getting offset" + posts.length);
         fetchData(getConfig(posts.length), (newPosts) => {
           setPosts((prev) => [...prev, ...newPosts]);
           setHasMore(newPosts.length === 5);
@@ -35,7 +39,7 @@ const useGetForumPosts = (user, element) => {
       }
     },
     element,
-    []
+    [refresh]
   );
 
   return { isLoading, error, posts, trigger };
