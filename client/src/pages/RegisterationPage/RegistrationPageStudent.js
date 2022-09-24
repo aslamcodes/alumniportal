@@ -188,11 +188,10 @@ function RegistrationPageStudent() {
                         name="yearOfPassing"
                         type="text"
                         id="yop"
-                        required
                         value={data.yearOfPassing}
                         onChange={handleChange}
                       >
-                        <option selected   >
+                        <option value="Null" selected   >
                           Year of passing
                         </option>
                         {YearOfPassing.map((year) => (
@@ -282,7 +281,7 @@ function RegistrationPageStudent() {
                         name="registerNumber"
                         type="text"
                         id="register_no"
-                        required
+
                         placeholder="Register Number"
                         value={data.registerNumber}
                         onChange={handleChange}
