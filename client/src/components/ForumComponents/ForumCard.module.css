@@ -1,6 +1,5 @@
-/* for profile page */
-.shadow {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+for profile page .shadow {
+  /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
 }
 
 .post_container {
@@ -10,8 +9,8 @@
 .header {
   background-color: rgba(255, 255, 255, 0.5);
   border-radius: 0.5rem 0.5em 0 0;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  /* backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px); */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -34,26 +33,21 @@
   cursor: pointer;
 }
 
-.post_caption_container {
-  display: flex;
-  gap: 1rem;
-  color: white;
-}
-
 .post_image_container {
   position: relative;
   display: flex;
   align-items: center;
   height: 60vh;
   background-color: rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(10px);
+  /* backdrop-filter: blur(10px); */
   border-radius: 0 0 0.5em 0.5em;
 }
 
 .post_image_container img {
   width: 100%;
   max-height: 100%;
-  object-fit: contain;
+  object-fit: cover;
+  border-radius: 0 0 0.5rem 0.5em;
 }
 
 .post_overlay {
@@ -74,12 +68,14 @@
 }
 
 .post_caption_container {
-  padding: 1em;
-  position: absolute;
   bottom: 0;
-  z-index: 3;
+  color: #fff;
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  padding: 1em;
+  position: absolute;
+  z-index: 3;
 }
 
 .post_caption_container :nth-child(1) {
@@ -107,6 +103,7 @@
 .close_btn {
   cursor: pointer;
 }
+
 @media (min-width: 768px) {
   .header {
     font-size: 1.3rem;
