@@ -53,7 +53,7 @@ function RegistrationPageStudent() {
     yearOfPassing: "",
     country: "IN",
     state: "TN",
-    city: "",
+    city: "Coimbatore",
     graduationLevel: "",
     dateOfBirth: "",
     skill: "",
@@ -119,6 +119,7 @@ function RegistrationPageStudent() {
       ...data,
       [e.target.name]: e.target.value,
     });
+
   };
 
   const handleInputBlur = (e) => {
@@ -191,7 +192,7 @@ function RegistrationPageStudent() {
                         value={data.yearOfPassing}
                         onChange={handleChange}
                       >
-                        <option value="" disabled selected hidden>
+                        <option selected   >
                           Year of passing
                         </option>
                         {YearOfPassing.map((year) => (
@@ -213,7 +214,7 @@ function RegistrationPageStudent() {
                         onChange={handleChange}
                         onBlur={handleInputBlur}
                       >
-                        <option value="" disabled selected hidden>
+                        <option value="" selected hidden>
                           Department
                         </option>
                         {Department.map((dept) => (
