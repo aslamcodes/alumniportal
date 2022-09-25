@@ -11,7 +11,7 @@ import Loader from "components/UI/Loader";
 import { useFetchAlumniStoredData } from "hooks/useFetchAlumniStoredData";
 import { useAlertContext } from "context/alert/alertContext";
 import { Country, State, City } from "country-state-city";
-
+import { validateAll } from "utils/registrationValidation";
 const currentYear = new Date().getFullYear();
 const range = (start, stop, step) =>
   Array.from({ length: (stop - start) / step + 1 }, (_, i) => start + i * step);
@@ -43,21 +43,37 @@ function RegistrationPageStudent() {
   const [isCPasswordDirty, setIsCPasswordDirty] = useState(false);
   const [isPasswordMatch, setIsPasswordMatch] = useState(false);
   const [data, setData] = useState({
+    yearOfPassing: "",
+    department: "",
+    graduationLevel: "",
+    name: "",
+    dateOfBirth: "",
     email: "",
+    registerNumber: "",
     password: "",
     confirmPassword: "",
-    name: "",
-    registerNumber: "",
-    department: "",
-    phoneNumber: "",
-    yearOfPassing: "",
     country: "IN",
     state: "TN",
     city: "Coimbatore",
-    graduationLevel: "",
-    dateOfBirth: "",
+    phoneNumber: "",
     skill: "",
   });
+  const [validationError, setValidationError] = useState({
+    yearOfPassing: false,
+    department: false,
+    graduationLevel: false,
+    name: false,
+    dateOfBirth: false,
+    email: false,
+    registerNumber: false,
+    password: false,
+    confirmPassword: false,
+    country: false,
+    state: false,
+    city: false,
+    phoneNumber: false,
+    skill: false,
+  })
 
   const { errorAlert } = useAlertContext();
 
@@ -115,6 +131,8 @@ function RegistrationPageStudent() {
         [e.target.name]: e.target.value.slice(0, 10),
       });
     }
+
+
     setData({
       ...data,
       [e.target.name]: e.target.value,
@@ -130,11 +148,20 @@ function RegistrationPageStudent() {
 
   const handleSubmitPage1 = async (e) => {
     e.preventDefault();
-    setFormStep(2);
+    var flag = validateAll(data, validationError, setValidationError, 1);
+    console.log(flag);
+    if (flag) {
+      setFormStep(2);
+    }
+
+
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    var flag = validateAll(data, validationError, setValidationError, 2);
+    console.log(flag);
+
     const formData = new FormData();
     Object.keys(data).forEach((key) => {
       if (key === "country") {
@@ -151,8 +178,9 @@ function RegistrationPageStudent() {
       }
       formData.append(key, data[key]);
     });
-
-    await register(dispatch, formData);
+    if (flag) {
+      await register(dispatch, formData);
+    }
   };
 
   if (user) {
@@ -191,7 +219,7 @@ function RegistrationPageStudent() {
                         value={data.yearOfPassing}
                         onChange={handleChange}
                       >
-                        <option value="Null" selected   >
+                        <option value="" selected   >
                           Year of passing
                         </option>
                         {YearOfPassing.map((year) => (
@@ -204,11 +232,12 @@ function RegistrationPageStudent() {
                           </option>
                         ))}
                       </select>
+
                       <select
                         name="department"
                         type="text"
                         id="dept"
-                        required
+
                         value={data.department}
                         onChange={handleChange}
                         onBlur={handleInputBlur}
@@ -223,12 +252,22 @@ function RegistrationPageStudent() {
                         ))}
                       </select>
                     </div>
+                    {validationError["yearOfPassing"] && (
+                      <p className={styles.validation_error}>
+                        Select your year of passing
+                      </p>
+                    )}
+                    {validationError["department"] && (
+                      <p className={styles.validation_error}>
+                        Select your department
+                      </p>
+                    )}
                     <div className={styles.form_input_container}>
                       <select
                         name="graduationLevel"
                         type="text"
                         id="graduationLevel"
-                        required
+
                         value={data.graduationLevel}
                         onChange={handleChange}
                       >
@@ -240,17 +279,27 @@ function RegistrationPageStudent() {
                         ))}
                       </select>
                     </div>
+                    {validationError["graduationLevel"] && (
+                      <p className={styles.validation_error}>
+                        Select your graduation level
+                      </p>
+                    )}
                     <div className={styles.form_input_container}>
                       <input
                         name="name"
                         type="text"
                         id="name"
-                        required
+
                         placeholder="Name"
                         value={data.name}
                         onChange={handleChange}
                       />
                     </div>
+                    {validationError["name"] && (
+                      <p className={styles.validation_error}>
+                        Enter your name
+                      </p>
+                    )}
                     <div
                       className={`${styles.form_input_container} ${styles.split_container}`}
                     >
@@ -258,7 +307,7 @@ function RegistrationPageStudent() {
                         name="dateOfBirth"
                         type="date"
                         id="dateOfBirth"
-                        required
+
                         value={data.dateOfBirth}
                         onChange={handleChange}
                         max="2022-04-17"
@@ -267,15 +316,23 @@ function RegistrationPageStudent() {
                         name="email"
                         type="email"
                         id="email"
-                        title="please enter a valid email address"
                         pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$"
-                        required
                         placeholder="Email"
                         value={data.email}
                         onChange={handleChange}
                         onBlur={handleInputBlur}
                       />
                     </div>
+                    {validationError["dateOfBirth"] && (
+                      <p className={styles.validation_error}>
+                        Select your DOB
+                      </p>
+                    )}
+                    {validationError["email"] && (
+                      <p className={styles.validation_error}>
+                        Enter a valid Email
+                      </p>
+                    )}
                     <div className={styles.form_input_container}>
                       <input
                         name="registerNumber"
@@ -288,6 +345,11 @@ function RegistrationPageStudent() {
                         onBlur={handleInputBlur}
                       />
                     </div>
+                    {validationError["registerNumber"] && (
+                      <p className={styles.validation_error}>
+                        Enter your Registraion number
+                      </p>
+                    )}
                     <div className={styles.form_input_container}>
                       <input
                         name="password"
@@ -295,19 +357,24 @@ function RegistrationPageStudent() {
                         id="password"
                         title="password must be at least 8 characters"
                         pattern="[a-zA-Z0-9!@#$%^\*()]{8,}"
-                        required
+
                         placeholder="Password"
                         value={data.password}
                         onChange={handleChange}
                       />
                     </div>
+                    {validationError["password"] && (
+                      <p className={styles.validation_error}>
+                        Enter a valid Password must include {`(8 or more characters)`}
+                      </p>
+                    )}
                     <div className={styles.form_input_container}>
                       <input
                         name="confirmPassword"
                         type="password"
                         id="confirm_password"
                         pattern="[a-zA-Z0-9!@#$%^\*()]{8,}"
-                        required
+
                         placeholder="Confirm Password"
                         value={data.confirmPassword}
                         onChange={handleChange}
@@ -336,7 +403,7 @@ function RegistrationPageStudent() {
                         name="country"
                         type="text"
                         id="country"
-                        required
+
                         placeholder="Select your country"
                         value={data.country}
                         onChange={handleChange}
@@ -350,12 +417,17 @@ function RegistrationPageStudent() {
                         )}
                       </select>
                     </div>
+                    {validationError["country"] && (
+                      <p className={styles.validation_error}>
+                        Select your country
+                      </p>
+                    )}
 
                     <div className={`${styles.form_input_container} `}>
                       <select
                         name="state"
                         id="state"
-                        required
+
                         placeholder="Select your state"
                         value={data.state}
                         onChange={handleChange}
@@ -365,12 +437,17 @@ function RegistrationPageStudent() {
                         ))}
                       </select>
                     </div>
+                    {validationError["state"] && (
+                      <p className={styles.validation_error}>
+                        Select your state
+                      </p>
+                    )}
 
                     <div className={styles.form_input_container}>
                       <select
                         name="city"
                         id="city"
-                        required
+
                         placeholder="Enter your contact no"
                         value={data.city}
                         onChange={handleChange}
@@ -382,20 +459,28 @@ function RegistrationPageStudent() {
                         )}
                       </select>
                     </div>
-
+                    {validationError["city"] && (
+                      <p className={styles.validation_error}>
+                        select your city
+                      </p>
+                    )}
                     <div className={styles.form_input_container}>
                       <input
                         name="phoneNumber"
                         type="number"
                         id="phoneNumber"
                         pattern="[0-9]{10}"
-                        required
+
                         placeholder="Enter your contact no"
                         value={data.phoneNumber}
                         onChange={handleChange}
                       />
                     </div>
-
+                    {validationError["phoneNumber"] && (
+                      <p className={styles.validation_error}>
+                        Enter your contact no
+                      </p>
+                    )}
                     <div className={styles.form_input_container}>
                       <input
                         name="skill"
@@ -406,6 +491,11 @@ function RegistrationPageStudent() {
                         onChange={handleChange}
                       />
                     </div>
+                    {validationError["skill"] && (
+                      <p className={styles.validation_error}>
+                        Enter your skills
+                      </p>
+                    )}
                     <div
                       className={`${styles.form_button_container} ${styles.split_container}`}
                     >
