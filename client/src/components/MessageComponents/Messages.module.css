@@ -1,10 +1,11 @@
 .messages_container {
   position: fixed;
-  right: 0.3rem;
-  bottom: 3rem;
-  padding: 0.5rem;
-  width: min(25rem, 80%);
-  border-radius: 10px;
+  right: 0rem;
+  padding: 0.5rem 0.2rem;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 1px;
   background-color: rgba(255, 255, 255, 0.82);
   backdrop-filter: blur(8px);
   z-index: 20;
@@ -34,7 +35,8 @@
 }
 .chat_container.active {
   overflow: auto;
-  max-height: 20rem;
+  height: 90%;
+  max-height: 90%;
 }
 .e2e_info > * {
   display: inline-block;
@@ -55,6 +57,8 @@
 
 .messages_actions > * {
   display: inline-block;
+  margin-inline: 0.1rem;
+  padding: 0.1rem;
   vertical-align: middle;
 }
 .arrow_btn,
@@ -139,4 +143,19 @@
   background-color: #fff;
   border-radius: 20px;
   padding: 0.1rem;
+}
+
+@media (min-width: 768px) {
+  .messages_container {
+    right: 0.3rem;
+    bottom: 3rem;
+    padding: 0.5rem;
+    width: min(25rem, 80%);
+    max-height: 60%;
+    border-radius: 10px;
+  }
+
+  .chat_container.active {
+    max-height: 85%;
+  }
 }
