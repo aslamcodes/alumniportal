@@ -12,7 +12,11 @@ import styles from "./OfficeBearerCard.module.css";
 const OfficeBearerCard = ({ alumni, onAlumniClick }) => {
   const [isHovered, setIsHovered] = useState(false);
 
+  const expandRef = useSpringRef();
+  const userInfoRef = useSpringRef();
+
   const containerProps = useSpring({
+    ref: expandRef,
     from: {
       // transform: "scale(1)",
       width: "10rem",
@@ -26,16 +30,20 @@ const OfficeBearerCard = ({ alumni, onAlumniClick }) => {
   });
 
   const gradientTransition = useTransition(isHovered, {
+    ref: userInfoRef,
     from: { opacity: 0 },
     enter: { opacity: 1 },
     leave: { opacity: 0 },
   });
 
   const userInfoTransitions = useTransition(isHovered, {
-    from: { opacity: 0 },
-    enter: { opacity: 1 },
-    leave: { opacity: 0 },
+    ref: userInfoRef,
+    from: { opacity: 0, transform: "translateY(100%)" },
+    enter: { opacity: 1, transform: "translateY(0)" },
+    leave: { opacity: 0, transform: "translateY(100%)" },
   });
+
+  useChain([expandRef, userInfoRef]);
 
   return (
     <a.div
@@ -62,7 +70,11 @@ const OfficeBearerCard = ({ alumni, onAlumniClick }) => {
         return (
           item && (
             <a.div className={styles.user_info} style={props}>
-              {alumni.user.name}
+              <p>
+                {alumni.user.name}{" "}
+                {alumni?.designation && `- ${alumni?.designation}`}
+              </p>
+              {alumni.organization && <p>{alumni.organization}</p>}
             </a.div>
           )
         );
