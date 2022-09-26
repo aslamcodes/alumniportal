@@ -6,6 +6,7 @@ import React, { useState, useEffect } from "react";
 import OfficeBearerCard from "./OfficeBearerCard";
 import styles from "./OfficeBearers.module.css";
 import { isNull } from "lodash";
+import ErrorDialogue, { ErrorWrapper } from "components/UI/ErrorDialogue";
 
 function OfficeBearers() {
   const [activeIndex, setActiveIndex] = useState(null);
@@ -27,9 +28,7 @@ function OfficeBearers() {
       : setIsProfileModalActive(false);
   }, [selectedAlumniId]);
 
-  if (error) {
-    errorAlert("Sorry! Something bad happened on our side!");
-  }
+  if (error) return <ErrorWrapper errorMessage={error.message} />;
 
   const onAlumniCardClick = (alumni) => {
     setSelectedAlumniId(alumni.user._id);

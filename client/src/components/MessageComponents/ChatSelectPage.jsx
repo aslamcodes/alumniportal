@@ -4,13 +4,10 @@ import { GrFormClose } from "react-icons/gr";
 import Loader from "components/UI/Loader";
 import ChatCard from "./ChatCard";
 import useGetConversationsForUser from "hooks/useGetConversationsForUser";
+import ErrorDialogue from "components/UI/ErrorDialogue";
 
 const ChatSelectPage = ({ isMessagesActive, onClose, onChatSelect }) => {
-  const {
-    conversations,
-    isLoading: isConversationsLoading,
-    error: errorOnConversation,
-  } = useGetConversationsForUser();
+  const { conversations, isLoading, error } = useGetConversationsForUser();
 
   const onChatSelectHandler = (conversationId) => {
     onChatSelect(conversationId);
@@ -19,6 +16,10 @@ const ChatSelectPage = ({ isMessagesActive, onClose, onChatSelect }) => {
   const onCloseHandler = () => {
     onClose();
   };
+
+  if (error) {
+    return <ErrorDialogue errorMessage={error.message} />;
+  }
 
   return (
     <>
@@ -41,7 +42,7 @@ const ChatSelectPage = ({ isMessagesActive, onClose, onChatSelect }) => {
             isMessagesActive && styles.active
           }`}
         >
-          {isConversationsLoading ? (
+          {isLoading ? (
             <Loader />
           ) : (
             conversations?.map((conversation) => (

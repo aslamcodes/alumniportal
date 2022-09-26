@@ -58,19 +58,6 @@ function ProfileModal({ isOpen, handleClose, userId }) {
     document.title = "Alumni Portal | Profile";
   }, []);
 
-  if (error) {
-    return (
-      <div className={styles.profile_overlay} onClick={handleClose}>
-        <div
-          className={styles.profile_container}
-          onClick={(e) => e.stopPropagation()}
-        >
-          <ErrorDialogue errorMessage={error.message} />;
-        </div>
-      </div>
-    );
-  }
-
   const pick_image = useCallback(() => {
     const random_number = Math.floor(Math.random() * PROFILE_IMAGES.length);
     return PROFILE_IMAGES[random_number];
@@ -174,6 +161,19 @@ function ProfileModal({ isOpen, handleClose, userId }) {
     setBanner(pick_image());
   }, [user]);
   if (isLoading) return <Loader />;
+
+  if (error || postError) {
+    return (
+      <div className={styles.profile_overlay} onClick={handleClose}>
+        <div
+          className={styles.profile_container}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <ErrorDialogue errorMessage={error.message} />;
+        </div>
+      </div>
+    );
+  }
 
   return (
     <ReactPortal wrapperId="profile_content_wrapper">

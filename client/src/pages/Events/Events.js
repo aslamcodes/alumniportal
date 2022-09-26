@@ -6,18 +6,22 @@ import useGetEvents from "hooks/useGetEvents";
 import Loader from "components/UI/Loader";
 import { AiOutlinePlus } from "react-icons/ai";
 import { useAuthContext } from "context/auth/authContext";
+import ErrorDialogue from "components/UI/ErrorDialogue";
 
 const Events = () => {
   useEffect(() => {
-    document.title="Alumni Portal | Events"
-  },[]);
+    document.title = "Alumni Portal | Events";
+  }, []);
   const [isCardActive, setIsCardActive] = useState(false);
   const { isLoading, events, error, setTrigger } = useGetEvents();
   const { user } = useAuthContext();
 
-  useEffect(() => {
-    if (error) alert(error);
-  }, [error]);
+  if (error)
+    return (
+      <div className={styles.error_container}>
+        <ErrorDialogue errorMessage={error.message} />
+      </div>
+    );
 
   return (
     <div
