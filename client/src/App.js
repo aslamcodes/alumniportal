@@ -63,8 +63,8 @@ function App() {
     <div className="App">
       {audio}
       <AlertContextComponent />
-      <Messages />
       <Router>
+        <Messages />
         <Routes>
           <Route path="/admin" element={<Admin />} />
           <Route path="/alumni-data" element={<AlumniData />} />

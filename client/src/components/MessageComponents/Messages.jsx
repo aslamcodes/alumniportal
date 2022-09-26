@@ -16,6 +16,8 @@ import { GrFormClose } from "react-icons/gr";
 import ReactPortal from "components/Modal/ReactPortal";
 import { useMessageContext } from "context/messageContext/messageContext";
 import { ClientSocketEvents, MessageStatus } from "lib/enum";
+import { useNavigate } from "react-router-dom";
+
 import { useSocketContext } from "context/socket/socketContext";
 import { uniqueId } from "lodash";
 
@@ -26,6 +28,7 @@ const ChatSelectPage = ({
   onChatSelect,
   conversations,
 }) => {
+  const navigate = useNavigate();
   const onChatSelectHandler = (conversationId) => {
     onChatSelect(conversationId);
   };
@@ -34,12 +37,17 @@ const ChatSelectPage = ({
     onClose();
   };
 
+
   return (
     <>
       <div className={styles.messages_header}>
         Messages (alpha)
         <div className={styles.messages_actions}>
-          <AiOutlinePlus className={styles.add_btn} fontSize={20} />
+        
+         <AiOutlinePlus onClick={() => {
+          navigate("/alumni");
+          }} className={styles.add_btn} fontSize={20} />
+       
           <GrFormClose
             className={styles.close_btn}
             fontSize={20}
