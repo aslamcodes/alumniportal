@@ -3,14 +3,15 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { GrFormClose } from "react-icons/gr";
 import Loader from "components/UI/Loader";
 import ChatCard from "./ChatCard";
+import useGetConversationsForUser from "hooks/useGetConversationsForUser";
 
-const ChatSelectPage = ({
-  isConversationsLoading,
-  isMessagesActive,
-  onClose,
-  onChatSelect,
-  conversations,
-}) => {
+const ChatSelectPage = ({ isMessagesActive, onClose, onChatSelect }) => {
+  const {
+    conversations,
+    isLoading: isConversationsLoading,
+    error: errorOnConversation,
+  } = useGetConversationsForUser();
+
   const onChatSelectHandler = (conversationId) => {
     onChatSelect(conversationId);
   };
