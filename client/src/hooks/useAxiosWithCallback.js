@@ -6,7 +6,7 @@ export default function useAxiosWithCallback() {
   const [error, setError] = useState(null);
 
   const fetchData = useCallback(
-    async (config, callback = () => {}) => {
+    async (config, callback = () => {}, errorCallback = () => {}) => {
       const axiosConfig = {
         method: "get",
         ...config,
@@ -26,6 +26,7 @@ export default function useAxiosWithCallback() {
         setError(null);
       } catch (error) {
         setError(error);
+        errorCallback(error);
       } finally {
         setIsLoading(false);
       }
