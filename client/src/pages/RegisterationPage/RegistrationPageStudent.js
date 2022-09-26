@@ -84,6 +84,7 @@ function RegistrationPageStudent() {
 
   useEffect(() => {
     document.title = "Alumni Portal | Register";
+
   }, []);
 
 
@@ -150,14 +151,11 @@ function RegistrationPageStudent() {
 
   const handleSubmitPage1 = async (e) => {
     e.preventDefault();
-    var flag = validateAll(data, setValidationError, 1);
-
+    const flag = validateAll(data, setValidationError, 1);
 
     if (flag) {
       setFormStep(2);
     }
-
-
   };
 
 
@@ -165,8 +163,6 @@ function RegistrationPageStudent() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const flag = validateAll(data, setValidationError, 2);
-
-
     const formData = new FormData();
     Object.keys(data).forEach((key) => {
       if (key === "country") {
@@ -331,6 +327,7 @@ function RegistrationPageStudent() {
                     {validationError["dateOfBirth"] && (
                       <p className={styles.validation_error}>
                         Select your DOB
+
                       </p>
                     )}
                     {validationError["email"] && (
