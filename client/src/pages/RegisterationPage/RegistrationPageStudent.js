@@ -31,9 +31,6 @@ const Department = [
 const graduationLevelOptions = ["Under graduate", "Post graduate"];
 
 function RegistrationPageStudent() {
-  useEffect(() => {
-    document.title = "Alumni Portal | Register";
-  }, []);
 
   const navigate = useNavigate();
   const dispatch = useAuthDispatchContext();
@@ -84,6 +81,11 @@ function RegistrationPageStudent() {
   const { alumni } = useFetchAlumniStoredData({
     email: emailRef.current,
   });
+
+  useEffect(() => {
+    document.title = "Alumni Portal | Register";
+  }, []);
+
 
   useEffect(() => {
     if (isCPasswordDirty) {
@@ -148,8 +150,9 @@ function RegistrationPageStudent() {
 
   const handleSubmitPage1 = async (e) => {
     e.preventDefault();
-    var flag = validateAll(data, validationError, setValidationError, 1);
-    console.log(flag);
+    var flag = validateAll(data, setValidationError, 1);
+
+
     if (flag) {
       setFormStep(2);
     }
@@ -157,10 +160,12 @@ function RegistrationPageStudent() {
 
   };
 
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    var flag = validateAll(data, validationError, setValidationError, 2);
-    console.log(flag);
+    const flag = validateAll(data, setValidationError, 2);
+
 
     const formData = new FormData();
     Object.keys(data).forEach((key) => {

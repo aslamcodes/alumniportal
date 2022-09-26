@@ -1,16 +1,26 @@
-export function validateAll(data, validationError, setValidationError, form) {
+export function validateAll(data, setValidationError, form) {
   var flag = true;
 
   if (form === 1) {
-    if ((new Date(data["dateOfBirth"]) === "Invalid Date") && isNaN(new Date(data["dateOfBirth"]))) {
-      validationError["dateOfBirth"] = true;
+    if (isNaN(new Date(data["dateOfBirth"]))) {
+      setValidationError(prev => ({
+        ...prev,
+        dateOfBirth: true,
+      }))
     }
     Object.keys(data).slice(0, 9).forEach((key) => {
       if (data[key] === (undefined) || data[key] === "") {
-        validationError[key] = true;
+        setValidationError(prev => ({
+          ...prev,
+          [key]: true,
+        }))
+
         flag = false;
       } else {
-        validationError[key] = false;
+        setValidationError(prev => ({
+          ...prev,
+          [key]: false,
+        }))
       }
     });
 
@@ -18,14 +28,20 @@ export function validateAll(data, validationError, setValidationError, form) {
 
     Object.keys(data).slice(9, 14).forEach((key) => {
       if (data[key] === (undefined) || data[key] === "") {
-        validationError[key] = true;
+        setValidationError(prev => ({
+          ...prev,
+          [key]: true,
+        }))
         flag = false;
       } else {
-        validationError[key] = false;
+        setValidationError(prev => ({
+          ...prev,
+          [key]: false,
+        }))
       }
     });
   }
-  setValidationError(validationError);
+
   return flag;
 
 }
