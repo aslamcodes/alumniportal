@@ -13,3 +13,8 @@
   row-gap: 1rem;
   column-gap: 0.3rem;
 }
+
+.error_container {
+  height: 100vh;
+  padding: 10rem 1.2rem;
+}

@@ -2,9 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Gallery.module.css";
 const Gallery = () => {
-  useEffect(() => {
-    document.title = "Alumni Portal | Gallery"
-  }, []);
   const navigate = useNavigate();
 
   const [itemSwitch, setItemSwitch] = useState({
@@ -12,6 +9,10 @@ const Gallery = () => {
     itemLeft: -1,
     itemRight: 1,
   });
+
+  useEffect(() => {
+    document.title = "Alumni Portal | Gallery";
+  }, []);
 
   const handleClick = (id) => {
     if (itemSwitch.itemActive === 0 && id === 0) {
@@ -35,10 +36,11 @@ const Gallery = () => {
       </div>
       <div className={styles.gallery_items_container}>
         <div
-          className={`${styles.gallery_item} ${(itemSwitch.itemLeft === -1 && styles.item_left) ||
+          className={`${styles.gallery_item} ${
+            (itemSwitch.itemLeft === -1 && styles.item_left) ||
             (itemSwitch.itemRight === -1 && styles.item_right) ||
             (itemSwitch.itemActive === -1 && styles.item_active)
-            }`}
+          }`}
           onClick={() => handleClick(-1)}
         >
           <div className={styles.container}>
@@ -50,10 +52,11 @@ const Gallery = () => {
         </div>
 
         <div
-          className={`${styles.gallery_item} ${(itemSwitch.itemLeft === 0 && styles.item_left) ||
+          className={`${styles.gallery_item} ${
+            (itemSwitch.itemLeft === 0 && styles.item_left) ||
             (itemSwitch.itemRight === 0 && styles.item_right) ||
             (itemSwitch.itemActive === 0 && styles.item_active)
-            }`}
+          }`}
           onClick={() => handleClick(0)}
         >
           <div className={styles.container}>
@@ -65,10 +68,11 @@ const Gallery = () => {
         </div>
 
         <div
-          className={`${styles.gallery_item} ${(itemSwitch.itemLeft === 1 && styles.item_left) ||
+          className={`${styles.gallery_item} ${
+            (itemSwitch.itemLeft === 1 && styles.item_left) ||
             (itemSwitch.itemRight === 1 && styles.item_right) ||
             (itemSwitch.itemActive === 1 && styles.item_active)
-            }`}
+          }`}
           onClick={() => handleClick(1)}
         >
           <div className={styles.container}>

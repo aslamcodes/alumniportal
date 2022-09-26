@@ -15,3 +15,8 @@
   border-radius: 0.5rem;
   font-weight: 500;
 }
+
+.error_wrapper {
+  min-height: 100vh;
+  padding: calc(var(--navbar-height) + 2rem) 1.2rem;
+}
