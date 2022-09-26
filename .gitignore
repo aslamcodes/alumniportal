@@ -16,7 +16,7 @@ seeder.js
 /coverage
 
 # production
-/client/build
+# /client/build
 # /client/src/config/config.js
 /data/users.js
 
