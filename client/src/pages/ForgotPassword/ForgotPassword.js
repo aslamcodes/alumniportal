@@ -16,7 +16,7 @@ const ForgotPassword = () => {
   });
   const { fetchData: requestPasswordReset, isLoading } = useAxiosWithCallback();
 
-  const { successAlert } = useAlertContext();
+  const { successAlert, errorAlert } = useAlertContext();
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -35,9 +35,15 @@ const ForgotPassword = () => {
         email: data.email,
       },
     };
-    requestPasswordReset(config, () => {
-      successAlert("An Email is sent to the given email address");
-    });
+    requestPasswordReset(
+      config,
+      () => {
+        successAlert("An Email is sent to the given email address");
+      },
+      (error) => {
+        errorAlert(error.response.data.message);
+      }
+    );
   };
   return (
     <div className={styles.container}>

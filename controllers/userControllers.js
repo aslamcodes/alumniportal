@@ -124,7 +124,7 @@ export const requestPasswordReset = asyncHandler(async (req, res) => {
 
   const link = `${process.env.CLIENT_URL}/reset-password?token=${resetToken}&user=${user._id}`;
 
-  await sendEmail(
+  const { error } = await sendEmail(
     user?.email,
     "SKCT Alumni Portal - Password Reset Request",
     {
@@ -133,6 +133,11 @@ export const requestPasswordReset = asyncHandler(async (req, res) => {
     },
     path.join(__dirname, "templates", "forgot-password.ejs")
   );
+
+  if (error) {
+    res.status(400);
+    throw new Error("Couldn't Send you a Email");
+  }
 
   res.json(
     "Hello There " +
