@@ -31,6 +31,7 @@ export const registerUser = asyncHandler(async (req, res) => {
       message: "User already exists",
     });
   }
+
   try {
     const user = await User.create({
       ...req.body,
@@ -193,9 +194,9 @@ export const getUserAvatarImage = asyncHandler(async (req, res) => {
       mongoose.Types.ObjectId(user.avatar)
     );
 
-    readStream.on("error", (err) => {
-      var filename = __dirname + "/uploads/default.jpeg";
-      var readStream = fs.createReadStream(filename);
+    readStream.on("error", function (err) {
+      const filename = __dirname + "/uploads/default.jpeg";
+      const readStream = fs.createReadStream(filename);
       readStream.on("open", function () {
         readStream.pipe(res);
       });

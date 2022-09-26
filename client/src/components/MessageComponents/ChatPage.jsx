@@ -1,11 +1,14 @@
+import Divider from "components/UI/Divider";
 import Loader from "components/UI/Loader";
 import { useAuthContext } from "context/auth/authContext";
 import { useSocketContext } from "context/socket/socketContext";
 import useAxiosWithCallback from "hooks/useAxiosWithCallback";
 import useGetConversationByID from "hooks/useGetConversationByID";
+import useGetMessagesForConversation from "hooks/useGetMessagesForConversation";
 import { ClientSocketEvents } from "lib/enum";
 import { uniqueId } from "lodash";
 import { useEffect, useRef, useState } from "react";
+import { FiAlertCircle } from "react-icons/fi";
 import { IoIosArrowBack, IoIosSend } from "react-icons/io";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { TbLockOpen } from "react-icons/tb";
@@ -14,19 +17,24 @@ import styles from "./Messages.module.css";
 
 const ChatPage = ({
   isMessagesActive,
-  messages,
   onMinimize,
-  isMessagesLoading,
   onGoBack,
   conversationId,
   onSendNewMessage,
 }) => {
-  const [receivedMessages, setReceivedMessages] = useState(messages || []);
   const [message, setMessage] = useState("");
   const messagesEndRef = useRef(null);
 
   const { conversation, isLoading, error } =
     useGetConversationByID(conversationId);
+
+  const {
+    messages,
+    isLoading: isMessagesLoading,
+    error: errorOnMessages,
+  } = useGetMessagesForConversation(conversationId);
+
+  const [receivedMessages, setReceivedMessages] = useState(messages || []);
 
   const { user } = useAuthContext();
   const { fetchData: sendMessage } = useAxiosWithCallback();
@@ -35,6 +43,14 @@ const ChatPage = ({
   const recipient = conversation?.participants?.filter(
     (person) => person._id !== user?._id
   )[0];
+
+  useEffect(() => {
+    scrollToBottom();
+  }, []);
+
+  useEffect(() => {
+    setReceivedMessages(messages);
+  }, [messages]);
 
   useEffect(() => {
     socket.on(ClientSocketEvents.RECEIVE_MESSAGE, (data) => {
@@ -132,11 +148,19 @@ const ChatPage = ({
           }`}
         >
           <div className={styles.e2e_info}>
-            <h3> Your messages are not e2e encrypted </h3>
+            <h3> Your messages are not e2e encrypted</h3>{" "}
             <TbLockOpen fontSize={17} />
           </div>
 
-          {isMessagesLoading ? (
+          {errorOnMessages && (
+            <div className={styles.e2e_info}>
+              <Divider />
+              <h3> There's a problem in retrieving messages</h3>{" "}
+              <FiAlertCircle fontSize={17} />
+            </div>
+          )}
+
+          {isMessagesLoading && !errorOnMessages ? (
             <Loader />
           ) : (
             receivedMessages?.map(({ content, sender }) => {
@@ -160,7 +184,7 @@ const ChatPage = ({
               {message}
             </span>
             <IoIosSend
-              font-size={30}
+              fontSize={30}
               className={styles.send_btn}
               onClick={onSubmitHandler}
             />

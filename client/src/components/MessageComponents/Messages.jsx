@@ -3,7 +3,6 @@ import ChatPage from "./ChatPage";
 import ChatSelectPage from "./ChatSelectPage";
 import ReactPortal from "components/Modal/ReactPortal";
 import useGetConversationsForUser from "hooks/useGetConversationsForUser";
-import useGetMessagesForConversation from "hooks/useGetMessagesForConversation";
 import { useMessageContext } from "context/messageContext/messageContext";
 import styles from "./Messages.module.css";
 import { MessageStatus } from "lib/enum";
@@ -23,12 +22,6 @@ const Messages = () => {
     setSelectedConversation(conversationFromContext);
     setIsChatSelected(conversationFromContext ? true : false);
   }, [conversationFromContext]);
-
-  const {
-    messages,
-    isLoading: isMessagesLoading,
-    error: errorOnMessages,
-  } = useGetMessagesForConversation(selectedConversation);
 
   const {
     conversations,
@@ -77,8 +70,6 @@ const Messages = () => {
           ) : (
             <ChatPage
               conversationId={selectedConversation}
-              isMessagesLoading={isMessagesLoading}
-              messages={messages}
               onMinimize={onMinimize}
               isMessagesActive={isMessagesActive}
               onGoBack={onGoBackHandler}

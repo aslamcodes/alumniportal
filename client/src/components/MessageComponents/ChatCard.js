@@ -12,10 +12,6 @@ const ChatCard = ({ conversation, onSelect }) => {
     (person) => person._id !== user._id
   );
 
-  const { messages, isLoading, error } = useGetMessagesForConversation(
-    conversation?._id
-  );
-
   const onClickHandler = (conversationId) => {
     onSelect(conversationId);
   };
@@ -34,14 +30,7 @@ const ChatCard = ({ conversation, onSelect }) => {
         >
           <div>
             <h3>{recipients[0]?.name}</h3>
-            {isLoading ? (
-              <Loader />
-            ) : (
-              <p>
-                {messages[messages.length - 1]?.content ||
-                  "Click to start messaging"}
-              </p>
-            )}
+            {/* {isLoading && <Loader />} */}
           </div>
           <IoIosArrowForward
             className={styles.arrow_forward_btn}
