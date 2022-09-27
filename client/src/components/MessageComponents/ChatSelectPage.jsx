@@ -26,10 +26,10 @@ const ChatSelectPage = ({ isMessagesActive, onClose, onChatSelect }) => {
       <div className={styles.messages_header}>
         Messages (alpha)
         <div className={styles.messages_actions}>
-          <AiOutlinePlus className={styles.add_btn} fontSize={20} />
+          <AiOutlinePlus className={styles.add_btn} fontSize={25} />
           <GrFormClose
             className={styles.close_btn}
-            fontSize={20}
+            fontSize={30}
             onClick={onCloseHandler}
           />
         </div>

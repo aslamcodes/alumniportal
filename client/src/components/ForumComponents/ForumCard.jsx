@@ -95,7 +95,7 @@ const ForumCard = ({ data, profileActive, profileEdit, trigger }) => {
           }}
         />
       )}
-      <div className={`${styles.header} ${profileActive && styles.shadow}`}>
+      <div className={`${styles.header} ${profileActive && styles.outline}`}>
         <div
           className={styles.userinfo_container}
           onClick={() => {

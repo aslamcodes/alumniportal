@@ -5,6 +5,7 @@
   max-width: 70%;
   border-radius: 20px;
   margin-block: 0.2rem;
+  overflow-wrap: break-word;
 }
 
 .recieve {

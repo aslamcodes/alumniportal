@@ -1,5 +1,6 @@
-for profile page .shadow {
-  /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+.outline {
+  border: 0.5px solid rgba(162, 161, 161, 0.497);
+  border-bottom: none;
 }
 
 .post_container {

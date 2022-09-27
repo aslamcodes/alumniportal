@@ -48,7 +48,7 @@ const Messages = () => {
 
   return (
     messageStatus !== MessageStatus.NONE && (
-      <ReactPortal scrollable wrapperId="messages_content_wrapper">
+      <ReactPortal wrapperId="messages_content_wrapper">
         <div
           className={`${styles.messages_container} ${
             isMessagesActive && styles.active
