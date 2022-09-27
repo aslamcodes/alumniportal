@@ -5,10 +5,12 @@ import {
   getUserDetailsById,
   loginUser,
   registerUser,
+  requestEmailVerification,
   requestPasswordReset,
   resetPassword,
   resolveNotification,
   updateUser,
+  verifyEmail,
 } from "../controllers/userControllers.js";
 import { registerAlumni } from "../controllers/alumniControllers.js";
 import { GridFsStorage } from "multer-gridfs-storage";
@@ -47,8 +49,11 @@ router.patch(
 );
 router.patch("/", protect, upload.single("avatar"), updateUser);
 router.patch("/reset-password", resetPassword);
+router.patch("/verify-email", verifyEmail);
 
 router.post("/request-password-reset/", requestPasswordReset);
+router.post("/request-verify-email/", protect, requestEmailVerification);
+router.post("/verify-email/", protect, requestEmailVerification);
 router.post("/register", upload.single("avatar"), registerUser);
 router.post("/login", loginUser);
 router.post("/alumni-register", registerAlumni);
