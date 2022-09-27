@@ -7,7 +7,7 @@ import useGetConversationByID from "hooks/useGetConversationByID";
 import useGetMessagesForConversation from "hooks/useGetMessagesForConversation";
 import { ClientSocketEvents } from "lib/enum";
 import { uniqueId } from "lodash";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { FiAlertCircle } from "react-icons/fi";
 import { IoIosArrowBack, IoIosSend } from "react-icons/io";
 import { RiArrowDropDownLine } from "react-icons/ri";
@@ -80,7 +80,7 @@ const ChatPage = ({
     messagesEndRef.current?.scrollIntoView();
   };
 
-  const onSubmitHandler = () => {
+  const onSubmitHandler = useCallback(() => {
     socket.emit(ClientSocketEvents.SEND_MESSAGE, {
       receiverId: recipient._id,
       senderId: user?._id,
@@ -111,7 +111,29 @@ const ChatPage = ({
     sendMessage(messageConfig);
     onSendNewMessage();
     setMessage("");
-  };
+  }, [
+    conversationId,
+    message,
+    onSendNewMessage,
+    recipient,
+    sendMessage,
+    socket,
+    user,
+  ]);
+
+  useEffect(() => {
+    const keyDownHandler = (event) => {
+      if (event.key === "Enter") {
+        onSubmitHandler();
+      }
+    };
+
+    document.addEventListener("keydown", keyDownHandler);
+
+    return () => {
+      document.removeEventListener("keydown", keyDownHandler);
+    };
+  }, [onSubmitHandler]);
 
   if (isLoading) {
     return <Loader />;
@@ -173,22 +195,24 @@ const ChatPage = ({
             })
           )}
           <div ref={messagesEndRef} />
-          <div className={styles.input_container}>
-            <span
-              className={styles.textarea}
-              role="textbox"
-              contentEditable={true}
-              suppressContentEditableWarning={true}
-              onBlur={(e) => setMessage(e.currentTarget.textContent)}
-            >
-              {message}
-            </span>
-            <IoIosSend
-              fontSize={30}
-              className={styles.send_btn}
-              onClick={onSubmitHandler}
-            />
-          </div>
+          <form>
+            <div className={styles.input_container}>
+              <span
+                className={styles.textarea}
+                role="textbox"
+                contentEditable={true}
+                suppressContentEditableWarning={true}
+                onBlur={(e) => setMessage(e.currentTarget.textContent)}
+              >
+                {message}
+              </span>
+              <IoIosSend
+                fontSize={30}
+                className={styles.send_btn}
+                onClick={onSubmitHandler}
+              />
+            </div>
+          </form>
         </div>
       </>
     </>
