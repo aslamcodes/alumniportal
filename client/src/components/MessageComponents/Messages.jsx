@@ -46,8 +46,6 @@ const Messages = () => {
     setIsChatSelected(false);
   };
 
-  const newMessageHandler = () => {};
-
   return (
     messageStatus !== MessageStatus.NONE && (
       <ReactPortal scrollable wrapperId="messages_content_wrapper">
@@ -73,7 +71,6 @@ const Messages = () => {
               onMinimize={onMinimize}
               isMessagesActive={isMessagesActive}
               onGoBack={onGoBackHandler}
-              onSendNewMessage={newMessageHandler}
             />
           )}
         </div>

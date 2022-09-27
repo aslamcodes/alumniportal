@@ -20,7 +20,6 @@ const ChatPage = ({
   onMinimize,
   onGoBack,
   conversationId,
-  onSendNewMessage,
 }) => {
   const [message, setMessage] = useState("");
   const messagesEndRef = useRef(null);
@@ -86,7 +85,6 @@ const ChatPage = ({
       senderId: user?._id,
       message,
     });
-
     const messageConfig = {
       url: "/api/v1/conversation/message/" + conversationId,
       method: "post",
@@ -97,7 +95,6 @@ const ChatPage = ({
         content: message,
       },
     };
-
     setReceivedMessages((prev) => [
       ...prev,
       {
@@ -107,23 +104,14 @@ const ChatPage = ({
         sender: user?._id,
       },
     ]);
-
     sendMessage(messageConfig);
-    onSendNewMessage();
     setMessage("");
-  }, [
-    conversationId,
-    message,
-    onSendNewMessage,
-    recipient,
-    sendMessage,
-    socket,
-    user,
-  ]);
+  }, [conversationId, message, recipient, sendMessage, socket, user]);
 
   useEffect(() => {
-    const keyDownHandler = (event) => {
-      if (event.key === "Enter") {
+    const keyDownHandler = (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
         onSubmitHandler();
       }
     };
@@ -197,15 +185,12 @@ const ChatPage = ({
           <div ref={messagesEndRef} />
           <form>
             <div className={styles.input_container}>
-              <span
+              <input
                 className={styles.textarea}
-                role="textbox"
-                contentEditable={true}
-                suppressContentEditableWarning={true}
-                onBlur={(e) => setMessage(e.currentTarget.textContent)}
-              >
-                {message}
-              </span>
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+              />
+
               <IoIosSend
                 fontSize={30}
                 className={styles.send_btn}
