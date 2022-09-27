@@ -35,6 +35,7 @@ import { useAudio } from "react-use";
 import { useAuthContext } from "context/auth/authContext";
 import { useSocketContext } from "context/socket/socketContext";
 import { ClientSocketEvents } from "lib/enum";
+import VerifyEmail from "pages/VerifyEmail/VerifyEmail";
 
 function App() {
   const { socket } = useSocketContext();
@@ -83,6 +84,7 @@ function App() {
             <Route path="/alumni-forum" element={<AlumniForum />} />
             <Route path="/alumni-forum/:postId" element={<ForumPost />} />
           </Route>
+
           <Route element={<WithNavFooter />}>
             <Route index path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
@@ -100,6 +102,7 @@ function App() {
             />
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/verify-email" element={<VerifyEmail />} />
             <Route path="/events" element={<Events />} />
             <Route path="/alumni" element={<Alumni />} />
             <Route path="/gallery" element={<GalleryPage />} />
