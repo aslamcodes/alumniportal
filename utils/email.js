@@ -3,6 +3,8 @@ import path from "path";
 import ejs from "ejs";
 
 const sendEmail = async (email, subject, payload, template) => {
+  let error;
+
   try {
     const transporter = createTransport({
       host: process.env.EMAIL_HOST,
@@ -17,7 +19,6 @@ const sendEmail = async (email, subject, payload, template) => {
         rejectUnauthorized: false,
       },
     });
-    let error;
 
     ejs.renderFile(template, payload, {}, (err, data) => {
       if (err) {
@@ -36,6 +37,7 @@ const sendEmail = async (email, subject, payload, template) => {
       transporter.sendMail(options(), (errorOnMail, info) => {
         if (errorOnMail) {
           error = errorOnMail;
+          return;
         }
         console.log("Message sent: %s", info.messageId);
       });
@@ -43,9 +45,11 @@ const sendEmail = async (email, subject, payload, template) => {
     if (error) {
       throw new Error(error);
     }
-  } catch (error) {
-    return { error };
+  } catch (err) {
+    error = err;
   }
+
+  return { error };
 };
 
 export default sendEmail;
