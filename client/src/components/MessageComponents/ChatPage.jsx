@@ -80,7 +80,22 @@ const ChatPage = ({
     messagesEndRef.current?.scrollIntoView();
   };
 
+  useEffect(() => {
+    const keyDownHandler = event => {
+      if (event.key === 'Enter') {
+        onSubmitHandler();
+      }
+    };
+
+    document.addEventListener('keydown', keyDownHandler);
+
+    return () => {
+      document.removeEventListener('keydown', keyDownHandler);
+    };
+  }, []);
+
   const onSubmitHandler = () => {
+    console.log(recipient);
     socket.emit(ClientSocketEvents.SEND_MESSAGE, {
       receiverId: recipient._id,
       senderId: user?._id,
@@ -173,6 +188,8 @@ const ChatPage = ({
             })
           )}
           <div ref={messagesEndRef} />
+          <form>
+
           <div className={styles.input_container}>
             <span
               className={styles.textarea}
@@ -180,15 +197,16 @@ const ChatPage = ({
               contentEditable={true}
               suppressContentEditableWarning={true}
               onBlur={(e) => setMessage(e.currentTarget.textContent)}
-            >
+              >
               {message}
             </span>
             <IoIosSend
               fontSize={30}
               className={styles.send_btn}
               onClick={onSubmitHandler}
-            />
+              />
           </div>
+              </form>
         </div>
       </>
     </>
