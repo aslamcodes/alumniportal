@@ -11,9 +11,8 @@ import bcrypt from "bcryptjs";
 import crypto from "crypto";
 import sendEmail from "../utils/email.js";
 import path from "path";
-
-
-
+import VerifyToken from "../models/VerfiyToken.js";
+import { clear } from "console";
 
 let userAvatarImagesBucket;
 const conn = mongoose.connection;
@@ -125,7 +124,9 @@ export const requestPasswordReset = asyncHandler(async (req, res) => {
     createdAt: Date.now(),
   });
 
-  const link = `${req.get('host')}/reset-password?token=${resetToken}&user=${user._id}`;
+  const link = `${req.get("host")}/reset-password?token=${resetToken}&user=${
+    user._id
+  }`;
 
   const { error } = await sendEmail(
     user?.email,
@@ -138,17 +139,63 @@ export const requestPasswordReset = asyncHandler(async (req, res) => {
   );
 
   if (error) {
-    console.clear()
+    console.clear();
     console.log(error);
     res.status(400);
     throw new Error("Couldn't Send you a Email");
   }
 
-  res.json(
-    "Hello There " +
-    user.name +
-    " Seems like baby had a hard time remembering the password 😂"
+  res.json({
+    message: "Email was sent with link to reset",
+  });
+});
+
+export const requestEmailVerification = asyncHandler(async (req, res) => {
+  const { user } = req;
+
+  const existingUser = await User.findById(user._id);
+
+  if (!existingUser) {
+    res.status(400);
+    throw new Error("Sorry Something's wrong with your account");
+  }
+
+  const token = await VerifyToken.findOne({ user: existingUser._id });
+
+  if (token) {
+    await token.deleteOne();
+  }
+
+  const verifyToken = crypto.randomBytes(32).toString("hex");
+
+  const hash = await bcrypt.hash(verifyToken, 10);
+
+  await VerifyToken.create({
+    token: hash,
+    user: user._id,
+    createdAt: Date.now(),
+  });
+
+  const link = `${req.get("host")}/verify-email?token=${verifyToken}`;
+
+  const { error } = await sendEmail(
+    user?.email,
+    "SKCT Alumni Portal - Verify your email",
+    {
+      receiver: user?.name,
+      content: link,
+    },
+    path.join(__dirname, "templates", "email-verification.ejs")
   );
+
+  if (error) {
+    res.status(400);
+    throw new Error("Sorry, Couldn't Send you a Email right now!");
+  }
+
+  res.json({
+    message: "Email was sent with link to verify email",
+  });
 });
 
 export const resetPassword = asyncHandler(async (req, res) => {
@@ -180,6 +227,36 @@ export const resetPassword = asyncHandler(async (req, res) => {
   });
 });
 
+export const verifyEmail = asyncHandler(async (req, res) => {
+  const { token, userId } = req.body;
+  console.clear();
+  console.log(req.body);
+  console.count("Umm");
+
+  const existingToken = await VerifyToken.findOne({
+    user: userId,
+  });
+
+  if (!existingToken) {
+    res.status(400);
+    throw new Error("Link Expired or Invalid");
+  }
+  const isValid = await bcrypt.compare(token, existingToken.token);
+
+  if (!isValid) {
+    throw new Error("Token Invalid, please try again");
+  }
+
+  const user = await User.findById(userId);
+
+  user.isEmailVerified = true;
+
+  await user.save();
+
+  res.json({
+    message: "Email Verified Successfully",
+  });
+});
 export const getUserDetailsById = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id)
     .populate("alumni")

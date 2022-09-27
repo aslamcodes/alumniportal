@@ -17,6 +17,7 @@ import useGetForumPosts from "hooks/useGetForumPosts";
 import useAxiosWithCallback from "hooks/useAxiosWithCallback";
 import { useAlertContext } from "context/alert/alertContext";
 import ErrorDialogue from "components/UI/ErrorDialogue";
+import { FiMail } from "react-icons/fi";
 
 const PROFILE_IMAGES = [
   <img src={require("assets/Profile_images/2.png")} alt="cover_img" />,
@@ -32,6 +33,7 @@ function ProfileModal({ isOpen, handleClose, userId }) {
   );
 
   const { user, isLoading, error, trigger } = useUserProfileData(userId);
+
   const profileContainerRef = useRef();
   const {
     isLoading: isPostLoading,
@@ -52,6 +54,7 @@ function ProfileModal({ isOpen, handleClose, userId }) {
   const isUser = user ? user._id === loggedInUser?._id : false;
   const [editedData, setEditedData] = useState(user);
   const { fetchData: updateProfile } = useAxiosWithCallback();
+  const { fetchData: verifyEmail } = useAxiosWithCallback();
   const { successAlert, errorAlert } = useAlertContext();
 
   useEffect(() => {
@@ -62,6 +65,28 @@ function ProfileModal({ isOpen, handleClose, userId }) {
     const random_number = Math.floor(Math.random() * PROFILE_IMAGES.length);
     return PROFILE_IMAGES[random_number];
   }, []);
+
+  const onVerifyEmail = () => {
+    const config = {
+      url: "/api/v1/users/request-verify-email",
+      method: "post",
+      headers: {
+        Authorization: `Bearer ${loggedInUser?.token}`,
+      },
+      data: {
+        user: user?._id,
+      },
+    };
+    verifyEmail(
+      config,
+      () => {
+        successAlert("Email has been sent for verification");
+      },
+      (err) => {
+        errorAlert(err.response.data.message);
+      }
+    );
+  };
 
   const handleChangeProfileImage = (e) => {
     if (!e.target.files || e.target.files.length === 0) {
@@ -423,7 +448,6 @@ function ProfileModal({ isOpen, handleClose, userId }) {
                     user && (
                       <div className={styles.profile_controls}>
                         <BsPeople />
-
                         <p>
                           <Link onClick={handleClose} to="/register-alumni">
                             Apply as Alumni
@@ -438,6 +462,14 @@ function ProfileModal({ isOpen, handleClose, userId }) {
                     >
                       <IoLogOutOutline />
                       <p>Logout</p>
+                    </div>
+                  )}
+                  {!user?.isEmailVerified && isUser && !editProfile && (
+                    <div className={styles.profile_controls}>
+                      <FiMail />
+                      <p>
+                        <a onClick={onVerifyEmail}>Verify Email</a>
+                      </p>
                     </div>
                   )}
                 </div>
