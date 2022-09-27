@@ -93,6 +93,7 @@ function NewPostModal({ setNewPostActive }) {
           : "Post details sent to admin for verification"
       );
     });
+    setNewPostActive(false);
   };
 
   return (
