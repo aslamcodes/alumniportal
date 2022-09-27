@@ -173,22 +173,22 @@ const ChatPage = ({
             })
           )}
           <div ref={messagesEndRef} />
-          <div className={styles.input_container}>
-            <span
-              className={styles.textarea}
-              role="textbox"
-              contentEditable={true}
-              suppressContentEditableWarning={true}
-              onBlur={(e) => setMessage(e.currentTarget.textContent)}
-            >
-              {message}
-            </span>
-            <IoIosSend
-              fontSize={30}
-              className={styles.send_btn}
-              onClick={onSubmitHandler}
-            />
-          </div>
+        </div>
+        <div className={styles.input_container}>
+          <span
+            className={styles.textarea}
+            role="textbox"
+            contentEditable={true}
+            suppressContentEditableWarning={true}
+            onBlur={(e) => setMessage(e.currentTarget.textContent)}
+          >
+            {message}
+          </span>
+          <IoIosSend
+            fontSize={30}
+            className={styles.send_btn}
+            onClick={onSubmitHandler}
+          />
         </div>
       </>
     </>
