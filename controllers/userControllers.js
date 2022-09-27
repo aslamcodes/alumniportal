@@ -12,6 +12,9 @@ import crypto from "crypto";
 import sendEmail from "../utils/email.js";
 import path from "path";
 
+
+
+
 let userAvatarImagesBucket;
 const conn = mongoose.connection;
 
@@ -122,7 +125,7 @@ export const requestPasswordReset = asyncHandler(async (req, res) => {
     createdAt: Date.now(),
   });
 
-  const link = `${process.env.CLIENT_URL}/reset-password?token=${resetToken}&user=${user._id}`;
+  const link = `${req.get('host')}/reset-password?token=${resetToken}&user=${user._id}`;
 
   const { error } = await sendEmail(
     user?.email,
@@ -135,14 +138,16 @@ export const requestPasswordReset = asyncHandler(async (req, res) => {
   );
 
   if (error) {
+    console.clear()
+    console.log(error);
     res.status(400);
     throw new Error("Couldn't Send you a Email");
   }
 
   res.json(
     "Hello There " +
-      user.name +
-      " Seems like baby had a hard time remembering the password 😂"
+    user.name +
+    " Seems like baby had a hard time remembering the password 😂"
   );
 });
 
