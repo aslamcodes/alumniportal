@@ -5,6 +5,11 @@
   flex-direction: column;
 }
 
+.error_container {
+  min-height: 100vh;
+  padding: calc(var(--navbar-height) + 2rem) 1.2rem;
+}
+
 .event_body {
   display: flex;
   flex-direction: column;

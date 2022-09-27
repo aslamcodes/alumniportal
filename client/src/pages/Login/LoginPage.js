@@ -25,7 +25,6 @@ const LoginForm = () => {
   const authDispatch = useAuthDispatchContext();
   const location = useLocation();
 
-
   const {
     register,
     formState: { errors },
@@ -106,16 +105,10 @@ const LoginForm = () => {
         </div>
       </form>
       <hr />
-      <div
-        className={styles["sign-up-container"]}
-      >
+      <div className={styles["sign-up-container"]}>
         <p>
           Don't have an account yet ?{" "}
-          <a href="register-student"
-
-          >
-            Create Account
-          </a>
+          <a href="register-student">Create Account</a>
         </p>
       </div>
     </div>

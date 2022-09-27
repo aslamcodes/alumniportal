@@ -21,6 +21,7 @@
     "react-spring": "^9.4.5",
     "react-swipeable": "^7.0.0",
     "react-use": "^17.4.0",
+    "react-csv": "^2.2.2",
     "socket.io-client": "^4.5.2",
     "styled-components": "^5.3.5",
     "web-vitals": "^2.1.4"

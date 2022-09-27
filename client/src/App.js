@@ -26,7 +26,7 @@ import PostRequest from "pages/Admin/PostRequest";
 import EventRequest from "pages/Admin/EventRequest";
 import Alumni from "pages/Alumni/Alumni";
 import AlertContextComponent from "components/UI/Alert";
-import { useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useAlertContext } from "context/alert/alertContext";
 import ResetPassword from "pages/ForgotPassword/ResetPassword";
 import ForumPost from "pages/AlumniForum/ForumPost";
@@ -40,10 +40,12 @@ function App() {
   const { socket } = useSocketContext();
   const { errorAlert } = useAlertContext();
   const [audio, state, controls, ref] = useAudio({
-    src: "/audio/s3.mp3",
+    src: "/audio/b1.mp3",
     autoPlay: true,
   });
+
   const { user } = useAuthContext();
+
   useEffect(() => {
     errorAlert(
       "Alumni-Portal is still on alpha testing, and not stable, expect bugs",
@@ -63,8 +65,8 @@ function App() {
     <div className="App">
       {audio}
       <AlertContextComponent />
-      <Messages />
       <Router>
+        <Messages />
         <Routes>
           <Route path="/admin" element={<Admin />} />
           <Route path="/alumni-data" element={<AlumniData />} />

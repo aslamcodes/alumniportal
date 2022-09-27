@@ -12,6 +12,7 @@ import { useAlertContext } from "context/alert/alertContext";
 import NoDataMessage from "./NoDataMessage";
 import { filterAlumniData, getAlumniFilters } from "utils/utils";
 import ReasonOverlay from "components/UI/ReasonOverlay";
+import ErrorDialogue from "components/UI/ErrorDialogue";
 
 const RequestTable = () => {
   const [entriesPerPage, setEntriesPerPage] = useState(10);
@@ -35,7 +36,7 @@ const RequestTable = () => {
   const { fetchData: approveAlumni } = useAxiosWithCallback();
   const { fetchData: rejectAlumni } = useAxiosWithCallback();
   const totalPages = Math.ceil(applications?.length / entriesPerPage);
-  const { successAlert, errorAlert } = useAlertContext();
+
 
   const [applicationsFiltered, setApplicationsFiltered] = useState([]);
   const [alumni, setAlumni] = useState();
@@ -60,9 +61,7 @@ const RequestTable = () => {
     setApplicationsFiltered(applications);
   }, [applications]);
 
-  useEffect(() => {
-    if (error) errorAlert(error.response.data.message);
-  }, [error, errorAlert]);
+
 
   const OnIncreaseHandler = () => {
     if (currentPage > totalPages - 1) return null;
@@ -97,16 +96,13 @@ const RequestTable = () => {
     );
   };
 
-
   const onRejectAlumni = async (alumni) => {
     setReasonActive(true);
     setAlumni(alumni);
-
   };
 
   const onRejectHandler = async () => {
     if (reason !== "") {
-
       await rejectAlumni(
         {
           ...adminConfig,
@@ -124,7 +120,7 @@ const RequestTable = () => {
     }
     setReasonActive(false);
     setAlumni(null);
-  }
+  };
 
   const dataHeaders = [
     { label: "Register Number", key: "user.registerNumber" },
@@ -143,11 +139,18 @@ const RequestTable = () => {
     { label: "Skills", key: "user.skill" },
   ];
 
+  if (error) return <ErrorDialogue errorMessage={error.message} />;
+
   return (
     <div>
-      {reasonActive &&
-        <ReasonOverlay reason={reason} setReason={setReason} setIsShowReject={setReasonActive} onRejectHandler={onRejectHandler} />
-      }
+      {reasonActive && (
+        <ReasonOverlay
+          reason={reason}
+          setReason={setReason}
+          setIsShowReject={setReasonActive}
+          onRejectHandler={onRejectHandler}
+        />
+      )}
       <AdminTableHeader
         filters={filters}
         onApplyFilter={onApplyFilter}

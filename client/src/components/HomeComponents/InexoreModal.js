@@ -11,7 +11,7 @@ const MEMBERS = [
       <img
         className={Styles.profile_img}
         src="https://avatars.githubusercontent.com/u/85720815?v=4"
-        alt="Aswin profile image"
+        alt="Aswin profile"
       />
     ),
     name: "Aswin",
@@ -24,7 +24,7 @@ const MEMBERS = [
       <img
         className={Styles.profile_img}
         src="https://avatars.githubusercontent.com/u/88486346?v=4"
-        alt="Heemanush profile image"
+        alt="Heemanush profile "
       />
     ),
     name: "Heemanush",
@@ -37,7 +37,7 @@ const MEMBERS = [
       <img
         className={Styles.profile_img}
         src="https://avatars.githubusercontent.com/u/75113307?v=4"
-        alt="Jayvan profile image"
+        alt="Jayvan profile "
       />
     ),
     name: "Jayvan Andel",
@@ -50,12 +50,12 @@ const MEMBERS = [
       <img
         className={Styles.profile_img}
         src="https://avatars.githubusercontent.com/u/64465138?v=4"
-        alt="Aslam profile image"
+        alt="Aslam profile "
       />
     ),
     name: "Mohammed Aslam",
     designation: "Developer",
-    quote: "Always remember, beginning is the hardest part",
+    quote: "I love Shawarmas 😋🌯",
     github: "https://github.com/aslamcodes",
   },
 ];

@@ -8,7 +8,7 @@ import useGetForumPosts from "hooks/useGetForumPosts";
 
 import { useAuthContext } from "context/auth/authContext";
 import Loader from "components/UI/Loader";
-import ErrorDialogue from "components/UI/ErrorDialogue";
+import ErrorDialogue, { ErrorWrapper } from "components/UI/ErrorDialogue";
 
 function AlumniForum() {
   useEffect(() => {
@@ -21,13 +21,7 @@ function AlumniForum() {
   const { isLoading, error, posts, trigger } = useGetForumPosts();
 
   if (error) {
-    return (
-      <div className={Styles.container}>
-        <div className={Styles.forum_container}>
-          <ErrorDialogue errorMessage={error.message} />
-        </div>
-      </div>
-    );
+    return <ErrorWrapper errorMessage={error.message} />;
   }
 
   return (

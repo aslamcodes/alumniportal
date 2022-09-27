@@ -31,6 +31,7 @@ export const registerUser = asyncHandler(async (req, res) => {
       message: "User already exists",
     });
   }
+
   try {
     const user = await User.create({
       ...req.body,
@@ -123,7 +124,7 @@ export const requestPasswordReset = asyncHandler(async (req, res) => {
 
   const link = `${process.env.CLIENT_URL}/reset-password?token=${resetToken}&user=${user._id}`;
 
-  await sendEmail(
+  const { error } = await sendEmail(
     user?.email,
     "SKCT Alumni Portal - Password Reset Request",
     {
@@ -132,6 +133,11 @@ export const requestPasswordReset = asyncHandler(async (req, res) => {
     },
     path.join(__dirname, "templates", "forgot-password.ejs")
   );
+
+  if (error) {
+    res.status(400);
+    throw new Error("Couldn't Send you a Email");
+  }
 
   res.json(
     "Hello There " +
@@ -193,9 +199,9 @@ export const getUserAvatarImage = asyncHandler(async (req, res) => {
       mongoose.Types.ObjectId(user.avatar)
     );
 
-    readStream.on("error", (err) => {
-      var filename = __dirname + "/uploads/default.jpeg";
-      var readStream = fs.createReadStream(filename);
+    readStream.on("error", function (err) {
+      const filename = __dirname + "/uploads/default.jpeg";
+      const readStream = fs.createReadStream(filename);
       readStream.on("open", function () {
         readStream.pipe(res);
       });

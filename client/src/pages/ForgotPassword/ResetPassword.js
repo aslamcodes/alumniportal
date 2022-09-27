@@ -54,6 +54,7 @@ const ResetPassword = () => {
     updatePassword(config, () => {
       successAlert("Password updated successfully");
     });
+
     navigate("/login");
   };
 

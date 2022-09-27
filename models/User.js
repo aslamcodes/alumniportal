@@ -48,6 +48,10 @@ const userSchema = new Schema(
     course: {
       type: String,
     },
+    isEmailVerified: {
+      type: Boolean,
+      default: false,
+    },
     phoneNumber: {
       type: String,
       required: true,

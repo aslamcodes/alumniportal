@@ -25,13 +25,11 @@ const useGetForumPosts = (user, element) => {
 
   useEffect(() => {
     fetchData(getConfig(0), setPosts);
-    console.log("Getting offset 0");
   }, [fetchData, getConfig]);
 
   useScrollPositionThrottled(
     ({ atBottom }) => {
       if (atBottom && hasMore) {
-        console.log("Getting offset" + posts.length);
         fetchData(getConfig(posts.length), (newPosts) => {
           setPosts((prev) => [...prev, ...newPosts]);
           setHasMore(newPosts.length === 5);

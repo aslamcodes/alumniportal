@@ -11,6 +11,11 @@
   src: url("assets/Fonts/neue_haas_sv/NHaasGroteskTXPro-75Bd.ttf");
 }
 
+.error_container {
+  min-height: 100vh;
+  padding: calc(var(--navbar-height) + 2rem) 1.2rem;
+}
+
 .gallery h1 {
   margin-left: 1.5rem;
   font-size: 2rem;

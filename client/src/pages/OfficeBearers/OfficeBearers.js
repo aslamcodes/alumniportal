@@ -1,32 +1,41 @@
+import ProfileModal from "components/ForumComponents/ProfileModal";
 import Loader from "components/UI/Loader";
 import { useAlertContext } from "context/alert/alertContext";
 import useGetAlumniWithCities from "hooks/useGetAlumniWithCities";
 import React, { useState, useEffect } from "react";
+import OfficeBearerCard from "./OfficeBearerCard";
 import styles from "./OfficeBearers.module.css";
+import { isNull } from "lodash";
+import ErrorDialogue, { ErrorWrapper } from "components/UI/ErrorDialogue";
 
 function OfficeBearers() {
-  useEffect(() => {
-    document.title = "Alumni Portal | Office Bearers";
-  }, []);
   const [activeIndex, setActiveIndex] = useState(null);
   const [selectedCity, setSelectedCity] = useState(null);
+  const [isProfileModalActive, setIsProfileModalActive] = useState(false);
+  const [selectedAlumniId, setSelectedAlumniId] = useState(null);
 
   const { alumni, cities, isLoading, error } = useGetAlumniWithCities(null);
 
   const { errorAlert } = useAlertContext();
 
   useEffect(() => {
-    if (error) {
-      errorAlert("404! error");
-    }
-  }, [error, errorAlert]);
-  const handleClick = (e) => {
-    const id = e.target.id;
-    if (id === activeIndex) {
-      setActiveIndex(null);
-    } else {
-      setActiveIndex(id);
-    }
+    document.title = "Alumni Portal | Office Bearers";
+  }, []);
+
+  useEffect(() => {
+    !isNull(selectedAlumniId)
+      ? setIsProfileModalActive(true)
+      : setIsProfileModalActive(false);
+  }, [selectedAlumniId]);
+
+  if (error) return <ErrorWrapper errorMessage={error.message} />;
+
+  const onAlumniCardClick = (alumni) => {
+    setSelectedAlumniId(alumni.user._id);
+  };
+
+  const handleProfileModalClose = () => {
+    setSelectedAlumniId(null);
   };
 
   return (
@@ -35,6 +44,13 @@ function OfficeBearers() {
         <Loader />
       ) : (
         <>
+          {isProfileModalActive && (
+            <ProfileModal
+              userId={selectedAlumniId}
+              handleClose={handleProfileModalClose}
+            />
+          )}
+
           <div className={styles.city_container}>
             <div className={styles.city}>
               <h2>CITY</h2>
@@ -61,26 +77,12 @@ function OfficeBearers() {
               )
               .map((alumni, index) => {
                 return (
-                  <div
-                    className={`${styles.OfficeBearer} ${
-                      activeIndex === index && styles.OfficeBearer_active
-                    }`}
+                  <OfficeBearerCard
                     key={index}
-                  >
-                    <img
-                      src={`http://localhost:8000/api/v1/users/user-avatar/${alumni.user._id}`}
-                      alt="office bearer"
-                      id={index}
-                      onClick={handleClick}
-                    />
-                    <p
-                      className={`${styles.show_details} ${
-                        activeIndex === index && styles.show_details_active
-                      }`}
-                    >
-                      Show Details{">"}{" "}
-                    </p>
-                  </div>
+                    isActive={index === activeIndex}
+                    alumni={alumni}
+                    onAlumniClick={onAlumniCardClick}
+                  />
                 );
               })}
           </div>

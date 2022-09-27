@@ -1,5 +1,6 @@
 import AlumnusCard from "components/AlumniComponents/AlumnusCard";
 import Messages from "components/MessageComponents/Messages";
+import ErrorDialogue from "components/UI/ErrorDialogue";
 import Loader from "components/UI/Loader";
 import { useAlertContext } from "context/alert/alertContext";
 import { useAuthContext } from "context/auth/authContext";
@@ -14,11 +15,8 @@ const Alumni = () => {
   const { user } = useAuthContext();
   const location = useLocation();
   const navigate = useNavigate();
-  const [isMessagesOpen, setIsMessagesOpen] = useState(false);
-  const [conversationToOpen, setConversationToOpen] = useState(null);
-  const { openMessageModal } = useMessageContext();
 
-  const { errorAlert } = useAlertContext();
+  const { openMessageModal } = useMessageContext();
 
   const onNewConversationHandler = (conversation) => {
     openMessageModal(conversation);
@@ -32,11 +30,13 @@ const Alumni = () => {
         },
       });
   }, [navigate, location, user]);
-  useEffect(() => {
-    if (error) {
-      errorAlert(error);
-    }
-  }, [errorAlert, error]);
+
+  if (error)
+    return (
+      <div className={styles.error_container}>
+        <ErrorDialogue errorMessage={error.message} />
+      </div>
+    );
 
   if (isLoading) return <Loader />;
 

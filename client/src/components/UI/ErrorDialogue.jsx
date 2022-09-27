@@ -11,4 +11,10 @@ const ErrorDialogue = ({ errorMessage }) => {
   );
 };
 
+export const ErrorWrapper = (props) => (
+  <div className={styles.error_wrapper}>
+    <ErrorDialogue {...props} />
+  </div>
+);
+
 export default ErrorDialogue;

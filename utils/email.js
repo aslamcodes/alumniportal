@@ -35,14 +35,14 @@ const sendEmail = async (email, subject, payload, template) => {
 
       transporter.sendMail(options(), (error, info) => {
         if (error) {
-          console.log(error);
-          return;
+          throw new Error(error);
         }
         console.log("Message sent: %s", info.messageId);
       });
     });
+    return { error: null };
   } catch (error) {
-    return error;
+    return { error };
   }
 };
 

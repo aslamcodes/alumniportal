@@ -1,0 +1,32 @@
+{
+  "files": {
+    "main.css": "/static/css/main.3e74eb2d.css",
+    "main.js": "/static/js/main.cc79aec7.js",
+    "static/media/skctvideo60fps.mp4": "/static/media/skctvideo60fps.fc2dc55e76ae6e88263c.mp4",
+    "static/media/1.png": "/static/media/1.0e3ba8830d7831e02519.png",
+    "static/media/3.png": "/static/media/3.e47c77344e5a718f7917.png",
+    "static/media/5.png": "/static/media/5.aa11469ac79430a8e251.png",
+    "static/media/4.png": "/static/media/4.25dbcd09d6622da383c4.png",
+    "static/media/2.png": "/static/media/2.aff3d2e5c1b228f3d98e.png",
+    "static/media/HomeBackgroundImg1.png": "/static/media/HomeBackgroundImg1.9e8cd838f7ec9dc4caab.png",
+    "static/media/inexorebgimg.jpg": "/static/media/inexorebgimg.456543987cd7309cc1fc.jpg",
+    "static/media/forgotPassword.png": "/static/media/forgotPassword.36394e47886e7cc88a5c.png",
+    "static/media/NHaasGroteskTXPro-65Md.ttf": "/static/media/NHaasGroteskTXPro-65Md.13fc4bcc7d627880a120.ttf",
+    "static/media/NHaasGroteskTXPro-75Bd.ttf": "/static/media/NHaasGroteskTXPro-75Bd.735104a20ca736af2b46.ttf",
+    "static/media/NHaasGroteskTXPro-55Rg.ttf": "/static/media/NHaasGroteskTXPro-55Rg.69ec3dbc481a645ac30a.ttf",
+    "static/media/compguy.png": "/static/media/compguy.f9758eb3cbdd4f4d1e8b.png",
+    "static/media/Logo2.png": "/static/media/Logo2.f7364b033ee1337361f0.png",
+    "static/media/kandiHuman.png": "/static/media/kandiHuman.436fea924c24f085ca77.png",
+    "static/media/Autumn in November.ttf": "/static/media/Autumn in November.c5c05948d9b521d79abf.ttf",
+    "static/media/changePassword.png": "/static/media/changePassword.c93e78490bb757da42b1.png",
+    "static/media/down_part.svg": "/static/media/down_part.7c4931b1359130ab0b84.svg",
+    "static/media/Instagram.png": "/static/media/Instagram.013d85f5d488433479ae.png",
+    "index.html": "/index.html",
+    "main.3e74eb2d.css.map": "/static/css/main.3e74eb2d.css.map",
+    "main.cc79aec7.js.map": "/static/js/main.cc79aec7.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.3e74eb2d.css",
+    "static/js/main.cc79aec7.js"
+  ]
+}
