@@ -1,49 +1,58 @@
 import "./App.css";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Navbar from "components/Layout/Navbar";
-import Footer from "components/Layout/Footer";
-
-import {
-  GalleryPage,
-  AlumniMeet,
-  AllPhotos,
-  SeminarSessions,
-  RegistrationPageAlumni,
-  RegistrationPageStudent,
-  RegistrationPageFaculty,
-  ForgotPassword,
-} from "pages";
-
-import AdminOfficeBearers from "pages/Admin/AdminOfficeBearers";
-
-import Alumni from "pages/Alumni/Alumni";
-import AlertContextComponent from "components/UI/Alert";
 import { lazy, Suspense, useEffect } from "react";
-import { useAlertContext } from "context/alert/alertContext";
-import ResetPassword from "pages/ForgotPassword/ResetPassword";
-import ForumPost from "pages/AlumniForum/ForumPost";
-import Messages from "components/MessageComponents/Messages";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useAudio } from "react-use";
+
+import { useAlertContext } from "context/alert/alertContext";
 import { useAuthContext } from "context/auth/authContext";
 import { useSocketContext } from "context/socket/socketContext";
+
 import { ClientSocketEvents } from "lib/enum";
-import VerifyEmail from "pages/VerifyEmail/VerifyEmail";
+
+import Navbar from "components/Layout/Navbar";
+import Footer from "components/Layout/Footer";
+import AlertContextComponent from "components/UI/Alert";
+import Messages from "components/MessageComponents/Messages";
 import Spinner from "components/UI/Spinner";
 
 const AdminPageLazy = lazy(() => import("pages/Admin/Admin"));
-const HomePageLazy = lazy(() => import("pages/Home/Home"));
 const AlumniDataLazy = lazy(() => import("pages/Admin/AlumniData"));
 const RequestDetailsLazy = lazy(() => import("pages/Admin/RequestDetails"));
 const RejectDetailsLazy = lazy(() => import("pages/Admin/RejectDetails"));
 const PostRequestLazy = lazy(() => import("pages/Admin/PostRequest"));
 const EventRequestLazy = lazy(() => import("pages/Admin/EventRequest"));
-
+const AdminOfficeBearersLazy = lazy(() =>
+  import("pages/Admin/AdminOfficeBearers")
+);
+const ResetPasswordLazy = lazy(() =>
+  import("pages/ForgotPassword/ResetPassword")
+);
+const ForumPostLazy = lazy(() => import("pages/AlumniForum/ForumPost"));
+const VerifyEmailLazy = lazy(() => import("pages/VerifyEmail/VerifyEmail"));
 const LoginPageLazy = lazy(() => import("pages/Login/LoginPage"));
+const ForgotPasswordLazy = lazy(() =>
+  import("pages/ForgotPassword/ForgotPassword")
+);
+const RegistrationPageAlumniLazy = lazy(() =>
+  import("pages/RegisterationPage/RegistrationPageAlumni")
+);
+const RegistrationPageStudentLazy = lazy(() =>
+  import("pages/RegisterationPage/RegistrationPageStudent")
+);
+const RegistrationPageFacultyLazy = lazy(() =>
+  import("pages/RegisterationPage/RegistrationPageFaculty")
+);
+const HomePageLazy = lazy(() => import("pages/Home/Home"));
+const AlumniLazy = lazy(() => import("pages/Alumni/Alumni"));
 const AlumniForumLazy = lazy(() => import("pages/AlumniForum/AlumniForum"));
 const OfficeBearersLazy = lazy(() =>
   import("pages/OfficeBearers/OfficeBearers")
 );
 const EventsLazy = lazy(() => import("pages/Events/Events"));
+const GalleryPageLazy = lazy(() => import("pages/Gallery/Gallery"));
+const AlumniMeetLazy = lazy(() => import("pages/Gallery/AlumniMeet"));
+const AllPhotosLazy = lazy(() => import("pages/Gallery/AllPhotos"));
+const SeminarSessionsLazy = lazy(() => import("pages/Gallery/SeminarSessions"));
 
 const SuspenseCallback = ({ children }) => {
   return <Suspense fallback={<Spinner />}>{children}</Suspense>;
@@ -99,12 +108,12 @@ function App() {
             />
             <Route
               path="/admin/office-bearers"
-              element={<AdminOfficeBearers />}
+              element={<AdminOfficeBearersLazy />}
             />
 
             <Route element={<Navbar />}>
               <Route path="/alumni-forum" element={<AlumniForumLazy />} />
-              <Route path="/alumni-forum/:postId" element={<ForumPost />} />
+              <Route path="/alumni-forum/:postId" element={<ForumPostLazy />} />
             </Route>
 
             <Route element={<WithNavFooter />}>
@@ -112,28 +121,28 @@ function App() {
               <Route path="/login" element={<LoginPageLazy />} />
               <Route
                 path="/register-alumni"
-                element={<RegistrationPageAlumni />}
+                element={<RegistrationPageAlumniLazy />}
               />
               <Route
                 path="/register-student"
-                element={<RegistrationPageStudent />}
+                element={<RegistrationPageStudentLazy />}
               />
               <Route
                 path="/register-faculty"
-                element={<RegistrationPageFaculty />}
+                element={<RegistrationPageFacultyLazy />}
               />
-              <Route path="/reset-password" element={<ResetPassword />} />
-              <Route path="/forgot-password" element={<ForgotPassword />} />
-              <Route path="/verify-email" element={<VerifyEmail />} />
+              <Route path="/reset-password" element={<ResetPasswordLazy />} />
+              <Route path="/forgot-password" element={<ForgotPasswordLazy />} />
+              <Route path="/verify-email" element={<VerifyEmailLazy />} />
               <Route path="/events" element={<EventsLazy />} />
 
-              <Route path="/alumni" element={<Alumni />} />
-              <Route path="/gallery" element={<GalleryPage />} />
-              <Route path="/gallery/alumni-meet" element={<AlumniMeet />} />
-              <Route path="/gallery/all-photos" element={<AllPhotos />} />
+              <Route path="/alumni" element={<AlumniLazy />} />
+              <Route path="/gallery" element={<GalleryPageLazy />} />
+              <Route path="/gallery/alumni-meet" element={<AlumniMeetLazy />} />
+              <Route path="/gallery/all-photos" element={<AllPhotosLazy />} />
               <Route
                 path="/gallery/seminar-sessions"
-                element={<SeminarSessions />}
+                element={<SeminarSessionsLazy />}
               />
               <Route path="/office-bearers" element={<OfficeBearersLazy />} />
             </Route>
