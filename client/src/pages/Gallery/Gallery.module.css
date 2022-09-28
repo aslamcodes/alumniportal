@@ -43,8 +43,8 @@
 }
 .gallery .header {
   position: relative;
-  padding: 1rem 0;
-  height: 15%;
+  padding: 2rem 0;
+  height: 14%;
 }
 
 .gallery .header::before {
@@ -55,7 +55,7 @@
   bottom: 0rem;
   width: 100%;
   height: 0.7px;
-  background-color: #000;
+  background-color: #25252551;
   animation: linehgrow 2s;
 }
 
