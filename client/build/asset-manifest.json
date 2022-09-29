@@ -133,8 +133,5 @@
     "134.1265d234.chunk.js.map": "/static/js/134.1265d234.chunk.js.map",
     "898.e638d691.chunk.js.map": "/static/js/898.e638d691.chunk.js.map"
   },
-  "entrypoints": [
-    "static/css/main.902e3eb4.css",
-    "static/js/main.45560e23.js"
-  ]
+  "entrypoints": ["static/css/main.902e3eb4.css", "static/js/main.45560e23.js"]
 }
