@@ -1,12 +1,6 @@
-const express = require("express");
+import express from "express";
 const app = express();
-const path = require("path");
-
-global.env =
-  process.env.NODE_ENV === undefined ? "development" : process.env.NODE_ENV;
-require("dotenv").config({
-  path: global.env === "development" ? ".env.development" : ".env.production",
-});
+import path from "path";
 
 var http_port = 4000;
 app.use(express.json());
