@@ -58,7 +58,7 @@ function ProfileModal({ isOpen, handleClose, userId }) {
   const { successAlert, errorAlert } = useAlertContext();
 
   useEffect(() => {
-    document.title = "Alumni Portal | Profile";
+    document.title = "Alumni Por | Profile";
   }, []);
 
   const pick_image = useCallback(() => {
