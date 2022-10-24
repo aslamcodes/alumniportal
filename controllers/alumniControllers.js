@@ -550,45 +550,58 @@ export const getSearchAlumniPartial = asyncHandler(async (req, res) => {
   ];
 
   if (alumniIds) {
-    const alumni = await User.aggregate([
+    const alumni = await Alumni.aggregate([
       {
-        $match: {
-          $or: [
+        $lookup: {
+          from: "users",
+          localField: "user",
+          foreignField: "_id",
+          pipeline: [
             {
-              name: {
-                $regex: search,
-                '$options': 'i'
-              }
+              $match: {
+                $or: [
+                  {
+                    name: {
+                      $regex: search,
+                      '$options': 'i'
+                    }
 
-            },
-            {
-              email: {
-                $regex: search,
-                '$options': 'i'
+                  },
+                  {
+                    email: {
+                      $regex: search,
+                      '$options': 'i'
+                    }
+                  },
+                  {
+                    registerNumber: {
+                      $regex: search,
+                      '$options': 'i'
+                    }
+                  },
+                  {
+                    department: {
+                      $regex: search,
+                      '$options': 'i'
+                    }
+                  },
+                  {
+                    phoneNumber: {
+                      $regex: search,
+                      '$options': 'i'
+                    }
+                  }
+                ]
               }
             },
-            {
-              registerNumber: {
-                $regex: search,
-                '$options': 'i'
-              }
-            },
-            {
-              department: {
-                $regex: search,
-                '$options': 'i'
-              }
-            },
-            {
-              phoneNumber: {
-                $regex: search,
-                '$options': 'i'
-              }
-            }
-          ]
+            { $match: { isAlumni: true } }
+          ],
+          as: "user"
         }
       },
-      { $match: { isAlumni: true } },
+      {
+        $unwind: "$user",
+      },
       { $unset: unwantedFields },
     ]);
     if (alumni.length > 0) {
