@@ -3,7 +3,7 @@ import {
   getAllAlumniData,
   getAlumniData,
   getStoredAlumniCount,
-  getSearchAlumniData
+  getSearchAlumniDataPartial
 } from "../controllers/alumniDataControllers.js";
 
 const router = express.Router();
@@ -11,6 +11,6 @@ const router = express.Router();
 router.get("/", getAllAlumniData);
 router.get("/alumni/", getAlumniData);
 router.get("/count/", getStoredAlumniCount);
-router.get("/search/:search", getSearchAlumniData);
+router.get("/search/:search", getSearchAlumniDataPartial);
 
 export default router;

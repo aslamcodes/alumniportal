@@ -48,7 +48,7 @@ export const getStoredAlumniCount = asyncHandler(async (req, res) => {
   res.json(count);
 });
 
-export const getSearchAlumniData = asyncHandler(async (req, res) => {
+export const getSearchAlumniDataFull = asyncHandler(async (req, res) => {
   const { search } = req.params;
   const alumniData = await AlumniData.aggregate([
     {
@@ -56,6 +56,68 @@ export const getSearchAlumniData = asyncHandler(async (req, res) => {
         $text: {
           $search: search
         }
+      }
+    }
+  ]);
+
+  if (!alumniData) {
+    res.status(400);
+    throw new Error("No Alumni Data Available");
+  }
+  if (alumniData.length > 0) {
+    res.json(alumniData);
+  } else {
+    res.status(400).json({
+      error: "no match found"
+    })
+
+  }
+});
+
+export const getSearchAlumniDataPartial = asyncHandler(async (req, res) => {
+  const { search } = req.params;
+  const alumniData = await AlumniData.aggregate([
+    {
+      $match: {
+        $or: [
+          {
+            name: {
+              $regex: search,
+              '$options': 'i'
+            }
+
+          },
+          {
+            email: {
+              $regex: search,
+              '$options': 'i'
+            }
+          },
+          {
+            registerNumber: {
+              $regex: search,
+              '$options': 'i'
+            }
+          },
+          {
+            department: {
+              $regex: search,
+              '$options': 'i'
+            }
+          },
+          {
+            contact: {
+              $regex: search,
+              '$options': 'i'
+            }
+          },
+          {
+            address: {
+              $regex: search,
+              '$options': 'i'
+            }
+          }
+        ]
       }
     }
   ]);
