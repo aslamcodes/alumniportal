@@ -538,7 +538,80 @@ export const getRejectedApplications = asyncHandler(async (req, res) => {
   });
 });
 
-export const getSearchAlumni = asyncHandler(async (req, res) => {
+export const getSearchAlumniPartial = asyncHandler(async (req, res) => {
+  const { search } = req.params;
+  const alumniIds = await getAlumniIds();
+  const unwantedFields = [
+    "password",
+    "createdAt",
+    "updatedAt",
+    "alumni",
+    "isAdmin",
+  ];
+
+  if (alumniIds) {
+    const alumni = await User.aggregate([
+      {
+        $match: {
+          $or: [
+            {
+              name: {
+                $regex: search,
+                '$options': 'i'
+              }
+
+            },
+            {
+              email: {
+                $regex: search,
+                '$options': 'i'
+              }
+            },
+            {
+              registerNumber: {
+                $regex: search,
+                '$options': 'i'
+              }
+            },
+            {
+              department: {
+                $regex: search,
+                '$options': 'i'
+              }
+            },
+            {
+              phoneNumber: {
+                $regex: search,
+                '$options': 'i'
+              }
+            }
+          ]
+        }
+      },
+      { $match: { isAlumni: true } },
+      { $unset: unwantedFields },
+    ]);
+    if (alumni.length > 0) {
+      res.status(200).json({
+        success: true,
+        alumni,
+      });
+    } else {
+      res.status(400).json({
+        success: true,
+        error: "No Match found"
+      });
+    }
+
+  } else {
+    res.status(400).json({
+      success: false,
+      error: "Cannot find Alumni at this time, please try again later",
+    });
+  }
+
+});
+export const getSearchAlumniFull = asyncHandler(async (req, res) => {
   const { search } = req.params;
   const alumniIds = await getAlumniIds();
   const unwantedFields = [
@@ -580,6 +653,5 @@ export const getSearchAlumni = asyncHandler(async (req, res) => {
     });
   }
 
-
-
 });
+
