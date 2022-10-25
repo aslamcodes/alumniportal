@@ -14,6 +14,8 @@ import {
   rejectAlumniRequest,
   getRejectedApplications,
   getAllAlumniV2,
+  getSearchAlumniPartial,
+  getSearchAlumniFull,
 } from "../controllers/alumniControllers.js";
 import { admin, protect } from "../middleware/authMiddlewares.js";
 
@@ -26,6 +28,8 @@ router.get("/requests/", protect, admin, getAlumniRequests);
 router.get("/rejected-applications/", protect, admin, getRejectedApplications);
 router.get("/:id", getAlumniById);
 router.get("/city/:city", getAlumniByCity);
+router.get("/search/:search", getSearchAlumniPartial);
+router.get("/fullSearch/:search", getSearchAlumniFull);
 
 router.post("/register", registerAlumni);
 

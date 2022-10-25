@@ -15,6 +15,7 @@ import galleryRouter from "./routes/galleryRoutes.js";
 import testimonialRouter from "./routes/testimonialRoutes.js";
 import userRouter from "./routes/userRoutes.js";
 
+
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 import config_db from "./config/dbconfig.js";
 import socket from "./socket/index.js";
@@ -42,6 +43,7 @@ app.use("/api/v1/gallery", galleryRouter);
 app.use("/api/v1/testimonial", testimonialRouter);
 app.use("/api/v1/alumni-data", alumniDataRouter);
 app.use("/api/v1/conversation", conversationRouter);
+
 
 // app.get("/forgotPassword", (req, res) => {
 //   res.render("forgot-password", {

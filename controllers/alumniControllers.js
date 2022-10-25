@@ -252,12 +252,12 @@ export const getAlumniCities = asyncHandler(async (req, res) => {
     {
       $match: isOnlyOfficeBearer
         ? {
-            isApproved: true,
-            isOfficeBearer: true,
-          }
+          isApproved: true,
+          isOfficeBearer: true,
+        }
         : {
-            isApproved: true,
-          },
+          isApproved: true,
+        },
     },
     {
       $lookup: {
@@ -311,6 +311,7 @@ export const getAlumniByCity = asyncHandler(async (req, res) => {
   }
 });
 
+
 export const getAllAlumni = asyncHandler(async (_, res) => {
   const alumniIds = await getAlumniIds();
 
@@ -344,12 +345,12 @@ export const getAllAlumniV2 = asyncHandler(async (req, res) => {
     {
       $match: isOnlyOfficeBearer
         ? {
-            isApproved: true,
-            isOfficeBearer: true,
-          }
+          isApproved: true,
+          isOfficeBearer: true,
+        }
         : {
-            isApproved: true,
-          },
+          isApproved: true,
+        },
     },
     {
       $lookup: {
@@ -536,3 +537,134 @@ export const getRejectedApplications = asyncHandler(async (req, res) => {
     rejectedApplications,
   });
 });
+
+export const getSearchAlumniPartial = asyncHandler(async (req, res) => {
+  const { search } = req.params;
+  const alumniIds = await getAlumniIds();
+  const unwantedFields = [
+    "password",
+    "createdAt",
+    "updatedAt",
+    "alumni",
+    "isAdmin",
+  ];
+
+  if (alumniIds) {
+    const alumni = await Alumni.aggregate([
+      {
+        $lookup: {
+          from: "users",
+          localField: "user",
+          foreignField: "_id",
+          pipeline: [
+            {
+              $match: {
+                $or: [
+                  {
+                    name: {
+                      $regex: search,
+                      '$options': 'i'
+                    }
+
+                  },
+                  {
+                    email: {
+                      $regex: search,
+                      '$options': 'i'
+                    }
+                  },
+                  {
+                    registerNumber: {
+                      $regex: search,
+                      '$options': 'i'
+                    }
+                  },
+                  {
+                    department: {
+                      $regex: search,
+                      '$options': 'i'
+                    }
+                  },
+                  {
+                    phoneNumber: {
+                      $regex: search,
+                      '$options': 'i'
+                    }
+                  }
+                ]
+              }
+            },
+            { $match: { isAlumni: true } }
+          ],
+          as: "user"
+        }
+      },
+      {
+        $unwind: "$user",
+      },
+      { $unset: unwantedFields },
+    ]);
+    if (alumni.length > 0) {
+      res.status(200).json({
+        success: true,
+        alumni,
+      });
+    } else {
+      res.status(400).json({
+        success: true,
+        error: "No Match found"
+      });
+    }
+
+  } else {
+    res.status(400).json({
+      success: false,
+      error: "Cannot find Alumni at this time, please try again later",
+    });
+  }
+
+});
+export const getSearchAlumniFull = asyncHandler(async (req, res) => {
+  const { search } = req.params;
+  const alumniIds = await getAlumniIds();
+  const unwantedFields = [
+    "password",
+    "createdAt",
+    "updatedAt",
+    "alumni",
+    "isAdmin",
+  ];
+
+  if (alumniIds) {
+    const alumni = await User.aggregate([
+      {
+        $match: {
+          $text: {
+            $search: search
+          }
+        }
+      },
+      { $match: { isAlumni: true } },
+      { $unset: unwantedFields },
+    ]);
+    if (alumni.length > 0) {
+      res.status(200).json({
+        success: true,
+        alumni,
+      });
+    } else {
+      res.status(400).json({
+        success: true,
+        error: "No Match found"
+      });
+    }
+
+  } else {
+    res.status(400).json({
+      success: false,
+      error: "Cannot find Alumni at this time, please try again later",
+    });
+  }
+
+});
+
