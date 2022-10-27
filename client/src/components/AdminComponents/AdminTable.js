@@ -78,10 +78,10 @@ const AlumniTable = () => {
     setAlumni(filterAlumniData(alumniData, filters));
   };
   const onSetSearchQuery = (query) => {
-    setSearchQuery(query)
+    setSearchQuery(query);
     return new Promise((resolve, reject) => {
       if (query !== "") {
-        resolve("query updated successfully")
+        resolve("query updated successfully");
       } else {
         reject("Query update failed");
       }
@@ -90,11 +90,9 @@ const AlumniTable = () => {
   const onSearch = async (query) => {
     try {
       await onSetSearchQuery(query);
-      setAlumni(
-        searchData
-      );
+      setAlumni(searchData);
     } catch (error) {
-      setAlumni(alumniData)
+      setAlumni(alumniData);
     }
   };
 
