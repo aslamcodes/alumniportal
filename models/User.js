@@ -106,7 +106,10 @@ userSchema.methods.generateVerificationToken = function () {
 userSchema.methods.matchPassword = async function (enteredPassword) {
   return await compare(enteredPassword, this.password);
 };
+//create index for user schema
+userSchema.index({ name: "text", email: "text", phoneNumber: "text", registerNumber: "text" }, { name: "usersTextIndex" })
 
 const User = model("User", userSchema);
+
 
 export default User;

@@ -7,7 +7,9 @@ export default function useGetAlumni() {
   const [refresh, setRefresh] = useState();
 
   useEffect(() => {
-    const applyAlumni = ({ alumni }) => setAlumni(alumni);
+    const applyAlumni = ({ alumni }) => {
+      setAlumni(alumni);
+    };
 
     const fetchAlumni = async () => {
       await fetchData(

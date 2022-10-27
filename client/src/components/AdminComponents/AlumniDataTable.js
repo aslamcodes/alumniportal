@@ -21,8 +21,10 @@ import AdminDataTableRow from "./AlumniDataTableRow";
 import useCountAlumniData from "hooks/useCountAlumniData";
 import useGetAlumniData from "hooks/useGetAlumniData";
 import Loader from "components/UI/Loader";
+import useAlumniDataSearch from "hooks/useAlumniDataSearch";
 
 const AlumniDataTable = () => {
+  const [searchQuery, setSearchQuery] = useState("");
   const [entriesPerPage, setEntriesPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [tableHeadOnTop, setTableHeadOnTop] = useState(false);
@@ -33,6 +35,7 @@ const AlumniDataTable = () => {
     uptoIndex,
     entriesPerPage
   );
+  const { searchData, error: searchError } = useAlumniDataSearch(searchQuery);
 
   const [alumni, setAlumni] = useState(alumniData);
 
@@ -64,15 +67,23 @@ const AlumniDataTable = () => {
     setAlumni(alumniData);
   }, [alumniData]);
 
-  const onSearch = (query) => {
-    setAlumni(
-      alumniData.filter((alumnus) => {
-        return Object.keys(alumnus)
-          .reduce((accStr, field) => accStr + " " + alumnus[field])
-          .toLowerCase()
-          .includes(query);
-      })
-    );
+  const onSetSearchQuery = (query) => {
+    setSearchQuery(query);
+    return new Promise((resolve, reject) => {
+      if (query !== "") {
+        resolve("query updated successfully");
+      } else {
+        reject("Query update failed");
+      }
+    });
+  };
+  const onSearch = async (query) => {
+    try {
+      await onSetSearchQuery(query);
+      setAlumni(searchData);
+    } catch (error) {
+      setAlumni(alumniData);
+    }
   };
 
   const onApplyFilter = (filters) => {

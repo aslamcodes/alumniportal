@@ -15,12 +15,16 @@ import {
   filterForField,
   getAlumniFilters,
 } from "utils/utils";
+import useAlumniSearch from "hooks/useAlumniSearch";
 
 const AlumniTable = () => {
   useEffect(() => {
     document.title = "Alumni Portal | Alumni Table";
   }, []);
+
+  const [searchQuery, setSearchQuery] = useState("");
   const { alumni: alumniData, error, isLoading, trigger } = useGetAlumni();
+  const { searchData, error: searchError } = useAlumniSearch(searchQuery);
   const [alumni, setAlumni] = useState(alumniData);
   const [entriesPerPage, setEntriesPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
@@ -73,15 +77,25 @@ const AlumniTable = () => {
   const onApplyFilter = (filters) => {
     setAlumni(filterAlumniData(alumniData, filters));
   };
-
-  const onSearch = (query) => {
-    setAlumni(
-      alumniData.filter((alumnus) =>
-        (alumnus.user.registerNumber + " " + alumnus.user.name)
-          .toLowerCase()
-          .includes(query)
-      )
-    );
+  const onSetSearchQuery = (query) => {
+    setSearchQuery(query)
+    return new Promise((resolve, reject) => {
+      if (query !== "") {
+        resolve("query updated successfully")
+      } else {
+        reject("Query update failed");
+      }
+    });
+  };
+  const onSearch = async (query) => {
+    try {
+      await onSetSearchQuery(query);
+      setAlumni(
+        searchData
+      );
+    } catch (error) {
+      setAlumni(alumniData)
+    }
   };
 
   const onDeleteAlumniHandler = async (userId) => {

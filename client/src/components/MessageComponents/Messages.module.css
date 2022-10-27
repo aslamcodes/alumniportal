@@ -27,7 +27,7 @@
 .chat_container {
   position: relative;
   overflow: auto;
-  max-height: 85%;
+  height: 85%;
 }
 
 .e2e_info > * {
@@ -102,7 +102,6 @@
   background-color: #dcdcdc;
   border-radius: 20px;
   padding: 0.1rem;
-  max-height: 10rem;
   border: 1px solid rgba(172, 172, 172, 0.3);
 }
 
@@ -112,9 +111,8 @@
   background-color: transparent;
   overflow: auto;
   resize: none;
-  max-height: 10rem;
+
   border-radius: 20px;
-  padding: 0.3rem;
 }
 .textarea[contentEditable]:empty::before {
   content: "Place to reply";

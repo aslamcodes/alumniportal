@@ -31,6 +31,8 @@ const alumniDataSchema = new Schema({
     type: String,
   },
 });
+//create index for alumni data
+alumniDataSchema.index({ name: "text", email: "text", contact: "text", registerNumber: "text" }, { name: "alumniDataTextIndex" })
 
 const AlumniData = model("AlumniData", alumniDataSchema);
 

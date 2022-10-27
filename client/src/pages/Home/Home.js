@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import styles from "./Home.module.css";
-import video from "assets/test/skctvideo60fps.mp4";
+import video from "assets/skctvideo60fps.mp4";
 
 // v2
 // import Carousel from "components/UI/Carousel";
@@ -18,7 +18,7 @@ const Home = () => {
       return p.toString() === "[object SafariRemoteNotification]";
     })(
       !window["safari"] ||
-      (typeof safari !== "undefined" && window["safari"].pushNotification)
+        (typeof safari !== "undefined" && window["safari"].pushNotification)
     );
 
   useEffect(() => {
