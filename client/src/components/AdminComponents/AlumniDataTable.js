@@ -59,7 +59,7 @@ const AlumniDataTable = () => {
   useEffect(() => {
     document.title = "Alumni Portal | Alumni Table";
     if (error) {
-      return errorAlert("404 Error, Can't fetch data");
+      return errorAlert("404 Error !, Can't fetch data");
     }
   }, [errorAlert]);
 
