@@ -72,3 +72,37 @@ export const filterAlumniData = (alumniData, filters) =>
       )
     );
   });
+
+export const getAlumniDataFilters = (alumni) =>
+  alumni?.reduce(
+    (filters, alumnus) => {
+      return {
+        ...filters,
+        Designation: [
+          ...new Set([...filters.Designation, alumnus.designation]),
+        ],
+
+        Company: [...new Set([...filters.Company, alumnus.company])],
+        Batch: [...new Set([...filters.Batch, alumnus.batch])],
+        CompanyAddress: [
+          ...new Set([...filters.CompanyAddress, alumnus.companyAddress]),
+        ],
+      };
+    },
+    {
+      Designation: [],
+      Company: [],
+      Batch: [],
+      CompanyAddress: [],
+    }
+  );
+
+export const filterOldAlumniData = (alumniData, filters) =>
+  alumniData.filter((alumnus) => {
+    return (
+      filterForField(filters, "Designation", alumnus.designation) &&
+      filterForField(filters, "Company", alumnus.company) &&
+      filterForField(filters, "Batch", alumnus.batch) &&
+      filterForField(filters, "companyAddress", alumnus.companyAddress)
+    );
+  });
