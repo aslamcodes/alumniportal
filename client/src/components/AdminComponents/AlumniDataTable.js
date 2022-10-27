@@ -11,8 +11,9 @@ import NoDataMessage from "./NoDataMessage";
 import { useAlertContext } from "context/alert/alertContext";
 import {
   filterAlumniData,
+  filterOldAlumniData,
   filterForField,
-  getAlumniFilters,
+  getAlumniDataFilters,
 } from "utils/utils";
 
 import useGetAlumniStoredData from "hooks/useGetAlumniStoredData";
@@ -36,8 +37,6 @@ const AlumniDataTable = () => {
   );
   const { searchData, error: searchError } = useAlumniDataSearch(searchQuery);
 
-
-
   const [alumni, setAlumni] = useState(alumniData);
 
   const { fetchData: deleteAlumni } = useAxiosWithCallback();
@@ -47,7 +46,7 @@ const AlumniDataTable = () => {
 
   const totalPages = alumni ? Math.ceil(count / entriesPerPage) : 0;
   const tableHeadRef = useRef(null);
-  // const filters = useMemo(() => getAlumniFilters(alumniData), [alumniData]);
+  const filters = useMemo(() => getAlumniDataFilters(alumniData), [alumniData]);
   const props = useSpring({
     from: {
       backgroundColor: "#e2e2e2",
@@ -69,10 +68,10 @@ const AlumniDataTable = () => {
   }, [alumniData]);
 
   const onSetSearchQuery = (query) => {
-    setSearchQuery(query)
+    setSearchQuery(query);
     return new Promise((resolve, reject) => {
       if (query !== "") {
-        resolve("query updated successfully")
+        resolve("query updated successfully");
       } else {
         reject("Query update failed");
       }
@@ -81,12 +80,14 @@ const AlumniDataTable = () => {
   const onSearch = async (query) => {
     try {
       await onSetSearchQuery(query);
-      setAlumni(
-        searchData
-      );
+      setAlumni(searchData);
     } catch (error) {
-      setAlumni(alumniData)
+      setAlumni(alumniData);
     }
+  };
+
+  const onApplyFilter = (filters) => {
+    setAlumni(filterOldAlumniData(alumniData, filters));
   };
 
   // const onDeleteAlumniHandler = async (userId) => {
@@ -123,17 +124,17 @@ const AlumniDataTable = () => {
   }
 
   const dataHeaders = [
-    { label: 'Register Number', key: 'registerNumber' },
-    { label: 'Name', key: 'name' },
-    { label: 'Address', key: 'address' },
-    { label: 'Batch', key: 'batch' },
-    { label: 'Company', key: 'company' },
-    { label: 'Company Address', key: 'companyAddress' },
-    { label: 'Contact', key: 'contact' },
-    { label: 'DOB', key: 'dateOfBirth' },
-    { label: 'Designation', key: 'designation' },
-    { label: 'Email', key: 'email' },
-    { label: 'Nature of work', key: 'natureOfWork' },
+    { label: "Register Number", key: "registerNumber" },
+    { label: "Name", key: "name" },
+    { label: "Address", key: "address" },
+    { label: "Batch", key: "batch" },
+    { label: "Company", key: "company" },
+    { label: "Company Address", key: "companyAddress" },
+    { label: "Contact", key: "contact" },
+    { label: "DOB", key: "dateOfBirth" },
+    { label: "Designation", key: "designation" },
+    { label: "Email", key: "email" },
+    { label: "Nature of work", key: "natureOfWork" },
   ];
 
   return (
@@ -146,6 +147,8 @@ const AlumniDataTable = () => {
         entriesPerPage={entriesPerPage}
         onEntriesSelect={onEntriesPerPageSelectHandler}
         type="Alumni Data"
+        onApplyFilter={onApplyFilter}
+        filters={filters}
       />
 
       <table className={Styles.table}>
@@ -175,8 +178,8 @@ const AlumniDataTable = () => {
                 alumni={alumni}
                 key={index}
                 id={index}
-              // type="alumni-details"
-              // onDeleteAlumni={onDeleteAlumniHandler}
+                // type="alumni-details"
+                // onDeleteAlumni={onDeleteAlumniHandler}
               />
             ))}
           </tbody>
