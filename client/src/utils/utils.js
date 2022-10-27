@@ -103,6 +103,6 @@ export const filterOldAlumniData = (alumniData, filters) =>
       filterForField(filters, "Designation", alumnus.designation) &&
       filterForField(filters, "Company", alumnus.company) &&
       filterForField(filters, "Batch", alumnus.batch) &&
-      filterForField(filters, "companyAddress", alumnus.companyAddress)
+      filterForField(filters, "CompanyAddress", alumnus.companyAddress)
     );
   });
