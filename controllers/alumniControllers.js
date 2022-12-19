@@ -6,6 +6,9 @@ import AlumniRequest from "../models/AlumniRequest.js";
 import notificationConstants from "../constants/notification-constants.js";
 import Notification from "../models/Notification.js";
 import RejectedApplication from "../models/RejectedApplication.js";
+import sendEmail from "../utils/email.js";
+import path from "path";
+import { __dirname } from "../index.js";
 
 export const registerAlumni = asyncHandler(async (req, res) => {
   const { user } = req.body;
@@ -97,7 +100,9 @@ export const approveAlumni = asyncHandler(async (req, res) => {
         isApproved: true,
       },
     }
-  );
+  ).populate("user");
+
+  console.log(alumni);
 
   if (alumni) {
     await User.findByIdAndUpdate(id, { isAlumni: true, alumni: alumni._id });
@@ -105,12 +110,25 @@ export const approveAlumni = asyncHandler(async (req, res) => {
     await AlumniRequest.deleteOne({ user: id });
 
     await Notification.create({
-      user: alumni.user,
+      user: alumni.user._id,
       type: notificationConstants.ALUMNI_APPROVED,
       approvedBy: user._id,
       message:
         "Your request has been approved. You can now access alumni features.",
     });
+
+    const { error } = await sendEmail(
+      alumni.user?.email,
+      "SKCT Alumni Portal - Your Alumni Request has been approved",
+      {},
+      path.join(__dirname, "templates", "approval-mail.ejs")
+    );
+
+    if (error) {
+      console.log(error);
+      res.status(400);
+      throw new Error("Sorry, Couldn't Send you a Email right now!");
+    }
 
     return res.status(200).json({
       message: "Alumni approved successfully",
@@ -252,12 +270,12 @@ export const getAlumniCities = asyncHandler(async (req, res) => {
     {
       $match: isOnlyOfficeBearer
         ? {
-          isApproved: true,
-          isOfficeBearer: true,
-        }
+            isApproved: true,
+            isOfficeBearer: true,
+          }
         : {
-          isApproved: true,
-        },
+            isApproved: true,
+          },
     },
     {
       $lookup: {
@@ -311,7 +329,6 @@ export const getAlumniByCity = asyncHandler(async (req, res) => {
   }
 });
 
-
 export const getAllAlumni = asyncHandler(async (_, res) => {
   const alumniIds = await getAlumniIds();
 
@@ -345,12 +362,12 @@ export const getAllAlumniV2 = asyncHandler(async (req, res) => {
     {
       $match: isOnlyOfficeBearer
         ? {
-          isApproved: true,
-          isOfficeBearer: true,
-        }
+            isApproved: true,
+            isOfficeBearer: true,
+          }
         : {
-          isApproved: true,
-        },
+            isApproved: true,
+          },
     },
     {
       $lookup: {
@@ -563,41 +580,40 @@ export const getSearchAlumniPartial = asyncHandler(async (req, res) => {
                   {
                     name: {
                       $regex: search,
-                      '$options': 'i'
-                    }
-
+                      $options: "i",
+                    },
                   },
                   {
                     email: {
                       $regex: search,
-                      '$options': 'i'
-                    }
+                      $options: "i",
+                    },
                   },
                   {
                     registerNumber: {
                       $regex: search,
-                      '$options': 'i'
-                    }
+                      $options: "i",
+                    },
                   },
                   {
                     department: {
                       $regex: search,
-                      '$options': 'i'
-                    }
+                      $options: "i",
+                    },
                   },
                   {
                     phoneNumber: {
                       $regex: search,
-                      '$options': 'i'
-                    }
-                  }
-                ]
-              }
+                      $options: "i",
+                    },
+                  },
+                ],
+              },
             },
-            { $match: { isAlumni: true } }
+            { $match: { isAlumni: true } },
           ],
-          as: "user"
-        }
+          as: "user",
+        },
       },
       {
         $unwind: "$user",
@@ -612,18 +628,17 @@ export const getSearchAlumniPartial = asyncHandler(async (req, res) => {
     } else {
       res.status(400).json({
         success: true,
-        error: "No Match found"
+        error: "No Match found",
       });
     }
-
   } else {
     res.status(400).json({
       success: false,
       error: "Cannot find Alumni at this time, please try again later",
     });
   }
-
 });
+
 export const getSearchAlumniFull = asyncHandler(async (req, res) => {
   const { search } = req.params;
   const alumniIds = await getAlumniIds();
@@ -640,9 +655,9 @@ export const getSearchAlumniFull = asyncHandler(async (req, res) => {
       {
         $match: {
           $text: {
-            $search: search
-          }
-        }
+            $search: search,
+          },
+        },
       },
       { $match: { isAlumni: true } },
       { $unset: unwantedFields },
@@ -655,16 +670,13 @@ export const getSearchAlumniFull = asyncHandler(async (req, res) => {
     } else {
       res.status(400).json({
         success: true,
-        error: "No Match found"
+        error: "No Match found",
       });
     }
-
   } else {
     res.status(400).json({
       success: false,
       error: "Cannot find Alumni at this time, please try again later",
     });
   }
-
 });
-

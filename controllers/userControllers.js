@@ -257,6 +257,7 @@ export const verifyEmail = asyncHandler(async (req, res) => {
     message: "Email Verified Successfully",
   });
 });
+
 export const getUserDetailsById = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id)
     .populate("alumni")
