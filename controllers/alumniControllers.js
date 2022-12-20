@@ -8,6 +8,7 @@ import Notification from "../models/Notification.js";
 import RejectedApplication from "../models/RejectedApplication.js";
 import sendEmail from "../utils/email.js";
 import path from "path";
+import QRCode from "qrcode";
 import { __dirname } from "../index.js";
 
 export const registerAlumni = asyncHandler(async (req, res) => {
@@ -117,7 +118,9 @@ export const approveAlumni = asyncHandler(async (req, res) => {
         "Your request has been approved. You can now access alumni features.",
     });
 
-    const qrCodeUrl = ``;
+    const qrCodeUrl = await QRCode.toDataURL(
+      `${req.get("host")}/qr/${alumni.user._id}`
+    );
     const avatarUrl = `http://localhost:8000/api/v1/users/user-avatar/${alumni.user._id}`;
     const name = alumni.user.name;
     const dept = alumni.user?.department;
@@ -132,7 +135,6 @@ export const approveAlumni = asyncHandler(async (req, res) => {
       batch,
       contact,
     });
-
     const { error } = await sendEmail(
       alumni.user?.email,
       "SKCT Alumni Portal - Your Alumni Request has been approved",
