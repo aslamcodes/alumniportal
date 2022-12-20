@@ -4,7 +4,6 @@ import ejs from "ejs";
 
 const sendEmail = async (email, subject, payload, template) => {
   let error;
-
   try {
     const transporter = createTransport({
       host: process.env.EMAIL_HOST,
@@ -34,15 +33,20 @@ const sendEmail = async (email, subject, payload, template) => {
           html: data,
         };
       };
+
       transporter.sendMail(options(), (errorOnMail, info) => {
+        console.log("Email Request");
+
         if (errorOnMail) {
           error = errorOnMail;
+          console.log(error);
           return;
         }
         console.log("Message sent: %s", info.messageId);
       });
     });
     if (error) {
+      console.log(error);
       throw new Error(error);
     }
   } catch (err) {
