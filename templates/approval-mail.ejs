@@ -1,168 +1,175 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Invitation Card</title>
-    <style>
-      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap");
 
-      .outer {
-        width: 759px;
-        height: 432px;
-        box-sizing: border-box;
-        border: 1px black solid;
-        font-family: "Inter", sans-serif;
-      }
+<head>
+  <title>Invitation Card</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800&display=swap');
 
-      .skcthead {
-        /* box-sizing: border-box; */
-        /* border: 1px solid;   */
-        display: flex;
-        /* flex-direction: column; */
-        /* padding-bottom: 10px; */
-        background-color: #cde7fb;
-        font-size: 26px;
-        font-family: IBM Plex Mono, bold;
-        width: 757px;
-        height: 124.06px;
-      }
+    .outer {
+      width: 759px;
+      height: 407px;
+      box-sizing: border-box;
+      border: 2px black solid;
+      font-family: 'Inter', sans-serif;
+    }
 
-      .image1 {
-        padding: 20px;
-      }
+    .skcthead {
+      /* box-sizing: border-box; */
+      /* border: 1px solid;   */
+      display: flex;
+      /* flex-direction: column; */
+      /* padding-bottom: 10px; */
+      background-color: #CDE7FB;
+      font-size: 26px;
+      font-family: 'Inter', sans-serif;
+      width: 755px;
+      height: 124.06px;
+    }
 
-      .image2 {
-        padding: 20px;
-      }
+    .image1 {
+      padding: 20px;
+    }
 
-      .skcthead #top {
-        padding: 20px;
-        margin: 10px;
-        font-size: 20px;
-        font-weight: 700;
-      }
+    .image2 {
+      padding: 20px;
+    }
 
-      .skcthead #subtop {
-        margin: 10px;
-        font-size: 13.5px;
-        font-weight: 500;
-      }
+    .skcthead #top {
+      /* padding: 20px; */
+      padding-left: 30px;
+      font-size: 20px;
+      font-weight: 800;
+    }
 
-      .titletop {
-        width: 515px;
-        height: 54px;
-        padding-left: 20px;
-        /* display: flexbox;
-                flex-direction: column; */
-        /* display: inline-block;
-            vertical-align: middle; */
-        /* text-align: center; */
-      }
+    .skcthead #subtop {
+      font-size: 13.5px;
+      padding-left: 8px;
+      font-weight: 500;
+    }
 
-      .skcthead #krishnaLogo {
-        width: 78px;
-        height: 74.95px;
-      }
+    .titletop {
+      width: 515px;
+      height: 94px;
+      padding-top: 20px;
+      padding-left: 28px;
 
-      .skcthead #skctLogo {
-        width: 78px;
-        height: 74.95px;
-      }
+    }
 
-      .bottom #dp {
-        width: 169px;
-        height: 190px;
-      }
+    .skcthead #krishnaLogo {
+      width: 78px;
+      height: 74.95px;
+    }
 
-      .middle {
-        width: 757px;
-        height: 58px;
-        display: flex;
-        /* vertical-align: center; */
-        /* background-color: aqua; */
-      }
+    .skcthead #skctLogo {
+      width: 78px;
+      height: 74.95px;
+    }
 
-      .smallbox {
-        background-color: #cde7fb;
-        width: 401px;
-        height: 47px;
-        margin: auto;
-        padding: auto;
-        margin-left: 150px;
-        text-align: center;
-      }
+    .bottom #dp {
+      width: 169px;
+      height: 190px;
+    }
 
-      .smallbox #top {
-        font-weight: 700;
-        font-size: 20px;
-        font-family: "Inter", sans-serif;
-        color: #285fa4;
-      }
+    .middle {
+      width: 757px;
+      height: 70px;
+      display: flex;
+      padding-top: 10px;
+      /* padding-bottom: 5px; */
+      /* vertical-align: center; */
+      /* background-color: aqua; */
+    }
 
-      .bottom {
-        display: flex;
-      }
+    .smallbox {
+      background-color: #CDE7FB;
+      width: 401px;
+      height: 47px;
+      margin: auto;
+      padding: auto;
+      margin-left: 150px;
+      text-align: center;
+    }
 
-      .bottom #dp {
-        padding: 20px;
-        padding-top: 50px;
-        width: 137px;
-        height: 154px;
-      }
+    .smallbox #top {
+      font-weight: 700;
+      font-size: 20px;
+      font-family: 'Inter', sans-serif;
+      color: #285FA4;
+    }
 
-      .details {
-        height: 154px;
-        width: 349px;
-        margin: 50px;
-        background-color: #cde7fb;
-      }
+    .bottom {
+      display: flex;
+      /* background-color: red; */
+    }
 
-      .details #detail {
-        font-size: 18px;
-        color: #285fa4;
-        margin: 15px;
-      }
+    .bottom #dp {
+      padding: 25px;
+      padding-top: 22px;
+      width: 137px;
+      height: 154px;
+    }
 
-      .qr #img {
-        height: 100px;
-        width: 100px;
-        padding-top: 70px;
-      }
-    </style>
-  </head>
+    .details {
+      height: 154px;
+      width: 349px;
+      margin: 22px;
+      background-color: #CDE7FB;
+    }
 
-  <body>
-    <div class="outer">
-      <div class="skcthead">
-        <div class="image1">
-          <img id="krishnaLogo" src="skct_logo_1.png" alt="SKI Logo" />
-        </div>
-        <div class="titletop">
-          <h1 id="top">SRI KRISHNA COLLEGE OF TECHNOLOGY</h1>
-          <h3 id="subtop">
-            AUTONOMOUS INSTITUTION | ACCREDITED BY NAAC WITH 'A' GRADE
-          </h3>
-        </div>
-        <div class="image2">
-          <img id="skctLogo" src="skct_logo_2.png" alt="SKCT Logo" />
-        </div>
+    .details #detail {
+      font-size: 18px;
+      color: #285FA4;
+      margin: 15px;
+    }
+
+    .qr #img {
+      height: 100px;
+      width: 100px;
+      padding-top: 50px;
+      padding-left: 30px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="outer">
+    <div class="skcthead">
+      <div class="image1">
+        <img id="krishnaLogo" src="skct_logo_1.png" alt="SKI Logo" />
       </div>
-      <div class="middle">
-        <div class="smallbox">
-          <h1 id="top">ALUMNI MEMBERSHIP CARD</h1>
-        </div>
+      <div class="titletop">
+        <h1 id="top">SRI KRISHNA COLLEGE OF TECHNOLOGY</h1>
+        <h3 id="subtop">
+          AUTONOMOUS INSTITUTION | ACCREDITED BY NAAC WITH 'A' GRADE
+        </h3>
       </div>
-      <div class="bottom">
-        <img id="dp" src="<%= avatarUrl %>" alt="avatar" />
-        <div class="details">
-          <h1 id="detail">NAME: <%= name %></h1>
-          <h1 id="detail">DEPT: <%= dept %></h1>
-          <h1 id="detail">BATCH: <%= batch %></h1>
-          <h1 id="detail">CONTACT: <%= contact %></h1>
-        </div>
-        <div class="qr">
-          <img id="img" src="<%= qrCodeUrl %>" alt="QRcode" />
-        </div>
+      <div class="image2">
+        <img id="skctLogo" src="skct_logo_2.png" alt="SKCT Logo" />
       </div>
     </div>
-  </body>
+    <div class="middle">
+      <div class="smallbox">
+        <h1 id="top">ALUMNI MEMBERSHIP CARD</h1>
+      </div>
+    </div>
+    <div class="bottom">
+      <img id="dp" src="<%= avatarUrl %>" alt="avatar" />
+      <div class="details">
+        <h1 id="detail">NAME: <%= name %>
+        </h1>
+        <h1 id="detail">DEPT: <%= dept %>
+        </h1>
+        <h1 id="detail">BATCH: <%= batch %>
+        </h1>
+        <h1 id="detail">CONTACT: <%= contact %>
+        </h1>
+      </div>
+      <div class="qr">
+        <img id="img" src="<%= qrCodeUrl %>" alt="QRcode" />
+      </div>
+    </div>
+  </div>
+</body>
+
 </html>
