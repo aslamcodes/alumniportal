@@ -6,7 +6,7 @@ import AlumniRequest from "../models/AlumniRequest.js";
 import notificationConstants from "../constants/notification-constants.js";
 import Notification from "../models/Notification.js";
 import RejectedApplication from "../models/RejectedApplication.js";
-import sendEmail from "../utils/email.js";
+import sendEmail, { base64ToDirect } from "../utils/email.js";
 import path from "path";
 import QRCode from "qrcode";
 import { __dirname } from "../index.js";
@@ -144,7 +144,7 @@ export const approveAlumni = asyncHandler(async (req, res) => {
       alumni.user?.email,
       "SKCT Alumni Portal - Your Alumni Request has been approved",
       {
-        qrCodeUrl,
+        qrCodeUrl: base64ToDirect(qrCodeUrl),
         avatarUrl,
         name,
         dept,
