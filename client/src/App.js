@@ -54,6 +54,8 @@ const AlumniMeetLazy = lazy(() => import("pages/Gallery/AlumniMeet"));
 const AllPhotosLazy = lazy(() => import("pages/Gallery/AllPhotos"));
 const SeminarSessionsLazy = lazy(() => import("pages/Gallery/SeminarSessions"));
 
+const QrPageLazy = lazy(() => import("pages/Home/QrPage"));
+
 const SuspenseCallback = ({ children }) => {
   return <Suspense fallback={<Spinner />}>{children}</Suspense>;
 };
@@ -114,6 +116,8 @@ function App() {
             <Route element={<Navbar />}>
               <Route path="/alumni-forum" element={<AlumniForumLazy />} />
               <Route path="/alumni-forum/:postId" element={<ForumPostLazy />} />
+              <Route path="/qr" element={<QrPageLazy />} />
+
             </Route>
 
             <Route element={<WithNavFooter />}>
