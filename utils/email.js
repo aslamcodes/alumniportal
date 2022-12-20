@@ -24,6 +24,9 @@ const sendEmail = async (email, subject, payload, template) => {
         error = err;
         return;
       }
+      console.clear();
+      console.log("Payload");
+      console.log(payload);
 
       const options = () => {
         return {

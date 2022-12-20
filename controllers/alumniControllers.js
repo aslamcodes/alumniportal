@@ -8,6 +8,7 @@ import Notification from "../models/Notification.js";
 import RejectedApplication from "../models/RejectedApplication.js";
 import sendEmail from "../utils/email.js";
 import path from "path";
+import QRCode from "qrcode";
 import { __dirname } from "../index.js";
 
 export const registerAlumni = asyncHandler(async (req, res) => {
@@ -117,10 +118,39 @@ export const approveAlumni = asyncHandler(async (req, res) => {
         "Your request has been approved. You can now access alumni features.",
     });
 
+    const qrCodeUrl = await QRCode.toDataURL(
+      `${req.get("host")}/qr?user=${alumni.user._id}`
+    );
+    const avatarUrl = `${req.get("host")}/api/v1/users/user-avatar/${
+      alumni.user._id
+    }`;
+
+    const name = alumni.user.name;
+    const dept = alumni.user?.department;
+    const yearOfPassing = alumni.user?.yearOfPassing.getFullYear();
+    const batch = `${yearOfPassing - 4} - ${yearOfPassing} `;
+    const contact = alumni.user?.phoneNumber;
+    console.clear();
+    console.log({
+      qrCodeUrl,
+      avatarUrl,
+      name,
+      dept,
+      batch,
+      contact,
+    });
+
     const { error } = await sendEmail(
       alumni.user?.email,
       "SKCT Alumni Portal - Your Alumni Request has been approved",
-      {},
+      {
+        qrCodeUrl,
+        avatarUrl,
+        name,
+        dept,
+        batch,
+        contact,
+      },
       path.join(__dirname, "templates", "approval-mail.ejs")
     );
 
