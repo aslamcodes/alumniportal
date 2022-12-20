@@ -106,8 +106,10 @@
 }
 .profile_info {
   margin-top: 4rem;
+  margin-bottom: 2rem;
   display: flex;
   flex-direction: column;
+
   /* align-items: center; */
   /* padding-block: 2rem; */
 }
@@ -181,7 +183,7 @@
 }
 
 .profile_description_container {
-  margin-top: 2rem;
+  margin-top: 5rem;
 }
 
 .description_topbar {
