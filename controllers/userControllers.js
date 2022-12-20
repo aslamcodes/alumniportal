@@ -139,7 +139,6 @@ export const requestPasswordReset = asyncHandler(async (req, res) => {
   );
 
   if (error) {
-    console.clear();
     console.log(error);
     res.status(400);
     throw new Error("Couldn't Send you a Email");
@@ -229,7 +228,6 @@ export const resetPassword = asyncHandler(async (req, res) => {
 
 export const verifyEmail = asyncHandler(async (req, res) => {
   const { token, userId } = req.body;
-  console.clear();
   console.log(req.body);
   console.count("Umm");
 

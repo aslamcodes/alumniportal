@@ -119,15 +119,26 @@ export const approveAlumni = asyncHandler(async (req, res) => {
     });
 
     const qrCodeUrl = await QRCode.toDataURL(
-      `${req.get("host")}/qr/${alumni.user._id}`
+      `${req.get("host")}/qr?user=${alumni.user._id}`
     );
     const avatarUrl = `${req.get("host")}/api/v1/users/user-avatar/${
       alumni.user._id
     }`;
+
     const name = alumni.user.name;
     const dept = alumni.user?.department;
-    const batch = alumni.user?.yearOfPassing;
+    const yearOfPassing = alumni.user?.yearOfPassing.getFullYear();
+    const batch = `${yearOfPassing - 4} - ${yearOfPassing} `;
     const contact = alumni.user?.phoneNumber;
+    console.clear();
+    console.log({
+      qrCodeUrl,
+      avatarUrl,
+      name,
+      dept,
+      batch,
+      contact,
+    });
 
     const { error } = await sendEmail(
       alumni.user?.email,
@@ -142,7 +153,6 @@ export const approveAlumni = asyncHandler(async (req, res) => {
       },
       path.join(__dirname, "templates", "approval-mail.ejs")
     );
-    console.log(qrCodeUrl);
 
     if (error) {
       console.log(error);
