@@ -2,7 +2,13 @@ import { createTransport } from "nodemailer";
 import path from "path";
 import ejs from "ejs";
 
-const sendEmail = async (email, subject, payload, template) => {
+const sendEmail = async (
+  email,
+  subject,
+  payload,
+  template,
+  option_config = {}
+) => {
   let error;
   try {
     const transporter = createTransport({
@@ -24,9 +30,6 @@ const sendEmail = async (email, subject, payload, template) => {
         error = err;
         return;
       }
-      console.clear();
-      console.log("Payload");
-      console.log(payload);
 
       const options = () => {
         return {
@@ -34,12 +37,12 @@ const sendEmail = async (email, subject, payload, template) => {
           to: email,
           subject: subject,
           html: data,
+          attachDataUrls: true,
+          ...option_config,
         };
       };
 
       transporter.sendMail(options(), (errorOnMail, info) => {
-        console.log("Email Request");
-
         if (errorOnMail) {
           error = errorOnMail;
           console.log(error);

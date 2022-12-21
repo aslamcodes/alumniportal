@@ -103,8 +103,6 @@ export const approveAlumni = asyncHandler(async (req, res) => {
     }
   ).populate("user");
 
-  console.log(alumni);
-
   if (alumni) {
     await User.findByIdAndUpdate(id, { isAlumni: true, alumni: alumni._id });
 
@@ -130,28 +128,30 @@ export const approveAlumni = asyncHandler(async (req, res) => {
     const yearOfPassing = alumni.user?.yearOfPassing.getFullYear();
     const batch = `${yearOfPassing - 4} - ${yearOfPassing} `;
     const contact = alumni.user?.phoneNumber;
-    console.clear();
-    console.log({
-      qrCodeUrl,
-      avatarUrl,
-      name,
-      dept,
-      batch,
-      contact,
-    });
+
+    const cid = base64ToDirect(qrCodeUrl);
 
     const { error } = await sendEmail(
       alumni.user?.email,
       "SKCT Alumni Portal - Your Alumni Request has been approved",
       {
-        qrCodeUrl: base64ToDirect(qrCodeUrl),
+        qrCodeUrl: cid,
         avatarUrl,
         name,
         dept,
         batch,
         contact,
       },
-      path.join(__dirname, "templates", "approval-mail.ejs")
+      path.join(__dirname, "templates", "approval-mail.ejs"),
+      {
+        attachments: [
+          {
+            filename: "qr",
+
+            cid,
+          },
+        ],
+      }
     );
 
     if (error) {
