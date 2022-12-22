@@ -228,8 +228,6 @@ export const resetPassword = asyncHandler(async (req, res) => {
 
 export const verifyEmail = asyncHandler(async (req, res) => {
   const { token, userId } = req.body;
-  console.log(req.body);
-  console.count("Umm");
 
   const existingToken = await VerifyToken.findOne({
     user: userId,
@@ -260,8 +258,6 @@ export const getUserDetailsById = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id)
     .populate("alumni")
     .select(["-password", "-__v", "-createdAt", "-updatedAt"]);
-
-  console.log(req.params.id);
 
   if (user) {
     res.json(user);

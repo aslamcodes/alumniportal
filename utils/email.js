@@ -37,8 +37,6 @@ const sendEmail = async (email, subject, payload, template, _options = {}) => {
       };
 
       transporter.sendMail(options(), (errorOnMail, info) => {
-        console.log("Email Request");
-
         if (errorOnMail) {
           error = errorOnMail;
           console.log(error);
@@ -56,6 +54,15 @@ const sendEmail = async (email, subject, payload, template, _options = {}) => {
   }
 
   return { error };
+};
+
+export const base64ToDirect = (base) => {
+  let base64 = base.split("base64,")[1];
+  let hex = [...atob(base64)].map((c) =>
+    c.charCodeAt(0).toString(16).padStart(2, 0)
+  );
+  let imgSrc = "data:image/png,%" + hex.join("%");
+  return imgSrc;
 };
 
 export default sendEmail;

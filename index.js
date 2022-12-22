@@ -75,7 +75,6 @@ const server = httpServer(app);
 socket(server);
 
 server.listen(process.env.PORT, () => {
-  console.log(__dirname);
   console.log(
     `Server is running on port ${process.env.PORT}`.black.bgGreen.bold
   );
