@@ -11,6 +11,7 @@ import path from "path";
 import QRCode from "qrcode";
 import { __dirname } from "../index.js";
 import PdfPrinter from "pdfmake";
+import fs from "fs";
 
 export const registerAlumni = asyncHandler(async (req, res) => {
   const { user } = req.body;
@@ -131,12 +132,87 @@ export const approveAlumni = asyncHandler(async (req, res) => {
     const contact = alumni.user?.phoneNumber;
 
     const docDefinition = {
-      content: [{ image: qrCodeUrl }],
+      content: [
+        // {
+        //   image: path.join(__dirname, "uploads", "skct_logo_1.png"),
+        //   width: 50,
+        //   alignment: "left",
+        // },
+
+        {
+          text: "Sri Krishna College Of Technology",
+          style: "header",
+          alignment: "center",
+        },
+        // {
+        //   image: path.join(__dirname, "uploads", "skct_logo_2.png"),
+        //   width: 50,
+        //   alignment: "right",
+        // },
+
+        {
+          margin: [0, 0, 0, 0],
+          text: "Alumni Membership Card",
+          style: "subTitle",
+          alignment: "center",
+        },
+
+        // { image: path.join(__dirname, "uploads", "/default.jpeg"), width: 150 },
+
+        {
+          text: `Name: ${name}`,
+          style: "body",
+        },
+
+        {
+          text: `Department: ${dept}`,
+          style: "body",
+        },
+
+        {
+          text: `Batch: ${batch}`,
+          style: "body",
+        },
+        {
+          text: `Contact: ${contact}`,
+          style: "body",
+        },
+
+        { image: qrCodeUrl, fit: 150 },
+      ],
+      pageOrientation: "landscape",
+
+      styles: {
+        header: {
+          fontSize: 22,
+          bold: true,
+        },
+        subTitle: {
+          fontSize: 20,
+          bold: true,
+        },
+        body: {
+          fontSize: 18,
+        },
+      },
+      defaultStyle: {
+        font: "Helvetica",
+      },
     };
 
-    const pdf = new PdfPrinter();
+    const fonts = {
+      Helvetica: {
+        normal: "Helvetica",
+        bold: "Helvetica-Bold",
+        italics: "Helvetica-Oblique",
+        bolditalics: "Helvetica-BoldOblique",
+      },
+    };
+
+    const pdf = new PdfPrinter(fonts);
 
     const pdfDoc = pdf.createPdfKitDocument(docDefinition);
+
     pdfDoc.end();
 
     const { error } = await sendEmail(
