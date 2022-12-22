@@ -6,9 +6,7 @@ import AlumniRequest from "../models/AlumniRequest.js";
 import notificationConstants from "../constants/notification-constants.js";
 import Notification from "../models/Notification.js";
 import RejectedApplication from "../models/RejectedApplication.js";
-import sendEmail, {
-  sendEmailWithPdf as sendAlumniIDOnPDF,
-} from "../utils/email.js";
+import sendEmail from "../utils/email.js";
 import path from "path";
 import QRCode from "qrcode";
 import { __dirname } from "../index.js";
@@ -132,7 +130,16 @@ export const approveAlumni = asyncHandler(async (req, res) => {
     const batch = `${yearOfPassing - 4} - ${yearOfPassing} `;
     const contact = alumni.user?.phoneNumber;
 
-    const { error } = await sendAlumniIDOnPDF(
+    const docDefinition = {
+      content: [{ image: qrCodeUrl }],
+    };
+
+    const pdf = new PdfPrinter();
+
+    const pdfDoc = pdf.createPdfKitDocument(docDefinition);
+    pdfDoc.end();
+
+    const { error } = await sendEmail(
       alumni.user?.email,
       "SKCT Alumni Portal - Your Alumni Request has been approved",
       {
@@ -143,7 +150,13 @@ export const approveAlumni = asyncHandler(async (req, res) => {
         batch,
         contact,
       },
-      path.join(__dirname, "templates", "approval-mail.ejs")
+      path.join(__dirname, "templates", "approval-mail.ejs"),
+      {
+        attachments: {
+          filename: "QR.pdf",
+          content: pdfDoc,
+        },
+      }
     );
 
     if (error) {
