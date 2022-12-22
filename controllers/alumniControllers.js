@@ -143,7 +143,7 @@ export const approveAlumni = asyncHandler(async (req, res) => {
       alumni.user?.email,
       "SKCT Alumni Portal - Your Alumni Request has been approved",
       {
-        qrCodeUrl: cid,
+        qrCodeUrl,
         avatarUrl,
         name,
         dept,
