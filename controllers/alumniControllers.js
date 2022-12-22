@@ -6,10 +6,13 @@ import AlumniRequest from "../models/AlumniRequest.js";
 import notificationConstants from "../constants/notification-constants.js";
 import Notification from "../models/Notification.js";
 import RejectedApplication from "../models/RejectedApplication.js";
-import sendEmail from "../utils/email.js";
+import sendEmail, {
+  sendEmailWithPdf as sendAlumniIDOnPDF,
+} from "../utils/email.js";
 import path from "path";
 import QRCode from "qrcode";
 import { __dirname } from "../index.js";
+import PdfPrinter from "pdfmake";
 
 export const registerAlumni = asyncHandler(async (req, res) => {
   const { user } = req.body;
@@ -103,8 +106,6 @@ export const approveAlumni = asyncHandler(async (req, res) => {
     }
   ).populate("user");
 
-  console.log(alumni);
-
   if (alumni) {
     await User.findByIdAndUpdate(id, { isAlumni: true, alumni: alumni._id });
 
@@ -130,17 +131,8 @@ export const approveAlumni = asyncHandler(async (req, res) => {
     const yearOfPassing = alumni.user?.yearOfPassing.getFullYear();
     const batch = `${yearOfPassing - 4} - ${yearOfPassing} `;
     const contact = alumni.user?.phoneNumber;
-    console.clear();
-    console.log({
-      qrCodeUrl,
-      avatarUrl,
-      name,
-      dept,
-      batch,
-      contact,
-    });
 
-    const { error } = await sendEmail(
+    const { error } = await sendAlumniIDOnPDF(
       alumni.user?.email,
       "SKCT Alumni Portal - Your Alumni Request has been approved",
       {
