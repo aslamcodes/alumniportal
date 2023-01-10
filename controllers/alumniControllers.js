@@ -10,6 +10,7 @@ import sendEmail, { base64ToDirect } from "../utils/email.js";
 import path from "path";
 import QRCode from "qrcode";
 import { __dirname } from "../index.js";
+import PdfPrinter from "pdfmake";
 
 export const registerAlumni = asyncHandler(async (req, res) => {
   const { user } = req.body;
@@ -129,13 +130,128 @@ export const approveAlumni = asyncHandler(async (req, res) => {
     const batch = `${yearOfPassing - 4} - ${yearOfPassing} `;
     const contact = alumni.user?.phoneNumber;
 
-    const cid = base64ToDirect(qrCodeUrl);
+    const docDefinition = {
+      content: [
+        {
+          columns: [
+            {
+              image: path.join(__dirname, "uploads", "skct_logo_1.png"),
+              width: 70,
+            },
+            {
+              stack: [
+                {
+                  margin: [0, 20, 0, 0],
+                  text: "Sri Krishna College Of Technology",
+                  style: "header",
+                  alignment: "center",
+                },
+                {
+                  margin: [0, 5, 0, 0],
+                  text: "AUTONOMOUS INSTITUTION | ACCREDITED BY NAAC WITH 'A' GRADE",
+                  style: "header6",
+                  alignment: "center",
+                },
+              ],
+              width: "*",
+            },
+
+            {
+              image: path.join(__dirname, "uploads", "skct_logo_2.png"),
+              width: 70,
+            },
+          ],
+        },
+
+        {
+          margin: [0, 60, 0, 0],
+          text: "Alumni Membership Card",
+          style: "subTitle",
+          alignment: "center",
+        },
+        {
+          columns: [
+            {
+              image: path.join(__dirname, "uploads", "/default.jpg"),
+              width: 150,
+            },
+            {
+              stack: [
+                {
+                  margin: [0, 3, 0, 0],
+                  text: `Name: ${name}`,
+                  style: "body",
+                },
+
+                {
+                  margin: [0, 3, 0, 0],
+                  text: `Department: ${dept}`,
+                  style: "body",
+                },
+
+                {
+                  margin: [0, 3, 0, 0],
+                  text: `Batch: ${batch}`,
+                  style: "body",
+                },
+                {
+                  margin: [0, 3, 0, 0],
+                  text: `Contact: ${contact}`,
+                  style: "body",
+                },
+              ],
+              margin: [0, 40, 0, 0],
+              alignment: "center",
+              width: "*",
+            },
+            { image: qrCodeUrl, width: 150 },
+          ],
+        },
+      ],
+      pageOrientation: "landscape",
+
+      styles: {
+        header: {
+          fontSize: 22,
+          bold: true,
+        },
+        header6: {
+          fontSize: 14,
+          bold: true,
+        },
+        subTitle: {
+          fontSize: 20,
+          bold: true,
+        },
+        body: {
+          fontSize: 18,
+        },
+      },
+      defaultStyle: {
+        font: "Helvetica",
+      },
+    };
+
+    const fonts = {
+      Helvetica: {
+        normal: "Helvetica",
+        bold: "Helvetica-Bold",
+        italics: "Helvetica-Oblique",
+        bolditalics: "Helvetica-BoldOblique",
+      },
+    };
+
+    const pdf = new PdfPrinter(fonts);
+
+    const pdfDoc = pdf.createPdfKitDocument(docDefinition);
+
+    pdfDoc.end();
 
     const { error } = await sendEmail(
       alumni.user?.email,
       "SKCT Alumni Portal - Your Alumni Request has been approved",
       {
-        qrCodeUrl: cid,
+        qrCodeUrl,
         avatarUrl,
         name,
         dept,
@@ -144,13 +260,10 @@ export const approveAlumni = asyncHandler(async (req, res) => {
       },
       path.join(__dirname, "templates", "approval-mail.ejs"),
       {
-        attachments: [
-          {
-            filename: "qr",
-
-            cid,
-          },
-        ],
+        attachments: {
+          filename: "QR.pdf",
+          content: pdfDoc,
+        },
       }
     );
 
