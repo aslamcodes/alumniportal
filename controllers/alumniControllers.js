@@ -11,7 +11,6 @@ import path from "path";
 import QRCode from "qrcode";
 import { __dirname } from "../index.js";
 import PdfPrinter from "pdfmake";
-import fs from "fs";
 
 export const registerAlumni = asyncHandler(async (req, res) => {
   const { user } = req.body;
@@ -133,58 +132,91 @@ export const approveAlumni = asyncHandler(async (req, res) => {
 
     const docDefinition = {
       content: [
-        // {
-        //   image: path.join(__dirname, "uploads", "skct_logo_1.png"),
-        //   width: 50,
-        //   alignment: "left",
-        // },
-
         {
-          text: "Sri Krishna College Of Technology",
-          style: "header",
-          alignment: "center",
+          columns: [
+            {
+              image: path.join(__dirname, "uploads", "skct_logo_1.png"),
+              width: 70,
+            },
+            {
+              stack: [
+                {
+                  margin: [0, 20, 0, 0],
+                  text: "Sri Krishna College Of Technology",
+                  style: "header",
+                  alignment: "center",
+                },
+                {
+                  margin: [0, 5, 0, 0],
+                  text: "AUTONOMOUS INSTITUTION | ACCREDITED BY NAAC WITH 'A' GRADE",
+                  style: "header6",
+                  alignment: "center",
+                },
+              ],
+              width: "*",
+            },
+
+            {
+              image: path.join(__dirname, "uploads", "skct_logo_2.png"),
+              width: 70,
+            },
+          ],
         },
-        // {
-        //   image: path.join(__dirname, "uploads", "skct_logo_2.png"),
-        //   width: 50,
-        //   alignment: "right",
-        // },
 
         {
-          margin: [0, 0, 0, 0],
+          margin: [0, 60, 0, 0],
           text: "Alumni Membership Card",
           style: "subTitle",
           alignment: "center",
         },
-
-        // { image: path.join(__dirname, "uploads", "/default.jpeg"), width: 150 },
-
         {
-          text: `Name: ${name}`,
-          style: "body",
-        },
+          columns: [
+            {
+              image: path.join(__dirname, "uploads", "/default.jpg"),
+              width: 150,
+            },
+            {
+              stack: [
+                {
+                  margin: [0, 3, 0, 0],
+                  text: `Name: ${name}`,
+                  style: "body",
+                },
 
-        {
-          text: `Department: ${dept}`,
-          style: "body",
-        },
+                {
+                  margin: [0, 3, 0, 0],
+                  text: `Department: ${dept}`,
+                  style: "body",
+                },
 
-        {
-          text: `Batch: ${batch}`,
-          style: "body",
+                {
+                  margin: [0, 3, 0, 0],
+                  text: `Batch: ${batch}`,
+                  style: "body",
+                },
+                {
+                  margin: [0, 3, 0, 0],
+                  text: `Contact: ${contact}`,
+                  style: "body",
+                },
+              ],
+              margin: [0, 40, 0, 0],
+              alignment: "center",
+              width: "*",
+            },
+            { image: qrCodeUrl, width: 150 },
+          ],
         },
-        {
-          text: `Contact: ${contact}`,
-          style: "body",
-        },
-
-        { image: qrCodeUrl, fit: 150 },
       ],
       pageOrientation: "landscape",
 
       styles: {
         header: {
           fontSize: 22,
+          bold: true,
+        },
+        header6: {
+          fontSize: 14,
           bold: true,
         },
         subTitle: {
