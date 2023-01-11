@@ -162,7 +162,7 @@ export const approveAlumni = asyncHandler(async (req, res) => {
             },
           ],
         },
-
+        // Todo: @Aswin, Make the Alumni MemberShip card centered
         {
           margin: [0, 60, 0, 0],
           text: "Alumni Membership Card",
@@ -170,42 +170,33 @@ export const approveAlumni = asyncHandler(async (req, res) => {
           alignment: "center",
         },
         {
-          columns: [
-            {
-              image: path.join(__dirname, "uploads", "/default.jpg"),
-              width: 150,
-            },
-            {
-              stack: [
+          layout: "noBorders",
+          table: {
+            headerRows: 0,
+            widths: [150, "*", 150],
+            body: [
+              [
                 {
-                  margin: [0, 3, 0, 0],
-                  text: `Name: ${name}`,
-                  style: "body",
-                },
-
-                {
-                  margin: [0, 3, 0, 0],
-                  text: `Department: ${dept}`,
-                  style: "body",
-                },
-
-                {
-                  margin: [0, 3, 0, 0],
-                  text: `Batch: ${batch}`,
-                  style: "body",
+                  image: path.join(__dirname, "uploads", "/default.jpg"),
+                  width: 150,
                 },
                 {
-                  margin: [0, 3, 0, 0],
-                  text: `Contact: ${contact}`,
-                  style: "body",
+                  stack: [
+                    {
+                      text: `Name: ${name} \nDepartment: ${dept}\nBatch: ${batch}\nContact: ${contact}`,
+                      style: "body",
+                    },
+                  ],
+                  margin: [0, 43, 0, 0],
+                  width: "*",
+                },
+                {
+                  image: qrCodeUrl,
+                  width: 150,
                 },
               ],
-              margin: [0, 40, 0, 0],
-              alignment: "center",
-              width: "*",
-            },
-            { image: qrCodeUrl, width: 150 },
-          ],
+            ],
+          },
         },
       ],
       pageOrientation: "landscape",
