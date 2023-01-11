@@ -132,7 +132,7 @@
 }
 
 .form_input_container > input[type="date"] {
-  font-size: 1.2em;
+  font-size: 1em;
 }
 .form_input_container > input::-webkit-datetime-edit-day-field:focus,
 .form_input_container > input::-webkit-datetime-edit-month-field:focus,
