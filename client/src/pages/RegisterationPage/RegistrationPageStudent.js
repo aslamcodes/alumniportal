@@ -77,6 +77,7 @@ function RegistrationPageStudent() {
   const emailRef = useRef("");
   const registerNumberRef = useRef("");
   const departmentRef = useRef("");
+  const dateOfBirthRef = useRef("");
 
   const { alumni } = useFetchAlumniStoredData({
     email: emailRef.current,
@@ -117,7 +118,7 @@ function RegistrationPageStudent() {
         ...prev,
         name: alumni?.name,
         yearOfPassing: +alumni?.batch + 4,
-        dateOfBirth: [year, month, day].join("-"),
+        // dateOfBirth: [year, month, day].join("-"),
         registerNumber: alumni?.registerNumber,
         phoneNumber: alumni?.contact,
       };
@@ -305,10 +306,12 @@ function RegistrationPageStudent() {
                       className={`${styles.form_input_container} ${styles.split_container}`}
                     >
                       <input
+                        ref={dateOfBirthRef}
                         name="dateOfBirth"
-                        type="date"
+                        type="text"
+                        placeholder="Date of Birth"
                         id="dateOfBirth"
-
+                        onFocus={() => (dateOfBirthRef.current.type = "date")}
                         value={data.dateOfBirth}
                         onChange={handleChange}
                         max="2022-04-17"
