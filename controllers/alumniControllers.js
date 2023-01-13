@@ -220,8 +220,24 @@ export const approveAlumni = asyncHandler(async (req, res) => {
                 {
                   stack: [
                     {
-                      text: `NAME: ${name} \nDEPARTMENT: ${dept}\nBATCH: ${batch}\nCONTACT: ${contact}`,
+                      text: `NAME: ${name}`,
                       style: "header",
+                      margin: [0, 5, 0, 0],
+                    },
+                    {
+                      text: `DEPARTMENT: ${dept}`,
+                      style: "header",
+                      margin: [0, 5, 0, 0],
+                    },
+                    {
+                      text: `BATCH: ${batch}`,
+                      style: "header",
+                      margin: [0, 5, 0, 0],
+                    },
+                    {
+                      text: `CONTACT: ${contact}`,
+                      style: "header",
+                      margin: [0, 5, 0, 0],
                     },
                   ],
                   margin: [0, 43, 0, 0],
