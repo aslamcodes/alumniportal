@@ -133,47 +133,84 @@ export const approveAlumni = asyncHandler(async (req, res) => {
     const docDefinition = {
       content: [
         {
-          columns: [
-            {
-              image: path.join(__dirname, "uploads", "skct_logo_1.png"),
-              width: 70,
-            },
-            {
-              stack: [
-                {
-                  margin: [0, 20, 0, 0],
-                  text: "Sri Krishna College Of Technology",
-                  style: "header",
-                  alignment: "center",
-                },
-                {
-                  margin: [0, 5, 0, 0],
-                  text: "AUTONOMOUS INSTITUTION | ACCREDITED BY NAAC WITH 'A' GRADE",
-                  style: "header6",
-                  alignment: "center",
-                },
-              ],
-              width: "*",
-            },
-
-            {
-              image: path.join(__dirname, "uploads", "skct_logo_2.png"),
-              width: 70,
-            },
-          ],
-        },
-        // Todo: @Aswin, Make the Alumni MemberShip card centered
-        {
-          margin: [0, 60, 0, 0],
-          text: "Alumni Membership Card",
-          style: "subTitle",
-          alignment: "center",
-        },
-        {
           layout: "noBorders",
+          fillColor: "#CDE7FB",
           table: {
             headerRows: 0,
-            widths: [150, "*", 150],
+            widths: ["20%", "*", "20%"],
+            body: [
+              [
+                {
+                  margin: [10, 0, 0, 0],
+                  image: path.join(__dirname, "uploads", "skct_logo_1.png"),
+                  width: 70,
+                  alignment: "left",
+                },
+                {
+                  alignment: "center",
+                  stack: [
+                    {
+                      margin: [0, 20, 0, 0],
+                      width: "*",
+                      text: "Sri Krishna College Of Technology",
+                      style: "header",
+                      alignment: "center",
+                    },
+                    {
+                      width: "*",
+                      margin: [0, 5, 0, 0],
+                      text: "AUTONOMOUS INSTITUTION | ACCREDITED BY NAAC WITH 'A' GRADE",
+                      style: "header6",
+                      alignment: "center",
+                    },
+                  ],
+                  width: "*",
+                },
+                {
+                  margin: [10, 0],
+                  image: path.join(__dirname, "uploads", "skct_logo_2.png"),
+                  width: 70,
+                  alignment: "right",
+                },
+              ],
+            ],
+          },
+        },
+
+        {
+          margin: [0, 40],
+          style: "section",
+          table: {
+            widths: ["20%", "*", "20%"],
+            body: [
+              [
+                {
+                  text: "",
+                },
+                {
+                  margin: [10, 10, 10, 10],
+                  text: "Alumni Membership Card",
+                  color: "#285FA4",
+                  alignment: "center",
+                  bold: true,
+                  fontSize: 28,
+                  fillColor: "#CDE7FB",
+                },
+                {
+                  text: "",
+                },
+              ],
+            ],
+          },
+          layout: "noBorders",
+        },
+
+        {
+          layout: "noBorders",
+          margin: [20, 0],
+          table: {
+            headerRows: 0,
+            widths: [250, "*", 150],
             body: [
               [
                 {
@@ -183,8 +220,8 @@ export const approveAlumni = asyncHandler(async (req, res) => {
                 {
                   stack: [
                     {
-                      text: `Name: ${name} \nDepartment: ${dept}\nBatch: ${batch}\nContact: ${contact}`,
-                      style: "body",
+                      text: `NAME: ${name} \nDEPARTMENT: ${dept}\nBATCH: ${batch}\nCONTACT: ${contact}`,
+                      style: "header",
                     },
                   ],
                   margin: [0, 43, 0, 0],
@@ -198,7 +235,27 @@ export const approveAlumni = asyncHandler(async (req, res) => {
             ],
           },
         },
+
+        {
+          layout: "noBorders",
+          fillColor: "#CDE7FB",
+          absolutePosition: { x: 0, y: 557 },
+          table: {
+            headerRows: 0,
+            widths: ["*"],
+            body: [
+              [
+                {
+                  text: "Formerly V.L.B.Janakiammal College of Engineering and Technology | Alumni cell® SRG/coimbatore/134/2022",
+                  alignment: "center",
+                  margin: [10, 10, 10, 10],
+                },
+              ],
+            ],
+          },
+        },
       ],
+      pageMargins: [0, 0, 0, 0],
       pageOrientation: "landscape",
 
       styles: {
@@ -252,7 +309,7 @@ export const approveAlumni = asyncHandler(async (req, res) => {
       path.join(__dirname, "templates", "approval-mail.ejs"),
       {
         attachments: {
-          filename: "QR.pdf",
+          filename: `${name}'s Alumni Membership Card | SKCT.pdf`,
           content: pdfDoc,
         },
       }
