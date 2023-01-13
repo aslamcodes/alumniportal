@@ -141,7 +141,7 @@ export const approveAlumni = asyncHandler(async (req, res) => {
             body: [
               [
                 {
-                  margin: [10, 0, 0, 0],
+                  margin: [15, 10],
                   image: path.join(__dirname, "uploads", "skct_logo_1.png"),
                   width: 70,
                   alignment: "left",
@@ -163,11 +163,18 @@ export const approveAlumni = asyncHandler(async (req, res) => {
                       style: "header6",
                       alignment: "center",
                     },
+                    {
+                      width: "*",
+                      margin: [0, 5, 0, 10],
+                      text: "Kovaipudur, Coimbatore - 641042",
+                      style: "body",
+                      alignment: "center",
+                    },
                   ],
                   width: "*",
                 },
                 {
-                  margin: [10, 0],
+                  margin: [10, 10],
                   image: path.join(__dirname, "uploads", "skct_logo_2.png"),
                   width: 70,
                   alignment: "right",
@@ -240,7 +247,7 @@ export const approveAlumni = asyncHandler(async (req, res) => {
                       margin: [0, 5, 0, 0],
                     },
                   ],
-                  margin: [0, 43, 0, 0],
+                  margin: [0, 30, 0, 0],
                   width: "*",
                 },
                 {
@@ -288,7 +295,7 @@ export const approveAlumni = asyncHandler(async (req, res) => {
           bold: true,
         },
         body: {
-          fontSize: 18,
+          fontSize: 14,
         },
       },
       defaultStyle: {
