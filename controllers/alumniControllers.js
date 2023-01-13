@@ -159,7 +159,7 @@ export const approveAlumni = asyncHandler(async (req, res) => {
                     {
                       width: "*",
                       margin: [0, 5, 0, 0],
-                      text: "AUTONOMOUS INSTITUTION | ACCREDITED BY NAAC WITH 'A' GRADE",
+                      text: "AUTONOMOUS INSTITUTION | AFFILIATED TO ANNA UNIVERSITY",
                       style: "header6",
                       alignment: "center",
                     },
