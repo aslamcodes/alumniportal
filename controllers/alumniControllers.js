@@ -152,14 +152,21 @@ export const approveAlumni = asyncHandler(async (req, res) => {
                     {
                       margin: [0, 20, 0, 0],
                       width: "*",
-                      text: "Sri Krishna College Of Technology",
+                      text: "Sri Krishna College of Technology",
                       style: "header",
                       alignment: "center",
                     },
                     {
                       width: "*",
                       margin: [0, 5, 0, 0],
-                      text: "AUTONOMOUS INSTITUTION | AFFILIATED TO ANNA UNIVERSITY",
+                      text: "(An Autonomous Institution)",
+                      style: "header6",
+                      alignment: "center",
+                    },
+                    {
+                      width: "*",
+                      margin: [0, 5, 0, 0],
+                      text: "Affiliated to Anna University | Approved by AICTE",
                       style: "header6",
                       alignment: "center",
                     },
