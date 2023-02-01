@@ -301,8 +301,8 @@ function RegistrationPageStudent() {
                           src={
                             image
                               ? URL.createObjectURL(image)
-                              :
-                              "https://media.istockphoto.com/id/1376153425/photo/person-standing-on-the-top-of-the-mountain-with-hand-up-back-view-over-the-city-at-sunset.jpg?b=1&s=170667a&w=0&k=20&c=nleSNzNoQEmCOQp4A5335-Z--vq4DgUhAUIMAhSytw8="} alt="profile_img" />
+                              : require("assets/icons/user 1.png")}
+                          alt="profile_img" />
                         <label htmlFor="img-switch">
                           <img
                             src={require("assets/image-switch.png")}
