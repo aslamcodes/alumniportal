@@ -294,7 +294,7 @@ function RegistrationPageStudent() {
                         Select your graduation level
                       </p>
                     )}
-                    <div className={`${styles.form_input_container} ${styles.split_container}`}>
+                    <div className={`${styles.form_input_container} ${styles.split_container} ${styles.mobile_split_container}`}>
                       <div className={styles.profile_image}>
 
                         <img

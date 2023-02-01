@@ -206,6 +206,12 @@
   width: 100%;
 }
 
+.mobile_split_container {
+  display: flex;
+  flex-direction: row;
+  gap: 0.6rem;
+}
+
 @media (min-width: 1020px) {
   .container {
     /* min-height: calc(100vh - var(--footer-height)); */
