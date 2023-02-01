@@ -81,13 +81,13 @@ function App() {
     if (socket) socket.emit(ClientSocketEvents.CONNECT_USER);
   }, [socket]);
 
-  useEffect(() => {
-    controls.play();
-  }, [user]);
+  // useEffect(() => {
+  //   controls.play();
+  // }, [user]);
 
   return (
     <div className="App">
-      {audio}
+      {/* {audio} */}
       <AlertContextComponent />
       <Router>
         <Messages />

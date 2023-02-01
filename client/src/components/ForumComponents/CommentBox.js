@@ -35,7 +35,7 @@ const CommentBox = ({ commentData }) => {
       >
         <div className={Styles.heading}>
           <img
-            src={`http://localhost:8000/api/v1/users/user-avatar/${
+            src={`/api/v1/users/user-avatar/${
               user._id ? user._id : user
             }`}
             alt="profile"

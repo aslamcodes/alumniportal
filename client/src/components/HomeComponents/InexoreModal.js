@@ -55,7 +55,7 @@ const MEMBERS = [
     ),
     name: "Mohammed Aslam",
     designation: "Developer",
-    quote: "I love Shawarmas 😋🌯",
+    quote: "கற்றது கை மண் அளவு கல்லாதது உலகளவு",
     github: "https://github.com/aslamcodes",
   },
 ];
@@ -74,7 +74,7 @@ const InexoreModal = ({ closemodal, isOpen, post }) => {
     config: config.wobbly,
   });
   useEffect(() => {
-    document.title = "Alumni Portal | Inexore";
+    document.title = "Alumni Portal | SKCT";
   }, []);
 
   useEffect(() => {

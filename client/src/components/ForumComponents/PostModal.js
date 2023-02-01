@@ -43,7 +43,7 @@ const PostModal = ({ handleClose, isOpen, post }) => {
                   <div className={Styles.user_info_container}>
                     <img
                       className={Styles.profile_image}
-                      src={`http://localhost:8000/api/v1/users/user-avatar/${post.user._id}`}
+                      src={`/api/v1/users/user-avatar/${post.user._id}`}
                       alt={"profile"}
                     />
                     <div className={Styles.user_info}>

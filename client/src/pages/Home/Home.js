@@ -50,7 +50,7 @@ const Home = () => {
               loop
               autoPlay
               muted
-              alt={"video"}
+              alt={""}
             />
           ) : (
             <video
