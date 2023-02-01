@@ -36,6 +36,7 @@ function RegistrationPageStudent() {
   const dispatch = useAuthDispatchContext();
   const { user, isLoading, error } = useAuthContext();
   const location = useLocation();
+  const [image, setImage] = useState("");
   const [formStep, setFormStep] = useState(1);
   const [isCPasswordDirty, setIsCPasswordDirty] = useState(false);
   const [isPasswordMatch, setIsPasswordMatch] = useState(false);
@@ -159,6 +160,12 @@ function RegistrationPageStudent() {
     }
   };
 
+  const handleChangeProfileImage = (e) => {
+    if (!e.target.files || e.target.files.length === 0) {
+      return setImage(image || undefined);
+    }
+    setImage(e.target.files[0]);
+  };
 
 
   const handleSubmit = async (e) => {
@@ -180,6 +187,7 @@ function RegistrationPageStudent() {
       }
       formData.append(key, data[key]);
     });
+    if (image !== "") formData.append("avatar", image);
     if (flag) {
       await register(dispatch, formData);
     }
@@ -286,7 +294,31 @@ function RegistrationPageStudent() {
                         Select your graduation level
                       </p>
                     )}
-                    <div className={styles.form_input_container}>
+                    <div className={`${styles.form_input_container} ${styles.split_container}`}>
+                      <div className={styles.profile_image}>
+
+                        <img
+                          src={
+                            image
+                              ? URL.createObjectURL(image)
+                              :
+                              "https://media.istockphoto.com/id/1376153425/photo/person-standing-on-the-top-of-the-mountain-with-hand-up-back-view-over-the-city-at-sunset.jpg?b=1&s=170667a&w=0&k=20&c=nleSNzNoQEmCOQp4A5335-Z--vq4DgUhAUIMAhSytw8="} alt="profile_img" />
+                        <label htmlFor="img-switch">
+                          <img
+                            src={require("assets/image-switch.png")}
+                            alt="switch-icon"
+                            htmlFor="img-switch"
+                          />
+                        </label>
+                        <input
+                          name="image"
+                          id="img-switch"
+                          type="file"
+                          accept=".png,.jpg,.jpeg"
+                          onChange={handleChangeProfileImage}
+                        />
+                      </div>
+
                       <input
                         name="name"
                         type="text"
