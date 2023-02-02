@@ -36,6 +36,7 @@ function RegistrationPageStudent() {
   const dispatch = useAuthDispatchContext();
   const { user, isLoading, error } = useAuthContext();
   const location = useLocation();
+  const [image, setImage] = useState("");
   const [formStep, setFormStep] = useState(1);
   const [isCPasswordDirty, setIsCPasswordDirty] = useState(false);
   const [isPasswordMatch, setIsPasswordMatch] = useState(false);
@@ -43,6 +44,7 @@ function RegistrationPageStudent() {
     yearOfPassing: "",
     department: "",
     graduationLevel: "",
+    profile_image: image,
     name: "",
     dateOfBirth: "",
     email: "",
@@ -59,6 +61,7 @@ function RegistrationPageStudent() {
     yearOfPassing: false,
     department: false,
     graduationLevel: false,
+    profile_image: false,
     name: false,
     dateOfBirth: false,
     email: false,
@@ -159,6 +162,21 @@ function RegistrationPageStudent() {
     }
   };
 
+  const handleChangeProfileImage = (e) => {
+    if (!e.target.files || e.target.files.length === 0) {
+      setImage(image || undefined);
+      setData({
+        ...data,
+        "profile_image": image || undefined,
+      });
+    } else {
+      setData({
+        ...data,
+        "profile_image": e.target.files[0],
+      });
+      setImage(e.target.files[0]);
+    }
+  };
 
 
   const handleSubmit = async (e) => {
@@ -180,6 +198,7 @@ function RegistrationPageStudent() {
       }
       formData.append(key, data[key]);
     });
+    if (image !== "") formData.append("avatar", image);
     if (flag) {
       await register(dispatch, formData);
     }
@@ -286,7 +305,31 @@ function RegistrationPageStudent() {
                         Select your graduation level
                       </p>
                     )}
-                    <div className={styles.form_input_container}>
+                    <div className={`${styles.form_input_container} ${styles.split_container} ${styles.mobile_split_container}`}>
+                      <div className={styles.profile_image}>
+
+                        <img
+                          src={
+                            image
+                              ? URL.createObjectURL(image)
+                              : require("assets/icons/user 1.png")}
+                          alt="profile_img" />
+                        <label htmlFor="img-switch">
+                          <img
+                            src={require("assets/image-switch.png")}
+                            alt="switch-icon"
+                            htmlFor="img-switch"
+                          />
+                        </label>
+                        <input
+                          name="image"
+                          id="img-switch"
+                          type="file"
+                          accept=".png,.jpg,.jpeg"
+                          onChange={handleChangeProfileImage}
+                        />
+                      </div>
+
                       <input
                         name="name"
                         type="text"
@@ -297,6 +340,11 @@ function RegistrationPageStudent() {
                         onChange={handleChange}
                       />
                     </div>
+                    {validationError["profile_image"] && (
+                      <p className={styles.validation_error}>
+                        Select Profile Picture
+                      </p>
+                    )}
                     {validationError["name"] && (
                       <p className={styles.validation_error}>
                         Enter your name
