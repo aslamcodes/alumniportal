@@ -7,10 +7,14 @@ import notificationConstants from "../constants/notification-constants.js";
 import Notification from "../models/Notification.js";
 import RejectedApplication from "../models/RejectedApplication.js";
 import sendEmail, { base64ToDirect } from "../utils/email.js";
-import path from "path";
+import path, { resolve } from "path";
 import QRCode from "qrcode";
 import { __dirname } from "../index.js";
 import PdfPrinter from "pdfmake";
+import mongoose from "mongoose";
+import fs from "fs";
+import { Base64Encode } from "base64-stream";
+import concat from "concat-stream";
 
 export const registerAlumni = asyncHandler(async (req, res) => {
   const { user } = req.body;
@@ -105,6 +109,46 @@ export const approveAlumni = asyncHandler(async (req, res) => {
   ).populate("user");
 
   if (alumni) {
+    const bucket = new mongoose.mongo.GridFSBucket(mongoose.connection.db, {
+      bucketName: "user_avatar_images",
+    });
+
+    await new Promise((resolve, reject) => {
+      const readStream = bucket.openDownloadStream(
+        mongoose.Types.ObjectId(alumni.user?.avatar)
+      );
+
+      const file = bucket.find({
+        _id: mongoose.Types.ObjectId(alumni.user?.avatar),
+      });
+
+      console.log(JSON.stringify(file.toArray()));
+
+      readStream.on("error", function (err) {
+        const filename = __dirname + "/uploads/default.jpeg";
+        const fsStream = fs.createReadStream(filename);
+        fsStream.on("open", function () {
+          fsStream.pipe(res);
+        });
+        fsStream.on("error", function (err) {
+          res.end(err);
+        });
+      });
+
+      const writeStream = fs.createWriteStream(
+        __dirname + "/uploads/user.jpeg"
+      );
+
+      readStream.pipe(writeStream).on("error", (error) => {
+        reject(error);
+      });
+
+      writeStream.on("error", () => {
+        console.log("error");
+      });
+      resolve();
+    });
+
     await User.findByIdAndUpdate(id, { isAlumni: true, alumni: alumni._id });
 
     await AlumniRequest.deleteOne({ user: id });
@@ -120,6 +164,7 @@ export const approveAlumni = asyncHandler(async (req, res) => {
     const qrCodeUrl = await QRCode.toDataURL(
       `${req.get("host")}/qr?user=${alumni.user._id}`
     );
+
     const avatarUrl = `${req.get("host")}/api/v1/users/user-avatar/${
       alumni.user._id
     }`;
@@ -228,7 +273,7 @@ export const approveAlumni = asyncHandler(async (req, res) => {
             body: [
               [
                 {
-                  image: path.join(__dirname, "uploads", "/default.jpg"),
+                  image: __dirname + "/uploads/user.jpeg",
                   width: 150,
                 },
                 {
@@ -324,6 +369,7 @@ export const approveAlumni = asyncHandler(async (req, res) => {
     const pdfDoc = pdf.createPdfKitDocument(docDefinition);
 
     pdfDoc.end();
+    console.log("PDF ready, now sending a mail");
 
     const { error } = await sendEmail(
       alumni.user?.email,
