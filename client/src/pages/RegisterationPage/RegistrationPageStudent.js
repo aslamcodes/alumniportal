@@ -44,7 +44,6 @@ function RegistrationPageStudent() {
     yearOfPassing: "",
     department: "",
     graduationLevel: "",
-    profile_image: image,
     name: "",
     dateOfBirth: "",
     email: "",
@@ -61,7 +60,6 @@ function RegistrationPageStudent() {
     yearOfPassing: false,
     department: false,
     graduationLevel: false,
-    profile_image: false,
     name: false,
     dateOfBirth: false,
     email: false,
@@ -164,18 +162,9 @@ function RegistrationPageStudent() {
 
   const handleChangeProfileImage = (e) => {
     if (!e.target.files || e.target.files.length === 0) {
-      setImage(image || undefined);
-      setData({
-        ...data,
-        "profile_image": image || undefined,
-      });
-    } else {
-      setData({
-        ...data,
-        "profile_image": e.target.files[0],
-      });
-      setImage(e.target.files[0]);
+      return setImage(image || undefined);
     }
+    setImage(e.target.files[0]);
   };
 
 
@@ -340,11 +329,6 @@ function RegistrationPageStudent() {
                         onChange={handleChange}
                       />
                     </div>
-                    {validationError["profile_image"] && (
-                      <p className={styles.validation_error}>
-                        Select Profile Picture
-                      </p>
-                    )}
                     {validationError["name"] && (
                       <p className={styles.validation_error}>
                         Enter your name
