@@ -109,46 +109,6 @@ export const approveAlumni = asyncHandler(async (req, res) => {
   ).populate("user");
 
   if (alumni) {
-    const bucket = new mongoose.mongo.GridFSBucket(mongoose.connection.db, {
-      bucketName: "user_avatar_images",
-    });
-
-    await new Promise((resolve, reject) => {
-      const readStream = bucket.openDownloadStream(
-        mongoose.Types.ObjectId(alumni.user?.avatar)
-      );
-
-      const file = bucket.find({
-        _id: mongoose.Types.ObjectId(alumni.user?.avatar),
-      });
-
-      console.log(JSON.stringify(file.toArray()));
-
-      readStream.on("error", function (err) {
-        const filename = __dirname + "/uploads/default.jpeg";
-        const fsStream = fs.createReadStream(filename);
-        fsStream.on("open", function () {
-          fsStream.pipe(res);
-        });
-        fsStream.on("error", function (err) {
-          res.end(err);
-        });
-      });
-
-      const writeStream = fs.createWriteStream(
-        __dirname + "/uploads/user.jpeg"
-      );
-
-      readStream.pipe(writeStream).on("error", (error) => {
-        reject(error);
-      });
-
-      writeStream.on("error", () => {
-        console.log("error");
-      });
-      resolve();
-    });
-
     await User.findByIdAndUpdate(id, { isAlumni: true, alumni: alumni._id });
 
     await AlumniRequest.deleteOne({ user: id });
@@ -161,241 +121,306 @@ export const approveAlumni = asyncHandler(async (req, res) => {
         "Your request has been approved. You can now access alumni features.",
     });
 
-    const qrCodeUrl = await QRCode.toDataURL(
-      `${req.get("host")}/qr?user=${alumni.user._id}`
-    );
+    // For Sending Emails 👇
+    const bucket = new mongoose.mongo.GridFSBucket(mongoose.connection.db, {
+      bucketName: "user_avatar_images",
+    });
 
-    const avatarUrl = `${req.get("host")}/api/v1/users/user-avatar/${
-      alumni.user._id
-    }`;
+    const files = await bucket
+      .find({
+        _id: mongoose.Types.ObjectId(alumni.user?.avatar),
+      })
+      .toArray();
 
-    const name = alumni.user.name;
-    const dept = alumni.user?.department;
-    const yearOfPassing = alumni.user?.yearOfPassing.getFullYear();
-    const batch = `${yearOfPassing - 4} - ${yearOfPassing} `;
-    const contact = alumni.user?.phoneNumber;
+    const { filename, contentType } = files[0];
 
-    const docDefinition = {
-      content: [
-        {
-          layout: "noBorders",
-          fillColor: "#CDE7FB",
-          table: {
-            headerRows: 0,
-            widths: ["20%", "*", "20%"],
-            body: [
-              [
-                {
-                  margin: [15, 10],
-                  image: path.join(__dirname, "uploads", "skct_logo_1.png"),
-                  width: 70,
-                  alignment: "left",
-                },
-                {
-                  alignment: "center",
-                  stack: [
-                    {
-                      margin: [0, 20, 0, 0],
-                      width: "*",
-                      text: "Sri Krishna College of Technology",
-                      style: "header",
-                      alignment: "center",
-                    },
-                    {
-                      width: "*",
-                      margin: [0, 5, 0, 0],
-                      text: "(An Autonomous Institution)",
-                      style: "header6",
-                      alignment: "center",
-                    },
-                    {
-                      width: "*",
-                      margin: [0, 5, 0, 0],
-                      text: "Affiliated to Anna University | Approved by AICTE",
-                      style: "header6",
-                      alignment: "center",
-                    },
-                    {
-                      width: "*",
-                      margin: [0, 5, 0, 10],
-                      text: "Kovaipudur, Coimbatore - 641042",
-                      style: "body",
-                      alignment: "center",
-                    },
+    const avatarImage = path
+      .join(
+        __dirname,
+        "images",
+        path.parse(filename).name + "." + contentType.split("/").pop()
+      )
+      .trim();
+
+    await new Promise((resolve, reject) => {
+      const readStream = bucket.openDownloadStream(
+        mongoose.Types.ObjectId(alumni.user?.avatar)
+      );
+
+      const writeStream = fs.createWriteStream(avatarImage);
+
+      readStream.on("error", function  (err) {
+        const filename = __dirname + "/uploads/default.jpeg";
+        const fsStream = fs.createReadStream(filename);
+        fsStream.on("open", function () {
+          fsStream.pipe(writeStream);
+        });
+        fsStream.on("error", function (err) {
+          res.end(err);
+        });
+      });
+
+      readStream
+        .pipe(writeStream)
+        .on("error", (error) => {
+          reject(error);
+        })
+        .on("finish", async () => {
+          const qrCodeUrl = await QRCode.toDataURL(
+            `${req.get("host")}/qr?user=${alumni.user._id}`
+          );
+
+          const avatarUrl = `${req.get("host")}/api/v1/users/user-avatar/${
+            alumni.user._id
+          }`;
+
+          const name = alumni.user.name;
+          const dept = alumni.user?.department;
+          const yearOfPassing = alumni.user?.yearOfPassing.getFullYear();
+          const batch = `${yearOfPassing - 4} - ${yearOfPassing} `;
+          const contact = alumni.user?.phoneNumber;
+
+          const docDefinition = {
+            content: [
+              {
+                layout: "noBorders",
+                fillColor: "#CDE7FB",
+                table: {
+                  headerRows: 0,
+                  widths: ["20%", "*", "20%"],
+                  body: [
+                    [
+                      {
+                        margin: [15, 10],
+                        image: path.join(
+                          __dirname,
+                          "uploads",
+                          "skct_logo_1.png"
+                        ),
+                        width: 70,
+                        alignment: "left",
+                      },
+                      {
+                        alignment: "center",
+                        stack: [
+                          {
+                            margin: [0, 20, 0, 0],
+                            width: "*",
+                            text: "Sri Krishna College of Technology",
+                            style: "header",
+                            alignment: "center",
+                          },
+                          {
+                            width: "*",
+                            margin: [0, 5, 0, 0],
+                            text: "(An Autonomous Institution)",
+                            style: "header6",
+                            alignment: "center",
+                          },
+                          {
+                            width: "*",
+                            margin: [0, 5, 0, 0],
+                            text: "Affiliated to Anna University | Approved by AICTE",
+                            style: "header6",
+                            alignment: "center",
+                          },
+                          {
+                            width: "*",
+                            margin: [0, 5, 0, 10],
+                            text: "Kovaipudur, Coimbatore - 641042",
+                            style: "body",
+                            alignment: "center",
+                          },
+                        ],
+                        width: "*",
+                      },
+                      {
+                        margin: [10, 10],
+                        image: path
+                          .join(__dirname, "uploads", "skct_logo_2.png")
+                          .trim(),
+                        width: 70,
+                        alignment: "right",
+                      },
+                    ],
                   ],
-                  width: "*",
                 },
-                {
-                  margin: [10, 10],
-                  image: path.join(__dirname, "uploads", "skct_logo_2.png"),
-                  width: 70,
-                  alignment: "right",
-                },
-              ],
-            ],
-          },
-        },
+              },
 
-        {
-          margin: [0, 40],
-          style: "section",
-          table: {
-            widths: ["20%", "*", "20%"],
-            body: [
-              [
-                {
-                  text: "",
-                },
-                {
-                  margin: [10, 10, 10, 10],
-                  text: "Alumni Membership Card",
-                  color: "#285FA4",
-                  alignment: "center",
-                  bold: true,
-                  fontSize: 28,
-                  fillColor: "#CDE7FB",
-                },
-                {
-                  text: "",
-                },
-              ],
-            ],
-          },
-          layout: "noBorders",
-        },
-
-        {
-          layout: "noBorders",
-          margin: [20, 0],
-          table: {
-            headerRows: 0,
-            widths: [250, "*", 150],
-            body: [
-              [
-                {
-                  image: __dirname + "/uploads/user.jpeg",
-                  width: 150,
-                },
-                {
-                  stack: [
-                    {
-                      text: `NAME: ${name}`,
-                      style: "header",
-                      margin: [0, 5, 0, 0],
-                    },
-                    {
-                      text: `DEPARTMENT: ${dept}`,
-                      style: "header",
-                      margin: [0, 5, 0, 0],
-                    },
-                    {
-                      text: `BATCH: ${batch}`,
-                      style: "header",
-                      margin: [0, 5, 0, 0],
-                    },
-                    {
-                      text: `CONTACT: ${contact}`,
-                      style: "header",
-                      margin: [0, 5, 0, 0],
-                    },
+              {
+                margin: [0, 40],
+                style: "section",
+                table: {
+                  widths: ["20%", "*", "20%"],
+                  body: [
+                    [
+                      {
+                        text: "",
+                      },
+                      {
+                        margin: [10, 10, 10, 10],
+                        text: "Alumni Membership Card",
+                        color: "#285FA4",
+                        alignment: "center",
+                        bold: true,
+                        fontSize: 28,
+                        fillColor: "#CDE7FB",
+                      },
+                      {
+                        text: "",
+                      },
+                    ],
                   ],
-                  margin: [0, 30, 0, 0],
-                  width: "*",
                 },
-                {
-                  image: qrCodeUrl,
-                  width: 150,
+                layout: "noBorders",
+              },
+
+              {
+                layout: "noBorders",
+                margin: [20, 0],
+                table: {
+                  headerRows: 0,
+                  widths: [250, "*", 150],
+                  body: [
+                    [
+                      {
+                        image: path.join(
+                          __dirname,
+                          "images",
+                          path.parse(filename).name +
+                            "." +
+                            contentType.split("/").pop()
+                        ),
+                        width: 150,
+                      },
+                      {
+                        stack: [
+                          {
+                            text: `NAME: ${name}`,
+                            style: "header",
+                            margin: [0, 5, 0, 0],
+                          },
+                          {
+                            text: `DEPARTMENT: ${dept}`,
+                            style: "header",
+                            margin: [0, 5, 0, 0],
+                          },
+                          {
+                            text: `BATCH: ${batch}`,
+                            style: "header",
+                            margin: [0, 5, 0, 0],
+                          },
+                          {
+                            text: `CONTACT: ${contact}`,
+                            style: "header",
+                            margin: [0, 5, 0, 0],
+                          },
+                        ],
+                        margin: [0, 30, 0, 0],
+                        width: "*",
+                      },
+                      {
+                        image: qrCodeUrl,
+                        width: 150,
+                      },
+                    ],
+                  ],
                 },
-              ],
+              },
+
+              {
+                layout: "noBorders",
+                fillColor: "#CDE7FB",
+                absolutePosition: { x: 0, y: 557 },
+                table: {
+                  headerRows: 0,
+                  widths: ["*"],
+                  body: [
+                    [
+                      {
+                        text: "Formerly V.L.B.Janakiammal College of Engineering and Technology | Alumni cell® SRG/coimbatore/134/2022",
+                        alignment: "center",
+                        margin: [10, 10, 10, 10],
+                      },
+                    ],
+                  ],
+                },
+              },
             ],
-          },
-        },
+            pageMargins: [0, 0, 0, 0],
+            pageOrientation: "landscape",
 
-        {
-          layout: "noBorders",
-          fillColor: "#CDE7FB",
-          absolutePosition: { x: 0, y: 557 },
-          table: {
-            headerRows: 0,
-            widths: ["*"],
-            body: [
-              [
-                {
-                  text: "Formerly V.L.B.Janakiammal College of Engineering and Technology | Alumni cell® SRG/coimbatore/134/2022",
-                  alignment: "center",
-                  margin: [10, 10, 10, 10],
-                },
-              ],
-            ],
-          },
-        },
-      ],
-      pageMargins: [0, 0, 0, 0],
-      pageOrientation: "landscape",
+            styles: {
+              header: {
+                fontSize: 22,
+                bold: true,
+              },
+              header6: {
+                fontSize: 14,
+                bold: true,
+              },
+              subTitle: {
+                fontSize: 20,
+                bold: true,
+              },
+              body: {
+                fontSize: 14,
+              },
+            },
+            defaultStyle: {
+              font: "Helvetica",
+            },
+          };
 
-      styles: {
-        header: {
-          fontSize: 22,
-          bold: true,
-        },
-        header6: {
-          fontSize: 14,
-          bold: true,
-        },
-        subTitle: {
-          fontSize: 20,
-          bold: true,
-        },
-        body: {
-          fontSize: 14,
-        },
-      },
-      defaultStyle: {
-        font: "Helvetica",
-      },
-    };
+          const fonts = {
+            Helvetica: {
+              normal: "Helvetica",
+              bold: "Helvetica-Bold",
+              italics: "Helvetica-Oblique",
+              bolditalics: "Helvetica-BoldOblique",
+            },
+          };
 
-    const fonts = {
-      Helvetica: {
-        normal: "Helvetica",
-        bold: "Helvetica-Bold",
-        italics: "Helvetica-Oblique",
-        bolditalics: "Helvetica-BoldOblique",
-      },
-    };
+          const pdf = new PdfPrinter(fonts);
 
-    const pdf = new PdfPrinter(fonts);
+          const pdfDoc = pdf.createPdfKitDocument(docDefinition);
 
-    const pdfDoc = pdf.createPdfKitDocument(docDefinition);
+          pdfDoc.end();
+          console.log("PDF ready, now sending a mail");
 
-    pdfDoc.end();
-    console.log("PDF ready, now sending a mail");
+          const { error } = await sendEmail(
+            alumni.user?.email,
+            "SKCT Alumni Portal - Your Alumni Request has been approved",
+            {
+              qrCodeUrl,
+              avatarUrl,
+              name,
+              dept,
+              batch,
+              contact,
+            },
+            path.join(__dirname, "templates", "approval-mail.ejs"),
+            {
+              attachments: {
+                filename: `${name}'s Alumni Membership Card | SKCT.pdf`,
+                content: pdfDoc,
+              },
+            }
+          );
 
-    const { error } = await sendEmail(
-      alumni.user?.email,
-      "SKCT Alumni Portal - Your Alumni Request has been approved",
-      {
-        qrCodeUrl,
-        avatarUrl,
-        name,
-        dept,
-        batch,
-        contact,
-      },
-      path.join(__dirname, "templates", "approval-mail.ejs"),
-      {
-        attachments: {
-          filename: `${name}'s Alumni Membership Card | SKCT.pdf`,
-          content: pdfDoc,
-        },
-      }
-    );
+          if (error) {
+            console.log(error);
+            res.status(400);
+            throw new Error("Sorry, Couldn't Send you a Email right now!");
+          }
+        });
 
-    if (error) {
-      console.log(error);
-      res.status(400);
-      throw new Error("Sorry, Couldn't Send you a Email right now!");
-    }
+      writeStream.on("error", () => {
+        console.log("error");
+      });
+
+      resolve(true);
+    });
 
     return res.status(200).json({
       message: "Alumni approved successfully",
