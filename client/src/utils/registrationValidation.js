@@ -1,4 +1,4 @@
-export function validateAll(data, setValidationError, form) {
+export function validateAll(data, image, setValidationError, form) {
   var flag = true;
 
   if (form === 1) {
@@ -27,6 +27,20 @@ export function validateAll(data, setValidationError, form) {
         }
       }
     });
+    if (image === undefined || image === "") {
+
+      setValidationError(prev => ({
+        ...prev,
+        "avatar": true,
+      }))
+
+      flag = false;
+    } else {
+      setValidationError(prev => ({
+        ...prev,
+        "avatar": false,
+      }))
+    }
 
   } else {
 
