@@ -143,13 +143,18 @@ export const approveAlumni = asyncHandler(async (req, res) => {
       .trim();
 
     await new Promise((resolve, reject) => {
+      let fileBase64 = "";
+
+      const concatCb = (data) => {
+        fileBase64 = `data:${contentType};base64,${data}`;
+      };
       const readStream = bucket.openDownloadStream(
         mongoose.Types.ObjectId(alumni.user?.avatar)
       );
 
       const writeStream = fs.createWriteStream(avatarImage);
 
-      readStream.on("error", function  (err) {
+      readStream.on("error", function (err) {
         const filename = __dirname + "/uploads/default.jpeg";
         const fsStream = fs.createReadStream(filename);
         fsStream.on("open", function () {
@@ -161,7 +166,8 @@ export const approveAlumni = asyncHandler(async (req, res) => {
       });
 
       readStream
-        .pipe(writeStream)
+        .pipe(new Base64Encode())
+        .pipe(concat(concatCb))
         .on("error", (error) => {
           reject(error);
         })
@@ -284,13 +290,7 @@ export const approveAlumni = asyncHandler(async (req, res) => {
                   body: [
                     [
                       {
-                        image: path.join(
-                          __dirname,
-                          "images",
-                          path.parse(filename).name +
-                            "." +
-                            contentType.split("/").pop()
-                        ),
+                        image: fileBase64,
                         width: 150,
                       },
                       {
