@@ -60,6 +60,7 @@ function RegistrationPageStudent() {
     yearOfPassing: false,
     department: false,
     graduationLevel: false,
+    avatar: false,
     name: false,
     dateOfBirth: false,
     email: false,
@@ -153,7 +154,7 @@ function RegistrationPageStudent() {
 
   const handleSubmitPage1 = async (e) => {
     e.preventDefault();
-    const flag = validateAll(data, setValidationError, 1);
+    const flag = validateAll(data, image, setValidationError, 1);
 
     if (flag) {
       setFormStep(2);
@@ -170,7 +171,7 @@ function RegistrationPageStudent() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const flag = validateAll(data, setValidationError, 2);
+    const flag = validateAll(data, image, setValidationError, 2);
     const formData = new FormData();
     Object.keys(data).forEach((key) => {
       if (key === "country") {
@@ -311,7 +312,7 @@ function RegistrationPageStudent() {
                           />
                         </label>
                         <input
-                          name="image"
+                          name="avatar"
                           id="img-switch"
                           type="file"
                           accept=".png,.jpg,.jpeg"
@@ -329,11 +330,18 @@ function RegistrationPageStudent() {
                         onChange={handleChange}
                       />
                     </div>
-                    {validationError["name"] && (
-                      <p className={styles.validation_error}>
-                        Enter your name
-                      </p>
-                    )}
+                    <div>
+                      {validationError["avatar"] && (
+                        <p className={styles.validation_error}>
+                          Choose profile picture
+                        </p>
+                      )}
+                      {validationError["name"] && (
+                        <p className={styles.validation_error}>
+                          Enter your name
+                        </p>
+                      )}
+                    </div>
                     <div
                       className={`${styles.form_input_container} ${styles.split_container}`}
                     >
