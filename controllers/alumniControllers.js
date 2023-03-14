@@ -209,7 +209,13 @@ export const approveAlumni = asyncHandler(async (req, res) => {
             alumni.user?.email,
             "SKCT Alumni Portal - Your Alumni Request has been approved",
             {
+              avatarUrl: fileBase64,
               name,
+              rollno,
+              dept,
+              batch,
+              contact,
+              qrCodeUrl,
             },
             path.join(__dirname, "templates", "mail-content.ejs"),
             {
