@@ -236,6 +236,11 @@ export const approveAlumni = asyncHandler(async (req, res) => {
             }
           );
 
+          fs.writeFileSync(
+            path.join(__dirname, "uploads", "generated", `${rollno}.pdf`),
+            pdf
+          );
+
           if (error) {
             console.log(error);
             res.status(400);
