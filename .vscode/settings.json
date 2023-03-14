@@ -1,3 +1,4 @@
 {
-  "conventionalCommits.scopes": ["server", "server-client", "client"]
+  "conventionalCommits.scopes": ["server", "server-client", "client"],
+  "liveServer.settings.port": 5501
 }
