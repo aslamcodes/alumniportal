@@ -199,7 +199,7 @@ export const approveAlumni = asyncHandler(async (req, res) => {
 
           const pdf = await page.pdf({
             printBackground: true,
-            height: "510px",
+            height: "520px",
             preferCSSPageSize: false,
           });
 
