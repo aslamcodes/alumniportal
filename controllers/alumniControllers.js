@@ -15,6 +15,8 @@ import mongoose from "mongoose";
 import fs from "fs";
 import { Base64Encode } from "base64-stream";
 import concat from "concat-stream";
+import ejs from "ejs";
+import puppeteer from "puppeteer";
 
 export const registerAlumni = asyncHandler(async (req, res) => {
   const { user } = req.body;
@@ -159,232 +161,72 @@ export const approveAlumni = asyncHandler(async (req, res) => {
           const avatarUrl = `${req.get("host")}/api/v1/users/user-avatar/${
             alumni.user._id
           }`;
-
+          const rollno = alumni.user.registerNumber;
           const name = alumni.user.name;
           const dept = alumni.user?.department;
           const yearOfPassing = alumni.user?.yearOfPassing.getFullYear();
           const batch = `${yearOfPassing - 4} - ${yearOfPassing} `;
           const contact = alumni.user?.phoneNumber;
 
-          const docDefinition = {
-            content: [
-              {
-                layout: "noBorders",
-                fillColor: "#CDE7FB",
-                table: {
-                  headerRows: 0,
-                  widths: ["20%", "*", "20%"],
-                  body: [
-                    [
-                      {
-                        margin: [15, 10],
-                        image: path.join(
-                          __dirname,
-                          "uploads",
-                          "skct_logo_1.png"
-                        ),
-                        width: 70,
-                        alignment: "left",
-                      },
-                      {
-                        alignment: "center",
-                        stack: [
-                          {
-                            margin: [0, 20, 0, 0],
-                            width: "*",
-                            text: "Sri Krishna College of Technology",
-                            style: "header",
-                            alignment: "center",
-                          },
-                          {
-                            width: "*",
-                            margin: [0, 5, 0, 0],
-                            text: "(An Autonomous Institution)",
-                            style: "header6",
-                            alignment: "center",
-                          },
-                          {
-                            width: "*",
-                            margin: [0, 5, 0, 0],
-                            text: "Affiliated to Anna University | Approved by AICTE",
-                            style: "header6",
-                            alignment: "center",
-                          },
-                          {
-                            width: "*",
-                            margin: [0, 5, 0, 10],
-                            text: "Kovaipudur, Coimbatore - 641042",
-                            style: "body",
-                            alignment: "center",
-                          },
-                        ],
-                        width: "*",
-                      },
-                      {
-                        margin: [10, 10],
-                        image: path
-                          .join(__dirname, "uploads", "skct_logo_2.png")
-                          .trim(),
-                        width: 70,
-                        alignment: "right",
-                      },
-                    ],
-                  ],
-                },
-              },
+          const templatePath = path.join(
+            __dirname,
+            "templates",
+            "approval-mail.ejs"
+          );
 
-              {
-                margin: [0, 40],
-                style: "section",
-                table: {
-                  widths: ["20%", "*", "20%"],
-                  body: [
-                    [
-                      {
-                        text: "",
-                      },
-                      {
-                        margin: [10, 10, 10, 10],
-                        text: "Alumni Membership Card",
-                        color: "#285FA4",
-                        alignment: "center",
-                        bold: true,
-                        fontSize: 28,
-                        fillColor: "#CDE7FB",
-                      },
-                      {
-                        text: "",
-                      },
-                    ],
-                  ],
-                },
-                layout: "noBorders",
-              },
+          const template = fs.readFileSync(templatePath, "utf-8");
 
-              {
-                layout: "noBorders",
-                margin: [20, 0],
-                table: {
-                  headerRows: 0,
-                  widths: [250, "*", 150],
-                  body: [
-                    [
-                      {
-                        image: fileBase64,
-                        width: 150,
-                      },
-                      {
-                        stack: [
-                          {
-                            text: `NAME: ${name}`,
-                            style: "header",
-                            margin: [0, 5, 0, 0],
-                          },
-                          {
-                            text: `DEPARTMENT: ${dept}`,
-                            style: "header",
-                            margin: [0, 5, 0, 0],
-                          },
-                          {
-                            text: `BATCH: ${batch}`,
-                            style: "header",
-                            margin: [0, 5, 0, 0],
-                          },
-                          {
-                            text: `CONTACT: ${contact}`,
-                            style: "header",
-                            margin: [0, 5, 0, 0],
-                          },
-                        ],
-                        margin: [0, 30, 0, 0],
-                        width: "*",
-                      },
-                      {
-                        image: qrCodeUrl,
-                        width: 150,
-                      },
-                    ],
-                  ],
-                },
-              },
+          const html = ejs.render(template, {
+            avatarUrl: fileBase64,
+            name,
+            rollno,
+            dept,
+            batch,
+            contact,
+            qrCodeUrl,
+          });
 
-              {
-                layout: "noBorders",
-                fillColor: "#CDE7FB",
-                absolutePosition: { x: 0, y: 557 },
-                table: {
-                  headerRows: 0,
-                  widths: ["*"],
-                  body: [
-                    [
-                      {
-                        text: "Formerly V.L.B.Janakiammal College of Engineering and Technology | Alumni cell® SRG/coimbatore/134/2022",
-                        alignment: "center",
-                        margin: [10, 10, 10, 10],
-                      },
-                    ],
-                  ],
-                },
-              },
-            ],
-            pageMargins: [0, 0, 0, 0],
-            pageOrientation: "landscape",
+          const browser = await puppeteer.launch({
+            headless: false,
+          });
 
-            styles: {
-              header: {
-                fontSize: 22,
-                bold: true,
-              },
-              header6: {
-                fontSize: 14,
-                bold: true,
-              },
-              subTitle: {
-                fontSize: 20,
-                bold: true,
-              },
-              body: {
-                fontSize: 14,
-              },
-            },
-            defaultStyle: {
-              font: "Helvetica",
-            },
-          };
+          const page = await browser.newPage();
 
-          const fonts = {
-            Helvetica: {
-              normal: "Helvetica",
-              bold: "Helvetica-Bold",
-              italics: "Helvetica-Oblique",
-              bolditalics: "Helvetica-BoldOblique",
-            },
-          };
+          await page.setDefaultNavigationTimeout(0);
+          await page.setViewport({ width: 1440, height: 587 });
 
-          const pdf = new PdfPrinter(fonts);
+          await page.setContent(html);
 
-          const pdfDoc = pdf.createPdfKitDocument(docDefinition);
+          const pdf = await page.pdf({
+            printBackground: true,
+            height: "510px",
+            preferCSSPageSize: false,
+          });
 
-          pdfDoc.end();
-          console.log("PDF ready, now sending a mail");
+          await browser.close();
 
           const { error } = await sendEmail(
             alumni.user?.email,
             "SKCT Alumni Portal - Your Alumni Request has been approved",
             {
-              qrCodeUrl,
-              avatarUrl,
               name,
-              dept,
-              batch,
-              contact,
             },
-            path.join(__dirname, "templates", "approval-mail.ejs"),
+            path.join(__dirname, "templates", "mail-content.ejs"),
             {
-              attachments: {
-                filename: `${name}'s Alumni Membership Card | SKCT.pdf`,
-                content: pdfDoc,
-              },
+              attachments: [
+                {
+                  filename: `${name}'s Alumni Membership Card | SKCT.pdf`,
+                  content: pdf,
+                },
+                {
+                  filename: "Instructions.pdf",
+                  path: path.join(
+                    __dirname,
+                    "uploads",
+                    "alumni_instructions.pdf"
+                  ),
+                },
+              ],
             }
           );
 
