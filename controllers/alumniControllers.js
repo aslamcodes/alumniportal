@@ -193,7 +193,7 @@ export const approveAlumni = asyncHandler(async (req, res) => {
           const page = await browser.newPage();
 
           await page.setDefaultNavigationTimeout(0);
-          await page.setViewport({ width: 1440, height: 587 });
+          await page.setViewport({ width: 1440, height: 600 });
 
           await page.setContent(html);
 
