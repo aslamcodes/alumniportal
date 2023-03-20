@@ -205,15 +205,15 @@ export const approveAlumni = asyncHandler(async (req, res) => {
 
           await page.setViewport({
             width: 906,
-            height: scrollDimension.height + 150,
+            height: scrollDimension.height,
           });
 
           await page.setContent(html);
 
           const pdf = await page.pdf({
             printBackground: true,
-            height: 600,
-            // preferCSSPageSize: false,
+            height: scrollDimension.height,
+            preferCSSPageSize: false,
             margin: {
               top: 0,
               bottom: 0,
