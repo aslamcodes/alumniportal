@@ -110,6 +110,8 @@ export const approveAlumni = asyncHandler(async (req, res) => {
     }
   ).populate("user");
 
+  await RejectedApplication.findOneAndRemove({ user: alumni.user.id });
+
   if (alumni) {
     await User.findByIdAndUpdate(id, { isAlumni: true, alumni: alumni._id });
 
