@@ -165,9 +165,11 @@ export const approveAlumni = asyncHandler(async (req, res) => {
           const name = alumni.user.name;
           const dept = alumni.user?.department;
           const yearOfPassing = alumni.user?.yearOfPassing.getFullYear();
+
           const batch = `${
-            dept === "MBA" ? yearOfPassing - 2 : yearOfPassing - 4
-          } - ${yearOfPassing}`;
+            yearOfPassing - (dept === "MBA" ? 2 : 4)
+          } - ${yearOfPassing} `;
+
           const contact = alumni.user?.phoneNumber;
 
           const templatePath = path.join(
