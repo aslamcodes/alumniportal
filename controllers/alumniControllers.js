@@ -165,7 +165,7 @@ export const approveAlumni = asyncHandler(async (req, res) => {
           const name = alumni.user.name;
           const dept = alumni.user?.department;
           const yearOfPassing = alumni.user?.yearOfPassing.getFullYear();
-          const batch = `${yearOfPassing - 4} - ${yearOfPassing} `;
+          const batch = `${dept==="MBA"? yearOfPassing - 2 : yearOfPassing - 4} - ${yearOfPassing} `;
           const contact = alumni.user?.phoneNumber;
 
           const templatePath = path.join(
@@ -193,14 +193,29 @@ export const approveAlumni = asyncHandler(async (req, res) => {
           const page = await browser.newPage();
 
           await page.setDefaultNavigationTimeout(0);
-          await page.setViewport({ width: 1440, height: 600 });
+
+          const scrollDimension = await page.evaluate( () => {
+            return {
+                width: document.scrollingElement.scrollWidth,
+                height: document.scrollingElement.scrollHeight
+            }
+        })
+          
+          await page.setViewport({ width: 906, height: scrollDimension.height + 150 });
 
           await page.setContent(html);
 
+
           const pdf = await page.pdf({
             printBackground: true,
-            height: "520px",
-            preferCSSPageSize: false,
+            height:  600,
+            // preferCSSPageSize: false,
+            margin: {
+              top: 0,
+              bottom: 0,
+              right: 0,
+              left: 0
+            }
           });
 
           await browser.close();

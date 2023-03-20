@@ -11,7 +11,7 @@ import { GrClose } from "react-icons/gr";
 import { useAlertContext } from "context/alert/alertContext";
 import { useNavigate } from "react-router-dom";
 import useGetForumPosts from "hooks/useGetForumPosts";
-import config from "config/config";
+// import config from "config/config";
 
 const ForumCard = ({ data, profileActive, profileEdit, trigger }) => {
   const [isCommentsModalOpen, setIsCommentsModalOpen] = useState(false);
@@ -27,11 +27,11 @@ const ForumCard = ({ data, profileActive, profileEdit, trigger }) => {
   const navigate = useNavigate();
 
   const shareButtonHandler = (postId) => {
-    navigator.clipboard
-      .writeText(`${config.CLIENT_URL}/alumni-forum/${postId}`)
-      .then(() => {
-        successAlert("Post link copied to clipboard");
-      });
+    // navigator.clipboard
+    //   .writeText(`${config.CLIENT_URL}/alumni-forum/${postId}`)
+    //   .then(() => {
+    //     successAlert("Post link copied to clipboard");
+    //   });
   };
 
   const onLikePostHandler = async () => {

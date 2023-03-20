@@ -19,11 +19,12 @@ const range = (start, stop, step) =>
 const YearOfPassing = range(1985, currentYear + 4, 1);
 
 const Department = [
-  "B.TECH IT",
+  "B.Tech IT",
   "B.E CSE",
   "B.E ECE",
   "B.E EEE",
   "B.E MECH",
+  "B.E ICE",
   "B.E CIVIL",
   "MBA",
 ];
