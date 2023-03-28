@@ -96,6 +96,7 @@ const AdminTableRow = ({ alumni, type, ...rest }) => {
           >
             Delete
           </button>
+          <button className={`${Styles.accept}`}>Generate Card</button>
         </a.td>
       )}
       {type === "request-details" &&
