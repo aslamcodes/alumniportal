@@ -315,7 +315,10 @@ export const generateAlumniPDF = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const { user } = req;
 
-  const alumni = await Alumni.findById(id).populate("user");
+  const alumni = await Alumni.findOne({
+    user: mongoose.Types.ObjectId(id),
+  }).populate("user");
+
   if (!alumni) {
     return res.status(404).json({ error: "Alumni not found" });
   }
@@ -385,8 +388,7 @@ export const generateAlumniPDF = asyncHandler(async (req, res) => {
         });
 
         const browser = await puppeteer.launch({
-          headless: true,
-          args: ["--no-sandbox", "--disable-setuid-sandbox"],
+          headless: false,
         });
 
         const page = await browser.newPage();
@@ -421,14 +423,45 @@ export const generateAlumniPDF = asyncHandler(async (req, res) => {
 
         await browser.close();
 
-        res.setHeader(
-          "Content-disposition",
-          `attachment; filename=${alumni.user.name}.pdf`
+        fs.writeFileSync(
+          path.join(__dirname, "uploads", "generated", `${rollno}.pdf`),
+          pdf
         );
-        res.setHeader("Content-type", "application/pdf");
 
-        res.send(pdf);
+        const filePath = path.join(
+          __dirname,
+          "uploads",
+          "generated",
+          `${rollno}.pdf`
+        );
+        const fileName = `${rollno}.pdf`;
+
+        res.setHeader("Content-disposition", fileName);
+
+        res.setHeader("Content-Type", "application/pdf");
+
+        res.download(filePath, fileName, (err) => {
+          if (err) {
+            res.send({
+              error: err,
+              msg: "Problem downloading the file",
+            });
+          }
+        });
       });
+
+    readStream.on("error", function (err) {
+      const filename = __dirname + "/uploads/default.jpeg";
+      const fsStream = fs.createReadStream(filename);
+      fsStream.on("open", function () {
+        fsStream.pipe(new Base64Encode()).pipe(concat(concatCb));
+      });
+      fsStream.on("error", function (err) {
+        res.end(err);
+      });
+    });
+
+    resolve(true);
   });
 });
 
