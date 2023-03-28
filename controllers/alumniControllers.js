@@ -311,6 +311,160 @@ export const updateAlumni = asyncHandler(async (req, res) => {
   }
 });
 
+export const generateAlumniPDF = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const { user } = req;
+
+  const alumni = await Alumni.findOne({
+    user: mongoose.Types.ObjectId(id),
+  }).populate("user");
+
+  if (!alumni) {
+    return res.status(404).json({ error: "Alumni not found" });
+  }
+
+  const bucket = new mongoose.mongo.GridFSBucket(mongoose.connection.db, {
+    bucketName: "user_avatar_images",
+  });
+
+  const files = await bucket
+    .find({
+      _id: mongoose.Types.ObjectId(alumni.user?.avatar),
+    })
+    .toArray();
+
+  const { contentType } = files[0];
+
+  await new Promise((resolve, reject) => {
+    let fileBase64 = "";
+
+    const concatCb = (data) => {
+      fileBase64 = `data:${contentType};base64,${data}`;
+    };
+
+    const readStream = bucket.openDownloadStream(
+      mongoose.Types.ObjectId(alumni.user?.avatar)
+    );
+
+    readStream
+      .pipe(new Base64Encode())
+      .pipe(concat(concatCb))
+      .on("error", (error) => {
+        reject(error);
+      })
+      .on("finish", async () => {
+        const qrCodeUrl = await QRCode.toDataURL(
+          `${req.get("host")}/qr?user=${alumni.user._id}`
+        );
+
+        const avatarUrl = `${req.get("host")}/api/v1/users/user-avatar/${
+          alumni.user._id
+        }`;
+        const rollno = alumni.user.registerNumber;
+        const name = alumni.user.name;
+        const dept = alumni.user?.department;
+        const yearOfPassing = alumni.user?.yearOfPassing.getFullYear();
+        const yearsPassed = dept === "MBA" ? 2 : 4;
+        const batch = `${yearOfPassing - yearsPassed} - ${yearOfPassing} `;
+
+        const contact = alumni.user?.phoneNumber;
+
+        const templatePath = path.join(
+          __dirname,
+          "templates",
+          "approval-mail.ejs"
+        );
+
+        const template = fs.readFileSync(templatePath, "utf-8");
+
+        const html = ejs.render(template, {
+          avatarUrl: fileBase64,
+          name,
+          rollno,
+          dept,
+          batch,
+          contact,
+          qrCodeUrl,
+        });
+
+        const browser = await puppeteer.launch({
+          headless: false,
+        });
+
+        const page = await browser.newPage();
+
+        await page.setDefaultNavigationTimeout(0);
+
+        const scrollDimension = await page.evaluate(() => {
+          return {
+            width: document.scrollingElement.scrollWidth,
+            height: document.scrollingElement.scrollHeight,
+          };
+        });
+
+        await page.setViewport({
+          width: 906,
+          height: scrollDimension.height,
+        });
+
+        await page.setContent(html);
+
+        const pdf = await page.pdf({
+          printBackground: true,
+          height: scrollDimension.height,
+          preferCSSPageSize: false,
+          margin: {
+            top: 0,
+            bottom: 0,
+            right: 0,
+            left: 0,
+          },
+        });
+
+        await browser.close();
+
+        fs.writeFileSync(
+          path.join(__dirname, "uploads", "generated", `${rollno}.pdf`),
+          pdf
+        );
+
+        const filePath = path.join(
+          __dirname,
+          "uploads",
+          "generated",
+          `${rollno}.pdf`
+        );
+        const fileName = `${rollno}.pdf`;
+
+        res.setHeader("Content-disposition", fileName);
+
+        res.setHeader("Content-Type", "application/pdf");
+
+        res.download(filePath, fileName, (err) => {
+          if (err) {
+            res.send({
+              error: err,
+              msg: "Problem downloading the file",
+            });
+          }
+        });
+      });
+
+    readStream.on("error", function (err) {
+      const filename = __dirname + "/uploads/default.jpeg";
+      const fsStream = fs.createReadStream(filename);
+      fsStream.on("open", function () {
+        fsStream.pipe(new Base64Encode()).pipe(concat(concatCb));
+      });
+      fsStream.on("error", function (err) {
+        res.end(err);
+      });
+    });
+
+    resolve(true);
+  });
+});
+
 export const getAlumniById = asyncHandler(async (req, res) => {
   const { id } = req.params;
 

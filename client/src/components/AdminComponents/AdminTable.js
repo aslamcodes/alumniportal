@@ -31,6 +31,7 @@ const AlumniTable = () => {
   const [tableHeadOnTop, setTableHeadOnTop] = useState(false);
 
   const { fetchData: deleteAlumni } = useAxiosWithCallback();
+  const { fetchData: generatedID } = useAxiosWithCallback();
   const { user } = useAuthContext();
   const { errorAlert } = useAlertContext();
 
@@ -110,6 +111,21 @@ const AlumniTable = () => {
     });
   };
 
+  const onGeneratedIDCardHandler = async (alumniID) => {
+    const genIDconfig = {
+      headers: {
+        Authorization: `Bearer ${user?.token}`,
+      },
+      method: "post",
+      responseType: "arraybuffer",
+      url: `/api/v1/alumni/generate/${alumniID}`,
+    };
+
+    await deleteAlumni(genIDconfig, () => {
+      trigger();
+    });
+  };
+
   const OnIncreaseHandler = () => {
     if (currentPage > totalPages - 1) return null;
     setCurrentPage(currentPage + 1);
@@ -170,6 +186,7 @@ const AlumniTable = () => {
                 <AdminTableRow
                   alumni={alumni}
                   type="alumni-details"
+                  onGenerateID={onGeneratedIDCardHandler}
                   onDeleteAlumni={onDeleteAlumniHandler}
                 />
               ))}

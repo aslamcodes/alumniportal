@@ -37,12 +37,21 @@ const AdminTableRow = ({ alumni, type, ...rest }) => {
     setIsLoading(false);
   };
 
+  const handleOnGenerateID = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    await rest.onGenerateID(alumni?.user?._id);
+    setIsLoading(false);
+  };
+
   const handleReapproveAlumni = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     await rest.reapproveAlumni(alumni?.user?._id);
     setIsLoading(false);
   };
+
+  console.log(window.location.hostname);
 
   return (
     <a.tr
@@ -96,6 +105,16 @@ const AdminTableRow = ({ alumni, type, ...rest }) => {
           >
             Delete
           </button>
+          {/* <button onClick={handleOnGenerateID} className={`${Styles.accept}`}>
+            Generate Card
+          </button> */}
+          <a
+            target="_blank"
+            rel="noreferrer"
+            href={`http://${window.location.hostname}/api/v1/alumni/generate/${alumni.user._id}`}
+          >
+            <button>Generate Alumni ID</button>
+          </a>
         </a.td>
       )}
       {type === "request-details" &&
