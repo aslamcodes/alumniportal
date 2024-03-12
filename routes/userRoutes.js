@@ -1,5 +1,6 @@
 import express from "express";
 import {
+  deleteUser,
   getNotification,
   getUserAvatarImage,
   getUserDetailsById,
@@ -57,5 +58,7 @@ router.post("/verify-email/", protect, requestEmailVerification);
 router.post("/register", upload.single("avatar"), registerUser);
 router.post("/login", loginUser);
 router.post("/alumni-register", registerAlumni);
+
+router.delete("/", protect, deleteUser);
 
 export default router;

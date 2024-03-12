@@ -13,6 +13,14 @@ import sendEmail from "../utils/email.js";
 import path from "path";
 import VerifyToken from "../models/VerfiyToken.js";
 import { clear } from "console";
+import Alumni from "../models/Alumni.js";
+import AlumniRequest from "../models/AlumniRequest.js";
+import ForumCommentReply from "../models/ForumCommentReply.js";
+import Comment from "../models/ForumComment.js";
+import Event from "../models/Event.js";
+import ForumPost from "../models/ForumPost.js";
+import ForumPostRequest from "../models/ForumPostRequest.js";
+import RejectedApplication from "../models/RejectedApplication.js";
 
 let userAvatarImagesBucket;
 const conn = mongoose.connection;
@@ -40,14 +48,14 @@ export const registerUser = asyncHandler(async (req, res) => {
       avatar: id && id,
     });
 
-    const feedbackUser = await User.findOne({
-      email: "feedback@alumniportal.skct",
-    });
+    // const feedbackUser = await User.findOne({
+    //   email: "feedback@alumniportal.skct",
+    // });
 
-    await Conversation.create({
-      participants: [user._id, feedbackUser._id],
-      createdBy: feedbackUser._id,
-    });
+    // await Conversation.create({
+    //   participants: [user._id, feedbackUser._id],
+    //   createdBy: feedbackUser._id,
+    // });
 
     return res.status(200).json({
       _id: user._id,
@@ -358,5 +366,50 @@ export const updateUser = asyncHandler(async (req, res) => {
     });
   } catch (error) {
     throw new Error(error);
+  }
+});
+
+export const deleteUser = asyncHandler(async (req, res) => {
+  const { user: authUser } = req;
+
+  const user = await User.findById(authUser?._id);
+
+  if (!user) {
+    return res.status(404).json({
+      error: "Not a valid user account",
+    });
+  }
+
+  const session = await mongoose.startSession();
+  session.startTransaction();
+
+  try {
+    await Promise.all([
+      User.findByIdAndDelete(user._id),
+      Alumni.findOneAndDelete({ user: user._id }),
+      AlumniRequest.deleteMany({ user: user._id }),
+      Conversation.deleteMany({ createdBy: user._id }),
+      Comment.deleteMany({ user: user._id }),
+      Event.deleteMany({ createdBy: user._id }),
+      ForumCommentReply.deleteMany({ user: user._id }),
+      ForumPost.deleteMany({ user: user._id }),
+      ForumPostRequest.deleteMany({ createdBy: user._id }),
+      Notification.deleteMany({ user: user._id }),
+      RejectedApplication.deleteMany({ user: user._id }),
+      ResetToken.deleteMany({ user: user._id }),
+      VerifyToken.deleteMany({ user: user._id }),
+    ]);
+
+    await session.commitTransaction();
+
+    res.status(200).json({ message: "account deleted successfully" });
+  } catch (error) {
+    await session.abortTransaction();
+
+    return res
+      .status(500)
+      .json({ error: "An error occurred while deleting the user account" });
+  } finally {
+    session.endSession();
   }
 });
