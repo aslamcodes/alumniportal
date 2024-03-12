@@ -40,14 +40,14 @@ export const registerUser = asyncHandler(async (req, res) => {
       avatar: id && id,
     });
 
-    const feedbackUser = await User.findOne({
-      email: "feedback@alumniportal.skct",
-    });
+    // const feedbackUser = await User.findOne({
+    //   email: "feedback@alumniportal.skct",
+    // });
 
-    await Conversation.create({
-      participants: [user._id, feedbackUser._id],
-      createdBy: feedbackUser._id,
-    });
+    // await Conversation.create({
+    //   participants: [user._id, feedbackUser._id],
+    //   createdBy: feedbackUser._id,
+    // });
 
     return res.status(200).json({
       _id: user._id,
