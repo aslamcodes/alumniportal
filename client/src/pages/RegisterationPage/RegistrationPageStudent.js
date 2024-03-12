@@ -447,7 +447,6 @@ function RegistrationPageStudent() {
                 <form
                   onSubmit={(e) => e.preventDefault()}
                   onKeyDown={(e) => checkKeyDown(e)}
-                  as
                 >
                   <section>
                     <div className={styles.form_input_container}>
