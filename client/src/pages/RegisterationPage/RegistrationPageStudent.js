@@ -219,7 +219,7 @@ function RegistrationPageStudent() {
 
             <div className={styles.form_body}>
               {formStep === 1 ? (
-                <form onSubmit={handleSubmitPage1}>
+                <form >
                   <section>
                     <div
                       className={`${styles.form_input_container} ${styles.split_container}`}
@@ -437,12 +437,12 @@ function RegistrationPageStudent() {
                       <button onClick={() => navigate("/login")}>
                         back to login
                       </button>
-                      <button type="submit"> next page</button>
+                      <button type="button" onClick={handleSubmitPage1}> next page</button>
                     </div>
                   </section>
                 </form>
               ) : (
-                <form onSubmit={handleSubmit}>
+                <form >
                   <section>
                     <div className={styles.form_input_container}>
                       <select
@@ -546,7 +546,7 @@ function RegistrationPageStudent() {
                       className={`${styles.form_button_container} ${styles.split_container}`}
                     >
                       <button onClick={() => setFormStep(1)}>Back</button>
-                      <button type="submit"> Submit</button>
+                      <button type="button" onClick={handleSubmit}> Submit</button>
                     </div>
                   </section>
                 </form>

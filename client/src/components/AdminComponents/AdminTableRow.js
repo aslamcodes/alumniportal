@@ -30,6 +30,16 @@ const AdminTableRow = ({ alumni, type, ...rest }) => {
     setIsLoading(false);
   };
 
+
+  const handleOnPreviewAlumni = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    console.log(alumni);
+    await rest.previewHandler(alumni?.user._id);
+    setIsLoading(false);
+  };
+
+
   const handleOnDeleteAlumni = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -128,6 +138,13 @@ const AdminTableRow = ({ alumni, type, ...rest }) => {
             <button onClick={handleOnRejectAlumni} className={Styles.decline}>
               Reject
             </button>
+            <a
+            target="_blank"
+            rel="noreferrer"
+            href={`http://${window.location.hostname}/api/v1/alumni/generate/${alumni.user._id}`}
+          >
+            <button>Generate Alumni ID</button>
+          </a>
           </a.td>
         ))}
       {type === "reject-details" &&

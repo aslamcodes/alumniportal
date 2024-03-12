@@ -160,9 +160,8 @@ export const approveAlumni = asyncHandler(async (req, res) => {
             `${req.get("host")}/qr?user=${alumni.user._id}`
           );
 
-          const avatarUrl = `${req.get("host")}/api/v1/users/user-avatar/${
-            alumni.user._id
-          }`;
+          const avatarUrl = `${req.get("host")}/api/v1/users/user-avatar/${alumni.user._id
+            }`;
           const rollno = alumni.user.registerNumber;
           const name = alumni.user.name;
           const dept = alumni.user?.department;
@@ -357,9 +356,8 @@ export const generateAlumniPDF = asyncHandler(async (req, res) => {
           `${req.get("host")}/qr?user=${alumni.user._id}`
         );
 
-        const avatarUrl = `${req.get("host")}/api/v1/users/user-avatar/${
-          alumni.user._id
-        }`;
+        const avatarUrl = `${req.get("host")}/api/v1/users/user-avatar/${alumni.user._id
+          }`;
         const rollno = alumni.user.registerNumber;
         const name = alumni.user.name;
         const dept = alumni.user?.department;
@@ -388,7 +386,11 @@ export const generateAlumniPDF = asyncHandler(async (req, res) => {
         });
 
         const browser = await puppeteer.launch({
-          headless: false,
+          headless: "new",
+          args: ['--no-sandbox'],
+          env: {
+            DISPLAY: ":10.0"
+        }
         });
 
         const page = await browser.newPage();
@@ -577,12 +579,12 @@ export const getAlumniCities = asyncHandler(async (req, res) => {
     {
       $match: isOnlyOfficeBearer
         ? {
-            isApproved: true,
-            isOfficeBearer: true,
-          }
+          isApproved: true,
+          isOfficeBearer: true,
+        }
         : {
-            isApproved: true,
-          },
+          isApproved: true,
+        },
     },
     {
       $lookup: {
@@ -640,7 +642,10 @@ export const getAllAlumni = asyncHandler(async (_, res) => {
   const alumniIds = await getAlumniIds();
 
   if (alumniIds) {
-    const alumni = await User.find({ _id: { $in: alumniIds } });
+    const alumni = await User.find({ _id: { $in: alumniIds } }).select(["-password", "-__v", "-isAdmin", "-createdAt", "-updatedAt"])
+      .sort({
+        registerNumber: 1,
+      });;
 
     res.status(200).json({
       success: true,
@@ -669,12 +674,12 @@ export const getAllAlumniV2 = asyncHandler(async (req, res) => {
     {
       $match: isOnlyOfficeBearer
         ? {
-            isApproved: true,
-            isOfficeBearer: true,
-          }
+          isApproved: true,
+          isOfficeBearer: true,
+        }
         : {
-            isApproved: true,
-          },
+          isApproved: true,
+        },
     },
     {
       $lookup: {
