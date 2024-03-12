@@ -9,7 +9,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { useAlumniContext } from "context/alumni/alumniContext";
 import { logout } from "context/auth/actions";
-import { BsPeople } from "react-icons/bs";
+import { BsPeople, BsTrash } from "react-icons/bs";
 import { IoLogOutOutline } from "react-icons/io5";
 import useUserProfileData from "hooks/useUserProfileData";
 import Loader from "components/UI/Loader";
@@ -54,6 +54,7 @@ function ProfileModal({ isOpen, handleClose, userId }) {
   const isUser = user ? user._id === loggedInUser?._id : false;
   const [editedData, setEditedData] = useState(user);
   const { fetchData: updateProfile } = useAxiosWithCallback();
+  const { fetchData: deleteAccount } = useAxiosWithCallback();
   const { fetchData: verifyEmail } = useAxiosWithCallback();
   const { successAlert, errorAlert } = useAlertContext();
 
@@ -127,6 +128,26 @@ function ProfileModal({ isOpen, handleClose, userId }) {
         post: true,
       });
     }
+  };
+
+  const handleDeleteAccount = async () => {
+    const config = {
+      url: "/api/v1/users/",
+      method: "delete",
+      headers: {
+        Authorization: `Bearer ${loggedInUser?.token}`,
+      },
+    };
+    deleteAccount(
+      config,
+      () => {
+        successAlert("Account Deleted");
+      },
+      (err) => {
+        errorAlert(err.response.data.message);
+      }
+    );
+    await logout(dispatch);
   };
 
   const handleLogout = async () => {
@@ -441,6 +462,13 @@ function ProfileModal({ isOpen, handleClose, userId }) {
                       <p>Save</p>
                     </div>
                   )}
+                  <div
+                    className={styles.profile_controls}
+                    onClick={handleDeleteAccount}
+                  >
+                    <BsTrash />
+                    <p>Delete Account</p>
+                  </div>
                   {!editProfile &&
                     !user?.alumni &&
                     !user.isAdmin &&
