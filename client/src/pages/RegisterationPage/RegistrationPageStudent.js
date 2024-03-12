@@ -18,7 +18,7 @@ const range = (start, stop, step) =>
 
 const YearOfPassing = range(1985, currentYear + 4, 1);
 
-const Department = [
+const departments = [
   "B.Tech IT",
   "B.E CSE",
   "B.E ECE",
@@ -260,7 +260,7 @@ function RegistrationPageStudent() {
                         <option value="" selected hidden>
                           Department
                         </option>
-                        {Department.map((dept) => (
+                        {departments.map((dept) => (
                           <option key={dept} value={dept}>
                             {dept}
                           </option>
