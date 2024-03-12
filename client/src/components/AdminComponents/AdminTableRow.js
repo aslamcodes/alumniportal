@@ -138,6 +138,13 @@ const AdminTableRow = ({ alumni, type, ...rest }) => {
             <button className={Styles.accept} onClick={handleReapproveAlumni}>
               Reaccept
             </button>
+            <a
+              target="_blank"
+              rel="noreferrer"
+              href={`http://${window.location.hostname}/api/v1/alumni/generate/${alumni.user._id}`}
+            >
+              <button>Generate Alumni ID</button>
+            </a>
           </a.td>
         ))}
     </a.tr>
