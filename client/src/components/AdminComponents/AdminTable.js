@@ -31,7 +31,7 @@ const AlumniTable = () => {
   const [tableHeadOnTop, setTableHeadOnTop] = useState(false);
 
   const { fetchData: deleteAlumni } = useAxiosWithCallback();
-  const { fetchData: generatedID } = useAxiosWithCallback();
+  const { fetchData: generateID } = useAxiosWithCallback();
   const { user } = useAuthContext();
   const { errorAlert } = useAlertContext();
 
@@ -121,7 +121,7 @@ const AlumniTable = () => {
       url: `/api/v1/alumni/generate/${alumniID}`,
     };
 
-    await deleteAlumni(genIDconfig, () => {
+    await generateID(genIDconfig, () => {
       trigger();
     });
   };

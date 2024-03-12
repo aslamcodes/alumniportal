@@ -35,6 +35,7 @@ const RequestTable = () => {
   const { applications, isLoading, error, trigger } = useGetNewApplications();
   const { fetchData: approveAlumni } = useAxiosWithCallback();
   const { fetchData: rejectAlumni } = useAxiosWithCallback();
+  const { fetchData: generateID } = useAxiosWithCallback();
   const totalPages = Math.ceil(applications?.length / entriesPerPage);
 
 
@@ -94,6 +95,22 @@ const RequestTable = () => {
         trigger();
       }
     );
+  };
+
+
+  const onPreviewAlumni = async (alumniID) => {
+    const genIDconfig = {
+      headers: {
+        Authorization: `Bearer ${user?.token}`,
+      },
+      method: "get",
+      responseType: "arraybuffer",
+      url: `/api/v1/alumni/generate/${alumniID}`,
+    };
+
+    await generateID(genIDconfig, () => {
+      trigger();
+    });
   };
 
   const onRejectAlumni = async (alumni) => {
@@ -199,6 +216,7 @@ const RequestTable = () => {
                   .map((alumni) => (
                     <AdminTableRow
                       alumni={alumni}
+                      previewHandler={onPreviewAlumni}
                       type="request-details"
                       approveAlumniHandler={onApproveAlumni}
                       rejectAlumni={onRejectAlumni}

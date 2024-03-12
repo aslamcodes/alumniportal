@@ -441,7 +441,7 @@ function RegistrationPageStudent() {
                   </section>
                 </form>
               ) : (
-                <form onSubmit={handleSubmit}>
+                <form>
                   <section>
                     <div className={styles.form_input_container}>
                       <select
