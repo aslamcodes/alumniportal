@@ -407,15 +407,15 @@ export const generateAlumniPDF = asyncHandler(async (req, res) => {
         });
 
         await page.setViewport({
-          width: 1016,
-          height: 638,
+          width: 906,
+          height: scrollDimension.height,
         });
 
         await page.setContent(html);
 
         const pdf = await page.pdf({
           printBackground: true,
-          height: scrollDimension.height,
+          height: "1550px",
           preferCSSPageSize: false,
           margin: {
             top: 0,
